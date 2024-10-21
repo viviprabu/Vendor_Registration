@@ -21,7 +21,10 @@ class UserRepositoryImpl implements UserRepository {
       //print(createdUser);
       return Right(createdUser.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      //print(e);
+      final ServerFailure serverFailure = ServerFailure(e.toString());
+
+      return Left(serverFailure);
     }
   }
 

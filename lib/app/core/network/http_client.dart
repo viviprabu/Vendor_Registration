@@ -66,7 +66,6 @@ class HttpClient {
       throw Exception('Request timeout: $e');
     } catch (e) {
       logger.logError(e);
-
       rethrow;
     }
   }
@@ -194,7 +193,15 @@ class HttpClient {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      throw Exception({response.body});
+      final errorCode = response.statusCode;
+      final errorBody = response.body;
+
+      final error = {
+        'code': errorCode,
+        'message': errorBody,
+      };
+
+      throw Exception(jsonEncode(error));
     }
   }
 }
