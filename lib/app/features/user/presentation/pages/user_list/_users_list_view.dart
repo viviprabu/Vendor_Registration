@@ -192,9 +192,10 @@ class _UsersListViewState extends State<UsersListView> {
                                     Expanded(
                                       flex: 1,
                                       child: showingValueDropDown(
-                                          isTablet: isTablet,
-                                          isMobile: isMobile,
-                                          textTheme: textTheme),
+                                        isTablet: isTablet,
+                                        isMobile: isMobile,
+                                        textTheme: textTheme,
+                                      ),
                                     ),
                                     const SizedBox(width: 16.0),
                                     Expanded(
@@ -502,7 +503,7 @@ class _UsersListViewState extends State<UsersListView> {
                 ),
                 const SizedBox(width: 12.0),
                 //Text('Serial'),
-                Text(lang.serial),
+                //Text(lang.serial),
               ],
             ),
           ),
@@ -535,7 +536,7 @@ class _UsersListViewState extends State<UsersListView> {
                         },
                       ),
                       const SizedBox(width: 12.0),
-                      Text(data.id.toString())
+                      //Text(data.id.toString())
                     ],
                   ),
                 ),
