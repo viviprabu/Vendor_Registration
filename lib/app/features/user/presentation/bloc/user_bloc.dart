@@ -46,8 +46,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserCreateEvent>((event, emit) async {
       emit(UserLoading());
       final failureOrUser = await createUser(event.userCreate);
-      //print(failureOrUser);
-      //print(event.userCreate);
       failureOrUser.fold(
         (failure) => emit(UserError(failure.toString())),
         (user) => emit(UserCreateState(user)),
