@@ -1,4 +1,5 @@
 // 📦 Package imports:
+import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -89,6 +90,13 @@ abstract class FinanceAppRoutes {
         path: '/authentication/signin',
         pageBuilder: (context, state) => const NoTransitionPage(
           child: SigninView(),
+        ),
+      ),
+
+      GoRoute(
+        path: '/authentication/signup',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: SignupView(),
         ),
       ),
 

@@ -26,9 +26,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoadingState());
       final failureOrToken = await signIn(event.userName, event.password);
       //print(failureOrToken);
-      final errorMessage = 'Invalid Username or Password';
+      //final errorMessage = 'Invalid Username or Password';
       failureOrToken.fold(
-        (failure) => emit(AuthErrorState(errorMessage)),
+        (failure) => emit(AuthErrorState(failure.toString())),
         (token) => emit(AuthenticatedState(token)),
       );
     });

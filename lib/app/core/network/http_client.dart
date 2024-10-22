@@ -202,6 +202,7 @@ class HttpClient {
       };
 
       throw Exception(jsonEncode(error));
+      //throw error;
     }
   }
 }
