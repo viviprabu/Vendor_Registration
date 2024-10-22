@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
 import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
@@ -30,7 +32,32 @@ class AuthRepositoryImpl implements AuthRepository {
           .signIn(AuthModel(userName: userName, password: password));
       return Right(singedInUser.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      var error = e.toString();
+
+      if (error.startsWith('Exception:')) {
+        error = error.replaceFirst('Exception:', '').trim();
+      }
+
+      String errorMessage = 'Invalid Username or Password';
+      int errorCode = 400;
+
+      Map<String, dynamic> errorData = jsonDecode(error);
+      errorMessage = errorData['message'] ?? errorMessage;
+      errorCode = errorData['code'] ?? errorCode;
+
+      try {
+        Map<String, dynamic> errorData = jsonDecode(error);
+        errorMessage = errorData['message'] ?? errorMessage;
+        errorCode = errorData['code'] ?? errorCode;
+      } catch (_) {
+        errorMessage = error;
+        errorCode = 400;
+      }
+      if (error.contains('401')) {
+        return Left(ServerFailure(errorMessage));
+      } else {
+        return Left(ServerFailure(errorMessage));
+      }
     }
   }
 

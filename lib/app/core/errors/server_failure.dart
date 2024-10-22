@@ -2,9 +2,11 @@ abstract class Failure {}
 
 class ServerFailure extends Failure {
   final String message;
-  ServerFailure(this.message);
+  final int? code;
+  ServerFailure(this.message, {this.code});
 
-  String returnMessage() {
+  @override
+  String toString() {
     return message;
   }
 }

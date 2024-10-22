@@ -78,11 +78,22 @@ class _SigninViewState extends State<SigninView> {
         //print(state);
         // TODO: implement listener
         if (state is AuthErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
+          if (!state.message.contains('401')) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+            context.go('/authentication/signup');
+          }
+
+          if (state.message.contains('401')) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Invalid Username or Password'),
+              ),
+            );
+          }
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {
