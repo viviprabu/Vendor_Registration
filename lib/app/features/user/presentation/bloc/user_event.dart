@@ -20,11 +20,11 @@ class UserCreateEvent extends UserEvent {
 }
 
 class UserUpdateEvent extends UserEvent {
-  final User user;
-  const UserUpdateEvent(this.user);
+  final UserUpdate userUpdate;
+  const UserUpdateEvent(this.userUpdate);
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [userUpdate];
 }
 
 class UserDeleteEvent extends UserEvent {
