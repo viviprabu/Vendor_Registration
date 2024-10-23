@@ -9611,6 +9611,15 @@ class S {
     );
   }
 
+  String get suspendReason {
+    return Intl.message(
+      'User Suspend Reason',
+      name: 'suspendReason',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }
