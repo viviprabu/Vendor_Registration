@@ -31,29 +31,16 @@ class _AddUserDialogState extends State<AddUserDialog> {
   final _userOfficePhoneController = TextEditingController();
   final _userDescriptionController = TextEditingController();
   final _userLogoPathController = TextEditingController();
-  final _userIsDarkModeController = TextEditingController();
-  final _userIsActiveController = TextEditingController();
   final _userLogoFileController = TextEditingController();
 
   int? _selectedRole;
   int? _selectedLanguage;
   int? _selectedBusinessRole;
-  final bool _isDarkMode = false;
   int toggleValue = 0;
   int isDarkMode = 1;
 
   final userCreationFormKey = GlobalKey<FormState>();
 
-  List<String> get _positions => [
-        //'Manager',
-        l.S.current.manager,
-        //'Developer',
-        l.S.current.developer,
-        //'Designer',
-        l.S.current.designer,
-        //'Tester'
-        l.S.current.tester,
-      ];
 
   List<Map<int, String>> get _language => [
         {1: 'English'},
@@ -432,6 +419,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                             ToggleSwitcher(
                               activeText: 'Yes',
                               inactiveText: 'No',
+                              initialLabelIndex: 1,
                               onToggle: (value) {
                                 setState(() {
                                   isDarkMode = value!;
@@ -500,7 +488,13 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   businessRoleId:
                                                       _selectedBusinessRole!
                                                           .toInt(),
-                                                  isDarkMode: _isDarkMode,
+                                                  isDarkMode: () {
+                                                    if (isDarkMode == 0) {
+                                                      return true;
+                                                    } else {
+                                                      return false;
+                                                    }
+                                                  }(),
                                                   isActive: () {
                                                     if (toggleValue == 0) {
                                                       return true;
