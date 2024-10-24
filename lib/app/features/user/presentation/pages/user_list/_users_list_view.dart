@@ -580,7 +580,7 @@ class _UsersListViewState extends State<UsersListView> {
                 )),
                 DataCell(Text(data.email ?? '')),
                 DataCell(Text(data.phoneNumber ?? '')),
-                DataCell(Text(data.roleName ?? '')),
+                DataCell(Text(data.role ?? '')),
                 DataCell(
                   Container(
                     padding:

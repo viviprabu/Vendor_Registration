@@ -9620,6 +9620,24 @@ class S {
     );
   }
 
+  String get isActive {
+    return Intl.message(
+      'Is Active ?',
+      name: 'isActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get isDarkMode {
+    return Intl.message(
+      'Is Dark Mode ?',
+      name: 'isDarkMode',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }

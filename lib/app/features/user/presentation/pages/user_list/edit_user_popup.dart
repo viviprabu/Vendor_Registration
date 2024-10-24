@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
@@ -45,8 +46,8 @@ class _EditUserDialogState extends State<EditUserDialog> {
   int? _selectedLanguage;
   int? _selectedBusinessRole;
   final bool _isDarkMode = false;
-  final bool _isActive = true;
   final bool _isSuspended = false;
+  int toggleValue = 0;
 
   final userCreationFormKey = GlobalKey<FormState>();
 
@@ -404,6 +405,19 @@ class _EditUserDialogState extends State<EditUserDialog> {
                             ),
 
                             const SizedBox(height: 20),
+                            Text(lang.isActive, style: textTheme.bodySmall),
+                            const SizedBox(height: 8),
+                            ToggleSwitcher(
+                              activeText: lang.active,
+                              inactiveText: lang.inactive,
+                              onToggle: (value) {
+                                setState(() {
+                                  toggleValue = value!;
+                                });
+                              },
+                            ),
+
+                            const SizedBox(height: 20),
                             Text(lang.description, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             TextFormField(
@@ -498,7 +512,13 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                                       _selectedBusinessRole!
                                                           .toInt(),
                                                   isDarkMode: _isDarkMode,
-                                                  isActive: _isActive,
+                                                  isActive: () {
+                                                    if (toggleValue == 0) {
+                                                      return true;
+                                                    } else {
+                                                      return false;
+                                                    }
+                                                  }(),
                                                   languageId: _selectedLanguage!
                                                       .toInt(),
                                                   logoPath: 'path',
