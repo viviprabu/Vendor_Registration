@@ -1,36 +1,30 @@
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 
-class UserModel {
-  final String? id;
-  final String? name;
-  final String? userName;
-  final String? email;
-  final bool? emailConfirmed;
-  final String? phoneNumber;
-  final bool? phoneNumberConfirmed;
-  final String? lockoutEnd;
-  final bool? lockoutEnabled;
-  final bool? isActive;
-  final bool? isSuspended;
-  final String? roleName;
-  final bool? isDarkMode;
-  final num? businessRoleId;
-
+class UserModel extends User {
   UserModel({
-    required this.id,
-    required this.name,
-    required this.userName,
-    required this.email,
-    required this.emailConfirmed,
-    required this.phoneNumber,
-    required this.phoneNumberConfirmed,
-    required this.lockoutEnd,
-    required this.lockoutEnabled,
-    required this.isActive,
-    required this.isSuspended,
-    required this.roleName,
-    required this.isDarkMode,
-    required this.businessRoleId,
+    required super.id,
+    required super.name,
+    required super.userName,
+    required super.email,
+    required super.emailConfirmed,
+    required super.phoneNumber,
+    required super.mobileNumber,
+    required super.officePhone,
+    required super.description,
+    required super.phoneNumberConfirmed,
+    required super.lockoutEnd,
+    required super.lockoutEnabled,
+    required super.isActive,
+    required super.isSuspended,
+    required super.suspendReason,
+    required super.role,
+    required super.isDarkMode,
+    required super.businessRoleId,
+    required super.languageId,
+    required super.roleId,
+    required super.language,
+    required super.dateOfBirth,
+    required super.logoPath,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -41,14 +35,23 @@ class UserModel {
       email: json["email"] ?? "",
       emailConfirmed: json["emailConfirmed"] ?? false,
       phoneNumber: json["phoneNumber"] ?? "",
+      mobileNumber: json["mobileNumber"] ?? "",
+      officePhone: json["officePhone"] ?? "",
+      description: json["description"] ?? "",
       phoneNumberConfirmed: json["phoneNumberConfirmed"] ?? false,
-      lockoutEnd: json["lockoutEnd"],
+      lockoutEnd: json["lockoutEnd"] ?? "",
       lockoutEnabled: json["lockoutEnabled"] ?? false,
       isActive: json["isActive"] ?? false,
       isSuspended: json["isSuspended"] ?? false,
-      roleName: json["roleName"] ?? "",
+      suspendReason: json["suspendReason"] ?? "",
+      role: json["role"] ?? "",
       isDarkMode: json["isDarkMode"] ?? false,
       businessRoleId: json["businessRoleId"] ?? 0,
+      languageId: json["languageId"] ?? 0,
+      roleId: json["roleId"] ?? 0,
+      language: json["language"] ?? "",
+      dateOfBirth: json["dateOfBirth"] ?? "",
+      logoPath: json["logoPath"] ?? "",
     );
   }
 
@@ -59,14 +62,23 @@ class UserModel {
         "email": email,
         "emailConfirmed": emailConfirmed,
         "phoneNumber": phoneNumber,
+        "mobileNumber": mobileNumber,
+        "officePhone": officePhone,
+        "description": description,
         "phoneNumberConfirmed": phoneNumberConfirmed,
         "lockoutEnd": lockoutEnd,
         "lockoutEnabled": lockoutEnabled,
         "isActive": isActive,
         "isSuspended": isSuspended,
-        "roleName": roleName,
+        "suspendReason": suspendReason,
+        "role": role,
         "isDarkMode": isDarkMode,
         "businessRoleId": businessRoleId,
+        "languageId": languageId,
+        "roleId": roleId,
+        "language": language,
+        "dateOfBirth": dateOfBirth,
+        "logoPath": logoPath,
       };
 
   factory UserModel.fromEntity(User user) {
@@ -77,14 +89,23 @@ class UserModel {
       email: user.email,
       emailConfirmed: user.emailConfirmed,
       phoneNumber: user.phoneNumber,
+      mobileNumber: user.mobileNumber,
+      officePhone: user.officePhone,
+      description: user.description,
       phoneNumberConfirmed: user.phoneNumberConfirmed,
       lockoutEnd: user.lockoutEnd,
       lockoutEnabled: user.lockoutEnabled,
       isActive: user.isActive,
       isSuspended: user.isSuspended,
-      roleName: user.roleName,
+      suspendReason: user.suspendReason,
+      role: user.role,
       isDarkMode: user.isDarkMode,
       businessRoleId: user.businessRoleId,
+      languageId: user.languageId,
+      roleId: user.roleId,
+      language: user.language,
+      dateOfBirth: user.dateOfBirth,
+      logoPath: user.logoPath,
     );
   }
 
@@ -96,14 +117,20 @@ class UserModel {
       email: email,
       emailConfirmed: emailConfirmed,
       phoneNumber: phoneNumber,
+      mobileNumber: mobileNumber,
+      officePhone: officePhone,
+      description: description,
       phoneNumberConfirmed: phoneNumberConfirmed,
       lockoutEnd: lockoutEnd,
       lockoutEnabled: lockoutEnabled,
       isActive: isActive,
       isSuspended: isSuspended,
-      roleName: roleName,
+      suspendReason: suspendReason,
+      role: role,
       isDarkMode: isDarkMode,
       businessRoleId: businessRoleId,
+      languageId: languageId,
+      roleId: roleId,
     );
   }
 }
