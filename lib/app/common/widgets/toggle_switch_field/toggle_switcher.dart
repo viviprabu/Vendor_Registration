@@ -7,11 +7,13 @@ class ToggleSwitcher extends StatefulWidget {
   final String activeText;
   final String inactiveText;
   final ValueChanged<int?> onToggle;
+  final int initialLabelIndex; 
   const ToggleSwitcher({
     super.key,
     this.activeText = 'Active',
     this.inactiveText = 'Inactive',
     required this.onToggle,
+    this.initialLabelIndex = 0,
   });
 
   @override
@@ -19,7 +21,14 @@ class ToggleSwitcher extends StatefulWidget {
 }
 
 class _ToggleSwitcherState extends State<ToggleSwitcher> {
-  int initialLabelIndex = 0;
+  late int initialLabelIndex;
+
+  @override
+  void initState() {
+    initialLabelIndex = widget.initialLabelIndex;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ToggleSwitch(
