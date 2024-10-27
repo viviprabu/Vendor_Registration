@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class _SigninViewState extends State<SigninView> {
   bool rememberMe = false;
   bool showPassword = false;
   final signInFormKey = GlobalKey<FormState>();
+  List<String> list = <String>[];
 
   @override
   void initState() {
@@ -84,7 +86,16 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
-            context.go('/authentication/signup');
+            var email = _userPasswordController.text;
+            var loginPassword = _userPasswordController.text;
+            context.go('signup', extra: email);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => SignupView(
+            //               email: _userUserNameController.text,
+            //               password: _userPasswordController.text,
+            //             )));
           }
 
           if (state.message.contains('401')) {

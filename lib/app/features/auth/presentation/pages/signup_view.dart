@@ -14,7 +14,9 @@ import '../../../../core/static/static.dart';
 import '../../../../widgets/widgets.dart';
 
 class SignupView extends StatefulWidget {
-  const SignupView({super.key});
+  String? email;
+  String? password;
+  SignupView({super.key, this.email, this.password});
 
   @override
   State<SignupView> createState() => _SignupViewState();
@@ -22,6 +24,22 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   bool showPassword = false;
+  String loginEmail = '';
+  List<String> department = <String>[
+    'Department1',
+    'Department2',
+    'Department3'
+  ];
+  List<String> sector = <String>['Sector1', 'Sector2', 'Sector3'];
+  List<String> section = <String>['Section1', 'Section2', 'Section3'];
+
+  @override
+  void initState() {
+    super.initState();
+    loginEmail = widget.email!;
+    print(loginEmail);
+    // loginPassword = widget.password;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +66,7 @@ class _SignupViewState extends State<SignupView> {
       ).value,
     );
 
+    String? selectedValue;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -189,12 +208,34 @@ class _SignupViewState extends State<SignupView> {
                                     ),
                                   ),
                                   const SizedBox(height: 20),
-
+                                  TextFieldLabelWrapper(
+                                    //labelText: 'Full Name',
+                                    labelText: lang.phone,
+                                    inputField: TextFormField(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Enter full name',
+                                        hintText: lang.enterFullName,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                    //labelText: 'Full Name',
+                                    labelText: lang.email,
+                                    inputField: TextFormField(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Enter full name',
+                                        hintText: lang.enterFullName,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
                                   // Email Field
                                   TextFieldLabelWrapper(
                                     // labelText: 'Email',
                                     labelText: lang.email,
                                     inputField: TextFormField(
+                                      initialValue: loginEmail,
                                       decoration: InputDecoration(
                                         //hintText: 'Enter email address',
                                         hintText: lang.enterEmailAddress,
@@ -202,29 +243,111 @@ class _SignupViewState extends State<SignupView> {
                                     ),
                                   ),
                                   const SizedBox(height: 20),
-
-                                  // Password Field
                                   TextFieldLabelWrapper(
-                                    //labelText: 'Password',
-                                    labelText: lang.password,
-                                    inputField: TextFormField(
-                                      obscureText: !showPassword,
-                                      decoration: InputDecoration(
-                                        //hintText: 'Enter your password',
-                                        hintText: lang.enterYourPassword,
-                                        suffixIcon: IconButton(
-                                          onPressed: () => setState(
-                                            () => showPassword = !showPassword,
-                                          ),
-                                          icon: Icon(
-                                            showPassword
-                                                ? FeatherIcons.eye
-                                                : FeatherIcons.eyeOff,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                      // labelText: 'Email',
+                                      labelText: lang.department,
+                                      inputField:
+                                          DropdownButtonFormField<String>(
+                                        value: selectedValue,
+                                        hint: Text('Select any department'),
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedValue = newValue;
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value?.isEmpty ?? true) {
+                                            return 'This field cannot be left empty';
+                                          }
+                                          return null;
+                                        },
+                                        items: department
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      )),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                      // labelText: 'Email',
+                                      labelText: lang.sector,
+                                      inputField:
+                                          DropdownButtonFormField<String>(
+                                        value: selectedValue,
+                                        hint: Text('Select any department'),
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedValue = newValue;
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value?.isEmpty ?? true) {
+                                            return 'This field cannot be left empty';
+                                          }
+                                          return null;
+                                        },
+                                        items: sector
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      )),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                      // labelText: 'Email',
+                                      labelText: lang.section,
+                                      inputField:
+                                          DropdownButtonFormField<String>(
+                                        value: selectedValue,
+                                        hint: Text('Select any department'),
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            selectedValue = newValue;
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value?.isEmpty ?? true) {
+                                            return 'This field cannot be left empty';
+                                          }
+                                          return null;
+                                        },
+                                        items: section
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      )),
+                                  // Password Field
+                                  // TextFieldLabelWrapper(
+                                  //   //labelText: 'Password',
+                                  //   labelText: lang.password,
+                                  //   inputField: TextFormField(
+                                  //     obscureText: !showPassword,
+                                  //     decoration: InputDecoration(
+                                  //       //hintText: 'Enter your password',
+                                  //       hintText: lang.enterYourPassword,
+                                  //       suffixIcon: IconButton(
+                                  //         onPressed: () => setState(
+                                  //           () => showPassword = !showPassword,
+                                  //         ),
+                                  //         icon: Icon(
+                                  //           showPassword
+                                  //               ? FeatherIcons.eye
+                                  //               : FeatherIcons.eyeOff,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   const SizedBox(height: 20),
 
                                   // Submit Button

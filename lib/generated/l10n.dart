@@ -9611,6 +9611,33 @@ class S {
     );
   }
 
+  String get department {
+    return Intl.message(
+      'Department',
+      name: 'department',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get section {
+    return Intl.message(
+      'Section',
+      name: 'section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get sector {
+    return Intl.message(
+      'Sector',
+      name: 'sector',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }
