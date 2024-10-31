@@ -1,15 +1,23 @@
-// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
 import 'package:feather_icons/feather_icons.dart';
 import 'package:intl/intl.dart' as intl;
-
-// 🌎 Project imports:
 import '../../../generated/l10n.dart' as l;
 import '../../core/theme/theme.dart';
 
 class OverviewCardWidget extends StatelessWidget {
+  final String title;
+  final num value;
+  final bool showCompactValue;
+  final num fluctuationAmount;
+  final bool showCompactFluctuation;
+  final String? fluctuationFrequency;
+
+  final Color? cardColor;
+  final Decoration? fluctuationBgDecoration;
+  final EdgeInsetsGeometry? fluctuationBgPadding;
+  final bool hasIncreases;
+  final String? customCurrency;
+  final bool showCurrency;
   const OverviewCardWidget({
     super.key,
     required this.title,
@@ -25,53 +33,40 @@ class OverviewCardWidget extends StatelessWidget {
     this.customCurrency,
     this.showCurrency = true,
   });
-  final String title;
-  final num value;
-  final bool showCompactValue;
-  final num fluctuationAmount;
-  final bool showCompactFluctuation;
-  final String? fluctuationFrequency;
-
-  final Color? cardColor;
-  final Decoration? fluctuationBgDecoration;
-  final EdgeInsetsGeometry? fluctuationBgPadding;
-  final bool hasIncreases;
-  final String? customCurrency;
-  final bool showCurrency;
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _locale = Localizations.localeOf(context);
-    final _currency = customCurrency ??
-        intl.NumberFormat.simpleCurrency(locale: _locale.countryCode)
+    final theme = Theme.of(context);
+    final locale = Localizations.localeOf(context);
+    final currency = customCurrency ??
+        intl.NumberFormat.simpleCurrency(locale: locale.countryCode)
             .currencySymbol;
 
-    final _fluctuationColor =
+    final fluctuationColor =
         hasIncreases ? FinanceAppColors.kSuccess : FinanceAppColors.kError;
 
-    final _value = showCompactValue
+    final value1 = showCompactValue
         ? intl.NumberFormat.compactCurrency(
             decimalDigits: 0,
-            symbol: showCurrency ? _currency : '',
+            symbol: showCurrency ? currency : '',
           ).format(value)
         : intl.NumberFormat.currency(
             decimalDigits: 0,
-            symbol: showCurrency ? _currency : '',
+            symbol: showCurrency ? currency : '',
           ).format(value);
 
-    final _fluctuationAmount = showCompactFluctuation
+    final fluctuationAmount1 = showCompactFluctuation
         ? intl.NumberFormat.compactCurrency(
             decimalDigits: 0,
-            symbol: showCurrency ? _currency : '',
+            symbol: showCurrency ? currency : '',
           ).format(fluctuationAmount)
         : intl.NumberFormat.currency(
             decimalDigits: 0,
-            symbol: showCurrency ? _currency : '',
+            symbol: showCurrency ? currency : '',
           ).format(fluctuationAmount);
 
     return Card(
-      color: cardColor ?? _theme.colorScheme.primaryContainer,
+      color: cardColor ?? theme.colorScheme.primaryContainer,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -83,8 +78,8 @@ class OverviewCardWidget extends StatelessWidget {
           children: [
             // Value
             Text(
-              _value,
-              style: _theme.textTheme.headlineSmall?.copyWith(
+              value1,
+              style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: FinanceAppColors.kNeutral900,
               ),
@@ -96,7 +91,7 @@ class OverviewCardWidget extends StatelessWidget {
               title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: _theme.textTheme.bodyLarge?.copyWith(
+              style: theme.textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: FinanceAppColors.kNeutral700,
               ),
@@ -118,14 +113,14 @@ class OverviewCardWidget extends StatelessWidget {
                         ? FeatherIcons.arrowUp
                         : FeatherIcons.arrowDown,
                     size: 14,
-                    color: _fluctuationColor,
+                    color: fluctuationColor,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      _fluctuationAmount,
-                      style: _theme.textTheme.bodyMedium?.copyWith(
-                        color: _fluctuationColor,
+                      fluctuationAmount1,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: fluctuationColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -137,7 +132,7 @@ class OverviewCardWidget extends StatelessWidget {
                         fluctuationFrequency ?? l.S.current.thisMonth,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: _theme.textTheme.bodyMedium?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: FinanceAppColors.kNeutral700,
                           fontWeight: FontWeight.w500,
                         ),

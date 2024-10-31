@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
-import 'dart:convert';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:finance_app/app/features/user/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +19,6 @@ import '../../../../core/static/static.dart';
 import '../../../../core/helpers/helpers.dart';
 import '../../../../widgets/widgets.dart';
 import '../language_dropdown/_language_dropdown.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part '_notification_icon_button.dart';
 part '_toggle_theme.dart';

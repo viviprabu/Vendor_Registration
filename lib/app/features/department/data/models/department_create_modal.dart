@@ -1,5 +1,4 @@
 import 'package:finance_app/app/features/department/domain/entities/department_create.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector_create.dart';
 
 class DepartmentCreateModal {
   final String? sectorId;

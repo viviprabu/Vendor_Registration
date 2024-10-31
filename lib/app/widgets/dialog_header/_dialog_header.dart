@@ -28,9 +28,9 @@ class DialogHeader extends StatelessWidget {
   final BoxConstraints? trailingConstraints;
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
-    final _sizeInfo = rf.ResponsiveValue<_SizeInfo>(
+    final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: const [
         rf.Condition.between(
@@ -64,10 +64,10 @@ class DialogHeader extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: _theme.colorScheme.outline),
+          bottom: BorderSide(color: theme.colorScheme.outline),
         ),
       ),
-      padding: headerPadding ?? _sizeInfo.padding,
+      padding: headerPadding ?? sizeInfo.padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -76,8 +76,8 @@ class DialogHeader extends StatelessWidget {
             Expanded(
               child: Text(
                 headerTitle!,
-                style: _theme.textTheme.titleLarge?.copyWith(
-                  fontSize: _sizeInfo.fonstSize,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontSize: sizeInfo.fonstSize,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -91,7 +91,7 @@ class DialogHeader extends StatelessWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.close),
-              color: _theme.colorScheme.error,
+              color: theme.colorScheme.error,
               padding: EdgeInsets.zero,
               visualDensity: const VisualDensity(
                 horizontal: -4,

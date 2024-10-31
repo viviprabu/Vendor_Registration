@@ -14,22 +14,22 @@ class CustomPiChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        double _refSize = 0;
+        double refSize = 0;
         if (constraints.maxHeight < constraints.maxWidth) {
-          _refSize = constraints.maxHeight / 1.5;
+          refSize = constraints.maxHeight / 1.5;
         } else {
-          _refSize = constraints.maxWidth / 2;
+          refSize = constraints.maxWidth / 2;
         }
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox.square(
-              dimension: _refSize,
+              dimension: refSize,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: CustomPaint(
@@ -62,7 +62,7 @@ class CustomPiChart extends StatelessWidget {
                             )
                           ],
                         ),
-                        style: _theme.textTheme.bodyMedium?.copyWith(),
+                        style: theme.textTheme.bodyMedium?.copyWith(),
                       ),
                     );
                   },

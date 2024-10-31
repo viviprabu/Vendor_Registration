@@ -86,10 +86,10 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _isDark = _theme.brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    final _iconSize = responsiveValue<double>(
+    final iconSize = responsiveValue<double>(
       context,
       xs: 16,
       md: 20,
@@ -102,7 +102,7 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
         md: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       ),
       decoration: BoxDecoration(
-        color: _theme.colorScheme.tertiaryContainer,
+        color: theme.colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(40),
       ),
       child: Row(
@@ -120,7 +120,7 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
             icon: AnimatedIcon(
               icon: AnimatedIcons.play_pause,
               progress: playPauseAnimation,
-              size: _iconSize,
+              size: iconSize,
             ),
           ),
 
@@ -150,7 +150,7 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
               value: widget.playDuration > 0
                   ? currentPosition / widget.playDuration
                   : 0.0,
-              backgroundColor: _isDark
+              backgroundColor: isDark
                   ? FinanceAppColors.kNeutral500
                   : FinanceAppColors.kNeutral400,
             ),
@@ -171,10 +171,10 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
                     vertical: -4,
                   ),
                 ),
-                iconSize: _iconSize,
+                iconSize: iconSize,
                 icon: Icon(
                   isMute ? FeatherIcons.volumeX : FeatherIcons.volume2,
-                  color: _theme.colorScheme.onTertiary,
+                  color: theme.colorScheme.onTertiary,
                 ),
               ),
 
@@ -188,10 +188,10 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
                     vertical: -4,
                   ),
                 ),
-                iconSize: _iconSize,
+                iconSize: iconSize,
                 icon: Icon(
                   FeatherIcons.download,
-                  color: _theme.colorScheme.onTertiary,
+                  color: theme.colorScheme.onTertiary,
                 ),
               ),
 
@@ -205,10 +205,10 @@ class _AudioPlayerTileState extends State<AudioPlayerTile>
                     vertical: -4,
                   ),
                 ),
-                iconSize: _iconSize,
+                iconSize: iconSize,
                 icon: Icon(
                   FeatherIcons.trash2,
-                  color: _theme.colorScheme.onTertiary,
+                  color: theme.colorScheme.onTertiary,
                 ),
               ),
             ],

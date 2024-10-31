@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/auth/domain/entities/cookie_options.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 
 class Token extends Equatable {

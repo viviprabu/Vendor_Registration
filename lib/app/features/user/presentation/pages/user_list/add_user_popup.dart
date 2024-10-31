@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';

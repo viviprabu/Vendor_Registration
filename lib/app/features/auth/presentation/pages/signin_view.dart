@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:feather_icons/feather_icons.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';

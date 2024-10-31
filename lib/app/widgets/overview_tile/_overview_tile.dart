@@ -64,9 +64,9 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
-    final _cardPadding = responsiveValue<double>(
+    final cardPadding = responsiveValue<double>(
       context,
       xs: 12,
       sm: 12,
@@ -74,7 +74,7 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
       lg: 16,
     );
 
-    final _content = [
+    final content = [
       // Icon
       Container(
         constraints: BoxConstraints.tight(Size.square(widget.iconSize)),
@@ -83,7 +83,7 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
         decoration: BoxDecoration(
           borderRadius: widget.iconRadius ?? BorderRadius.circular(8),
           color: widget.iconBackgroundColor ??
-              _theme.primaryColor.withOpacity(0.25),
+              theme.primaryColor.withOpacity(0.25),
         ),
         child: widget.icon ??
             getImageType(
@@ -108,7 +108,7 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
                 decimalDigits: widget.decimalDigits,
               ).format(widget.value),
               style:
-                  (widget.valueStyle ?? _theme.textTheme.titleLarge)?.copyWith(
+                  (widget.valueStyle ?? theme.textTheme.titleLarge)?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: responsiveValue<double>(
                   context,
@@ -124,10 +124,9 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
               widget.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style:
-                  (widget.titleStyle ?? _theme.textTheme.bodyLarge)?.copyWith(
+              style: (widget.titleStyle ?? theme.textTheme.bodyLarge)?.copyWith(
                 color: widget.titleStyle?.color ??
-                    _theme.colorScheme.onTertiaryContainer,
+                    theme.colorScheme.onTertiaryContainer,
                 fontSize: responsiveValue<double>(
                   context,
                   xs: 14,
@@ -141,10 +140,10 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
       ),
     ];
 
-    final _tileColor = widget.tileColor ??
+    final tileColor = widget.tileColor ??
         widget.tileDecoration?.color ??
-        _theme.colorScheme.primaryContainer;
-    final _tileBorderRadius = widget.tileDecoration?.borderRadius ??
+        theme.colorScheme.primaryContainer;
+    final tileBorderRadius = widget.tileDecoration?.borderRadius ??
         BorderRadiusDirectional.circular(8);
 
     return MouseRegion(
@@ -152,20 +151,20 @@ class _OverviewTileWidgetState extends State<OverviewTileWidget> {
       onExit: (_) => changeHoverState(false),
       cursor: SystemMouseCursors.click,
       child: Material(
-        color: _tileColor,
+        color: tileColor,
         elevation: isHovering ? 4.75 : 0,
-        borderRadius: _tileBorderRadius,
+        borderRadius: tileBorderRadius,
         clipBehavior: Clip.antiAlias,
         child: Container(
-          padding: EdgeInsetsDirectional.all(_cardPadding + 2),
+          padding: EdgeInsetsDirectional.all(cardPadding + 2),
           decoration: widget.tileDecoration,
           child: Row(
             mainAxisAlignment: widget.iconAlignment == IconAlignment.end
                 ? MainAxisAlignment.spaceBetween
                 : MainAxisAlignment.start,
             children: widget.iconAlignment == IconAlignment.end
-                ? _content.reversed.toList()
-                : _content,
+                ? content.reversed.toList()
+                : content,
           ),
         ),
       ),

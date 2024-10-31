@@ -38,7 +38,7 @@ class _GeneralUsagesIncomeState extends State<GeneralUsagesIncome> {
       md: 20,
       lg: 20,
     );
-    final _padding = responsiveValue<double>(
+    final padding = responsiveValue<double>(
       context,
       xs: 16,
       sm: 16,
@@ -52,9 +52,9 @@ class _GeneralUsagesIncomeState extends State<GeneralUsagesIncome> {
         ]).value;
     final theme = Theme.of(context);
     return ShadowContainer(
-      contentPadding: EdgeInsets.all(_padding),
+      contentPadding: EdgeInsets.all(padding),
       customHeader: Padding(
-        padding: EdgeInsets.fromLTRB(_padding, _padding, _padding, 0),
+        padding: EdgeInsets.fromLTRB(padding, padding, padding, 0),
         child: Text(
           lang.Statistic,
           //'Statistic',
@@ -67,7 +67,7 @@ class _GeneralUsagesIncomeState extends State<GeneralUsagesIncome> {
         children: [
           ListTile(
             horizontalTitleGap: 0,
-            contentPadding: EdgeInsets.symmetric(vertical: _padding),
+            contentPadding: EdgeInsets.symmetric(vertical: padding),
             title: Text(
               lang.dailyUses,
               //'Daily Uses',
@@ -89,7 +89,7 @@ class _GeneralUsagesIncomeState extends State<GeneralUsagesIncome> {
           ),
           ListTile(
             horizontalTitleGap: 0,
-            contentPadding: EdgeInsets.symmetric(vertical: _padding),
+            contentPadding: EdgeInsets.symmetric(vertical: padding),
             title: Text(
               lang.todayIncome,
               //'Today Income',

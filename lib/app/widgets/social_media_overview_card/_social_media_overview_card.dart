@@ -21,8 +21,8 @@ class SocialMediaOverviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _mqSize = MediaQuery.sizeOf(context);
+    final theme = Theme.of(context);
+    final mqSize = MediaQuery.sizeOf(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -30,7 +30,7 @@ class SocialMediaOverviewCard extends StatelessWidget {
         Container(
           constraints: BoxConstraints.tight(
             Size.square(
-              64 - ((_mqSize.width < 1400 && _mqSize.width > 1240) ? 10 : 0),
+              64 - ((mqSize.width < 1400 && mqSize.width > 1240) ? 10 : 0),
             ),
           ),
           clipBehavior: Clip.antiAlias,
@@ -46,8 +46,8 @@ class SocialMediaOverviewCard extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           platformName,
-          style: _theme.textTheme.bodyMedium?.copyWith(
-            color: _theme.colorScheme.onTertiaryContainer,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onTertiaryContainer,
           ),
         ),
         const SizedBox(height: 4),
@@ -57,7 +57,7 @@ class SocialMediaOverviewCard extends StatelessWidget {
             symbol: '',
             locale: AppLocale.defaultLocale.countryCode,
           ).format(followersCount),
-          style: _theme.textTheme.titleMedium?.copyWith(
+          style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
         ),

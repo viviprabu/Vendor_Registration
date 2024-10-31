@@ -20,39 +20,39 @@ class FinanceFileInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
-    final _currentDecoration = decoration ?? const InputDecoration();
+    final currentDecoration = decoration ?? const InputDecoration();
 
-    final _enabledBorder =
-        _currentDecoration.enabledBorder as OutlineInputBorder?;
+    final enabledBorder =
+        currentDecoration.enabledBorder as OutlineInputBorder?;
 
     return Material(
-      borderRadius: _enabledBorder?.borderRadius,
+      borderRadius: enabledBorder?.borderRadius,
       clipBehavior: Clip.antiAlias,
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final _size = constraints.biggest;
+            final size = constraints.biggest;
             return InputDecorator(
-              decoration: _currentDecoration.copyWith(
+              decoration: currentDecoration.copyWith(
                 contentPadding: EdgeInsetsDirectional.zero,
                 prefix: Container(
                   margin: EdgeInsetsDirectional.all(
-                    _currentDecoration.enabledBorder?.borderSide.width ?? 1,
+                    currentDecoration.enabledBorder?.borderSide.width ?? 1,
                   ),
                   constraints: BoxConstraints(
                     minWidth: 100,
-                    maxWidth: _size.width > 120 ? 120 : _size.width * 0.35,
+                    maxWidth: size.width > 120 ? 120 : size.width * 0.35,
                   ),
                   decoration: BoxDecoration(
-                    color: _theme.colorScheme.tertiaryContainer,
+                    color: theme.colorScheme.tertiaryContainer,
                     border: Border(
                       right: BorderSide(
-                        color: _enabledBorder?.borderSide.color ??
-                            (_theme.inputDecorationTheme.enabledBorder
+                        color: enabledBorder?.borderSide.color ??
+                            (theme.inputDecorationTheme.enabledBorder
                                     as OutlineInputBorder?)
                                 ?.borderSide
                                 .color ??
@@ -60,21 +60,21 @@ class FinanceFileInputField extends StatelessWidget {
                       ),
                     ),
                     borderRadius: BorderRadius.horizontal(
-                      left: (_currentDecoration.enabledBorder
+                      left: (currentDecoration.enabledBorder
                                   as OutlineInputBorder?)
                               ?.borderRadius
                               .topLeft ??
                           const Radius.circular(4),
                     ),
                   ),
-                  padding: _currentDecoration.contentPadding,
+                  padding: currentDecoration.contentPadding,
                   alignment: Alignment.center,
                   child: Text(
                     prefixText ?? 'Choose File',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: _theme.textTheme.bodyLarge?.copyWith(
-                      color: _theme.colorScheme.onTertiaryContainer,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onTertiaryContainer,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -84,10 +84,10 @@ class FinanceFileInputField extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                 child: Text(
-                  filePath ?? _currentDecoration.hintText ?? 'Select File',
+                  filePath ?? currentDecoration.hintText ?? 'Select File',
                   style: textStyle ??
-                      _theme.textTheme.bodyMedium?.copyWith(
-                        color: _theme.colorScheme.onPrimaryContainer,
+                      theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onPrimaryContainer,
                       ),
                 ),
               ),

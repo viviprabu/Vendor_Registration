@@ -15,8 +15,8 @@ class FooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = l.S.of(context);
-    final _theme = Theme.of(context);
-    final _textStyle = _theme.textTheme.bodyMedium?.copyWith(
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.bodyMedium?.copyWith(
       fontSize: rf.ResponsiveValue<double?>(
         context,
         conditionalValues: const [
@@ -41,40 +41,40 @@ class FooterWidget extends StatelessWidget {
             vertical: 18,
           ),
         ).value,
-        color: _theme.colorScheme.primaryContainer,
+        color: theme.colorScheme.primaryContainer,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Text(
                 '${lang.COPYRIGHT} © ${lang.year} ${AppConfig.organizationName}${constraints.maxWidth <= BreakpointName.SM.start ? '' : ', ${lang.allRightsReserved}'}',
-                style: _textStyle,
+                style: textStyle,
               ),
             ),
             Builder(
               builder: (context) {
-                final _translatedLang =
+                final translatedLang =
                     lang.madeWithFooter(AppConfig.organizationName);
 
-                const _heart = '❤';
+                const heart = '❤';
                 final List<String> parts =
-                    _translatedLang.split(RegExp(r'(?=\s)|(?<=\s)'));
+                    translatedLang.split(RegExp(r'(?=\s)|(?<=\s)'));
 
                 return Text.rich(
                   TextSpan(
                     children: parts.map((e) {
-                      final _trimmedText = e.trim();
+                      final trimmedText = e.trim();
 
                       return TextSpan(
                         text: e,
                         style: TextStyle(
-                          color: switch (_trimmedText) {
-                            _heart => Colors.red,
+                          color: switch (trimmedText) {
+                            heart => Colors.red,
                             AppConfig.organizationName =>
-                              _theme.colorScheme.primary,
+                              theme.colorScheme.primary,
                             _ => null,
                           },
-                          fontWeight: switch (_trimmedText) {
+                          fontWeight: switch (trimmedText) {
                             AppConfig.organizationName => FontWeight.w500,
                             _ => null,
                           },
@@ -82,7 +82,7 @@ class FooterWidget extends StatelessWidget {
                       );
                     }).toList(),
                   ),
-                  style: _textStyle,
+                  style: textStyle,
                 );
               },
             )

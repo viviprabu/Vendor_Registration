@@ -46,7 +46,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     final lang = l.S.of(context);
     final titleSize = responsiveValue<double>(
       context,
@@ -54,7 +54,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
       md: 20,
       lg: 20,
     );
-    final _padding = responsiveValue<double>(
+    final padding = responsiveValue<double>(
       context,
       xs: 16,
       sm: 16,
@@ -68,9 +68,9 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
         // constraints: const BoxConstraints.tightForFinite(
         //     // width: 340,
         //     ),
-        padding: EdgeInsets.all(_padding),
+        padding: EdgeInsets.all(padding),
         decoration: BoxDecoration(
-          color: _theme.colorScheme.primaryContainer,
+          color: theme.colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -101,7 +101,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                   height: 220,
                   width: 220,
                   decoration: BoxDecoration(
-                    color: _theme.colorScheme.surface,
+                    color: theme.colorScheme.surface,
                     shape: BoxShape.circle,
                   ),
                   clipBehavior: Clip.antiAlias,
@@ -115,7 +115,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
               widget.name,
               maxLines: 1,
               style: widget.nameTextStyle ??
-                  _theme.textTheme.bodyLarge?.copyWith(
+                  theme.textTheme.bodyLarge?.copyWith(
                       fontSize: titleSize,
                       fontWeight: FontWeight.w600,
                       overflow: TextOverflow.ellipsis),
@@ -123,7 +123,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
 
             Text(widget.subtitle ?? '',
                 maxLines: 1,
-                style: widget.subtitleTextStyle ?? _theme.textTheme.bodyLarge,
+                style: widget.subtitleTextStyle ?? theme.textTheme.bodyLarge,
                 overflow: TextOverflow.ellipsis),
             const SizedBox(height: 16),
             SizedBox(
@@ -147,7 +147,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                 label: Text(
                   lang.startChat,
                   // 'Start Chat',
-                  style: _theme.textTheme.titleSmall?.copyWith(
+                  style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: isHovering
                         ? FinanceAppColors.kWhiteColor

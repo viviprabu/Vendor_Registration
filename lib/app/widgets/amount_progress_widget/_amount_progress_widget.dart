@@ -40,7 +40,7 @@ class OverviewCardWidget2 extends StatelessWidget {
       md: 20,
       lg: 20,
     );
-    final _padding = responsiveValue<double>(
+    final padding = responsiveValue<double>(
       context,
       xs: 16,
       sm: 16,
@@ -68,7 +68,7 @@ class OverviewCardWidget2 extends StatelessWidget {
                       blurRadius: 24)
               ]),
           child: Padding(
-            padding: EdgeInsets.all(_padding),
+            padding: EdgeInsets.all(padding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
