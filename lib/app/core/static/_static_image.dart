@@ -17,6 +17,8 @@ abstract class FinanceStaticImage {
       'assets/images/widget_images/authentication_images/google_icon.svg';
   static const appleIcon =
       'assets/images/widget_images/authentication_images/apple_icon.svg';
+  static const authPageBgImage =
+      'assets/images/widget_images/authentication_images/auth_bg.svg';
 }
 
 abstract class FinanceSVGIcons {

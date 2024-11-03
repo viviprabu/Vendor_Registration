@@ -8,7 +8,7 @@ class GetSector {
 
   GetSector(this.repository);
 
-  Future<Either<Failure, Sector>> call(String id) async {
+  Future<Either<Failure, Sector>> call(int id) async {
     return await repository.getSector(id);
   }
 }

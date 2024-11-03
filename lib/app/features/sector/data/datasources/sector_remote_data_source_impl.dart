@@ -13,35 +13,39 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
   SectorRemoteDataSourceImpl({required this.httpClient});
 
   @override
-  Future<SectorModal> deleteSector(SectorModal sectorModel) async {
+  Future<SectorModal> createSector(SectorModal sectorModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
-    final response = await httpClient.delete(
-      '${ApiUrls.sectors}/${sectorModel.id}',
+    var applicationId = '0';
+    final response = await httpClient.post(
+      '$applicationId/${ApiUrls.createUpdateSector}',
       data: sectorModel.toJson(),
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
-
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
   }
 
   @override
-  Future<SectorModal> getSector(String id) async {
+  Future<SectorModal> deleteSector(SectorModal sectorModel) {
+    // TODO: implement deleteSector
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<SectorModal> getSector(int id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.get(
-      '${ApiUrls.getSectors}?id=$id',
-      //ApiUrls.userProfile,
+      '$applicationId/${ApiUrls.getSector}/$id',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
-
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
   }
@@ -50,8 +54,9 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
   Future<List<SectorModal>> getSectors() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.get(
-      ApiUrls.sectors,
+      '$applicationId/${ApiUrls.listSectors}',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -60,41 +65,14 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
     final responseBody = json.decode(response.body);
     final List<SectorModal> sectors = (responseBody as List)
-        .map((sector) => SectorModal.fromJson(sector))
+        .map((user) => SectorModal.fromJson(user))
         .toList();
     return sectors;
   }
 
   @override
-  Future<SectorModal> updateSector(SectorModal sectorModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    final response = await httpClient.put(
-      //'${ApiUrls.updateUser}/${userModel.id}',
-      ApiUrls.updateUser,
-      data: sectorModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    final responseBody = json.decode(response.body);
-    return SectorModal.fromJson(responseBody);
-  }
-
-  @override
-  Future<SectorModal> createSector(SectorCreateModal sectorCreateModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    final response = await httpClient.postFormData(
-      ApiUrls.createSector,
-      data: sectorCreateModel.toFormData(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-    final responseBody = json.decode(response.body);
-    return SectorModal.fromJson(responseBody);
+  Future<SectorModal> updateSector(SectorModal sectorModel) {
+    // TODO: implement updateSector
+    throw UnimplementedError();
   }
 }
