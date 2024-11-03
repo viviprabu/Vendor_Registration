@@ -7,31 +7,49 @@ class User extends Equatable {
   final String? email;
   final bool? emailConfirmed;
   final String? phoneNumber;
+  final String? mobileNumber;
+  final String? officePhone;
+  final String? description;
   final bool? phoneNumberConfirmed;
   final String? lockoutEnd;
   final bool? lockoutEnabled;
   final bool? isActive;
   final bool? isSuspended;
-  final String? roleName;
+  final String? suspendReason;
+  final String? role;
   final bool? isDarkMode;
-  final num? businessRoleId;
+  final int? businessRoleId;
+  final int? languageId;
+  final int? roleId;
+  final String? language;
+  final String? dateOfBirth;
+  final String? logoPath;
   bool isSelected = false;
 
   User({
-    required this.id,
-    required this.name,
-    required this.userName,
-    required this.email,
-    required this.emailConfirmed,
-    required this.phoneNumber,
-    required this.phoneNumberConfirmed,
-    required this.lockoutEnd,
-    required this.lockoutEnabled,
-    required this.isActive,
-    required this.isSuspended,
-    required this.roleName,
-    required this.isDarkMode,
-    required this.businessRoleId,
+    this.id,
+    this.name,
+    this.userName,
+    this.email,
+    this.emailConfirmed,
+    this.phoneNumber,
+    this.mobileNumber,
+    this.officePhone,
+    this.description,
+    this.phoneNumberConfirmed,
+    this.lockoutEnd,
+    this.lockoutEnabled,
+    this.isActive,
+    this.isSuspended,
+    this.suspendReason,
+    this.role,
+    this.isDarkMode,
+    this.businessRoleId,
+    this.languageId,
+    this.roleId,
+    this.language,
+    this.dateOfBirth,
+    this.logoPath,
   });
 
   @override
@@ -42,13 +60,22 @@ class User extends Equatable {
         email,
         emailConfirmed,
         phoneNumber,
+        mobileNumber,
+        officePhone,
+        description,
         phoneNumberConfirmed,
         lockoutEnd,
         lockoutEnabled,
         isActive,
         isSuspended,
-        roleName,
+        suspendReason,
+        role,
         isDarkMode,
         businessRoleId,
+        languageId,
+        roleId,
+        language,
+        dateOfBirth,
+        logoPath,
       ];
 }

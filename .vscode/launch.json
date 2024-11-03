@@ -7,6 +7,8 @@
         
         {
             "name": "finance_admin",
+        {
+            "name": "bloc_admin_panel_latest",
             "request": "launch",
             "type": "dart",
             "args": ["-d", "chrome","--web-port", "4400"],
@@ -22,6 +24,16 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+            "name": "bloc_admin_panel_latest (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+        },
+        {
+            "name": "bloc_admin_panel_latest (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
         }
     ]
 }

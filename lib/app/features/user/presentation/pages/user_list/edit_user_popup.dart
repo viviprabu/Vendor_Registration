@@ -2,6 +2,8 @@
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
+import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
+import 'package:finance_app/app/features/user/domain/usecases/update_user.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,33 +16,51 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddUserDialog extends StatefulWidget {
-  const AddUserDialog({super.key});
+class EditUserDialog extends StatefulWidget {
+  final User userData;
+  const EditUserDialog({
+    required this.userData,
+    super.key,
+  });
 
   @override
-  State<AddUserDialog> createState() => _AddUserDialogState();
+  State<EditUserDialog> createState() => _EditUserDialogState();
 }
 
-class _AddUserDialogState extends State<AddUserDialog> {
+class _EditUserDialogState extends State<EditUserDialog> {
   late final Logger logger;
-  final _userEmailController = TextEditingController();
-  final _userPasswordController = TextEditingController();
-  final _userNameController = TextEditingController();
-  final _userPhoneNumberController = TextEditingController();
-  final _userMobileNumberController = TextEditingController();
-  final _userOfficePhoneController = TextEditingController();
-  final _userDescriptionController = TextEditingController();
-  final _userLogoPathController = TextEditingController();
-  final _userLogoFileController = TextEditingController();
+  final TextEditingController _userEmailController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _userPhoneNumberController =
+      TextEditingController();
+  final TextEditingController _userMobileNumberController =
+      TextEditingController();
+  final TextEditingController _userOfficePhoneController =
+      TextEditingController();
+  final TextEditingController _userDescriptionController =
+      TextEditingController();
+  final TextEditingController _userSuspendendReasonController =
+      TextEditingController();
 
   int? _selectedRole;
   int? _selectedLanguage;
   int? _selectedBusinessRole;
+  final bool _isDarkMode = false;
+  final bool _isSuspended = false;
   int toggleValue = 0;
-  int isDarkMode = 1;
 
   final userCreationFormKey = GlobalKey<FormState>();
 
+  List<String> get _positions => [
+        //'Manager',
+        l.S.current.manager,
+        //'Developer',
+        l.S.current.developer,
+        //'Designer',
+        l.S.current.designer,
+        //'Tester'
+        l.S.current.tester,
+      ];
 
   List<Map<int, String>> get _language => [
         {1: 'English'},
@@ -59,12 +79,19 @@ class _AddUserDialogState extends State<AddUserDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    final userDetail = widget.userData;
+    final userId = userDetail.id ?? '';
+    context.read<UserBloc>().add(UserListEvent(userId.toString()));
     super.initState();
   }
 
   @override
   void dispose() {
+    _userEmailController.dispose();
+    _userNameController.dispose();
+    _userPhoneNumberController.dispose();
+    _userMobileNumberController.dispose();
+    _userOfficePhoneController.dispose();
     super.dispose();
   }
 
@@ -116,11 +143,11 @@ class _AddUserDialogState extends State<AddUserDialog> {
           );
         }
 
-        if (listenerState is UserCreateState) {
+        if (listenerState is UserUpdateState) {
           if (listenerState.user.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('User Created Successfully'),
+                content: Text('User Updated Successfully'),
               ),
             );
             // refresh the user list
@@ -144,6 +171,14 @@ class _AddUserDialogState extends State<AddUserDialog> {
         ),
         content: BlocBuilder<UserBloc, UserState>(
           builder: (blocContext, blocState) {
+            if (blocState is UserListState) {
+              final userDetails = blocState.user;
+              _userEmailController.text = userDetails.email ?? '';
+              _userNameController.text = userDetails.name ?? '';
+              _userPhoneNumberController.text = userDetails.phoneNumber ?? '';
+              _userMobileNumberController.text = userDetails.phoneNumber ?? '';
+              _userOfficePhoneController.text = userDetails.phoneNumber ?? '';
+            }
             return SingleChildScrollView(
               child: Form(
                 key: userCreationFormKey,
@@ -205,7 +240,9 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                   AutovalidateMode.onUserInteraction,
                               controller: _userNameController,
                             ),
+
                             const SizedBox(height: 20),
+
                             Text(lang.email, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             TextFormField(
@@ -234,6 +271,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                   AutovalidateMode.onUserInteraction,
                               controller: _userEmailController,
                             ),
+
                             const SizedBox(height: 20),
 
                             Text(lang.phoneNumber, style: textTheme.bodySmall),
@@ -274,28 +312,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                               keyboardType: TextInputType.phone,
                               controller: _userOfficePhoneController,
                             ),
-                            const SizedBox(height: 20),
-                            Text(lang.password, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                // hintText: 'Enter Your Phone Number',
-                                hintText: lang.enterYourPassword,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.enterYourPassword;
-                                }
 
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userPasswordController,
-                            ),
                             const SizedBox(height: 20),
                             Text(lang.language, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
@@ -412,19 +429,18 @@ class _AddUserDialogState extends State<AddUserDialog> {
                               maxLines: 3,
                               controller: _userDescriptionController,
                             ),
-
                             const SizedBox(height: 20),
-                            Text(lang.isDarkMode, style: textTheme.bodySmall),
+                            Text(lang.suspendReason,
+                                style: textTheme.bodySmall),
                             const SizedBox(height: 8),
-                            ToggleSwitcher(
-                              activeText: 'Yes',
-                              inactiveText: 'No',
-                              initialLabelIndex: 1,
-                              onToggle: (value) {
-                                setState(() {
-                                  isDarkMode = value!;
-                                });
-                              },
+                            TextFormField(
+                              decoration: InputDecoration(
+                                //hintText: 'Write Something',
+                                hintText: lang.suspendReason,
+                                hintStyle: textTheme.bodySmall,
+                              ),
+                              maxLines: 3,
+                              controller: _userSuspendendReasonController,
                             ),
                             const SizedBox(height: 24),
 
@@ -465,15 +481,15 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                       if (userCreationFormKey.currentState!
                                           .validate()) {
                                         blocContext.read<UserBloc>().add(
-                                              UserCreateEvent(
-                                                UserCreate(
+                                              UserUpdateEvent(
+                                                UserUpdate(
+                                                  id: widget.userData.id,
                                                   name:
                                                       _userNameController.text,
                                                   email:
                                                       _userEmailController.text,
-                                                  password:
-                                                      _userPasswordController
-                                                          .text,
+                                                  userName:
+                                                      _userEmailController.text,
                                                   mobileNumber:
                                                       _userMobileNumberController
                                                           .text,
@@ -483,18 +499,19 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   officePhone:
                                                       _userOfficePhoneController
                                                           .text,
+                                                  homePhone:
+                                                      _userPhoneNumberController
+                                                          .text,
+                                                  isSuspended: _isSuspended,
+                                                  suspendReason:
+                                                      _userSuspendendReasonController
+                                                          .text,
                                                   roleId:
                                                       _selectedRole!.toInt(),
                                                   businessRoleId:
                                                       _selectedBusinessRole!
                                                           .toInt(),
-                                                  isDarkMode: () {
-                                                    if (isDarkMode == 0) {
-                                                      return true;
-                                                    } else {
-                                                      return false;
-                                                    }
-                                                  }(),
+                                                  isDarkMode: _isDarkMode,
                                                   isActive: () {
                                                     if (toggleValue == 0) {
                                                       return true;
@@ -505,7 +522,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   languageId: _selectedLanguage!
                                                       .toInt(),
                                                   logoPath: 'path',
-                                                  logoFileName: 'filename',
+                                                  logoFile: 'filename',
                                                   description:
                                                       _userDescriptionController
                                                           .text,
