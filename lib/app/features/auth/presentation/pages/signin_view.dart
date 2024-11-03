@@ -1,5 +1,8 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/auth/domain/entities/token.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -84,16 +87,17 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
-            var email = _userPasswordController.text;
-            var loginPassword = _userPasswordController.text;
-            context.go('signup', extra: email);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => SignupView(
-            //               email: _userUserNameController.text,
-            //               password: _userPasswordController.text,
-            //             )));
+            VariableModal.username = _userUserNameController.text;
+            VariableModal.password = _userPasswordController.text;
+
+            // context.go('signup', extra: email);
+            // ignore: unnecessary_null_comparison
+            if (_userUserNameController.text != null) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SignupView()));
+            } else {
+              context.go('/authentication/signin');
+            }
           }
 
           if (state.message.contains('401')) {
