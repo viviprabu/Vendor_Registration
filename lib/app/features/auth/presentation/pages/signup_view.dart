@@ -1,11 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/department/data/models/department_modal.dart';
+import 'package:finance_app/app/features/department/domain/entities/department.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-
 // 🌎 Project imports:
 import '../../../../../generated/l10n.dart' as l;
 import '../../../../core/helpers/fuctions/helper_functions.dart';
@@ -13,9 +14,7 @@ import '../../../../core/static/static.dart';
 import '../../../../widgets/widgets.dart';
 
 class SignupView extends StatefulWidget {
-  String? email;
-  String? password;
-  SignupView({super.key, this.email, this.password});
+  const SignupView({super.key});
 
   @override
   State<SignupView> createState() => _SignupViewState();
@@ -24,6 +23,9 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   bool showPassword = false;
   String loginEmail = '';
+  List<Department> data = [];
+
+  void getDept() {}
   List<String> department = <String>[
     'Department1',
     'Department2',
@@ -35,8 +37,7 @@ class _SignupViewState extends State<SignupView> {
   @override
   void initState() {
     super.initState();
-    loginEmail = widget.email!;
-    print(loginEmail);
+
     // loginPassword = widget.password;
   }
 
@@ -136,33 +137,33 @@ class _SignupViewState extends State<SignupView> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Flexible(
-                                        child: OutlinedButton.icon(
-                                          onPressed: () {},
-                                          //label: const Text('Use Google'),
-                                          label: Text(lang.useGoogle),
-                                          icon: getImageType(
-                                            FinanceStaticImage.googleIcon,
-                                            height: 14,
-                                            width: 14,
-                                          ),
-                                          style: ssoButtonStyle,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Flexible(
-                                        child: OutlinedButton.icon(
-                                          onPressed: () {},
-                                          // label: const Text('Use Apple'),
-                                          label: Text(lang.useApple),
-                                          icon: getImageType(
-                                            FinanceStaticImage.appleIcon,
-                                            height: 14,
-                                            width: 14,
-                                          ),
-                                          style: ssoButtonStyle,
-                                        ),
-                                      ),
+                                      // Flexible(
+                                      //   child: OutlinedButton.icon(
+                                      //     onPressed: () {},
+                                      //     //label: const Text('Use Google'),
+                                      //     label: Text(lang.useGoogle),
+                                      //     icon: getImageType(
+                                      //       FinanceStaticImage.googleIcon,
+                                      //       height: 14,
+                                      //       width: 14,
+                                      //     ),
+                                      //     style: ssoButtonStyle,
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(width: 10),
+                                      // Flexible(
+                                      //   child: OutlinedButton.icon(
+                                      //     onPressed: () {},
+                                      //     // label: const Text('Use Apple'),
+                                      //     label: Text(lang.useApple),
+                                      //     icon: getImageType(
+                                      //       FinanceStaticImage.appleIcon,
+                                      //       height: 14,
+                                      //       width: 14,
+                                      //     ),
+                                      //     style: ssoButtonStyle,
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                   const SizedBox(height: 20),
@@ -172,26 +173,26 @@ class _SignupViewState extends State<SignupView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Flexible(
-                                        child: Container(
-                                          height: 1,
-                                          color: theme.colorScheme.outline,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        lang.or,
-                                        // 'or',
-                                        style: theme.textTheme.bodyMedium
-                                            ?.copyWith(),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Flexible(
-                                        child: Container(
-                                          height: 1,
-                                          color: theme.colorScheme.outline,
-                                        ),
-                                      )
+                                      // Flexible(
+                                      //   child: Container(
+                                      //     height: 1,
+                                      //     color: theme.colorScheme.outline,
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(width: 10),
+                                      // Text(
+                                      //   lang.or,
+                                      //   // 'or',
+                                      //   style: theme.textTheme.bodyMedium
+                                      //       ?.copyWith(),
+                                      // ),
+                                      // const SizedBox(width: 10),
+                                      // Flexible(
+                                      //   child: Container(
+                                      //     height: 1,
+                                      //     color: theme.colorScheme.outline,
+                                      //   ),
+                                      // )
                                     ],
                                   ),
 
@@ -207,40 +208,52 @@ class _SignupViewState extends State<SignupView> {
                                     ),
                                   ),
                                   const SizedBox(height: 20),
-                                  TextFieldLabelWrapper(
-                                    //labelText: 'Full Name',
-                                    labelText: lang.phone,
-                                    inputField: TextFormField(
-                                      decoration: InputDecoration(
-                                        // hintText: 'Enter full name',
-                                        hintText: lang.enterFullName,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  TextFieldLabelWrapper(
-                                    //labelText: 'Full Name',
-                                    labelText: lang.email,
-                                    inputField: TextFormField(
-                                      decoration: InputDecoration(
-                                        // hintText: 'Enter full name',
-                                        hintText: lang.enterFullName,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
                                   // Email Field
                                   TextFieldLabelWrapper(
                                     // labelText: 'Email',
                                     labelText: lang.email,
                                     inputField: TextFormField(
-                                      initialValue: loginEmail,
+                                      initialValue: VariableModal.username,
                                       decoration: InputDecoration(
                                         //hintText: 'Enter email address',
                                         hintText: lang.enterEmailAddress,
                                       ),
                                     ),
                                   ),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                    //labelText: 'Full Name',
+                                    labelText: lang.phone,
+                                    inputField: TextFormField(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Enter full name',
+                                        hintText: lang.phone,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                    //labelText: 'Full Name',
+                                    labelText: lang.officePhoneNumber,
+                                    inputField: TextFormField(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Enter full name',
+                                        hintText: lang.officePhoneNumber,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFieldLabelWrapper(
+                                    //labelText: 'Full Name',
+                                    labelText: lang.description,
+                                    inputField: TextFormField(
+                                      decoration: InputDecoration(
+                                        // hintText: 'Enter full name',
+                                        hintText: lang.description,
+                                      ),
+                                    ),
+                                  ),
+
                                   const SizedBox(height: 20),
                                   TextFieldLabelWrapper(
                                       // labelText: 'Email',
@@ -260,14 +273,15 @@ class _SignupViewState extends State<SignupView> {
                                           }
                                           return null;
                                         },
-                                        items: department
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
+                                        items: [],
+                                        // items: department
+                                        //     .map<DropdownMenuItem<String>>(
+                                        //         (String value) {
+                                        //   return DropdownMenuItem<String>(
+                                        //     value: value,
+                                        //     child: Text(value),
+                                        //   );
+                                        // }).toList(),
                                       )),
                                   const SizedBox(height: 20),
                                   TextFieldLabelWrapper(

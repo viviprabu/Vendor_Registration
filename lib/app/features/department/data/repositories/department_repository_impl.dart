@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/department/data/datasources/sector_remote_data_source.dart';
+import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
 import 'package:finance_app/app/features/department/data/models/department_create_modal.dart';
 import 'package:finance_app/app/features/department/data/models/department_modal.dart';
 import 'package:finance_app/app/features/department/domain/entities/department.dart';

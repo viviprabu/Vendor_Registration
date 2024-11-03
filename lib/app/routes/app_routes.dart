@@ -93,13 +93,13 @@ abstract class FinanceAppRoutes {
         ),
       ),
 
-      GoRoute(
-        path: '/authentication/signup',
-        name: 'signup',
-        pageBuilder: (context, state) => NoTransitionPage(
-          child: SignupView(),
-        ),
-      ),
+      // GoRoute(
+      //   path: '/authentication/signup',
+      //   name: 'signup',
+      //   pageBuilder: (context, state) => NoTransitionPage(
+      //     child: SignupView(),
+      //   ),
+      // ),
 
       GoRoute(
         path: '/authentication/signout',
