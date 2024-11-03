@@ -6,8 +6,6 @@ part 'sector_state.dart';
 
 class SectorBloc extends Bloc<SectorEvent, SectorState> {
   SectorBloc() : super(SectorInitial()) {
-    on<SectorEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SectorEvent>((event, emit) {});
   }
 }

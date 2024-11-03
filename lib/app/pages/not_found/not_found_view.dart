@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:dartz/dartz.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -16,7 +18,6 @@ class NotFoundView extends StatelessWidget {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-
     return Scaffold(
       body: Center(
         child: Column(
@@ -49,7 +50,9 @@ class NotFoundView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
               ),
-              onPressed: () => context.go('/dashboard/ecommerce-admin'),
+              onPressed: () {
+                context.go('/authentication/signin');
+              },
               // label: const Text('Go Back'),
               label: Text(lang.goBack),
             )

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
-import 'package:finance_app/app/features/department/data/datasources/sector_remote_data_source.dart';
+import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
 import 'package:finance_app/app/features/department/data/models/department_create_modal.dart';
 import 'package:finance_app/app/features/department/data/models/department_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';

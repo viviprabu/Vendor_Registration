@@ -7,6 +7,7 @@ import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_
 import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
 import 'package:finance_app/app/features/auth/data/models/token_model.dart';
 import 'package:finance_app/app/features/user/data/models/user_model.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -19,6 +20,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     // check if token is present in shared preferences
     final sharedPreferences = await SharedPreferences.getInstance();
     final token = sharedPreferences.getString('token');
+    VariableModal.token = sharedPreferences.getString('token');
     if (token != null) {
       return true;
     } else {
