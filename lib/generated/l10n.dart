@@ -9615,6 +9615,11 @@ class S {
     return Intl.message(
       'Department',
       name: 'department',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get suspendReason {
     return Intl.message(
       'User Suspend Reason',
@@ -9628,6 +9633,11 @@ class S {
     return Intl.message(
       'Section',
       name: 'section',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get isActive {
     return Intl.message(
       'Is Active ?',
@@ -9641,6 +9651,11 @@ class S {
     return Intl.message(
       'Sector',
       name: 'sector',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get isDarkMode {
     return Intl.message(
       'Is Dark Mode ?',
