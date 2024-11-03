@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Sector extends Equatable {
-  final String? id;
+  final int? id;
   final String? name;
 
   const Sector({

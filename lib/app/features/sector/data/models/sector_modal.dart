@@ -1,7 +1,7 @@
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 
 class SectorModal {
-  final String? id;
+  final int? id;
   final String? name;
 
   SectorModal({
@@ -11,7 +11,7 @@ class SectorModal {
 
   factory SectorModal.fromJson(Map<String, dynamic> json) {
     return SectorModal(
-      id: json["id"] ?? "",
+      id: json["id"] ?? 0,
       name: json["name"] ?? "",
     );
   }
