@@ -84,30 +84,30 @@ class _DownloadableImageCardState extends State<DownloadableImageCard> {
     BuildContext context, {
     String? name,
   }) {
-    final _theme = Theme.of(context);
-    const _foregroundColor = Colors.white;
+    final theme = Theme.of(context);
+    const foregroundColor = Colors.white;
 
-    Widget _buildIconHolder(IconData icon) {
+    Widget buildIconHolder(IconData icon) {
       return Container(
         padding: EdgeInsets.all(
           responsiveValue<double>(context, xs: 4, lg: 8),
         ),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: _foregroundColor.withOpacity(0.40),
+          color: foregroundColor.withOpacity(0.40),
           border: Border.all(
-            color: _foregroundColor,
+            color: foregroundColor,
           ),
         ),
         child: Icon(
           icon,
-          color: _foregroundColor,
+          color: foregroundColor,
           size: responsiveValue<double>(context, xs: 18, md: 20, lg: 24),
         ),
       );
     }
 
-    final _buttonStyle = IconButton.styleFrom(
+    final buttonStyle = IconButton.styleFrom(
       padding: EdgeInsets.zero,
       visualDensity: const VisualDensity(
         horizontal: -4,
@@ -115,11 +115,11 @@ class _DownloadableImageCardState extends State<DownloadableImageCard> {
       ),
     );
 
-    final _spacer = responsiveValue<double>(context, xs: 6, lg: 16);
+    final spacer = responsiveValue<double>(context, xs: 6, lg: 16);
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final _size = constraints.biggest;
+        final size = constraints.biggest;
 
         return Stack(
           children: [
@@ -134,22 +134,22 @@ class _DownloadableImageCardState extends State<DownloadableImageCard> {
                   if (_hasDownload)
                     IconButton(
                       onPressed: () {},
-                      style: _buttonStyle,
-                      icon: _buildIconHolder(FeatherIcons.download),
+                      style: buttonStyle,
+                      icon: buildIconHolder(FeatherIcons.download),
                     ),
-                  if (_hasDownload) SizedBox(width: _spacer),
+                  if (_hasDownload) SizedBox(width: spacer),
                   if (_hasPreview)
                     IconButton(
                       onPressed: () {},
-                      style: _buttonStyle,
-                      icon: _buildIconHolder(FeatherIcons.eye),
+                      style: buttonStyle,
+                      icon: buildIconHolder(FeatherIcons.eye),
                     ),
-                  if (_hasPreview) SizedBox(width: _spacer),
+                  if (_hasPreview) SizedBox(width: spacer),
                   if (_hasDelete)
                     IconButton(
                       onPressed: () {},
-                      style: _buttonStyle,
-                      icon: _buildIconHolder(FeatherIcons.trash2),
+                      style: buttonStyle,
+                      icon: buildIconHolder(FeatherIcons.trash2),
                     ),
                 ],
               ),
@@ -160,13 +160,13 @@ class _DownloadableImageCardState extends State<DownloadableImageCard> {
                 bottom: 12,
                 right: 8,
                 child: SizedBox(
-                  width: _size.width - (16 + 8),
+                  width: size.width - (16 + 8),
                   child: Text(
                     name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: _theme.textTheme.bodyMedium?.copyWith(
-                      color: _foregroundColor,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: foregroundColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

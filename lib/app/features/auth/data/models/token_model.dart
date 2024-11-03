@@ -1,4 +1,3 @@
-import 'package:finance_app/app/features/auth/data/models/cookie_options_model.dart';
 import 'package:finance_app/app/features/auth/domain/entities/token.dart';
 import 'package:finance_app/app/features/user/data/models/user_model.dart';
 

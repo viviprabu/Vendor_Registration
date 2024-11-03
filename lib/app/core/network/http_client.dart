@@ -12,7 +12,7 @@ class HttpClient {
   HttpClient(
       {this.baseUrl = ApiUrls.baseURL,
       this.defaultHeaders = const {
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
       },
       required this.logger});
 
@@ -58,7 +58,7 @@ class HttpClient {
             headers: {...defaultHeaders, if (headers != null) ...headers},
             body: jsonEncode(data),
           )
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 30));
       logger.logResponse(response);
       return handleResponse(response);
     } on TimeoutException catch (e) {

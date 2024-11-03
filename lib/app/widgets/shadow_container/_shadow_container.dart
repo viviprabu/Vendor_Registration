@@ -34,13 +34,13 @@ class ShadowContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Container(
       clipBehavior: clipBehavior ?? Clip.antiAlias,
       margin: margin,
       decoration: decoration ??
           BoxDecoration(
-            color: _theme.colorScheme.primaryContainer,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadiusDirectional.circular(12),
           ),
       child: Column(
@@ -50,7 +50,7 @@ class ShadowContainer extends StatelessWidget {
           if (showHeader)
             ColoredBox(
               color:
-                  headerBackgroundColor ?? _theme.colorScheme.primaryContainer,
+                  headerBackgroundColor ?? theme.colorScheme.primaryContainer,
               child: customHeader ??
                   DialogHeader(
                     headerTitle: headerText,

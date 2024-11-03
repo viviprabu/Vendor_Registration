@@ -7,7 +7,6 @@ import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_
 import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
 import 'package:finance_app/app/features/auth/data/models/token_model.dart';
 import 'package:finance_app/app/features/user/data/models/user_model.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {

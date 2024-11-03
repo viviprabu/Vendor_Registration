@@ -37,7 +37,7 @@ class AvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _hasImage = imagePath != null;
+    final hasImage = imagePath != null;
 
     final circleShape = Container(
       constraints: BoxConstraints.tight(size!),
@@ -55,7 +55,7 @@ class AvatarWidget extends StatelessWidget {
       ),
       child: initialsOnly
           ? _buildInitials(context)
-          : _hasImage
+          : hasImage
               ? _buildImage(context)
               : null,
     );
@@ -64,17 +64,17 @@ class AvatarWidget extends StatelessWidget {
       constraints: BoxConstraints.tight(size!),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final _size = constraints.biggest;
+          final size = constraints.biggest;
 
           return Stack(
             children: [
               circleShape,
               Positioned(
                 bottom: 0,
-                right: _size.width * 0.10,
+                right: size.width * 0.10,
                 child: Container(
-                  height: _size.width * 0.20,
-                  width: _size.width * 0.20,
+                  height: size.width * 0.20,
+                  width: size.width * 0.20,
                   decoration: BoxDecoration(
                     color:
                         isActive == true ? Colors.green : Colors.grey.shade600,
@@ -101,7 +101,7 @@ class AvatarWidget extends StatelessWidget {
       ),
       child: initialsOnly
           ? _buildInitials(context)
-          : _hasImage
+          : hasImage
               ? _buildImage(context)
               : null,
     );
@@ -122,7 +122,7 @@ class AvatarWidget extends StatelessWidget {
             scale: 1.325,
             child: initialsOnly
                 ? _buildInitials(context)
-                : _hasImage
+                : hasImage
                     ? _buildImage(
                         context,
                         height: double.maxFinite,
@@ -157,14 +157,14 @@ class AvatarWidget extends StatelessWidget {
   }
 
   Widget _buildInitials(BuildContext context) {
-    final _theme = Theme.of(context);
-    const String _fallbackInitial = 'N/A';
+    final theme = Theme.of(context);
+    const String fallbackInitial = 'N/A';
 
-    final _nameParts = fullName?.split(' ') ?? [];
+    final nameParts = fullName?.split(' ') ?? [];
 
     String initials = '';
-    if (_nameParts.isNotEmpty) {
-      initials = _nameParts
+    if (nameParts.isNotEmpty) {
+      initials = nameParts
           .where((part) => part.isNotEmpty)
           .map((part) => part[0])
           .take(2)
@@ -172,20 +172,20 @@ class AvatarWidget extends StatelessWidget {
     }
 
     if (initials.isEmpty) {
-      initials = _fallbackInitial;
+      initials = fallbackInitial;
     }
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final _size = constraints.biggest;
+        final size = constraints.biggest;
 
         return Center(
           child: Text(
             initials.toUpperCase(),
-            style: _theme.textTheme.headlineMedium?.copyWith(
+            style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: foregroundColor,
-              fontSize: _size.width * 0.28,
+              fontSize: size.width * 0.28,
             ),
           ),
         );

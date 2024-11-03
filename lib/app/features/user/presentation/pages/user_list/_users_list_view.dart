@@ -14,7 +14,6 @@ import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 
 // 🌎 Project imports:
-import 'package:finance_app/app/widgets/avatars/_avatar_widget.dart';
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';

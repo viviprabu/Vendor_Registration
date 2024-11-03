@@ -95,7 +95,8 @@ abstract class FinanceAppRoutes {
 
       GoRoute(
         path: '/authentication/signup',
-        pageBuilder: (context, state) => const NoTransitionPage(
+        name: 'signup',
+        pageBuilder: (context, state) => NoTransitionPage(
           child: SignupView(),
         ),
       ),

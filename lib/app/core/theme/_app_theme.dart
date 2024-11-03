@@ -8,11 +8,11 @@ abstract class FinanceAppTheme {
   static const _fontFamily = 'Inter';
 
   static ThemeData kLightTheme() {
-    final _baseTheme = ThemeData.light();
-    final _textTheme = _getTextTheme(_baseTheme.textTheme);
-    return _baseTheme.copyWith(
-      textTheme: _textTheme,
-      elevatedButtonTheme: _getElevatedButtonTheme(_textTheme),
+    final baseTheme = ThemeData.light();
+    final textTheme = _getTextTheme(baseTheme.textTheme);
+    return baseTheme.copyWith(
+      textTheme: textTheme,
+      elevatedButtonTheme: _getElevatedButtonTheme(textTheme),
       textButtonTheme: _getTextButtonTheme,
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: WidgetStateProperty.all<bool?>(true),
@@ -45,14 +45,14 @@ abstract class FinanceAppTheme {
         onTertiary: FinanceAppColors.kNeutral700,
         outline: FinanceAppColors.kNeutral300,
       ),
-      drawerTheme: _baseTheme.drawerTheme.copyWith(
+      drawerTheme: baseTheme.drawerTheme.copyWith(
         backgroundColor: FinanceAppColors.kWhiteColor,
       ),
-      appBarTheme: _baseTheme.appBarTheme.copyWith(
+      appBarTheme: baseTheme.appBarTheme.copyWith(
         backgroundColor: FinanceAppColors.kWhiteColor,
       ),
       inputDecorationTheme: _inputDecorationTheme(
-        theme: _baseTheme,
+        theme: baseTheme,
       ),
       dialogTheme: _dialogTheme,
       checkboxTheme: const CheckboxThemeData(
@@ -65,12 +65,12 @@ abstract class FinanceAppTheme {
   }
 
   static ThemeData kDarkTheme() {
-    final _baseTheme = ThemeData.dark();
-    final _textTheme = _getTextTheme(_baseTheme.textTheme);
+    final baseTheme = ThemeData.dark();
+    final textTheme = _getTextTheme(baseTheme.textTheme);
 
-    return _baseTheme.copyWith(
-      textTheme: _textTheme,
-      elevatedButtonTheme: _getElevatedButtonTheme(_textTheme),
+    return baseTheme.copyWith(
+      textTheme: textTheme,
+      elevatedButtonTheme: _getElevatedButtonTheme(textTheme),
       textButtonTheme: _getTextButtonTheme,
       scrollbarTheme: ScrollbarThemeData(
         thumbVisibility: WidgetStateProperty.all<bool?>(true),
@@ -102,14 +102,14 @@ abstract class FinanceAppTheme {
         tertiaryContainer: FinanceAppColors.kDark3,
         onTertiaryContainer: FinanceAppColors.kNeutral200,
       ),
-      drawerTheme: _baseTheme.drawerTheme.copyWith(
+      drawerTheme: baseTheme.drawerTheme.copyWith(
         backgroundColor: FinanceAppColors.kDark2,
       ),
-      appBarTheme: _baseTheme.appBarTheme.copyWith(
+      appBarTheme: baseTheme.appBarTheme.copyWith(
         backgroundColor: FinanceAppColors.kDark2,
       ),
       inputDecorationTheme: _inputDecorationTheme(
-        theme: _baseTheme,
+        theme: baseTheme,
       ),
       dialogTheme: _dialogTheme.copyWith(
         backgroundColor: FinanceAppColors.kDark2,
@@ -167,10 +167,10 @@ abstract class FinanceAppTheme {
   static InputDecorationTheme _inputDecorationTheme({
     ThemeData? theme,
   }) {
-    final _isDark = theme?.brightness == Brightness.dark;
+    final isDark = theme?.brightness == Brightness.dark;
 
     final baseTextTheme = theme?.textTheme;
-    OutlineInputBorder _border({Color? color}) {
+    OutlineInputBorder border({Color? color}) {
       return OutlineInputBorder(
         borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         borderSide: BorderSide(
@@ -186,25 +186,25 @@ abstract class FinanceAppTheme {
       isCollapsed: true,
       //Enabled Border
       enabledBorder:
-          _border(color: _isDark ? FinanceAppColors.kNeutral600 : null),
+          border(color: isDark ? FinanceAppColors.kNeutral600 : null),
 
       //Focus Border
-      focusedBorder: _border(color: FinanceAppColors.kPrimary600),
+      focusedBorder: border(color: FinanceAppColors.kPrimary600),
 
       //Error Border
-      errorBorder: _border(color: FinanceAppColors.kError),
+      errorBorder: border(color: FinanceAppColors.kError),
 
       //Error Focus Border
-      focusedErrorBorder: _border(color: FinanceAppColors.kError),
+      focusedErrorBorder: border(color: FinanceAppColors.kError),
 
       // Disabled Border
-      disabledBorder: _border(),
+      disabledBorder: border(),
       floatingLabelStyle: baseTextTheme?.bodySmall?.copyWith(
         fontWeight: FontWeight.w600,
       ),
       hintStyle: baseTextTheme?.bodySmall?.copyWith(
         fontWeight: FontWeight.normal,
-        color: _isDark
+        color: isDark
             ? FinanceAppColors.kNeutral200
             : FinanceAppColors.kNeutral700,
       ),

@@ -10,14 +10,14 @@ extension ListExtension<T> on List<T> {
   List<T> addBetween(T separator) {
     if (length <= 1) return toList();
 
-    final _newItems = <T>[];
+    final newItems = <T>[];
     for (int i = 0; i < length - 1; i++) {
-      _newItems.add(this[i]);
-      _newItems.add(separator);
+      newItems.add(this[i]);
+      newItems.add(separator);
     }
-    _newItems.add(this[length - 1]);
+    newItems.add(this[length - 1]);
 
-    return _newItems;
+    return newItems;
   }
 }
 

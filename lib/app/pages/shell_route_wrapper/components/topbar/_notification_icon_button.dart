@@ -15,13 +15,13 @@ class NotificationIconButton extends StatefulWidget {
 class _NotificationIconButtonState extends State<NotificationIconButton> {
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _dropdownStyle = FinanceDropdownStyle(context);
+    final theme = Theme.of(context);
+    final dropdownStyle = FinanceDropdownStyle(context);
 
     return DropdownButton2(
       underline: const SizedBox.shrink(),
       customButton: _buildButton(context),
-      dropdownStyleData: _dropdownStyle.dropdownStyle.copyWith(
+      dropdownStyleData: dropdownStyle.dropdownStyle.copyWith(
         width: responsiveValue<double>(
           context,
           xs: 380,
@@ -29,12 +29,12 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
         ),
         maxHeight: 425,
         offset: const Offset(0, -24),
-        scrollbarTheme: _theme.scrollbarTheme.copyWith(
+        scrollbarTheme: theme.scrollbarTheme.copyWith(
           thumbVisibility: WidgetStateProperty.all<bool>(false),
           trackVisibility: WidgetStateProperty.all<bool>(false),
         ),
       ),
-      menuItemStyleData: _dropdownStyle.menuItemStyle.copyWith(
+      menuItemStyleData: dropdownStyle.menuItemStyle.copyWith(
         height: responsiveValue<double?>(
           context,
           xs: null,
@@ -55,12 +55,12 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
   }
 
   Widget _buildButton(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return LayoutBuilder(
       builder: (ctx, constraints) {
-        final _size = constraints.biggest;
+        final size = constraints.biggest;
         return SizedBox.square(
-          dimension: _size.height / 2,
+          dimension: size.height / 2,
           child: Stack(
             children: [
               const Center(
@@ -71,8 +71,8 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
               Positioned(
                 top: 0,
                 right: 0,
-                height: _size.height / 3.74,
-                width: _size.height / 3.74,
+                height: size.height / 3.74,
+                width: size.height / 3.74,
                 child: Container(
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
@@ -81,9 +81,9 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
                   ),
                   child: Text(
                     widget.notificationCount.toString(),
-                    style: _theme.textTheme.bodySmall?.copyWith(
+                    style: theme.textTheme.bodySmall?.copyWith(
                       fontSize: 10,
-                      color: _theme.colorScheme.onError,
+                      color: theme.colorScheme.onError,
                     ),
                   ),
                 ),
@@ -101,14 +101,14 @@ class NotifiactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Row(
       children: [
         AvatarWidget(
           fullName: 'A C',
           initialsOnly: true,
-          backgroundColor: _theme.colorScheme.primary.withOpacity(0.20),
-          foregroundColor: _theme.colorScheme.primary,
+          backgroundColor: theme.colorScheme.primary.withOpacity(0.20),
+          foregroundColor: theme.colorScheme.primary,
           size: responsiveValue<Size?>(
             context,
             xs: const Size.square(38),
@@ -127,23 +127,23 @@ class NotifiactionTile extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               border: BorderDirectional(
-                bottom: BorderSide(color: _theme.colorScheme.outline),
+                bottom: BorderSide(color: theme.colorScheme.outline),
               ),
             ),
             child: ListTile(
               contentPadding: EdgeInsets.zero,
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
               title: const Text('Androw Cremer'),
-              titleTextStyle: _theme.textTheme.bodyMedium?.copyWith(
+              titleTextStyle: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
               subtitle: const Text('New Comment'),
-              subtitleTextStyle: _theme.textTheme.bodySmall?.copyWith(
-                color: _theme.colorScheme.onTertiaryContainer,
+              subtitleTextStyle: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onTertiaryContainer,
               ),
               trailing: const Text('30 Mins ago'),
-              leadingAndTrailingTextStyle: _theme.textTheme.bodySmall?.copyWith(
-                color: _theme.colorScheme.onTertiaryContainer,
+              leadingAndTrailingTextStyle: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onTertiaryContainer,
               ),
             ),
           ),

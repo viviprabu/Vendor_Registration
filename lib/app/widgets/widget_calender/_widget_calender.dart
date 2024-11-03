@@ -17,8 +17,8 @@ class _WidgetCalenderState extends State<WidgetCalender> {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    const _fallbackTextStyle = TextStyle();
+    final theme = Theme.of(context);
+    const fallbackTextStyle = TextStyle();
 
     return TableCalendar(
       firstDay: DateTime.utc(2010, 1, 1),
@@ -38,39 +38,39 @@ class _WidgetCalenderState extends State<WidgetCalender> {
         leftChevronIcon: const Icon(Icons.chevron_left),
         rightChevronIcon: const Icon(Icons.chevron_right),
         titleTextStyle:
-            (_theme.textTheme.titleLarge ?? _fallbackTextStyle).copyWith(
+            (theme.textTheme.titleLarge ?? fallbackTextStyle).copyWith(
           fontWeight: FontWeight.w500,
         ),
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
         weekdayStyle:
-            (_theme.textTheme.bodyMedium ?? _fallbackTextStyle).copyWith(
-          color: _theme.colorScheme.primary,
+            (theme.textTheme.bodyMedium ?? fallbackTextStyle).copyWith(
+          color: theme.colorScheme.primary,
         ),
         weekendStyle:
-            (_theme.textTheme.bodyMedium ?? _fallbackTextStyle).copyWith(
-          color: _theme.colorScheme.primary,
+            (theme.textTheme.bodyMedium ?? fallbackTextStyle).copyWith(
+          color: theme.colorScheme.primary,
         ),
       ),
       calendarStyle: CalendarStyle(
         selectedDecoration: BoxDecoration(
-          color: _theme.colorScheme.primary,
+          color: theme.colorScheme.primary,
           shape: BoxShape.circle,
         ),
         todayTextStyle:
-            (_theme.textTheme.bodyMedium ?? _fallbackTextStyle).copyWith(
+            (theme.textTheme.bodyMedium ?? fallbackTextStyle).copyWith(
           color: _selectedDay != null
-              ? _theme.colorScheme.onPrimaryContainer
+              ? theme.colorScheme.onPrimaryContainer
               : Colors.white,
         ),
         todayDecoration: BoxDecoration(
-          color: _selectedDay == null ? _theme.colorScheme.primary : null,
+          color: _selectedDay == null ? theme.colorScheme.primary : null,
           shape: BoxShape.circle,
-          border: Border.all(color: _theme.colorScheme.primary),
+          border: Border.all(color: theme.colorScheme.primary),
         ),
         weekendTextStyle:
-            (_theme.textTheme.bodyMedium ?? _fallbackTextStyle).copyWith(
-          color: _theme.colorScheme.onPrimaryContainer,
+            (theme.textTheme.bodyMedium ?? fallbackTextStyle).copyWith(
+          color: theme.colorScheme.onPrimaryContainer,
         ),
       ),
     );

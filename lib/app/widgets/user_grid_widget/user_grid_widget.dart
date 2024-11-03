@@ -43,7 +43,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
     final theme = Theme.of(context);
     final lang = l.S.of(context);
     final textTheme = theme.textTheme;
-    final _sizeInfo = rf.ResponsiveValue<_SizeInfo>(
+    final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
         const rf.Condition.between(
@@ -98,7 +98,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
               color: theme.colorScheme.primaryContainer,
             ),
             child: Padding(
-              padding: _sizeInfo.padding,
+              padding: sizeInfo.padding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +139,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
                       color: theme.colorScheme.onTertiary,
                     ),
                   ),
-                  SizedBox(height: _sizeInfo.innerSpacing),
+                  SizedBox(height: sizeInfo.innerSpacing),
 
                   /// -------------followers & following
                   Row(
@@ -164,7 +164,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(width: _sizeInfo.innerSpacing),
+                      SizedBox(width: sizeInfo.innerSpacing),
                       Flexible(
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -189,7 +189,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
                   ),
 
                   /// divider
-                  SizedBox(height: _sizeInfo.innerSpacing),
+                  SizedBox(height: sizeInfo.innerSpacing),
                   Divider(
                     height: 1,
                     thickness: 1,
@@ -197,7 +197,7 @@ class _UserGridWidgetState extends State<UserGridWidget> {
                   ),
 
                   /// -------------footer values
-                  SizedBox(height: _sizeInfo.innerSpacing),
+                  SizedBox(height: sizeInfo.innerSpacing),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -960,7 +960,11 @@
   "travels": "السفر",
   "religion": "الدين",
   "minsAgo": "منذ دقائق",
-  "greatNews": "أخبار رائعة"
+  "greatNews": "أخبار رائعة",
+  "department":"قسم",
+  "sector":"قطاع",
+  "section:"قسم",
+
 
 
 }

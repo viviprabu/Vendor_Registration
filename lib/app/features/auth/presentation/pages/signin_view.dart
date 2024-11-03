@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:feather_icons/feather_icons.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -31,6 +30,7 @@ class _SigninViewState extends State<SigninView> {
   bool rememberMe = false;
   bool showPassword = false;
   final signInFormKey = GlobalKey<FormState>();
+  List<String> list = <String>[];
 
   @override
   void initState() {
@@ -84,7 +84,16 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
-            context.go('/authentication/signup');
+            var email = _userPasswordController.text;
+            var loginPassword = _userPasswordController.text;
+            context.go('signup', extra: email);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => SignupView(
+            //               email: _userUserNameController.text,
+            //               password: _userPasswordController.text,
+            //             )));
           }
 
           if (state.message.contains('401')) {

@@ -18,11 +18,11 @@ class CustomSegmentButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
-    const _borderRadius = 4.0;
+    const borderRadius = 4.0;
 
-    final _sizeInfo = rf.ResponsiveValue<_SizeInfo>(
+    final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
         const rf.Condition.between(
@@ -57,54 +57,54 @@ class CustomSegmentButton<T> extends StatelessWidget {
       children: List.generate(
         segments.length,
         (segmentIndex) {
-          final _segment = segments[segmentIndex];
-          final _isSelected = selected.firstOrNull == _segment.value;
+          final segment = segments[segmentIndex];
+          final isSelected = selected.firstOrNull == segment.value;
 
-          final _isFirstSegment = segmentIndex == 0;
-          final _isLastSegment = segments.length == segmentIndex + 1;
+          final isFirstSegment = segmentIndex == 0;
+          final isLastSegment = segments.length == segmentIndex + 1;
 
           return Material(
             clipBehavior: Clip.antiAlias,
             color: Colors.transparent,
             child: InkWell(
-              onTap: () => onSelectionChanged?.call({_segment.value}),
-              splashColor: _theme.splashColor,
+              onTap: () => onSelectionChanged?.call({segment.value}),
+              splashColor: theme.splashColor,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: _isSelected
-                        ? _theme.primaryColor
-                        : _theme.colorScheme.outline,
+                    color: isSelected
+                        ? theme.primaryColor
+                        : theme.colorScheme.outline,
                     width: 1.25,
                     strokeAlign: BorderSide.strokeAlignInside,
                   ),
-                  borderRadius: !(_isFirstSegment || _isLastSegment)
+                  borderRadius: !(isFirstSegment || isLastSegment)
                       ? null
                       : BorderRadiusDirectional.horizontal(
-                          start: _isFirstSegment
-                              ? const Radius.circular(_borderRadius)
+                          start: isFirstSegment
+                              ? const Radius.circular(borderRadius)
                               : Radius.zero,
-                          end: _isLastSegment
-                              ? const Radius.circular(_borderRadius)
+                          end: isLastSegment
+                              ? const Radius.circular(borderRadius)
                               : Radius.zero,
                         ),
                 ),
-                padding: _sizeInfo.padding,
+                padding: sizeInfo.padding,
                 child: Row(
                   children: [
-                    if (_segment.icon != null) _segment.icon!,
-                    if (_segment.label != null)
-                      if (_segment.label is Text)
+                    if (segment.icon != null) segment.icon!,
+                    if (segment.label != null)
+                      if (segment.label is Text)
                         Text(
-                          (_segment.label! as Text).data!,
-                          style: _theme.textTheme.bodyLarge?.copyWith(
+                          (segment.label! as Text).data!,
+                          style: theme.textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w500,
-                            fontSize: _sizeInfo.fonstSize,
-                            color: _isSelected ? _theme.primaryColor : null,
+                            fontSize: sizeInfo.fonstSize,
+                            color: isSelected ? theme.primaryColor : null,
                           ),
                         )
                       else
-                        _segment.label!
+                        segment.label!
                   ],
                 ),
               ),
