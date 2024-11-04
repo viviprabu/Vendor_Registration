@@ -68,5 +68,9 @@ class SectorBloc extends Bloc<SectorEvent, SectorState> {
         (sector) => emit(SectorDeleteState(sector)),
       );
     });
+
+    on<SectorInitialEvent>((event, emit) {
+      emit(SectorInitialState());
+    });
   }
 }
