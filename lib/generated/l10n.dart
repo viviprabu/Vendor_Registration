@@ -9656,6 +9656,15 @@ class S {
     );
   }
 
+  String get listSectors {
+    return Intl.message(
+      'List Sectors',
+      name: 'listSectors',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get isDarkMode {
     return Intl.message(
       'Is Dark Mode ?',

@@ -534,7 +534,7 @@ class _SectorsListViewState extends State<SectorsListView> {
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
-              selected: data.isSelected ?? false,
+              selected: data.isSelected,
               cells: [
                 DataCell(
                   Row(
@@ -546,8 +546,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll =
-                                sectors.every((d) => d.isSelected ?? false);
+                            _selectAll = sectors.every((d) => d.isSelected);
                           });
                         },
                       ),
