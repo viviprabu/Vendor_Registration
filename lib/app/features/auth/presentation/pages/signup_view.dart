@@ -51,6 +51,7 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SectorBloc>().add(SectorsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.sizeOf(context).width;
@@ -75,7 +76,10 @@ class _SignupViewState extends State<SignupView> {
     );
 
     String? selectedValue;
-    return BlocBuilder<SectorBloc, SectorEvent>(builder: (context, state) {
+    return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
+      if (state is SectorsListState) {
+        sector = state.sectors;
+      }
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(

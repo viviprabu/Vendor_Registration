@@ -1,14 +1,14 @@
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/domain/repositories/sector_repository.dart';
+import 'package:finance_app/app/features/department/domain/entities/department.dart';
+import 'package:finance_app/app/features/department/domain/repositories/department_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
 
-class UpdateSector {
-  final SectorRepository userRepository;
+class UpdateDepartment {
+  final DepartmentRepository departmentRepository;
 
-  UpdateSector(this.userRepository);
+  UpdateDepartment(this.departmentRepository);
 
-  Future<Either<Failure, Sector>> call(Sector sector) async {
-    return await userRepository.updateSector(sector);
+  Future<Either<Failure, Department>> call(Department department) async {
+    return await departmentRepository.updateDept(department);
   }
 }
