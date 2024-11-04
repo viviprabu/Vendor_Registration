@@ -4,6 +4,7 @@ import 'package:finance_app/app/features/department/presentation/bloc/department
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +78,9 @@ class _SignupViewState extends State<SignupView> {
           builder: (context, DepartmentState deptState) {
         if (deptState is DepartmentsListState) {
           departments = deptState.departments;
-          print(departments);
+          if (kDebugMode) {
+            print(departments);
+          }
         }
         if (state is SectorsListState) {
           sector = state.sectors;
