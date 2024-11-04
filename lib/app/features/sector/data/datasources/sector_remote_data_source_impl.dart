@@ -24,6 +24,7 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
         'Authorization': 'Bearer $token',
       },
     );
+    print(sectorModel.toJson());
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
   }
