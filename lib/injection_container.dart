@@ -11,6 +11,16 @@ import 'package:finance_app/app/features/auth/domain/usecases/is_logged_in.dart'
 import 'package:finance_app/app/features/auth/domain/usecases/sign_in.dart';
 import 'package:finance_app/app/features/auth/domain/usecases/sign_out.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source.dart';
+import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/sector/data/repositories/sector_repository_impl.dart';
+import 'package:finance_app/app/features/sector/domain/repositories/sector_repository.dart';
+import 'package:finance_app/app/features/sector/domain/usecases/create_sector.dart';
+import 'package:finance_app/app/features/sector/domain/usecases/delete_sector.dart';
+import 'package:finance_app/app/features/sector/domain/usecases/get_sector.dart';
+import 'package:finance_app/app/features/sector/domain/usecases/get_sectors.dart';
+import 'package:finance_app/app/features/sector/domain/usecases/update_sector.dart';
+import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/features/user/data/datasources/remote/user_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/user/data/datasources/user_remote_data_source.dart';
 import 'package:finance_app/app/features/user/data/repositories/user_repository_impl.dart';
@@ -54,6 +64,16 @@ void init() {
     ),
   );
 
+  getIt.registerFactory(
+    () => SectorBloc(
+      getSector: getIt(),
+      getSectors: getIt(),
+      createSector: getIt(),
+      updateSector: getIt(),
+      deleteSector: getIt(),
+    ),
+  );
+
   // use cases
 
   getIt.registerLazySingleton(() => SignIn(getIt()));
@@ -66,6 +86,12 @@ void init() {
   getIt.registerLazySingleton(() => CreateUser(getIt()));
   getIt.registerLazySingleton(() => UpdateUser(getIt()));
   getIt.registerLazySingleton(() => DeleteUser(getIt()));
+
+  getIt.registerLazySingleton(() => GetSector(getIt()));
+  getIt.registerLazySingleton(() => GetSectors(getIt()));
+  getIt.registerLazySingleton(() => CreateSector(getIt()));
+  getIt.registerLazySingleton(() => UpdateSector(getIt()));
+  getIt.registerLazySingleton(() => DeleteSector(getIt()));
 
   // repositories
   getIt.registerLazySingleton<UserRepository>(
@@ -80,6 +106,12 @@ void init() {
     ),
   );
 
+  getIt.registerLazySingleton<SectorRepository>(
+    () => SectorRepositoryImpl(
+      sectorRemoteDataSource: getIt(),
+    ),
+  );
+
   // Data sources
   getIt.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
@@ -89,6 +121,12 @@ void init() {
 
   getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<SectorRemoteDataSource>(
+    () => SectorRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );
