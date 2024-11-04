@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/department/domain/entities/department.dart';
+import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
@@ -26,8 +28,9 @@ class _SignupViewState extends State<SignupView> {
   String loginEmail = '';
 
   late List<Sector> sector = [];
+  late List<Department> department = [];
 
-  List<String> department = <String>[
+  List<String> departments = <String>[
     'Information Technology',
     'Planning',
     'Technical Services',
@@ -80,6 +83,7 @@ class _SignupViewState extends State<SignupView> {
       if (state is SectorsListState) {
         sector = state.sectors;
       }
+
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -293,7 +297,8 @@ class _SignupViewState extends State<SignupView> {
                                                   (value) {
                                             return DropdownMenuItem<String>(
                                               value: value.toString(),
-                                              child: Text(value.toString()),
+                                              child:
+                                                  Text(value.name.toString()),
                                             );
                                           }).toList(),
                                         )),
@@ -319,10 +324,11 @@ class _SignupViewState extends State<SignupView> {
                                           // items: [],
                                           items: department
                                               .map<DropdownMenuItem<String>>(
-                                                  (String value) {
+                                                  (value) {
                                             return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
+                                              value: value.toString(),
+                                              child:
+                                                  Text(value.name.toString()),
                                             );
                                           }).toList(),
                                         )),

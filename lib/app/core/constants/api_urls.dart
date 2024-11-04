@@ -2,6 +2,7 @@ class ApiUrls {
   static const baseURL = 'https://tf96z445-7045.inc1.devtunnels.ms/MEW/';
   //static const baseURL = 'https://nw5t5w76-7045.asse.devtunnels.ms/MEW/';
 
+  static const applicationId = '0';
   // Manage User
   static const userProfile = 'Authentication/UserDetail';
   static const login = 'Authentication/login';
@@ -14,10 +15,10 @@ class ApiUrls {
   static const createUpdateSector = 'System/Sector';
   static const getSector = 'System/Sector';
 
-  static const createDept = 'System/Department';
-  static const department = 'System/Department';
-  static const getDept = 'System/Department';
-  static const updateDept = 'System/Department';
+  static const createDept = 'applicationId/System/Department';
+  static const department = 'applicationId/System/Department';
+  static const getDept = 'applicationId/System/Department';
+  static const updateDept = 'applicationId/System/Department';
 
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
