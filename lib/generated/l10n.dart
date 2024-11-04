@@ -9665,6 +9665,15 @@ class S {
     );
   }
 
+  String get addNewSector {
+    return Intl.message(
+      'Add New Sector',
+      name: 'addNewSector',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }

@@ -3,10 +3,12 @@ import 'package:equatable/equatable.dart';
 class Sector extends Equatable {
   final int? id;
   final String? name;
+  bool? isSelected = false;
 
-  const Sector({
-    required this.id,
-    required this.name,
+  Sector({
+    this.id,
+    this.name,
+    this.isSelected,
   });
 
   @override

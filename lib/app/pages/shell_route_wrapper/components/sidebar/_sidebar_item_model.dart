@@ -105,7 +105,7 @@ List<GroupedMenuModel> get _groupedMenus {
             SidebarSubmenuModel(
               //name: "Users List",
               name: l.S.current.sector,
-              navigationPath: "sector-list",
+              navigationPath: "list-sectors",
             ),
             SidebarSubmenuModel(
               //name: "Users Grid",
