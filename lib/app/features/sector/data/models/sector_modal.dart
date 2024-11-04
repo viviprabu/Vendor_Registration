@@ -17,7 +17,7 @@ class SectorModal {
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "id": id ?? 0,
         "name": name,
       };
 
