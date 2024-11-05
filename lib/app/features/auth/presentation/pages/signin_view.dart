@@ -361,11 +361,13 @@ class _SigninViewState extends State<SigninView> {
                     maxHeight: double.maxFinite,
                   ),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.tertiaryContainer,
-                  ),
+                      //color: theme.colorScheme.tertiaryContainer,
+                      ),
                   child: getImageType(
                     FinanceStaticImage.signInCover,
-                    fit: BoxFit.contain,
+                    /* fit: BoxFit.contain,
+                    height: double.maxFinite, */
+                    width: double.maxFinite,
                     height: double.maxFinite,
                   ),
                 ),
