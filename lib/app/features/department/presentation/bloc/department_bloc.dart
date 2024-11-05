@@ -67,5 +67,9 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
         (sector) => emit(DepartmentDeleteState(sector)),
       );
     });
+
+    on<DepartmentInitialEvent>((event, emit) {
+      emit(DepartmentInitialState());
+    });
   }
 }
