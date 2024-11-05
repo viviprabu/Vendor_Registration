@@ -9,6 +9,6 @@ class DeleteDepartment {
   DeleteDepartment(this.departmentRepository);
 
   Future<Either<Failure, Department>> call(Department department) async {
-    return await departmentRepository.deleteDept(department);
+    return await departmentRepository.deleteDepartment(department);
   }
 }

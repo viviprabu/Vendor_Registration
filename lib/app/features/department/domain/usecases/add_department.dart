@@ -9,6 +9,6 @@ class CreateDepartment {
   CreateDepartment(this.departmentRepository);
 
   Future<Either<Failure, Department>> call(Department department) async {
-    return await departmentRepository.createDept(department);
+    return await departmentRepository.createDepartment(department);
   }
 }
