@@ -9,6 +9,6 @@ class GetDepartments {
   GetDepartments(this.repository);
 
   Future<Either<Failure, List<Department>>> call() async {
-    return await repository.getDepts();
+    return await repository.getDepartments();
   }
 }

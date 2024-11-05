@@ -275,41 +275,41 @@ class _SignupViewState extends State<SignupView> {
                                   // ),
 
                                   const SizedBox(height: 20),
-                                  // TextFieldLabelWrapper(
-                                  //     // labelText: 'Email',
-                                  //     labelText: lang.sector,
-                                  //     inputField:
-                                  //         BlocBuilder<SectorBloc, SectorState>(
-                                  //             builder: (context, state) {
-                                  //       if (state is SectorsListState) {
-                                  //         sector = state.sectors;
-                                  //       }
-                                  //       return DropdownButtonFormField<String>(
-                                  //         value: selectedValue,
-                                  //         hint: Text('Select any sector'),
-                                  //         onChanged: (newValue) {
-                                  //           setState(() {
-                                  //             selectedValue = newValue;
-                                  //           });
-                                  //         },
-                                  //         validator: (value) {
-                                  //           if (value?.isEmpty ?? true) {
-                                  //             return 'This field cannot be left empty';
-                                  //           }
-                                  //           return null;
-                                  //         },
-                                  //         // items: [],
+                                  TextFieldLabelWrapper(
+                                      // labelText: 'Email',
+                                      labelText: lang.sector,
+                                      inputField:
+                                          BlocBuilder<SectorBloc, SectorState>(
+                                              builder: (context, state) {
+                                        if (state is SectorsListState) {
+                                          sector = state.sectors;
+                                        }
+                                        return DropdownButtonFormField<String>(
+                                          value: selectedValue,
+                                          hint: Text('Select any sector'),
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              selectedValue = newValue;
+                                            });
+                                          },
+                                          validator: (value) {
+                                            if (value?.isEmpty ?? true) {
+                                              return 'This field cannot be left empty';
+                                            }
+                                            return null;
+                                          },
+                                          // items: [],
 
-                                  //         items: sector
-                                  //             .map<DropdownMenuItem<String>>(
-                                  //                 (value) {
-                                  //           return DropdownMenuItem<String>(
-                                  //               value: value.id.toString(),
-                                  //               child: Text(
-                                  //                   value.name.toString()));
-                                  //         }).toList(),
-                                  //       );
-                                  //     })),
+                                          items: sector
+                                              .map<DropdownMenuItem<String>>(
+                                                  (value) {
+                                            return DropdownMenuItem<String>(
+                                                value: value.id.toString(),
+                                                child: Text(
+                                                    value.name.toString()));
+                                          }).toList(),
+                                        );
+                                      })),
                                   const SizedBox(height: 20),
 
                                   TextFieldLabelWrapper(
@@ -320,7 +320,7 @@ class _SignupViewState extends State<SignupView> {
                                           builder: (context, state) {
                                         if (state is DepartmentsListState) {
                                           department = state.departments;
-                                          print(desktopView);
+                                          print(department);
                                         }
                                         return DropdownButtonFormField<String>(
                                           value: selectedDept,
