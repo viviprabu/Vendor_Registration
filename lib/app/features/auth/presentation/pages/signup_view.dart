@@ -4,6 +4,7 @@ import 'package:finance_app/app/features/department/presentation/bloc/department
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,26 +29,17 @@ class _SignupViewState extends State<SignupView> {
   String loginEmail = '';
 
   late List<Sector> sector = [];
-  late List<Department> department = [];
+  late List<Department> departments = [];
+  String? selectedSector;
 
-  List<String> departments = <String>[
-    'Information Technology',
-    'Planning',
-    'Technical Services',
-    'Adminstration',
-    'Operation and Maintenance'
-  ];
-  List<String> sector1 = <String>[
-    'Network',
-    'Power Station',
-    'Water Project',
-    'Finance'
-  ];
-  List<String> section = <String>['Development', 'Accounts', 'Services'];
+  // List<String>? getSubItems() {
+  //   return selectedSector == null ? [] : items[selectedSector];
+  // }
 
   @override
   void initState() {
     super.initState();
+    List<String?> items = sector.map((item) => item.name).toList();
 
     // loginPassword = widget.password;
   }
@@ -80,14 +72,28 @@ class _SignupViewState extends State<SignupView> {
     );
 
     String? selectedValue;
+
     return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
+
       if (state is SectorsListState) {
         sector = state.sectors;
       }
       return BlocBuilder<DepartmentBloc, DepartmentState>(
           builder: (context, state) {
         if (state is DepartmentsListState) {
-          department = state.departments;
+          departments = state.departments;
+
+      return BlocBuilder<DepartmentBloc, DepartmentState>(
+          builder: (context, DepartmentState deptState) {
+        if (deptState is DepartmentsListState) {
+          departments = deptState.departments;
+          if (kDebugMode) {
+            print(departments);
+          }
+        }
+        if (state is SectorsListState) {
+          sector = state.sectors;
+
         }
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -287,11 +293,19 @@ class _SignupViewState extends State<SignupView> {
                                           labelText: lang.sector,
                                           inputField:
                                               DropdownButtonFormField<String>(
+
                                             value: selectedValue,
                                             hint: Text('Select any sector'),
                                             onChanged: (newValue) {
                                               setState(() {
                                                 selectedValue = newValue;
+
+                                            value: selectedSector,
+                                            hint: Text('Select any sector'),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                selectedSector = newValue;
+
                                               });
                                             },
                                             validator: (value) {
@@ -330,20 +344,21 @@ class _SignupViewState extends State<SignupView> {
                                               return null;
                                             },
                                             // items: [],
-                                            items: department
+                                       
+                                            items: departments
                                                 .map<DropdownMenuItem<String>>(
                                                     (value) {
                                               return DropdownMenuItem<String>(
-                                                value: value.toString(),
-                                                child:
-                                                    Text(value.name.toString()),
-                                              );
+                                                  value: value.toString(),
+                                                  child:
+                                                      Text(value.toString()));
                                             }).toList(),
                                           )),
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
                                           labelText: lang.section,
+
                                           inputField:
                                               DropdownButtonFormField<String>(
                                             value: selectedValue,
@@ -368,6 +383,24 @@ class _SignupViewState extends State<SignupView> {
                                               );
                                             }).toList(),
                                           )),
+
+                                          inputField: DropdownButtonFormField<
+                                                  String>(
+                                              value: selectedValue,
+                                              hint: Text('Select any section'),
+                                              onChanged: (newValue) {
+                                                setState(() {
+                                                  selectedValue = newValue;
+                                                });
+                                              },
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return 'This field cannot be left empty';
+                                                }
+                                                return null;
+                                              },
+                                              items: [])),
+
                                       // Password Field
                                       // TextFieldLabelWrapper(
                                       //   //labelText: 'Password',
@@ -434,6 +467,6 @@ class _SignupViewState extends State<SignupView> {
           ),
         );
       });
-    });
+        });
   }
 }
