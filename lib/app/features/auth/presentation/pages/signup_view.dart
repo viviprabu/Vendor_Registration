@@ -29,7 +29,7 @@ class _SignupViewState extends State<SignupView> {
   String loginEmail = '';
 
   late List<Sector> sector = [];
-  late List<Department> department = [];
+  late List<Department> departments = [];
   String? selectedSector;
   String? selectedDept;
   String? selectedSection;
@@ -40,16 +40,14 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   void initState() {
-    super.initState();
-    List<String?> items = sector.map((item) => item.name).toList();
-
+    context.read<DepartmentBloc>().add(DepartmentsListEvent());
+    context.read<SectorBloc>().add(SectorsListEvent());
     // loginPassword = widget.password;
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<SectorBloc>().add(SectorsListEvent());
-    context.read<DepartmentBloc>().add(DepartmentsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.sizeOf(context).width;
@@ -319,15 +317,15 @@ class _SignupViewState extends State<SignupView> {
                                               DepartmentState>(
                                           builder: (context, state) {
                                         if (state is DepartmentsListState) {
-                                          department = state.departments;
-                                          print(department);
+                                          departments = state.departments;
                                         }
+
                                         return DropdownButtonFormField<String>(
                                           value: selectedDept,
                                           hint: Text('Select any department'),
-                                          onChanged: (newValue) {
+                                          onChanged: (deptValue) {
                                             setState(() {
-                                              selectedDept = newValue;
+                                              selectedDept = deptValue;
                                             });
                                           },
                                           validator: (value) {
@@ -338,7 +336,7 @@ class _SignupViewState extends State<SignupView> {
                                           },
                                           // items: [],
 
-                                          items: department
+                                          items: departments
                                               .map<DropdownMenuItem<String>>(
                                                   (value) {
                                             return DropdownMenuItem<String>(
@@ -370,7 +368,7 @@ class _SignupViewState extends State<SignupView> {
                                         },
                                         // items: [],
 
-                                        items: department
+                                        items: departments
                                             .map<DropdownMenuItem<String>>(
                                                 (value) {
                                           return DropdownMenuItem<String>(
