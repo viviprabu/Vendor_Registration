@@ -9,15 +9,15 @@ abstract class FinanceAppColors {
 
   //---------------Primary Colors---------------//
   static const kPrimary50 = Color(0xffF4F4F4);
-  static const kPrimary100 = Color(0xffF2E5FF);
-  static const kPrimary200 = Color(0xffDAC0FE);
-  static const kPrimary300 = Color(0xffC194FE);
-  static const kPrimary400 = Color(0xffA664FF);
-  static const kPrimary500 = Color(0xff8424FF);
-  static const kPrimary600 = Color(0xff7500FD);
-  static const kPrimary700 = Color(0xff7500FD);
-  static const kPrimary800 = Color(0xff6800F7);
-  static const kPrimary900 = Color(0xff5400EF);
+  static const kPrimary100 = Color(0xFFCCD8F3); //#ccd8f3
+  static const kPrimary200 = Color(0xFFB3C4ED); //#b3c4ed
+  static const kPrimary300 = Color(0xFF99B1E7); //#99b1e7
+  static const kPrimary400 = Color(0xFF809EE1); //#809ee1
+  static const kPrimary500 = Color(0xFF678ADB); //#678adb
+  static const kPrimary600 = Color(0xFF4D77D5); //#4d77d5
+  static const kPrimary700 = Color(0xFF3463CF); //#3463cf
+  static const kPrimary800 = Color(0xFF1B50C9); //#1b50c9
+  static const kPrimary900 = Color(0xFF023DC3); //#023DC3
   //---------------Primary Colors---------------//
 
   //---------------Neutral Colors---------------//
@@ -39,7 +39,7 @@ abstract class FinanceAppColors {
   //---------------Success Colors---------------//
 
   //---------------Info Colors---------------//
-  static const kInfo = Color(0xff1D4ED8);
+  static const kInfo = Color(0xFF023DC3);
   static final kInfo20Op = kInfo.withOpacity(0.20);
   //---------------Info Colors---------------//
 

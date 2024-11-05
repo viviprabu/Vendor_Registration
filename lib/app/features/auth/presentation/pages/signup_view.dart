@@ -432,13 +432,13 @@ class _SignupViewState extends State<SignupView> {
                   maxHeight: double.maxFinite,
                 ),
                 decoration: BoxDecoration(
-                    // color: theme.colorScheme.tertiaryContainer,
-                    ),
+                  color: theme.colorScheme.tertiaryContainer,
+                ),
                 child: getImageType(
                   FinanceStaticImage.signUpCover,
                   width: double.maxFinite,
                   height: double.maxFinite,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                 ),
               ),
           ],
