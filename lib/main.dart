@@ -48,9 +48,11 @@ Future<void> main() async {
             UserInitialEvent(),
           ),
       ),
-      BlocProvider(create: (context) => getIt<SectorBloc>()),
       BlocProvider(
-        create: (context) => getIt<DepartmentBloc>(),
+          create: (context) => getIt<SectorBloc>()..add(SectorInitialEvent())),
+      BlocProvider(
+        create: (context) =>
+            getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
       ),
     ],
     child: const FinanceApp(),
