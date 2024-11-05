@@ -17,11 +17,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.delete(
-<<<<<<< HEAD
       '$applicationId/${ApiUrls.department}/${depatModel.id}',
-=======
-      '$applicationId/${ApiUrls.getDepts}/${depatModel.id}',
->>>>>>> ca82328f654ece701a8396a23b0231b55bd1c691
       data: depatModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -57,11 +53,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.get(
-<<<<<<< HEAD
       '$applicationId/${ApiUrls.department}',
-=======
-      '$applicationId/${ApiUrls.getDepts}',
->>>>>>> ca82328f654ece701a8396a23b0231b55bd1c691
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

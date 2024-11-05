@@ -74,7 +74,6 @@ class _SignupViewState extends State<SignupView> {
     String? selectedValue;
 
     return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
-
       if (state is SectorsListState) {
         sector = state.sectors;
       }
@@ -82,19 +81,8 @@ class _SignupViewState extends State<SignupView> {
           builder: (context, state) {
         if (state is DepartmentsListState) {
           departments = state.departments;
-
-      return BlocBuilder<DepartmentBloc, DepartmentState>(
-          builder: (context, DepartmentState deptState) {
-        if (deptState is DepartmentsListState) {
-          departments = deptState.departments;
-          if (kDebugMode) {
-            print(departments);
-          }
         }
-        if (state is SectorsListState) {
-          sector = state.sectors;
-
-        }
+        var section;
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
@@ -290,22 +278,14 @@ class _SignupViewState extends State<SignupView> {
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
-                                          labelText: lang.sector,
+                                          labelText: lang.department,
                                           inputField:
                                               DropdownButtonFormField<String>(
-
                                             value: selectedValue,
                                             hint: Text('Select any sector'),
                                             onChanged: (newValue) {
                                               setState(() {
                                                 selectedValue = newValue;
-
-                                            value: selectedSector,
-                                            hint: Text('Select any sector'),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                selectedSector = newValue;
-
                                               });
                                             },
                                             validator: (value) {
@@ -314,14 +294,15 @@ class _SignupViewState extends State<SignupView> {
                                               }
                                               return null;
                                             },
+                                            // items: [],
+
                                             items: sector
                                                 .map<DropdownMenuItem<String>>(
                                                     (value) {
                                               return DropdownMenuItem<String>(
-                                                value: value.toString(),
-                                                child:
-                                                    Text(value.name.toString()),
-                                              );
+                                                  value: value.toString(),
+                                                  child:
+                                                      Text(value.toString()));
                                             }).toList(),
                                           )),
                                       const SizedBox(height: 20),
@@ -344,7 +325,7 @@ class _SignupViewState extends State<SignupView> {
                                               return null;
                                             },
                                             // items: [],
-                                       
+
                                             items: departments
                                                 .map<DropdownMenuItem<String>>(
                                                     (value) {
@@ -358,7 +339,6 @@ class _SignupViewState extends State<SignupView> {
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
                                           labelText: lang.section,
-
                                           inputField:
                                               DropdownButtonFormField<String>(
                                             value: selectedValue,
@@ -383,23 +363,6 @@ class _SignupViewState extends State<SignupView> {
                                               );
                                             }).toList(),
                                           )),
-
-                                          inputField: DropdownButtonFormField<
-                                                  String>(
-                                              value: selectedValue,
-                                              hint: Text('Select any section'),
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  selectedValue = newValue;
-                                                });
-                                              },
-                                              validator: (value) {
-                                                if (value?.isEmpty ?? true) {
-                                                  return 'This field cannot be left empty';
-                                                }
-                                                return null;
-                                              },
-                                              items: [])),
 
                                       // Password Field
                                       // TextFieldLabelWrapper(
@@ -467,6 +430,6 @@ class _SignupViewState extends State<SignupView> {
           ),
         );
       });
-        });
+    });
   }
 }
