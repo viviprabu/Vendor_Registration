@@ -72,6 +72,7 @@ class _SignupViewState extends State<SignupView> {
     );
 
     String? selectedValue;
+    String? section;
 
     return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
       if (state is SectorsListState) {
@@ -82,7 +83,7 @@ class _SignupViewState extends State<SignupView> {
         if (state is DepartmentsListState) {
           departments = state.departments;
         }
-        var section;
+        print(departments);
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
@@ -278,7 +279,7 @@ class _SignupViewState extends State<SignupView> {
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
-                                          labelText: lang.department,
+                                          labelText: lang.sector,
                                           inputField:
                                               DropdownButtonFormField<String>(
                                             value: selectedValue,
@@ -300,9 +301,9 @@ class _SignupViewState extends State<SignupView> {
                                                 .map<DropdownMenuItem<String>>(
                                                     (value) {
                                               return DropdownMenuItem<String>(
-                                                  value: value.toString(),
-                                                  child:
-                                                      Text(value.toString()));
+                                                  value: value.id.toString(),
+                                                  child: Text(
+                                                      value.name.toString()));
                                             }).toList(),
                                           )),
                                       const SizedBox(height: 20),
@@ -342,7 +343,7 @@ class _SignupViewState extends State<SignupView> {
                                           inputField:
                                               DropdownButtonFormField<String>(
                                             value: selectedValue,
-                                            hint: Text('Select any section'),
+                                            hint: Text('Select any department'),
                                             onChanged: (newValue) {
                                               setState(() {
                                                 selectedValue = newValue;
@@ -354,13 +355,15 @@ class _SignupViewState extends State<SignupView> {
                                               }
                                               return null;
                                             },
-                                            items: section
+                                            // items: [],
+
+                                            items: departments
                                                 .map<DropdownMenuItem<String>>(
-                                                    (String value) {
+                                                    (value) {
                                               return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
+                                                  value: value.toString(),
+                                                  child:
+                                                      Text(value.toString()));
                                             }).toList(),
                                           )),
 
