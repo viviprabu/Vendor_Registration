@@ -1,10 +1,10 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/usecases/create_sector.dart';
 import 'package:finance_app/app/features/sector/domain/usecases/delete_sector.dart';
 import 'package:finance_app/app/features/sector/domain/usecases/get_sector.dart';
 import 'package:finance_app/app/features/sector/domain/usecases/get_sectors.dart';
 import 'package:finance_app/app/features/sector/domain/usecases/update_sector.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 
 part 'sector_event.dart';

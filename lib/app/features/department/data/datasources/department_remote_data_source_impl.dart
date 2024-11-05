@@ -15,8 +15,9 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   Future<DepartmentModal> deleteDept(DepartmentModal depatModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.delete(
-      '${ApiUrls.department}/${depatModel.id}',
+      '$applicationId/${ApiUrls.department}/${depatModel.id}',
       data: depatModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -32,8 +33,9 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   Future<DepartmentModal> getDept(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.get(
-      '${ApiUrls.getDept}?id=$id',
+      '$applicationId/${ApiUrls.getDept}?id=$id',
       //ApiUrls.userProfile,
       headers: {
         'Content-Type': 'application/json',
@@ -49,8 +51,9 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   Future<List<DepartmentModal>> getDepts() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.get(
-      ApiUrls.department,
+      '$applicationId/${ApiUrls.department}',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -68,9 +71,10 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   Future<DepartmentModal> updateDept(DepartmentModal deptModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.put(
       //'${ApiUrls.updateUser}/${userModel.id}',
-      ApiUrls.updateDept,
+      '$applicationId/${ApiUrls.updateDept}',
       data: deptModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -86,8 +90,9 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   Future<DepartmentModal> createDept(DepartmentCreateModal deptModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var applicationId = '0';
     final response = await httpClient.postFormData(
-      ApiUrls.createDept,
+      '$applicationId/${ApiUrls.createDept}',
       data: deptModel.toJson(),
       headers: {
         'Authorization': 'Bearer $token',
