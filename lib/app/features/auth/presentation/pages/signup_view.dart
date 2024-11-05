@@ -38,16 +38,16 @@ class _SignupViewState extends State<SignupView> {
   //   return selectedSector == null ? [] : items[selectedSector];
   // }
 
-  @override
-  void initState() {
-    context.read<DepartmentBloc>().add(DepartmentsListEvent());
-    context.read<SectorBloc>().add(SectorsListEvent());
-    // loginPassword = widget.password;
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // loginPassword = widget.password;
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    context.read<DepartmentBloc>().add(DepartmentsListEvent());
+    context.read<SectorBloc>().add(SectorsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.sizeOf(context).width;
