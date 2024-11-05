@@ -369,6 +369,7 @@ class _SigninViewState extends State<SigninView> {
                     height: double.maxFinite, */
                     width: double.maxFinite,
                     height: double.maxFinite,
+                    fit: BoxFit.fill,
                   ),
                 ),
             ],

@@ -64,6 +64,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
     final List<DepartmentModal> dept = (responseBody as List)
         .map((dept) => DepartmentModal.fromJson(dept))
         .toList();
+    print(responseBody);
     return dept;
   }
 
