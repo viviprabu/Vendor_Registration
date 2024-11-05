@@ -91,6 +91,36 @@ List<GroupedMenuModel> get _groupedMenus {
         ),
       ],
     ),
+    GroupedMenuModel(
+      //name: 'Application',
+      name: l.S.current.master,
+      menus: [
+        SidebarItemModel(
+          //name: 'Users',
+          name: l.S.current.master,
+          iconPath: 'assets/images/sidebar_icons/users-group.svg',
+          sidebarItemType: SidebarItemType.submenu,
+          navigationPath: '/master',
+          submenus: [
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.sector,
+              navigationPath: "list-sectors",
+            ),
+            SidebarSubmenuModel(
+              //name: "Users Grid",
+              name: l.S.current.department,
+              navigationPath: "department-list",
+            ),
+            SidebarSubmenuModel(
+              //name: "User Profile",
+              name: l.S.current.section,
+              navigationPath: "section-list",
+            ),
+          ],
+        ),
+      ],
+    ),
 
     // Pages
     /* GroupedMenuModel(

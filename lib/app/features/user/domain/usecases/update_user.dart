@@ -1,3 +1,4 @@
+import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
 import 'package:finance_app/app/features/user/domain/repositories/user_repository.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
@@ -8,7 +9,7 @@ class UpdateUser {
 
   UpdateUser(this.userRepository);
 
-  Future<Either<Failure, User>> call(User user) async {
-    return await userRepository.updateUser(user);
+  Future<Either<Failure, User>> call(UserUpdate userUpdate) async {
+    return await userRepository.updateUser(userUpdate);
   }
 }

@@ -19,10 +19,10 @@ class RouteBreadcrumbWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
-    final _mqSize = MediaQuery.sizeOf(context);
+    final theme = Theme.of(context);
+    final mqSize = MediaQuery.sizeOf(context);
 
-    final _breadcrumbTextStyle = _theme.textTheme.bodyLarge?.copyWith(
+    final breadcrumbTextStyle = theme.textTheme.bodyLarge?.copyWith(
       fontSize: rf.ResponsiveValue<double?>(
         context,
         conditionalValues: const [
@@ -48,7 +48,7 @@ class RouteBreadcrumbWidget extends StatelessWidget {
         // Title
         Text(
           breadcrumbModel.title,
-          style: _theme.textTheme.headlineSmall?.copyWith(
+          style: theme.textTheme.headlineSmall?.copyWith(
             fontSize: rf.ResponsiveValue<double?>(
               context,
               conditionalValues: const [
@@ -68,7 +68,7 @@ class RouteBreadcrumbWidget extends StatelessWidget {
           ),
         ),
 
-        if (_mqSize.width >= 576)
+        if (mqSize.width >= 576)
           // Current Route
           Directionality(
             textDirection: TextDirection.ltr,
@@ -103,14 +103,14 @@ class RouteBreadcrumbWidget extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: breadcrumbModel.childRoute,
-                        style: _breadcrumbTextStyle?.copyWith(
-                          color: _theme.primaryColor,
+                        style: breadcrumbTextStyle?.copyWith(
+                          color: theme.primaryColor,
                         ),
                       ),
                     ],
                   ),
                   textDirection: TextDirection.ltr,
-                  style: _breadcrumbTextStyle,
+                  style: breadcrumbTextStyle,
                 )
               ],
             ),

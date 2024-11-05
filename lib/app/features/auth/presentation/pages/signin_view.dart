@@ -1,11 +1,13 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/auth/domain/entities/token.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:feather_icons/feather_icons.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -31,6 +33,7 @@ class _SigninViewState extends State<SigninView> {
   bool rememberMe = false;
   bool showPassword = false;
   final signInFormKey = GlobalKey<FormState>();
+  List<String> list = <String>[];
 
   @override
   void initState() {
@@ -78,11 +81,32 @@ class _SigninViewState extends State<SigninView> {
         //print(state);
         // TODO: implement listener
         if (state is AuthErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-            ),
-          );
+          if (!state.message.contains('401')) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+            VariableModal.username = _userUserNameController.text;
+            VariableModal.password = _userPasswordController.text;
+
+            // context.go('signup', extra: email);
+            // ignore: unnecessary_null_comparison
+            if (_userUserNameController.text != null) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SignupView()));
+            } else {
+              context.go('/authentication/signin');
+            }
+          }
+
+          if (state.message.contains('401')) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Invalid Username or Password'),
+              ),
+            );
+          }
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {

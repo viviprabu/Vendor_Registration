@@ -29,7 +29,7 @@ class SalesOverviewChart extends StatelessWidget {
 }
 
 class _OverviewTile extends StatelessWidget {
-  const _OverviewTile({super.key});
+  const _OverviewTile();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class _OverviewTile extends StatelessWidget {
 }
 
 class _SalesOverviewLineChart extends StatelessWidget {
-  const _SalesOverviewLineChart({super.key});
+  const _SalesOverviewLineChart();
 
   @override
   Widget build(BuildContext context) {

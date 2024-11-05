@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
@@ -30,28 +31,16 @@ class _AddUserDialogState extends State<AddUserDialog> {
   final _userOfficePhoneController = TextEditingController();
   final _userDescriptionController = TextEditingController();
   final _userLogoPathController = TextEditingController();
-  final _userIsDarkModeController = TextEditingController();
-  final _userIsActiveController = TextEditingController();
   final _userLogoFileController = TextEditingController();
 
   int? _selectedRole;
   int? _selectedLanguage;
   int? _selectedBusinessRole;
-  final bool _isDarkMode = false;
-  final bool _isActive = true;
+  int toggleValue = 0;
+  int isDarkMode = 1;
 
   final userCreationFormKey = GlobalKey<FormState>();
 
-  List<String> get _positions => [
-        //'Manager',
-        l.S.current.manager,
-        //'Developer',
-        l.S.current.developer,
-        //'Designer',
-        l.S.current.designer,
-        //'Tester'
-        l.S.current.tester,
-      ];
 
   List<Map<int, String>> get _language => [
         {1: 'English'},
@@ -399,6 +388,19 @@ class _AddUserDialogState extends State<AddUserDialog> {
                             ),
 
                             const SizedBox(height: 20),
+                            Text(lang.isActive, style: textTheme.bodySmall),
+                            const SizedBox(height: 8),
+                            ToggleSwitcher(
+                              activeText: lang.active,
+                              inactiveText: lang.inactive,
+                              onToggle: (value) {
+                                setState(() {
+                                  toggleValue = value!;
+                                });
+                              },
+                            ),
+
+                            const SizedBox(height: 20),
                             Text(lang.description, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             TextFormField(
@@ -409,6 +411,20 @@ class _AddUserDialogState extends State<AddUserDialog> {
                               ),
                               maxLines: 3,
                               controller: _userDescriptionController,
+                            ),
+
+                            const SizedBox(height: 20),
+                            Text(lang.isDarkMode, style: textTheme.bodySmall),
+                            const SizedBox(height: 8),
+                            ToggleSwitcher(
+                              activeText: 'Yes',
+                              inactiveText: 'No',
+                              initialLabelIndex: 1,
+                              onToggle: (value) {
+                                setState(() {
+                                  isDarkMode = value!;
+                                });
+                              },
                             ),
                             const SizedBox(height: 24),
 
@@ -472,8 +488,20 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   businessRoleId:
                                                       _selectedBusinessRole!
                                                           .toInt(),
-                                                  isDarkMode: _isDarkMode,
-                                                  isActive: _isActive,
+                                                  isDarkMode: () {
+                                                    if (isDarkMode == 0) {
+                                                      return true;
+                                                    } else {
+                                                      return false;
+                                                    }
+                                                  }(),
+                                                  isActive: () {
+                                                    if (toggleValue == 0) {
+                                                      return true;
+                                                    } else {
+                                                      return false;
+                                                    }
+                                                  }(),
                                                   languageId: _selectedLanguage!
                                                       .toInt(),
                                                   logoPath: 'path',

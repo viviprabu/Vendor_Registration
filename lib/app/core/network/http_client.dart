@@ -12,7 +12,7 @@ class HttpClient {
   HttpClient(
       {this.baseUrl = ApiUrls.baseURL,
       this.defaultHeaders = const {
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
       },
       required this.logger});
 
@@ -58,7 +58,7 @@ class HttpClient {
             headers: {...defaultHeaders, if (headers != null) ...headers},
             body: jsonEncode(data),
           )
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 30));
       logger.logResponse(response);
       return handleResponse(response);
     } on TimeoutException catch (e) {
@@ -66,7 +66,6 @@ class HttpClient {
       throw Exception('Request timeout: $e');
     } catch (e) {
       logger.logError(e);
-
       rethrow;
     }
   }
@@ -194,7 +193,16 @@ class HttpClient {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      throw Exception({response.body});
+      final errorCode = response.statusCode;
+      final errorBody = response.body;
+
+      final error = {
+        'code': errorCode,
+        'message': errorBody,
+      };
+
+      throw Exception(jsonEncode(error));
+      //throw error;
     }
   }
 }

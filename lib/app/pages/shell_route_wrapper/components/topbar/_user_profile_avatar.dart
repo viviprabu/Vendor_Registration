@@ -16,7 +16,7 @@ class UserProfileAvatar extends StatelessWidget {
       builder: (authContext, authState) {
         if (authState is GetAuthenicatedUserState) {
           userName = authState.user.name;
-          roleName = authState.user.roleName;
+          roleName = authState.user.role;
         }
 
         return ClipRRect(
@@ -123,7 +123,7 @@ class UserProfileAvatar extends StatelessWidget {
 }
 
 class _DropdownItemWrapper extends StatelessWidget {
-  const _DropdownItemWrapper({super.key, required this.child});
+  const _DropdownItemWrapper({required this.child});
   final Widget child;
   @override
   Widget build(BuildContext context) {

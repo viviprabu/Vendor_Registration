@@ -95,9 +95,9 @@ class FinanceAlertTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
-    final _fontSize = responsiveValue<double?>(
+    final fontSize = responsiveValue<double?>(
       context,
       xs: 12,
       sm: 12,
@@ -105,7 +105,7 @@ class FinanceAlertTile extends StatelessWidget {
       lg: 16,
     );
 
-    final _alertContent = [
+    final alertContent = [
       if (icon != null)
         Flexible(
           child: Padding(
@@ -115,7 +115,7 @@ class FinanceAlertTile extends StatelessWidget {
             child: Icon(
               icon,
               color: foregroundColor,
-              size: _fontSize,
+              size: fontSize,
             ),
           ),
         ),
@@ -123,8 +123,8 @@ class FinanceAlertTile extends StatelessWidget {
         flex: 12,
         child: Text(
           alertText,
-          style: _theme.textTheme.bodyLarge?.copyWith(
-            fontSize: _fontSize,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            fontSize: fontSize,
             fontWeight: FontWeight.w600,
             color: foregroundColor,
           ),
@@ -145,8 +145,8 @@ class FinanceAlertTile extends StatelessWidget {
           Expanded(
             child: Row(
               children: iconAlignment == IconAlignment.start
-                  ? _alertContent
-                  : _alertContent.reversed.toList(),
+                  ? alertContent
+                  : alertContent.reversed.toList(),
             ),
           ),
           IconButton(
@@ -157,7 +157,7 @@ class FinanceAlertTile extends StatelessWidget {
             ),
             padding: EdgeInsets.zero,
             color: foregroundColor,
-            iconSize: (_fontSize ?? 0) + 2,
+            iconSize: (fontSize ?? 0) + 2,
             icon: const Icon(Icons.close),
           )
         ],

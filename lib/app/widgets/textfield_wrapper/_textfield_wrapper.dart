@@ -15,7 +15,7 @@ class TextFieldLabelWrapper extends StatelessWidget {
   final Widget inputField;
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,7 @@ class TextFieldLabelWrapper extends StatelessWidget {
         if (label == null)
           Text(
             labelText ?? 'Enter label text',
-            style: labelStyle ?? _theme.inputDecorationTheme.floatingLabelStyle,
+            style: labelStyle ?? theme.inputDecorationTheme.floatingLabelStyle,
           )
         else
           label!,

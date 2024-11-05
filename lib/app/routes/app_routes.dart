@@ -1,4 +1,6 @@
 // 📦 Package imports:
+import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
+import 'package:finance_app/app/features/sector/presentation/pages/sectors_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -82,6 +84,26 @@ abstract class FinanceAppRoutes {
               ),
             ],
           ),
+
+          // Sectors Route
+          GoRoute(
+            path: '/master',
+            redirect: (context, state) async {
+              if (state.fullPath == '/master') {
+                return '/sectors/list-sectors';
+              }
+              return null;
+            },
+            routes: [
+              GoRoute(
+                path: 'list-sectors',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: SectorsListView(),
+                ),
+              ),
+            ],
+          ),
+
           //--------------Application Section--------------//
         ],
       ),
@@ -91,6 +113,14 @@ abstract class FinanceAppRoutes {
           child: SigninView(),
         ),
       ),
+
+      // GoRoute(
+      //   path: '/authentication/signup',
+      //   name: 'signup',
+      //   pageBuilder: (context, state) => NoTransitionPage(
+      //     child: SignupView(),
+      //   ),
+      // ),
 
       GoRoute(
         path: '/authentication/signout',

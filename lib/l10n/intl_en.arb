@@ -964,5 +964,8 @@
     "travels":"Travels",
     "religion":"Religion",
     "minsAgo":"Mins ago",
-    "greatNews":"Great News"
+    "greatNews":"Great News",
+    "department":"Department",
+    "sector":"Sector",
+    "section":"Section"
 }

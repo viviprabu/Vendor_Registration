@@ -4,6 +4,7 @@ import 'dart:ui';
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/user/presentation/pages/user_list/edit_user_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,6 @@ import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 
 // 🌎 Project imports:
-import 'package:finance_app/app/widgets/avatars/_avatar_widget.dart';
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
@@ -87,11 +87,31 @@ class _UsersListViewState extends State<UsersListView> {
       context: context,
       builder: (BuildContext context) {
         return BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 5,
-              sigmaY: 5,
-            ),
-            child: const AddUserDialog());
+          filter: ImageFilter.blur(
+            sigmaX: 5,
+            sigmaY: 5,
+          ),
+          child: const AddUserDialog(),
+        );
+      },
+    );
+  }
+
+  ///_____________________________________________________________________Edit User Dialog_________________________________
+
+  void _showEditFormDialog(User userData) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5,
+            sigmaY: 5,
+          ),
+          child: EditUserDialog(
+            userData: userData,
+          ),
+        );
       },
     );
   }
@@ -559,7 +579,7 @@ class _UsersListViewState extends State<UsersListView> {
                 )),
                 DataCell(Text(data.email ?? '')),
                 DataCell(Text(data.phoneNumber ?? '')),
-                DataCell(Text(data.roleName ?? '')),
+                DataCell(Text(data.role ?? '')),
                 DataCell(
                   Container(
                     padding:
@@ -586,10 +606,12 @@ class _UsersListViewState extends State<UsersListView> {
                     onSelected: (action) {
                       switch (action) {
                         case 'Edit':
-                          ScaffoldMessenger.of(context).showSnackBar(
+                          /* ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                                content: Text('${lang.edit} ${data.name}')),
-                          );
+                              content: Text('${lang.edit} ${data.name}'),
+                            ),
+                          ); */
+                          _showEditFormDialog(data);
                           break;
                         case 'View':
                           ScaffoldMessenger.of(context).showSnackBar(

@@ -15,8 +15,8 @@ class BuyPlanWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = l.S.of(context);
-    final _theme = Theme.of(context);
-    final _innerPadding = responsiveValue<double>(
+    final theme = Theme.of(context);
+    final innerPadding = responsiveValue<double>(
       context,
       xs: 16,
       md: 18,
@@ -36,8 +36,8 @@ class BuyPlanWidget extends StatelessWidget {
       child: Container(
         width: double.maxFinite,
         padding: EdgeInsets.symmetric(
-          horizontal: _innerPadding,
-          vertical: _innerPadding * 1.15,
+          horizontal: innerPadding,
+          vertical: innerPadding * 1.15,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -53,7 +53,7 @@ class BuyPlanWidget extends StatelessWidget {
             Text(
               lang.helloShaidulIslam,
               // 'Hello, Shaidul Islam',
-              style: _theme.textTheme.headlineSmall?.copyWith(
+              style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: FinanceAppColors.kBlackColor,
                 fontSize: responsiveValue<double?>(
@@ -80,7 +80,7 @@ class BuyPlanWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              style: _theme.textTheme.bodyLarge?.copyWith(
+              style: theme.textTheme.bodyLarge?.copyWith(
                 color: FinanceAppColors.kNeutral700,
                 fontSize: responsiveValue<double?>(
                   context,

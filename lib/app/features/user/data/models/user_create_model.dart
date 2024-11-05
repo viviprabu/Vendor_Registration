@@ -1,36 +1,21 @@
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 
-class UserCreateModel {
-  final String? name;
-  final String? email;
-  final String? password;
-  final String? mobileNumber;
-  final String? phoneNumber;
-  final String? officePhone;
-  final int? roleId;
-  final int? businessRoleId;
-  final bool? isDarkMode;
-  final bool? isActive;
-  final int? languageId;
-  final String? logoPath;
-  final String? logoFileName;
-  final String? description;
-
+class UserCreateModel extends UserCreate {
   const UserCreateModel({
-    required this.name,
-    required this.email,
-    required this.password,
-    required this.mobileNumber,
-    required this.phoneNumber,
-    required this.officePhone,
-    required this.roleId,
-    required this.businessRoleId,
-    required this.isDarkMode,
-    required this.isActive,
-    required this.languageId,
-    required this.logoPath,
-    required this.logoFileName,
-    required this.description,
+    required super.name,
+    required super.email,
+    required super.password,
+    required super.mobileNumber,
+    required super.phoneNumber,
+    required super.officePhone,
+    required super.roleId,
+    required super.businessRoleId,
+    required super.isDarkMode,
+    required super.isActive,
+    required super.languageId,
+    required super.logoPath,
+    required super.logoFileName,
+    required super.description,
   });
 
   factory UserCreateModel.fromJson(Map<String, dynamic> json) {

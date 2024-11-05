@@ -1,5 +1,6 @@
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
+import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
 import 'package:finance_app/app/features/user/domain/usecases/create_user.dart';
 import 'package:finance_app/app/features/user/domain/usecases/delete_user.dart';
 import 'package:finance_app/app/features/user/domain/usecases/get_user.dart';
@@ -46,8 +47,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserCreateEvent>((event, emit) async {
       emit(UserLoading());
       final failureOrUser = await createUser(event.userCreate);
-      //print(failureOrUser);
-      //print(event.userCreate);
       failureOrUser.fold(
         (failure) => emit(UserError(failure.toString())),
         (user) => emit(UserCreateState(user)),
@@ -56,7 +55,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<UserUpdateEvent>((event, emit) async {
       emit(UserLoading());
-      final failureOrUser = await updateUser(event.user);
+      final failureOrUser = await updateUser(event.userUpdate);
       failureOrUser.fold(
         (failure) => emit(UserError(failure.toString())),
         (user) => emit(UserUpdateState(user)),

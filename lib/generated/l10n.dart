@@ -9611,6 +9611,78 @@ class S {
     );
   }
 
+  String get department {
+    return Intl.message(
+      'Department',
+      name: 'department',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get suspendReason {
+    return Intl.message(
+      'User Suspend Reason',
+      name: 'suspendReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get section {
+    return Intl.message(
+      'Section',
+      name: 'section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get isActive {
+    return Intl.message(
+      'Is Active ?',
+      name: 'isActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get sector {
+    return Intl.message(
+      'Sector',
+      name: 'sector',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get listSectors {
+    return Intl.message(
+      'List Sectors',
+      name: 'listSectors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get isDarkMode {
+    return Intl.message(
+      'Is Dark Mode ?',
+      name: 'isDarkMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addNewSector {
+    return Intl.message(
+      'Add New Sector',
+      name: 'addNewSector',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }

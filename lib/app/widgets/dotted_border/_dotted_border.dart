@@ -14,10 +14,10 @@ class DottedBorder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return CustomPaint(
       painter: DottedBorderPainter(
-        color: _theme.colorScheme.outline,
+        color: theme.colorScheme.outline,
         borderRadius: borderRadius!,
       ),
       willChange: true,

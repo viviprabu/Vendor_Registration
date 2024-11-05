@@ -271,5 +271,12 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'Pages',
       childRoute: 'Terms & Conditions',
     ),
+    // master routes
+    '/master/list-sectors': RouteBreadcrumbModel(
+      // title: 'Terms & Conditions',
+      title: l.S.current.listSectors,
+      parentRoute: 'Master/Sectors',
+      childRoute: 'List Sectors',
+    ),
   };
 }

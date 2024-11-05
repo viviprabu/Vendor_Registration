@@ -3,8 +3,10 @@ import 'package:finance_app/app/core/errors/server_failure.dart';
 import 'package:finance_app/app/features/user/data/datasources/user_remote_data_source.dart';
 import 'package:finance_app/app/features/user/data/models/user_create_model.dart';
 import 'package:finance_app/app/features/user/data/models/user_model.dart';
+import 'package:finance_app/app/features/user/data/models/user_update_model.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
+import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
 import 'package:finance_app/app/features/user/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -21,7 +23,10 @@ class UserRepositoryImpl implements UserRepository {
       //print(createdUser);
       return Right(createdUser.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      //print(e);
+      final ServerFailure serverFailure = ServerFailure(e.toString());
+
+      return Left(serverFailure);
     }
   }
 
@@ -59,10 +64,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, User>> updateUser(User user) async {
+  Future<Either<Failure, User>> updateUser(UserUpdate userUpdate) async {
     try {
-      final UserModel updatedUser =
+      /* final UserModel updatedUser =
           await userRemoteDataSource.updateUser(user as UserModel);
+      return Right(updatedUser.toEntity()); */
+
+      final UserUpdateModel userUpdateModel =
+          UserUpdateModel.fromEntity(userUpdate);
+      final UserModel updatedUser =
+          await userRemoteDataSource.updateUser(userUpdateModel);
       return Right(updatedUser.toEntity());
     } catch (e) {
       return Left(ServerFailure(e.toString()));

@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:dartz/dartz.dart';
+import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -14,9 +16,8 @@ class NotFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = l.S.of(context);
-    final _theme = Theme.of(context);
-    final _textTheme = _theme.textTheme;
-
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     return Scaffold(
       body: Center(
         child: Column(
@@ -32,7 +33,7 @@ class NotFoundView extends StatelessWidget {
               lang.OoopsPageNotFound,
               // 'Ooops! Page Not Found',
               textAlign: TextAlign.center,
-              style: _textTheme.headlineLarge
+              style: textTheme.headlineLarge
                   ?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8.0),
@@ -40,8 +41,8 @@ class NotFoundView extends StatelessWidget {
               lang.thisPageDoesNotExist,
               //'This page doesn\'t exist or was removed! \nWe suggest you back to home',
               textAlign: TextAlign.center,
-              style: _textTheme.bodyMedium
-                  ?.copyWith(color: _theme.colorScheme.onTertiary),
+              style: textTheme.bodyMedium
+                  ?.copyWith(color: theme.colorScheme.onTertiary),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton.icon(
@@ -49,7 +50,9 @@ class NotFoundView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
               ),
-              onPressed: () => context.go('/dashboard/ecommerce-admin'),
+              onPressed: () {
+                context.go('/authentication/signin');
+              },
               // label: const Text('Go Back'),
               label: Text(lang.goBack),
             )
