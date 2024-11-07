@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-
+import 'package:finance_app/app/features/department/domain/entities/department.dart';
+import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -13,34 +12,37 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditSectorDialog extends StatefulWidget {
-  final Sector sectorData;
-  const EditSectorDialog({
-    required this.sectorData,
+class EditDepartmentDialog extends StatefulWidget {
+  final Department departmentData;
+  const EditDepartmentDialog({
+    required this.departmentData,
     super.key,
   });
 
   @override
-  State<EditSectorDialog> createState() => _EditSectorDialogState();
+  State<EditDepartmentDialog> createState() => _EditDepartmentDialogState();
 }
 
-class _EditSectorDialogState extends State<EditSectorDialog> {
+class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
   late final Logger logger;
-  final TextEditingController _sectorNameController = TextEditingController();
+  final TextEditingController _departmentNameController =
+      TextEditingController();
 
-  final sectorCreationFormKey = GlobalKey<FormState>();
+  final departmentCreationFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    final sectorDetail = widget.sectorData;
-    final sectorId = sectorDetail.id ?? 0;
-    context.read<SectorBloc>().add(SectorListEvent(sectorId));
+    final departmentDetail = widget.departmentData;
+    final departmentId = departmentDetail.id ?? 0;
+    context
+        .read<DepartmentBloc>()
+        .add(DepartmentListEvent(departmentId as int));
     super.initState();
   }
 
   @override
   void dispose() {
-    _sectorNameController.dispose();
+    _departmentNameController.dispose();
     super.dispose();
   }
 
@@ -82,9 +84,9 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<SectorBloc, SectorState>(
+    return BlocListener<DepartmentBloc, DepartmentState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is SectorError) {
+        if (listenerState is DepartmentError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -92,21 +94,21 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
           );
         }
 
-        if (listenerState is SectorUpdateState) {
-          if (listenerState.sector.id != null) {
+        if (listenerState is DepartmentUpdateState) {
+          if (listenerState.department.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Sector Updated Successfully'),
+                content: Text('Department Updated Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<SectorBloc>().add(SectorsListEvent());
+            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Sector Creation Failed'),
+                content: Text('Department Creation Failed'),
               ),
             );
           }
@@ -118,15 +120,15 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<SectorBloc, SectorState>(
+        content: BlocBuilder<DepartmentBloc, DepartmentState>(
           builder: (blocContext, blocState) {
-            if (blocState is SectorListState) {
-              final sectorDetails = blocState.sector;
-              _sectorNameController.text = sectorDetails.name ?? '';
+            if (blocState is DepartmentListState) {
+              final departmentDetails = blocState.department;
+              _departmentNameController.text = departmentDetails.name ?? '';
             }
             return SingleChildScrollView(
               child: Form(
-                key: sectorCreationFormKey,
+                key: departmentCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +185,7 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _sectorNameController,
+                              controller: _departmentNameController,
                             ),
 
                             const SizedBox(height: 24),
@@ -222,14 +224,16 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (sectorCreationFormKey.currentState!
+                                      if (departmentCreationFormKey
+                                          .currentState!
                                           .validate()) {
-                                        blocContext.read<SectorBloc>().add(
-                                              SectorUpdateEvent(
-                                                Sector(
-                                                  id: widget.sectorData.id,
-                                                  name: _sectorNameController
-                                                      .text,
+                                        blocContext.read<DepartmentBloc>().add(
+                                              DepartmentUpdateEvent(
+                                                Department(
+                                                  id: widget.departmentData.id,
+                                                  name:
+                                                      _departmentNameController
+                                                          .text,
                                                 ),
                                               ),
                                             );
