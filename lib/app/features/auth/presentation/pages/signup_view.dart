@@ -39,6 +39,12 @@ class _SignupViewState extends State<SignupView> {
   //   return selectedSector == null ? [] : items[selectedSector];
   // }
 
+  // @override
+  // void initState() {
+  //   // loginPassword = widget.password;
+  //   super.initState();
+  // }
+
   @override
   void initState() {
     context.read<SectorBloc>().add(SectorsListEvent());

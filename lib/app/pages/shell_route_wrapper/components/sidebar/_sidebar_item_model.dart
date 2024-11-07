@@ -110,12 +110,12 @@ List<GroupedMenuModel> get _groupedMenus {
             SidebarSubmenuModel(
               //name: "Users Grid",
               name: l.S.current.department,
-              navigationPath: "department-list",
+              navigationPath: "list-departments",
             ),
             SidebarSubmenuModel(
               //name: "User Profile",
               name: l.S.current.section,
-              navigationPath: "section-list",
+              navigationPath: "list-sections",
             ),
           ],
         ),
