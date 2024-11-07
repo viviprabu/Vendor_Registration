@@ -65,7 +65,7 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
     final responseBody = json.decode(response.body);
     final List<SectorModal> sectors = (responseBody as List)
-        .map((user) => SectorModal.fromJson(user))
+        .map((sector) => SectorModal.fromJson(sector))
         .toList();
     return sectors;
   }

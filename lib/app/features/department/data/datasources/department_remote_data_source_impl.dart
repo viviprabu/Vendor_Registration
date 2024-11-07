@@ -31,7 +31,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   }
 
   @override
-  Future<DepartmentModal> getDepartment(String id) async {
+  Future<DepartmentModal> getDepartment(int id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';

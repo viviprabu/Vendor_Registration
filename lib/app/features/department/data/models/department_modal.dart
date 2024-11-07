@@ -1,8 +1,8 @@
 import 'package:finance_app/app/features/department/domain/entities/department.dart';
 
 class DepartmentModal {
-  final String? id;
-  final String? sectorId;
+  final int? id;
+  final int? sectorId;
   final String? name;
 
   DepartmentModal({
