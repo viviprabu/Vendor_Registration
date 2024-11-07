@@ -3,9 +3,7 @@ import 'dart:ui';
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/department/domain/entities/department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-import 'package:finance_app/app/features/sector/presentation/pages/sector_list/edit_sector_popup.dart';
+import 'package:finance_app/app/features/department/presentation/pages/department_list/edit_department_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,7 +108,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
             sigmaY: 5,
           ),
           child: EditDepartmentDialog(
-            sectorData: departmentData,
+            departmentData: departmentData,
           ),
         );
       },
@@ -197,7 +195,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                               textTheme: textTheme),
                                         ),
                                         const Spacer(),
-                                        addSectorButton(textTheme),
+                                        addDepartmentButton(textTheme),
                                       ],
                                     ),
                                     const SizedBox(height: 16.0),
@@ -225,7 +223,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                           searchFormField(textTheme: textTheme),
                                     ),
                                     Spacer(flex: isTablet || isMobile ? 1 : 2),
-                                    addSectorButton(textTheme),
+                                    addDepartmentButton(textTheme),
                                   ],
                                 ),
                               ),
@@ -309,7 +307,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
         });
       },
       label: Text(
-        lang.addNewSector,
+        lang.addNewDepartment,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
