@@ -221,8 +221,8 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                                   name:
                                                       _departmentNameController
                                                           .text,
-                                                  sectorId: '',
-                                                  id: '0',
+                                                  sectorId: 1,
+                                                  id: null,
                                                 ),
                                               ),
                                             );
