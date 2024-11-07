@@ -30,9 +30,10 @@ class _SignupViewState extends State<SignupView> {
 
   late List<Sector> sector = [];
   late List<Department> departments = [];
-  String? selectedSector;
-  String? selectedDept;
-  String? selectedSection;
+  late List<Department> sectorDepartments = [];
+  String? selectedSectorId;
+  String? selectedDeptId;
+  String? selectedSectionId;
 
   // List<String>? getSubItems() {
   //   return selectedSector == null ? [] : items[selectedSector];
@@ -40,8 +41,8 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   void initState() {
-    context.read<DepartmentBloc>().add(DepartmentsListEvent());
     context.read<SectorBloc>().add(SectorsListEvent());
+    //context.read<DepartmentBloc>().add(DepartmentsListEvent());
     // loginPassword = widget.password;
     super.initState();
   }
@@ -70,10 +71,6 @@ class _SignupViewState extends State<SignupView> {
         ],
       ).value,
     );
-
-    String? selectedValue;
-    String? section;
-
     // return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
     //   if (state is SectorsListState) {
     //     sector = state.sectors;
@@ -249,28 +246,6 @@ class _SignupViewState extends State<SignupView> {
                                       ),
                                     ),
                                   ),
-                                  // const SizedBox(height: 20),
-                                  // TextFieldLabelWrapper(
-                                  //   //labelText: 'Full Name',
-                                  //   labelText: lang.officePhoneNumber,
-                                  //   inputField: TextFormField(
-                                  //     decoration: InputDecoration(
-                                  //       // hintText: 'Enter full name',
-                                  //       hintText: lang.officePhoneNumber,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // const SizedBox(height: 20),
-                                  // TextFieldLabelWrapper(
-                                  //   //labelText: 'Full Name',
-                                  //   labelText: lang.description,
-                                  //   inputField: TextFormField(
-                                  //     decoration: InputDecoration(
-                                  //       // hintText: 'Enter full name',
-                                  //       hintText: lang.description,
-                                  //     ),
-                                  //   ),
-                                  // ),
 
                                   const SizedBox(height: 20),
                                   TextFieldLabelWrapper(
@@ -283,12 +258,16 @@ class _SignupViewState extends State<SignupView> {
                                           sector = state.sectors;
                                         }
                                         return DropdownButtonFormField<String>(
-                                          value: selectedValue,
+                                          value: selectedSectorId,
                                           hint: Text('Select any sector'),
                                           onChanged: (newValue) {
                                             setState(() {
-                                              selectedValue = newValue;
+                                              selectedSectorId = newValue;
+                                              selectedDeptId = null;
                                             });
+                                            context
+                                                .read<DepartmentBloc>()
+                                                .add(DepartmentsListEvent());
                                           },
                                           validator: (value) {
                                             if (value?.isEmpty ?? true) {
@@ -300,11 +279,12 @@ class _SignupViewState extends State<SignupView> {
 
                                           items: sector
                                               .map<DropdownMenuItem<String>>(
-                                                  (value) {
+                                                  (sectorValue) {
                                             return DropdownMenuItem<String>(
-                                                value: value.id.toString(),
-                                                child: Text(
-                                                    value.name.toString()));
+                                                value:
+                                                    sectorValue.id.toString(),
+                                                child: Text(sectorValue.name
+                                                    .toString()));
                                           }).toList(),
                                         );
                                       })),
@@ -315,17 +295,22 @@ class _SignupViewState extends State<SignupView> {
                                       labelText: lang.department,
                                       inputField: BlocBuilder<DepartmentBloc,
                                               DepartmentState>(
-                                          builder: (context, state) {
-                                        if (state is DepartmentsListState) {
-                                          departments = state.departments;
+                                          builder: (dContext, dState) {
+                                        if (dState is DepartmentsListState) {
+                                          departments = dState.departments;
+                                          sectorDepartments = departments
+                                              .where((element) =>
+                                                  element.sectorId.toString() ==
+                                                  selectedSectorId)
+                                              .toList();
                                         }
 
                                         return DropdownButtonFormField<String>(
-                                          value: selectedDept,
+                                          value: selectedDeptId,
                                           hint: Text('Select any department'),
                                           onChanged: (deptValue) {
                                             setState(() {
-                                              selectedDept = deptValue;
+                                              selectedDeptId = deptValue;
                                             });
                                           },
                                           validator: (value) {
@@ -336,13 +321,15 @@ class _SignupViewState extends State<SignupView> {
                                           },
                                           // items: [],
 
-                                          items: departments
+                                          // have to list the departments based on the selected sector
+
+                                          items: sectorDepartments
                                               .map<DropdownMenuItem<String>>(
-                                                  (value) {
+                                                  (depValue) {
                                             return DropdownMenuItem<String>(
-                                                value: value.id.toString(),
+                                                value: depValue.id.toString(),
                                                 child: Text(
-                                                    value.name.toString()));
+                                                    depValue.name.toString()));
                                           }).toList(),
                                         );
                                       })),
@@ -353,11 +340,11 @@ class _SignupViewState extends State<SignupView> {
                                       labelText: lang.section,
                                       inputField:
                                           DropdownButtonFormField<String>(
-                                        value: selectedSection,
+                                        value: selectedSectionId,
                                         hint: Text('Select any section'),
                                         onChanged: (newValue) {
                                           setState(() {
-                                            selectedSection = newValue;
+                                            selectedSectionId = newValue;
                                           });
                                         },
                                         validator: (value) {
@@ -366,15 +353,16 @@ class _SignupViewState extends State<SignupView> {
                                           }
                                           return null;
                                         },
-                                        // items: [],
+                                        items: [],
 
-                                        items: departments
+                                        /* items: sectorDepartments
                                             .map<DropdownMenuItem<String>>(
                                                 (value) {
                                           return DropdownMenuItem<String>(
-                                              value: value.toString(),
-                                              child: Text(value.toString()));
-                                        }).toList(),
+                                              value: value.id.toString(),
+                                              child:
+                                                  Text(value.name.toString()));
+                                        }).toList(), */
                                       )),
 
                                   // Password Field

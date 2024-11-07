@@ -28,7 +28,7 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
       final failureOrSector = await getDepartment(event.id);
       failureOrSector.fold(
         (failure) => emit(DepartmentError(failure.toString())),
-        (sector) => emit(DepartmentListState(sector)),
+        (department) => emit(DepartmentListState(department)),
       );
     });
 

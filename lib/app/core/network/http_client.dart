@@ -30,7 +30,7 @@ class HttpClient {
         ...defaultHeaders,
         if (headers != null) ...headers
       }).timeout(const Duration(seconds: 10));
-      //logger.logResponse(response);
+      logger.logResponse(response);
       return handleResponse(response);
     } on TimeoutException catch (e) {
       logger.logError(e);

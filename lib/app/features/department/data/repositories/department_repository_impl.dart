@@ -10,7 +10,7 @@ class DepartmentRepositoryImpl implements DepartmentRepository {
   DepartmentRepositoryImpl({required this.departmentRemoteDataSource});
 
   @override
-  Future<Either<Failure, Department>> getDepartment(String id) async {
+  Future<Either<Failure, Department>> getDepartment(int id) async {
     try {
       final DepartmentModal sector =
           await departmentRemoteDataSource.getDepartment(id);
