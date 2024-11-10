@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/department/domain/entities/department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
@@ -31,6 +33,8 @@ class _SignupViewState extends State<SignupView> {
   late List<Sector> sector = [];
   late List<Department> departments = [];
   late List<Department> sectorDepartments = [];
+  late List<Section> sections = [];
+  late List<Section> sectionDepartments = [];
   String? selectedSectorId;
   String? selectedDeptId;
   String? selectedSectionId;
@@ -343,33 +347,48 @@ class _SignupViewState extends State<SignupView> {
                                   const SizedBox(height: 20),
                                   TextFieldLabelWrapper(
                                       // labelText: 'Email',
-                                      labelText: lang.section,
-                                      inputField:
-                                          DropdownButtonFormField<String>(
-                                        value: selectedSectionId,
-                                        hint: Text('Select any section'),
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            selectedSectionId = newValue;
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value?.isEmpty ?? true) {
-                                            return 'This field cannot be left empty';
-                                          }
-                                          return null;
-                                        },
-                                        items: [],
+                                      labelText: lang.department,
+                                      inputField: BlocBuilder<SectionBloc,
+                                              SectionState>(
+                                          builder: (dContext, dState) {
+                                        if (dState is SectionsListState) {
+                                          sections = dState.sections;
+                                          sectionDepartments = sections
+                                              .where((element) =>
+                                                  element.departmentId
+                                                      .toString() ==
+                                                  selectedSectionId)
+                                              .toList();
+                                        }
 
-                                        /* items: sectorDepartments
-                                            .map<DropdownMenuItem<String>>(
-                                                (value) {
-                                          return DropdownMenuItem<String>(
-                                              value: value.id.toString(),
-                                              child:
-                                                  Text(value.name.toString()));
-                                        }).toList(), */
-                                      )),
+                                        return DropdownButtonFormField<String>(
+                                          value: selectedDeptId,
+                                          hint: Text('Select any department'),
+                                          onChanged: (deptValue) {
+                                            setState(() {
+                                              selectedDeptId = deptValue;
+                                            });
+                                          },
+                                          validator: (value) {
+                                            if (value?.isEmpty ?? true) {
+                                              return 'This field cannot be left empty';
+                                            }
+                                            return null;
+                                          },
+                                          // items: [],
+
+                                          // have to list the departments based on the selected sector
+
+                                          items: sectorDepartments
+                                              .map<DropdownMenuItem<String>>(
+                                                  (depValue) {
+                                            return DropdownMenuItem<String>(
+                                                value: depValue.id.toString(),
+                                                child: Text(
+                                                    depValue.name.toString()));
+                                          }).toList(),
+                                        );
+                                      })),
 
                                   // Password Field
                                   // TextFieldLabelWrapper(
