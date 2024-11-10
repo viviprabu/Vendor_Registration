@@ -16,7 +16,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.delete(
-      '$applicationId/${ApiUrls.department}/${sectionModel.id}',
+      '$applicationId/${ApiUrls.Section}/${sectionModel.id}',
       data: sectionModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.getDept}?id=$id',
+      '$applicationId/${ApiUrls.getSection}?id=$id',
       //ApiUrls.userProfile,
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.department}',
+      '$applicationId/${ApiUrls.Section}',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -74,7 +74,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var applicationId = '0';
     final response = await httpClient.put(
       //'${ApiUrls.updateUser}/${userModel.id}',
-      '$applicationId/${ApiUrls.updateDept}',
+      '$applicationId/${ApiUrls.updateSection}',
       data: sectionModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.postFormData(
-      '$applicationId/${ApiUrls.createDept}',
+      '$applicationId/${ApiUrls.createSection}',
       data: sectionModel.toJson(),
       headers: {
         'Authorization': 'Bearer $token',

@@ -37,7 +37,7 @@ class _SignupViewState extends State<SignupView> {
   late List<Sector> sector = [];
   late List<Department> departments = [];
   late List<Department> sectorDepartments = [];
-  late List<Section> sections = [];
+  late List<Section> section = [];
   late List<Section> sectionDepartments = [];
   String? selectedSectorId;
   String? selectedDeptId;
@@ -56,6 +56,7 @@ class _SignupViewState extends State<SignupView> {
   @override
   void initState() {
     context.read<SectorBloc>().add(SectorsListEvent());
+
     //context.read<DepartmentBloc>().add(DepartmentsListEvent());
     // loginPassword = widget.password;
     super.initState();
@@ -299,6 +300,7 @@ class _SignupViewState extends State<SignupView> {
                                       ),
 
                                       const SizedBox(height: 20),
+
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
                                           labelText: lang.sector,
@@ -369,7 +371,11 @@ class _SignupViewState extends State<SignupView> {
                                               onChanged: (deptValue) {
                                                 setState(() {
                                                   selectedDeptId = deptValue;
+                                                  selectedSectionId = null;
                                                 });
+                                                context
+                                                    .read<SectionBloc>()
+                                                    .add(SectionsListEvent());
                                               },
                                               validator: (value) {
                                                 if (value?.isEmpty ?? true) {
@@ -377,10 +383,6 @@ class _SignupViewState extends State<SignupView> {
                                                 }
                                                 return null;
                                               },
-                                              // items: [],
-
-                                              // have to list the departments based on the selected sector
-
                                               items: sectorDepartments.map<
                                                       DropdownMenuItem<String>>(
                                                   (depValue) {
@@ -394,30 +396,31 @@ class _SignupViewState extends State<SignupView> {
                                           })),
 
                                       const SizedBox(height: 20),
+
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
-                                          labelText: lang.department,
+                                          labelText: lang.section,
                                           inputField: BlocBuilder<SectionBloc,
                                                   SectionState>(
                                               builder: (dContext, dState) {
                                             if (dState is SectionsListState) {
-                                              sections = dState.sections;
-                                              sectionDepartments = sections
+                                              section = dState.sections;
+                                              sectionDepartments = section
                                                   .where((element) =>
                                                       element.departmentId
                                                           .toString() ==
-                                                      selectedSectionId)
+                                                      selectedDeptId)
                                                   .toList();
                                             }
 
                                             return DropdownButtonFormField<
                                                 String>(
-                                              value: selectedDeptId,
-                                              hint:
-                                                  Text('Select any department'),
-                                              onChanged: (deptValue) {
+                                              value: selectedSectionId,
+                                              hint: Text('Select any Sections'),
+                                              onChanged: (sectValue) {
                                                 setState(() {
-                                                  selectedDeptId = deptValue;
+                                                  selectedSectionId = sectValue;
+                                                  // selectedSectionId = null;
                                                 });
                                               },
                                               validator: (value) {
@@ -426,11 +429,7 @@ class _SignupViewState extends State<SignupView> {
                                                 }
                                                 return null;
                                               },
-                                              // items: [],
-
-                                              // have to list the departments based on the selected sector
-
-                                              items: sectorDepartments.map<
+                                              items: sectionDepartments.map<
                                                       DropdownMenuItem<String>>(
                                                   (depValue) {
                                                 return DropdownMenuItem<String>(
@@ -471,26 +470,34 @@ class _SignupViewState extends State<SignupView> {
                                         width: double.maxFinite,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            context
-                                                .read<UserBloc>()
-                                                .add(UserCreateEvent(UserCreate(
-                                                  name: fullNameController.text,
-                                                  email: VariableModal.username,
-                                                  password: '',
-                                                  phoneNumber:
-                                                      phoneController.text,
-                                                  roleId: null,
-                                                  mobileNumber: '',
-                                                  officePhone: '',
-                                                  businessRoleId: null,
-                                                  isDarkMode: null,
-                                                  isActive: false,
-                                                  languageId: null,
-                                                  logoPath: '',
-                                                  logoFileName: '',
-                                                  description: '',
-                                                  sectionId: selectedSectionId,
-                                                )));
+                                            try {
+                                              context.read<UserBloc>().add(
+                                                      UserCreateEvent(
+                                                          UserCreate(
+                                                    name:
+                                                        fullNameController.text,
+                                                    email:
+                                                        VariableModal.username,
+                                                    password:
+                                                        VariableModal.password,
+                                                    phoneNumber:
+                                                        phoneController.text,
+                                                    roleId: -1,
+                                                    mobileNumber: '',
+                                                    officePhone: '',
+                                                    businessRoleId: 0,
+                                                    isDarkMode: false,
+                                                    isActive: false,
+                                                    languageId: 1,
+                                                    logoPath: '',
+                                                    logoFileName: '',
+                                                    description: '',
+                                                    sectionId:
+                                                        selectedSectionId,
+                                                  )));
+                                            } catch (e) {
+                                              e.toString();
+                                            }
                                           },
                                           //child: const Text('Sign Up'),
                                           child: Text(lang.signUp),
