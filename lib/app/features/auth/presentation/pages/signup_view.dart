@@ -1,10 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/department/domain/entities/department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
+import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
+import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,27 +30,39 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   bool showPassword = false;
   String loginEmail = '';
+  final userCreationFormKey = GlobalKey<FormState>();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   late List<Sector> sector = [];
   late List<Department> departments = [];
-  String? selectedSector;
+  late List<Department> sectorDepartments = [];
+  late List<Section> sections = [];
+  late List<Section> sectionDepartments = [];
+  String? selectedSectorId;
+  String? selectedDeptId;
+  String? selectedSectionId;
 
   // List<String>? getSubItems() {
   //   return selectedSector == null ? [] : items[selectedSector];
   // }
 
+  // @override
+  // void initState() {
+  //   // loginPassword = widget.password;
+  //   super.initState();
+  // }
+
   @override
   void initState() {
-    super.initState();
-    List<String?> items = sector.map((item) => item.name).toList();
-
+    context.read<SectorBloc>().add(SectorsListEvent());
+    //context.read<DepartmentBloc>().add(DepartmentsListEvent());
     // loginPassword = widget.password;
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<SectorBloc>().add(SectorsListEvent());
-    context.read<DepartmentBloc>().add(DepartmentsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.sizeOf(context).width;
@@ -70,19 +85,47 @@ class _SignupViewState extends State<SignupView> {
         ],
       ).value,
     );
-
-    String? selectedValue;
-
-    return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
-      if (state is SectorsListState) {
-        sector = state.sectors;
-      }
-      return BlocBuilder<DepartmentBloc, DepartmentState>(
-          builder: (context, state) {
-        if (state is DepartmentsListState) {
-          departments = state.departments;
+    // return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
+    //   if (state is SectorsListState) {
+    //     sector = state.sectors;
+    //   }
+    //   return BlocBuilder<DepartmentBloc, DepartmentState>(
+    //       builder: (context, state) {
+    //     if (state is DepartmentsListState) {
+    //       departments = state.departments;
+    //       print(departments);
+    //     }
+    return BlocListener<UserBloc, UserState>(
+      listener: (listenerContext, listenerState) {
+        if (listenerState is UserError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(listenerState.message),
+            ),
+          );
         }
-        var section;
+
+        if (listenerState is UserCreateState) {
+          if (listenerState.user.id != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('User Registered Successfully'),
+              ),
+            );
+            // refresh the user list
+            listenerContext.read<UserBloc>().add(UsersListEvent());
+            // close the dialog
+            Navigator.pop(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('User Register Failed'),
+              ),
+            );
+          }
+        }
+      },
+      child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
@@ -222,147 +265,182 @@ class _SignupViewState extends State<SignupView> {
                                         //labelText: 'Full Name',
                                         labelText: lang.fullName,
                                         inputField: TextFormField(
+                                          controller: fullNameController,
                                           decoration: InputDecoration(
                                             // hintText: 'Enter full name',
                                             hintText: lang.enterFullName,
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(height: 20),
+                                      // const SizedBox(height: 20),
                                       // Email Field
-                                      TextFieldLabelWrapper(
-                                        // labelText: 'Email',
-                                        labelText: lang.email,
-                                        inputField: TextFormField(
-                                          initialValue: VariableModal.username,
-                                          decoration: InputDecoration(
-                                            //hintText: 'Enter email address',
-                                            hintText: lang.enterEmailAddress,
-                                          ),
-                                        ),
-                                      ),
+                                      // TextFieldLabelWrapper(
+                                      //   // labelText: 'Email',
+                                      //   labelText: lang.email,
+                                      //   inputField: TextFormField(
+                                      //     initialValue: VariableModal.username,
+                                      //     decoration: InputDecoration(
+                                      //       //hintText: 'Enter email address',
+                                      //       hintText: lang.enterEmailAddress,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
                                         //labelText: 'Full Name',
                                         labelText: lang.phone,
                                         inputField: TextFormField(
+                                          controller: phoneController,
                                           decoration: InputDecoration(
                                             // hintText: 'Enter full name',
                                             hintText: lang.phone,
                                           ),
                                         ),
                                       ),
+
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
-                                        //labelText: 'Full Name',
-                                        labelText: lang.officePhoneNumber,
-                                        inputField: TextFormField(
-                                          decoration: InputDecoration(
-                                            // hintText: 'Enter full name',
-                                            hintText: lang.officePhoneNumber,
-                                          ),
-                                        ),
-                                      ),
+                                          // labelText: 'Email',
+                                          labelText: lang.sector,
+                                          inputField: BlocBuilder<SectorBloc,
+                                                  SectorState>(
+                                              builder: (context, state) {
+                                            if (state is SectorsListState) {
+                                              sector = state.sectors;
+                                            }
+                                            return DropdownButtonFormField<
+                                                String>(
+                                              value: selectedSectorId,
+                                              hint: Text('Select any sector'),
+                                              onChanged: (newValue) {
+                                                setState(() {
+                                                  selectedSectorId = newValue;
+                                                  selectedDeptId = null;
+                                                });
+                                                context
+                                                    .read<DepartmentBloc>()
+                                                    .add(
+                                                        DepartmentsListEvent());
+                                              },
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return 'This field cannot be left empty';
+                                                }
+                                                return null;
+                                              },
+                                              // items: [],
+
+                                              items: sector.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (sectorValue) {
+                                                return DropdownMenuItem<String>(
+                                                    value: sectorValue.id
+                                                        .toString(),
+                                                    child: Text(sectorValue.name
+                                                        .toString()));
+                                              }).toList(),
+                                            );
+                                          })),
                                       const SizedBox(height: 20),
+
                                       TextFieldLabelWrapper(
-                                        //labelText: 'Full Name',
-                                        labelText: lang.description,
-                                        inputField: TextFormField(
-                                          decoration: InputDecoration(
-                                            // hintText: 'Enter full name',
-                                            hintText: lang.description,
-                                          ),
-                                        ),
-                                      ),
+                                          // labelText: 'Email',
+                                          labelText: lang.department,
+                                          inputField: BlocBuilder<
+                                                  DepartmentBloc,
+                                                  DepartmentState>(
+                                              builder: (dContext, dState) {
+                                            if (dState
+                                                is DepartmentsListState) {
+                                              departments = dState.departments;
+                                              sectorDepartments = departments
+                                                  .where((element) =>
+                                                      element.sectorId
+                                                          .toString() ==
+                                                      selectedSectorId)
+                                                  .toList();
+                                            }
+
+                                            return DropdownButtonFormField<
+                                                String>(
+                                              value: selectedDeptId,
+                                              hint:
+                                                  Text('Select any department'),
+                                              onChanged: (deptValue) {
+                                                setState(() {
+                                                  selectedDeptId = deptValue;
+                                                });
+                                              },
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return 'This field cannot be left empty';
+                                                }
+                                                return null;
+                                              },
+                                              // items: [],
+
+                                              // have to list the departments based on the selected sector
+
+                                              items: sectorDepartments.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (depValue) {
+                                                return DropdownMenuItem<String>(
+                                                    value:
+                                                        depValue.id.toString(),
+                                                    child: Text(depValue.name
+                                                        .toString()));
+                                              }).toList(),
+                                            );
+                                          })),
 
                                       const SizedBox(height: 20),
                                       TextFieldLabelWrapper(
                                           // labelText: 'Email',
                                           labelText: lang.department,
-                                          inputField:
-                                              DropdownButtonFormField<String>(
-                                            value: selectedValue,
-                                            hint: Text('Select any sector'),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                selectedValue = newValue;
-                                              });
-                                            },
-                                            validator: (value) {
-                                              if (value?.isEmpty ?? true) {
-                                                return 'This field cannot be left empty';
-                                              }
-                                              return null;
-                                            },
-                                            // items: [],
+                                          inputField: BlocBuilder<SectionBloc,
+                                                  SectionState>(
+                                              builder: (dContext, dState) {
+                                            if (dState is SectionsListState) {
+                                              sections = dState.sections;
+                                              sectionDepartments = sections
+                                                  .where((element) =>
+                                                      element.departmentId
+                                                          .toString() ==
+                                                      selectedSectionId)
+                                                  .toList();
+                                            }
 
-                                            items: sector
-                                                .map<DropdownMenuItem<String>>(
-                                                    (value) {
-                                              return DropdownMenuItem<String>(
-                                                  value: value.toString(),
-                                                  child:
-                                                      Text(value.toString()));
-                                            }).toList(),
-                                          )),
-                                      const SizedBox(height: 20),
-                                      TextFieldLabelWrapper(
-                                          // labelText: 'Email',
-                                          labelText: lang.department,
-                                          inputField:
-                                              DropdownButtonFormField<String>(
-                                            value: selectedValue,
-                                            hint: Text('Select any department'),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                selectedValue = newValue;
-                                              });
-                                            },
-                                            validator: (value) {
-                                              if (value?.isEmpty ?? true) {
-                                                return 'This field cannot be left empty';
-                                              }
-                                              return null;
-                                            },
-                                            // items: [],
+                                            return DropdownButtonFormField<
+                                                String>(
+                                              value: selectedDeptId,
+                                              hint:
+                                                  Text('Select any department'),
+                                              onChanged: (deptValue) {
+                                                setState(() {
+                                                  selectedDeptId = deptValue;
+                                                });
+                                              },
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return 'This field cannot be left empty';
+                                                }
+                                                return null;
+                                              },
+                                              // items: [],
 
-                                            items: departments
-                                                .map<DropdownMenuItem<String>>(
-                                                    (value) {
-                                              return DropdownMenuItem<String>(
-                                                  value: value.toString(),
-                                                  child:
-                                                      Text(value.toString()));
-                                            }).toList(),
-                                          )),
-                                      const SizedBox(height: 20),
-                                      TextFieldLabelWrapper(
-                                          // labelText: 'Email',
-                                          labelText: lang.section,
-                                          inputField:
-                                              DropdownButtonFormField<String>(
-                                            value: selectedValue,
-                                            hint: Text('Select any section'),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                selectedValue = newValue;
-                                              });
-                                            },
-                                            validator: (value) {
-                                              if (value?.isEmpty ?? true) {
-                                                return 'This field cannot be left empty';
-                                              }
-                                              return null;
-                                            },
-                                            items: section
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          )),
+                                              // have to list the departments based on the selected sector
+
+                                              items: sectorDepartments.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (depValue) {
+                                                return DropdownMenuItem<String>(
+                                                    value:
+                                                        depValue.id.toString(),
+                                                    child: Text(depValue.name
+                                                        .toString()));
+                                              }).toList(),
+                                            );
+                                          })),
 
                                       // Password Field
                                       // TextFieldLabelWrapper(
@@ -392,7 +470,28 @@ class _SignupViewState extends State<SignupView> {
                                       SizedBox(
                                         width: double.maxFinite,
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            context
+                                                .read<UserBloc>()
+                                                .add(UserCreateEvent(UserCreate(
+                                                  name: fullNameController.text,
+                                                  email: VariableModal.username,
+                                                  password: '',
+                                                  phoneNumber:
+                                                      phoneController.text,
+                                                  roleId: null,
+                                                  mobileNumber: '',
+                                                  officePhone: '',
+                                                  businessRoleId: null,
+                                                  isDarkMode: null,
+                                                  isActive: false,
+                                                  languageId: null,
+                                                  logoPath: '',
+                                                  logoFileName: '',
+                                                  description: '',
+                                                  sectionId: selectedSectionId,
+                                                )));
+                                          },
                                           //child: const Text('Sign Up'),
                                           child: Text(lang.signUp),
                                         ),
@@ -421,15 +520,18 @@ class _SignupViewState extends State<SignupView> {
                     ),
                     child: getImageType(
                       FinanceStaticImage.signUpCover,
-                      fit: BoxFit.contain,
+                      width: double.maxFinite,
                       height: double.maxFinite,
+                      fit: BoxFit.contain,
                     ),
                   ),
               ],
             ),
           ),
         );
-      });
-    });
+      }),
+    );
+    //   });
+    // });
   }
 }

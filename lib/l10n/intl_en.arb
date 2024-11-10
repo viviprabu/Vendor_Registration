@@ -967,5 +967,9 @@
     "greatNews":"Great News",
     "department":"Department",
     "sector":"Sector",
-    "section":"Section"
+    "section":"Section",
+    "addNewDepartment":"Add New Department",    
+    "AddNewSections":"Add New Sections",
+  "listDepartments":"List Departments",
+  "listSections":"List Sections",
 }

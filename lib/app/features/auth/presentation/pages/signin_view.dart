@@ -365,8 +365,11 @@ class _SigninViewState extends State<SigninView> {
                   ),
                   child: getImageType(
                     FinanceStaticImage.signInCover,
-                    fit: BoxFit.contain,
+                    /* fit: BoxFit.contain,
+                    height: double.maxFinite, */
+                    width: double.maxFinite,
                     height: double.maxFinite,
+                    fit: BoxFit.contain,
                   ),
                 ),
             ],

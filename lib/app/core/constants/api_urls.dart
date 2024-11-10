@@ -20,6 +20,11 @@ class ApiUrls {
   static const getDept = 'System/Department';
   static const updateDept = 'System/Department';
 
+  static const createAppList = 'Authentication';
+  static const appList = 'Authentication';
+  static const getAppList = 'Authentication';
+  static const updateAppList = 'Authentication';
+
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
   static const login = 'Authentication/login';

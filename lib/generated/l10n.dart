@@ -9665,6 +9665,24 @@ class S {
     );
   }
 
+  String get listDepartments {
+    return Intl.message(
+      'List Departments',
+      name: 'listDepartments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get listSections {
+    return Intl.message(
+      'List Sections',
+      name: 'listSections',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get isDarkMode {
     return Intl.message(
       'Is Dark Mode ?',
@@ -9678,6 +9696,24 @@ class S {
     return Intl.message(
       'Add New Sector',
       name: 'addNewSector',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addNewDepartment {
+    return Intl.message(
+      'Add New Department',
+      name: 'addNewDepartment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addNewSection {
+    return Intl.message(
+      'Add New Sections',
+      name: 'addNewSection',
       desc: '',
       args: [],
     );

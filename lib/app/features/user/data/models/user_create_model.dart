@@ -1,22 +1,22 @@
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 
 class UserCreateModel extends UserCreate {
-  const UserCreateModel({
-    required super.name,
-    required super.email,
-    required super.password,
-    required super.mobileNumber,
-    required super.phoneNumber,
-    required super.officePhone,
-    required super.roleId,
-    required super.businessRoleId,
-    required super.isDarkMode,
-    required super.isActive,
-    required super.languageId,
-    required super.logoPath,
-    required super.logoFileName,
-    required super.description,
-  });
+  const UserCreateModel(
+      {required super.name,
+      required super.email,
+      required super.password,
+      required super.mobileNumber,
+      required super.phoneNumber,
+      required super.officePhone,
+      required super.roleId,
+      required super.businessRoleId,
+      required super.isDarkMode,
+      required super.isActive,
+      required super.languageId,
+      required super.logoPath,
+      required super.logoFileName,
+      required super.description,
+      required super.sectionId});
 
   factory UserCreateModel.fromJson(Map<String, dynamic> json) {
     return UserCreateModel(
@@ -34,6 +34,7 @@ class UserCreateModel extends UserCreate {
       logoPath: json["logoPath"] ?? "",
       logoFileName: json["logoFileName"] ?? "",
       description: json["description"] ?? "",
+      sectionId: json["sectionId"] ?? "",
     );
   }
 
@@ -54,6 +55,7 @@ class UserCreateModel extends UserCreate {
       "logoPath": logoPath,
       "logoFileName": logoFileName,
       "description": description,
+      "sectionId": sectionId
     };
   }
 
@@ -72,43 +74,44 @@ class UserCreateModel extends UserCreate {
         "logoPath": logoPath,
         "logoFileName": logoFileName,
         "description": description,
+        "sectionId": sectionId
       };
 
   factory UserCreateModel.fromEntity(UserCreate userCreate) {
     return UserCreateModel(
-      name: userCreate.name,
-      email: userCreate.email,
-      password: userCreate.password,
-      mobileNumber: userCreate.mobileNumber,
-      phoneNumber: userCreate.phoneNumber,
-      officePhone: userCreate.officePhone,
-      roleId: userCreate.roleId,
-      businessRoleId: userCreate.businessRoleId,
-      isDarkMode: userCreate.isDarkMode,
-      isActive: userCreate.isActive,
-      languageId: userCreate.languageId,
-      logoPath: userCreate.logoPath,
-      logoFileName: userCreate.logoFileName,
-      description: userCreate.description,
-    );
+        name: userCreate.name,
+        email: userCreate.email,
+        password: userCreate.password,
+        mobileNumber: userCreate.mobileNumber,
+        phoneNumber: userCreate.phoneNumber,
+        officePhone: userCreate.officePhone,
+        roleId: userCreate.roleId,
+        businessRoleId: userCreate.businessRoleId,
+        isDarkMode: userCreate.isDarkMode,
+        isActive: userCreate.isActive,
+        languageId: userCreate.languageId,
+        logoPath: userCreate.logoPath,
+        logoFileName: userCreate.logoFileName,
+        description: userCreate.description,
+        sectionId: userCreate.sectionId);
   }
 
   UserCreate toEntity() {
     return UserCreate(
-      name: name,
-      email: email,
-      password: password,
-      mobileNumber: mobileNumber,
-      phoneNumber: phoneNumber,
-      officePhone: officePhone,
-      roleId: roleId,
-      businessRoleId: businessRoleId,
-      isDarkMode: isDarkMode,
-      isActive: isActive,
-      languageId: languageId,
-      logoPath: logoPath,
-      logoFileName: logoFileName,
-      description: description,
-    );
+        name: name,
+        email: email,
+        password: password,
+        mobileNumber: mobileNumber,
+        phoneNumber: phoneNumber,
+        officePhone: officePhone,
+        roleId: roleId,
+        businessRoleId: businessRoleId,
+        isDarkMode: isDarkMode,
+        isActive: isActive,
+        languageId: languageId,
+        logoPath: logoPath,
+        logoFileName: logoFileName,
+        description: description,
+        sectionId: sectionId);
   }
 }

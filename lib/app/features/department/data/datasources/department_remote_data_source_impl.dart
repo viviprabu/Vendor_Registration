@@ -4,6 +4,7 @@ import 'package:finance_app/app/core/network/http_client.dart';
 import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
 import 'package:finance_app/app/features/department/data/models/department_create_modal.dart';
 import 'package:finance_app/app/features/department/data/models/department_modal.dart';
+import 'package:finance_app/app/features/department/domain/usecases/add_department.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
@@ -12,7 +13,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   DepartmentRemoteDataSourceImpl({required this.httpClient});
 
   @override
-  Future<DepartmentModal> deleteDept(DepartmentModal depatModel) async {
+  Future<DepartmentModal> deleteDepartment(DepartmentModal depatModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
@@ -30,7 +31,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   }
 
   @override
-  Future<DepartmentModal> getDept(String id) async {
+  Future<DepartmentModal> getDepartment(int id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
@@ -48,7 +49,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   }
 
   @override
-  Future<List<DepartmentModal>> getDepts() async {
+  Future<List<DepartmentModal>> getDepartments() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
@@ -64,11 +65,12 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
     final List<DepartmentModal> dept = (responseBody as List)
         .map((dept) => DepartmentModal.fromJson(dept))
         .toList();
+    print(responseBody);
     return dept;
   }
 
   @override
-  Future<DepartmentModal> updateDept(DepartmentModal deptModel) async {
+  Future<DepartmentModal> updateDepartment(DepartmentModal deptModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
@@ -87,7 +89,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   }
 
   @override
-  Future<DepartmentModal> createDept(DepartmentCreateModal deptModel) async {
+  Future<DepartmentModal> createDepartment(DepartmentModal deptModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';

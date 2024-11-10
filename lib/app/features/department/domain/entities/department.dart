@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class Department extends Equatable {
-  final String? id;
-  final String? sectorId;
+  final int? id;
+  final int? sectorId;
   final String? name;
+  bool isSelected = false;
 
-  const Department({
-    required this.id,
-    required this.sectorId,
-    required this.name,
+  Department({
+    this.id,
+    this.sectorId,
+    this.name,
   });
 
   @override
