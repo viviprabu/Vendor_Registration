@@ -1,6 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -12,37 +12,34 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditDepartmentDialog extends StatefulWidget {
-  final Department departmentData;
-  const EditDepartmentDialog({
-    required this.departmentData,
+class EditSectionDialog extends StatefulWidget {
+  final Section sectionData;
+  const EditSectionDialog({
+    required this.sectionData,
     super.key,
   });
 
   @override
-  State<EditDepartmentDialog> createState() => _EditDepartmentDialogState();
+  State<EditSectionDialog> createState() => _EditSectionDialogState();
 }
 
-class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
+class _EditSectionDialogState extends State<EditSectionDialog> {
   late final Logger logger;
-  final TextEditingController _departmentNameController =
-      TextEditingController();
+  final TextEditingController _sectionNameController = TextEditingController();
 
-  final departmentCreationFormKey = GlobalKey<FormState>();
+  final sectionCreationFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    final departmentDetail = widget.departmentData;
-    final departmentId = departmentDetail.id ?? 0;
-    context
-        .read<DepartmentBloc>()
-        .add(DepartmentListEvent(departmentId as int));
+    final sectionDetail = widget.sectionData;
+    final sectionId = sectionDetail.id ?? 0;
+    context.read<SectionBloc>().add(SectionListEvent(sectionId));
     super.initState();
   }
 
   @override
   void dispose() {
-    _departmentNameController.dispose();
+    _sectionNameController.dispose();
     super.dispose();
   }
 
@@ -84,9 +81,9 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DepartmentBloc, DepartmentState>(
+    return BlocListener<SectionBloc, SectionState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DepartmentError) {
+        if (listenerState is SectionError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -94,21 +91,21 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentUpdateState) {
-          if (listenerState.department.id != null) {
+        if (listenerState is SectionUpdateState) {
+          if (listenerState.section.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Updated Successfully'),
+                content: Text('Section Updated Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
+            listenerContext.read<SectionBloc>().add(SectionsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Creation Failed'),
+                content: Text('Section Creation Failed'),
               ),
             );
           }
@@ -120,15 +117,15 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DepartmentBloc, DepartmentState>(
+        content: BlocBuilder<SectionBloc, SectionState>(
           builder: (blocContext, blocState) {
-            if (blocState is DepartmentListState) {
-              final departmentDetails = blocState.department;
-              _departmentNameController.text = departmentDetails.name ?? '';
+            if (blocState is SectionListState) {
+              final sectionDetails = blocState.section;
+              _sectionNameController.text = sectionDetails.name ?? '';
             }
             return SingleChildScrollView(
               child: Form(
-                key: departmentCreationFormKey,
+                key: sectionCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +182,7 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
+                              controller: _sectionNameController,
                             ),
 
                             const SizedBox(height: 24),
@@ -224,16 +221,14 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (departmentCreationFormKey
-                                          .currentState!
+                                      if (sectionCreationFormKey.currentState!
                                           .validate()) {
-                                        blocContext.read<DepartmentBloc>().add(
-                                              DepartmentUpdateEvent(
-                                                Department(
-                                                  id: widget.departmentData.id,
-                                                  name:
-                                                      _departmentNameController
-                                                          .text,
+                                        blocContext.read<SectionBloc>().add(
+                                              SectionUpdateEvent(
+                                                Section(
+                                                  id: widget.sectionData.id,
+                                                  name: _sectionNameController
+                                                      .text,
                                                 ),
                                               ),
                                             );

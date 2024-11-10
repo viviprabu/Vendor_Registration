@@ -24,33 +24,34 @@ class User extends Equatable {
   final String? language;
   final String? dateOfBirth;
   final String? logoPath;
+  final String? sectionId;
   bool isSelected = false;
 
-  User({
-    this.id,
-    this.name,
-    this.userName,
-    this.email,
-    this.emailConfirmed,
-    this.phoneNumber,
-    this.mobileNumber,
-    this.officePhone,
-    this.description,
-    this.phoneNumberConfirmed,
-    this.lockoutEnd,
-    this.lockoutEnabled,
-    this.isActive,
-    this.isSuspended,
-    this.suspendReason,
-    this.role,
-    this.isDarkMode,
-    this.businessRoleId,
-    this.languageId,
-    this.roleId,
-    this.language,
-    this.dateOfBirth,
-    this.logoPath,
-  });
+  User(
+      {this.id,
+      this.name,
+      this.userName,
+      this.email,
+      this.emailConfirmed,
+      this.phoneNumber,
+      this.mobileNumber,
+      this.officePhone,
+      this.description,
+      this.phoneNumberConfirmed,
+      this.lockoutEnd,
+      this.lockoutEnabled,
+      this.isActive,
+      this.isSuspended,
+      this.suspendReason,
+      this.role,
+      this.isDarkMode,
+      this.businessRoleId,
+      this.languageId,
+      this.roleId,
+      this.language,
+      this.dateOfBirth,
+      this.logoPath,
+      this.sectionId});
 
   @override
   List<Object?> get props => [
@@ -77,5 +78,6 @@ class User extends Equatable {
         language,
         dateOfBirth,
         logoPath,
+        sectionId
       ];
 }

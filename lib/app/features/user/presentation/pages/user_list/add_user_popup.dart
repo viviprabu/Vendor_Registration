@@ -41,7 +41,6 @@ class _AddUserDialogState extends State<AddUserDialog> {
 
   final userCreationFormKey = GlobalKey<FormState>();
 
-
   List<Map<int, String>> get _language => [
         {1: 'English'},
         {2: 'Arabic'},
@@ -509,6 +508,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   description:
                                                       _userDescriptionController
                                                           .text,
+                                                  sectionId: '',
                                                 ),
                                               ),
                                             );

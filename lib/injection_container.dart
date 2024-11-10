@@ -21,6 +21,16 @@ import 'package:finance_app/app/features/department/domain/usecases/get_departme
 import 'package:finance_app/app/features/department/domain/usecases/get_departments.dart';
 import 'package:finance_app/app/features/department/domain/usecases/update_department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/data/datasources/section_remote_data_source.dart';
+import 'package:finance_app/app/features/section/data/datasources/section_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/section/data/repositories/section_repository_impl.dart';
+import 'package:finance_app/app/features/section/domain/repositories/sections_repository.dart';
+import 'package:finance_app/app/features/section/domain/usecases/add_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/delete_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/get_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/get_sections.dart';
+import 'package:finance_app/app/features/section/domain/usecases/update_section.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/sector/data/repositories/sector_repository_impl.dart';
@@ -92,6 +102,15 @@ void init() {
       deleteDepartment: getIt(),
     ),
   );
+  getIt.registerFactory(
+    () => SectionBloc(
+      getSection: getIt(),
+      getSections: getIt(),
+      createSection: getIt(),
+      updateSection: getIt(),
+      deleteSection: getIt(),
+    ),
+  );
 
   // use cases
 
@@ -118,6 +137,11 @@ void init() {
   getIt.registerLazySingleton(() => UpdateDepartment(getIt()));
   getIt.registerLazySingleton(() => DeleteDepartment(getIt()));
 
+  getIt.registerLazySingleton(() => GetSection(getIt()));
+  getIt.registerLazySingleton(() => GetSections(getIt()));
+  getIt.registerLazySingleton(() => CreateSection(getIt()));
+  getIt.registerLazySingleton(() => UpdateSection(getIt()));
+  getIt.registerLazySingleton(() => DeleteSection(getIt()));
   // repositories
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
@@ -141,6 +165,11 @@ void init() {
       departmentRemoteDataSource: getIt(),
     ),
   );
+  getIt.registerLazySingleton<SectionRepository>(
+    () => SectionRepositoryImpl(
+      sectionRemoteDataSource: getIt(),
+    ),
+  );
   // Data sources
   getIt.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
@@ -161,6 +190,11 @@ void init() {
   );
   getIt.registerLazySingleton<DepartmentRemoteDataSource>(
     () => DepartmentRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<SectionRemoteDataSource>(
+    () => SectionRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );

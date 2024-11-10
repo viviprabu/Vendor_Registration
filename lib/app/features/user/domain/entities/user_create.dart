@@ -15,23 +15,24 @@ class UserCreate extends Equatable {
   final String? logoPath;
   final String? logoFileName;
   final String? description;
+  final String? sectionId;
 
-  const UserCreate({
-    required this.name,
-    required this.email,
-    required this.password,
-    required this.mobileNumber,
-    required this.phoneNumber,
-    required this.officePhone,
-    required this.roleId,
-    required this.businessRoleId,
-    required this.isDarkMode,
-    required this.isActive,
-    required this.languageId,
-    required this.logoPath,
-    required this.logoFileName,
-    required this.description,
-  });
+  const UserCreate(
+      {required this.name,
+      required this.email,
+      required this.password,
+      required this.mobileNumber,
+      required this.phoneNumber,
+      required this.officePhone,
+      required this.roleId,
+      required this.businessRoleId,
+      required this.isDarkMode,
+      required this.isActive,
+      required this.languageId,
+      required this.logoPath,
+      required this.logoFileName,
+      required this.description,
+      required this.sectionId});
 
   @override
   List<Object?> get props => [
@@ -49,5 +50,6 @@ class UserCreate extends Equatable {
         logoPath,
         logoFileName,
         description,
+        sectionId
       ];
 }

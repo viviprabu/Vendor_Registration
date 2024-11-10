@@ -3,6 +3,7 @@ import 'package:finance_app/app/features/department/domain/entities/department.d
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
+import 'package:finance_app/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -24,8 +25,12 @@ class AddDepartmentDialog extends StatefulWidget {
 class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
   late final Logger logger;
   final _departmentNameController = TextEditingController();
-
   final departmentCreationFormKey = GlobalKey<FormState>();
+
+  late List<Sector> sectors = [];
+  late List<Department> sectorDepartments = [];
+  String? selectedSectorId;
+  late List<Department> departments = [];
 
   @override
   void initState() {
@@ -177,6 +182,45 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                             ),
 
                             const SizedBox(height: 24),
+                            TextFieldLabelWrapper(
+                                // labelText: 'Email',
+                                labelText: lang.department,
+                                inputField:
+                                    BlocBuilder<SectorBloc, SectorState>(
+                                        builder: (dContext, dState) {
+                                  if (dState is SectorsListState) {
+                                    sectors = dState.sectors;
+                                    // sectorDepartments = departments
+                                    //     .where((element) =>
+                                    //         element.sectorId.toString() ==
+                                    //         selectedSectorId)
+                                    //     .toList();
+                                  }
+
+                                  return DropdownButtonFormField<String>(
+                                    value: selectedSectorId,
+                                    hint: Text('Select any department'),
+                                    onChanged: (sectValue) {
+                                      setState(() {
+                                        selectedSectorId = sectValue;
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value?.isEmpty ?? true) {
+                                        return 'This field cannot be left empty';
+                                      }
+                                      return null;
+                                    },
+                                    items: sectors
+                                        .map<DropdownMenuItem<String>>(
+                                            (sectValue) {
+                                      return DropdownMenuItem<String>(
+                                          value: sectValue.id.toString(),
+                                          child:
+                                              Text(sectValue.name.toString()));
+                                    }).toList(),
+                                  );
+                                })),
 
                             ///---------------- Submit Button section
                             Padding(

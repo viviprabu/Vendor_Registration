@@ -1,9 +1,11 @@
 // 🎯 Dart imports:
 import 'dart:ui';
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/department/presentation/pages/department_list/edit_department_popup.dart';
+
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
+import 'package:finance_app/app/features/section/presentation/pages/section_list/add_section_popup.dart';
+import 'package:finance_app/app/features/section/presentation/pages/section_list/edit_section_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,20 +18,19 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_department_popup.dart';
 
-class DepartmentsListView extends StatefulWidget {
-  const DepartmentsListView({super.key});
+class SectionsListView extends StatefulWidget {
+  const SectionsListView({super.key});
 
   @override
-  _DepartmentsListViewState createState() => _DepartmentsListViewState();
+  _SectionsListViewState createState() => _SectionsListViewState();
 }
 
-class _DepartmentsListViewState extends State<DepartmentsListView> {
+class _SectionsListViewState extends State<SectionsListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<Department> _filteredData;
+  late List<Section> _filteredData;
   final ScrollController _scrollController = ScrollController();
-  List<Department> departments = [];
+  List<Section> sections = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -38,7 +39,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(departments);
+    _filteredData = List.from(sections);
   }
 
   @override
@@ -90,7 +91,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddDepartmentDialog(),
+          child: const AddSectionDialog(),
         );
       },
     );
@@ -98,7 +99,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(Department departmentData) {
+  void _showEditFormDialog(Section sectionData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -107,8 +108,8 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditDepartmentDialog(
-            departmentData: departmentData,
+          child: EditSectionDialog(
+            sectionData: sectionData,
           ),
         );
       },
@@ -117,7 +118,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DepartmentBloc>().add(DepartmentsListEvent());
+    context.read<SectionBloc>().add(SectionsListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -154,10 +155,10 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<DepartmentBloc, DepartmentState>(
+    return BlocBuilder<SectionBloc, SectionState>(
       builder: (context, state) {
-        if (state is DepartmentsListState) {
-          departments = state.departments;
+        if (state is SectionsListState) {
+          sections = state.sections;
         }
         return Scaffold(
           body: Padding(
@@ -195,7 +196,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                               textTheme: textTheme),
                                         ),
                                         const Spacer(),
-                                        addDepartmentButton(textTheme),
+                                        addSectionButton(textTheme),
                                       ],
                                     ),
                                     const SizedBox(height: 16.0),
@@ -223,7 +224,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                           searchFormField(textTheme: textTheme),
                                     ),
                                     Spacer(flex: isTablet || isMobile ? 1 : 2),
-                                    addDepartmentButton(textTheme),
+                                    addSectionButton(textTheme),
                                   ],
                                 ),
                               ),
@@ -249,14 +250,14 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                         constraints: BoxConstraints(
                                           minWidth: constraints.maxWidth,
                                         ),
-                                        child: departmentListDataTable(
-                                            context, departments),
+                                        child: sectionListDataTable(
+                                            context, sections),
                                       ),
                                     ),
                                     Padding(
                                       padding: sizeInfo.padding,
                                       child: Text(
-                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + departments.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + sections.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -270,8 +271,8 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                                   constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth,
                                   ),
-                                  child: departmentListDataTable(
-                                      context, departments),
+                                  child:
+                                      sectionListDataTable(context, sections),
                                 ),
                               ),
 
@@ -295,7 +296,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
   }
 
   ///_____________________________________________________________________add_user_button___________________________
-  ElevatedButton addDepartmentButton(TextTheme textTheme) {
+  ElevatedButton addSectionButton(TextTheme textTheme) {
     final lang = l.S.of(context);
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -307,7 +308,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
         });
       },
       label: Text(
-        lang.addNewDepartment,
+        lang.addNewSection,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -360,7 +361,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + departments.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + sections.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -493,8 +494,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme departmentListDataTable(
-      BuildContext context, List<Department> departments) {
+  Theme sectionListDataTable(BuildContext context, List<Section> sections) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -531,7 +531,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
           DataColumn(label: Text(lang.name)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: departments.map(
+        rows: sections.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -547,7 +547,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = departments.every((d) => d.isSelected);
+                            _selectAll = sections.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -581,7 +581,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            departments.remove(data);
+                            sections.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -624,7 +624,7 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in departments) {
+      for (var data in sections) {
         data.isSelected = select;
       }
       _selectAll = select;
