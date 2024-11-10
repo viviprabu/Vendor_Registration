@@ -52,7 +52,7 @@ class UserModel extends User {
       language: json["language"] ?? "",
       dateOfBirth: json["dateOfBirth"] ?? "",
       logoPath: json["logoPath"] ?? "",
-      sectionId: json["sectionId"] ?? 0,
+      sectionId: json["sectionId"] ?? "",
     );
   }
 
