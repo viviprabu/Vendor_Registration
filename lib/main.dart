@@ -3,6 +3,7 @@ import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:finance_app/injection_container.dart';
@@ -54,6 +55,9 @@ Future<void> main() async {
         create: (context) =>
             getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
       ),
+      BlocProvider(
+          create: (context) =>
+              getIt<SectionBloc>()..add(SectionInitialEvent())),
     ],
     child: const FinanceApp(),
   );

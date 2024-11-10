@@ -1,9 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-import 'package:finance_app/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -15,31 +12,34 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddDepartmentDialog extends StatefulWidget {
-  const AddDepartmentDialog({super.key});
+class EditSectionDialog extends StatefulWidget {
+  final Section sectionData;
+  const EditSectionDialog({
+    required this.sectionData,
+    super.key,
+  });
 
   @override
-  State<AddDepartmentDialog> createState() => _AddDepartmentDialogState();
+  State<EditSectionDialog> createState() => _EditSectionDialogState();
 }
 
-class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
+class _EditSectionDialogState extends State<EditSectionDialog> {
   late final Logger logger;
-  final _departmentNameController = TextEditingController();
-  final departmentCreationFormKey = GlobalKey<FormState>();
+  final TextEditingController _sectionNameController = TextEditingController();
 
-  late List<Sector> sectors = [];
-  late List<Department> sectorDepartments = [];
-  String? selectedSectorId;
-  late List<Department> departments = [];
+  final sectionCreationFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    // TODO: implement initState
+    final sectionDetail = widget.sectionData;
+    final sectionId = sectionDetail.id ?? 0;
+    context.read<SectionBloc>().add(SectionListEvent(sectionId));
     super.initState();
   }
 
   @override
   void dispose() {
+    _sectionNameController.dispose();
     super.dispose();
   }
 
@@ -81,9 +81,9 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DepartmentBloc, DepartmentState>(
+    return BlocListener<SectionBloc, SectionState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DepartmentError) {
+        if (listenerState is SectionError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -91,21 +91,21 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentCreateState) {
-          if (listenerState.department.id != null) {
+        if (listenerState is SectionUpdateState) {
+          if (listenerState.section.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Created Successfully'),
+                content: Text('Section Updated Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
+            listenerContext.read<SectionBloc>().add(SectionsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Creation Failed'),
+                content: Text('Section Creation Failed'),
               ),
             );
           }
@@ -117,11 +117,15 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DepartmentBloc, DepartmentState>(
+        content: BlocBuilder<SectionBloc, SectionState>(
           builder: (blocContext, blocState) {
+            if (blocState is SectionListState) {
+              final sectionDetails = blocState.section;
+              _sectionNameController.text = sectionDetails.name ?? '';
+            }
             return SingleChildScrollView(
               child: Form(
-                key: departmentCreationFormKey,
+                key: sectionCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +137,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewSector),
+                          Text(lang.addNewUser),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -178,49 +182,10 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
+                              controller: _sectionNameController,
                             ),
 
                             const SizedBox(height: 24),
-                            TextFieldLabelWrapper(
-                                // labelText: 'Email',
-                                labelText: lang.department,
-                                inputField:
-                                    BlocBuilder<SectorBloc, SectorState>(
-                                        builder: (dContext, dState) {
-                                  if (dState is SectorsListState) {
-                                    sectors = dState.sectors;
-                                    // sectorDepartments = departments
-                                    //     .where((element) =>
-                                    //         element.sectorId.toString() ==
-                                    //         selectedSectorId)
-                                    //     .toList();
-                                  }
-
-                                  return DropdownButtonFormField<String>(
-                                    value: selectedSectorId,
-                                    hint: Text('Select any department'),
-                                    onChanged: (sectValue) {
-                                      setState(() {
-                                        selectedSectorId = sectValue;
-                                      });
-                                    },
-                                    validator: (value) {
-                                      if (value?.isEmpty ?? true) {
-                                        return 'This field cannot be left empty';
-                                      }
-                                      return null;
-                                    },
-                                    items: sectors
-                                        .map<DropdownMenuItem<String>>(
-                                            (sectValue) {
-                                      return DropdownMenuItem<String>(
-                                          value: sectValue.id.toString(),
-                                          child:
-                                              Text(sectValue.name.toString()));
-                                    }).toList(),
-                                  );
-                                })),
 
                             ///---------------- Submit Button section
                             Padding(
@@ -256,17 +221,14 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (departmentCreationFormKey
-                                          .currentState!
+                                      if (sectionCreationFormKey.currentState!
                                           .validate()) {
-                                        blocContext.read<DepartmentBloc>().add(
-                                              DepartmentCreateEvent(
-                                                Department(
-                                                  name:
-                                                      _departmentNameController
-                                                          .text,
-                                                  sectorId: 1,
-                                                  id: null,
+                                        blocContext.read<SectionBloc>().add(
+                                              SectionUpdateEvent(
+                                                Section(
+                                                  id: widget.sectionData.id,
+                                                  name: _sectionNameController
+                                                      .text,
                                                 ),
                                               ),
                                             );

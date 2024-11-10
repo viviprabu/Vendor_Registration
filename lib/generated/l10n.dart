@@ -9710,6 +9710,15 @@ class S {
     );
   }
 
+  String get addNewSection {
+    return Intl.message(
+      'Add New Sections',
+      name: 'addNewSection',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }

@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/department/domain/entities/department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/domain/entities/sections.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
@@ -15,22 +17,22 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddDepartmentDialog extends StatefulWidget {
-  const AddDepartmentDialog({super.key});
+class AddSectionDialog extends StatefulWidget {
+  const AddSectionDialog({super.key});
 
   @override
-  State<AddDepartmentDialog> createState() => _AddDepartmentDialogState();
+  State<AddSectionDialog> createState() => _AddSectionDialogState();
 }
 
-class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
+class _AddSectionDialogState extends State<AddSectionDialog> {
   late final Logger logger;
-  final _departmentNameController = TextEditingController();
-  final departmentCreationFormKey = GlobalKey<FormState>();
-
+  final _sectionNameController = TextEditingController();
+  final sectionCreationFormKey = GlobalKey<FormState>();
+  late List<Department> departments = [];
   late List<Sector> sectors = [];
   late List<Department> sectorDepartments = [];
+  String? selectedDeptId;
   String? selectedSectorId;
-  late List<Department> departments = [];
 
   @override
   void initState() {
@@ -81,9 +83,9 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DepartmentBloc, DepartmentState>(
+    return BlocListener<SectionBloc, SectionState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DepartmentError) {
+        if (listenerState is SectionError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -91,21 +93,21 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentCreateState) {
-          if (listenerState.department.id != null) {
+        if (listenerState is SectionCreateState) {
+          if (listenerState.section.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Created Successfully'),
+                content: Text('Section Created Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
+            listenerContext.read<SectionBloc>().add(SectionsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Creation Failed'),
+                content: Text('Section Creation Failed'),
               ),
             );
           }
@@ -117,11 +119,11 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DepartmentBloc, DepartmentState>(
+        content: BlocBuilder<SectionBloc, SectionState>(
           builder: (blocContext, blocState) {
             return SingleChildScrollView(
               child: Form(
-                key: departmentCreationFormKey,
+                key: sectionCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,31 +180,71 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
+                              controller: _sectionNameController,
                             ),
 
                             const SizedBox(height: 24),
                             TextFieldLabelWrapper(
                                 // labelText: 'Email',
-                                labelText: lang.department,
+                                labelText: lang.sector,
                                 inputField:
                                     BlocBuilder<SectorBloc, SectorState>(
-                                        builder: (dContext, dState) {
-                                  if (dState is SectorsListState) {
-                                    sectors = dState.sectors;
-                                    // sectorDepartments = departments
-                                    //     .where((element) =>
-                                    //         element.sectorId.toString() ==
-                                    //         selectedSectorId)
-                                    //     .toList();
+                                        builder: (context, state) {
+                                  if (state is SectorsListState) {
+                                    sectors = state.sectors;
+                                  }
+                                  return DropdownButtonFormField<String>(
+                                    value: selectedSectorId,
+                                    hint: Text('Select any sector'),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedSectorId = newValue;
+                                        selectedDeptId = null;
+                                      });
+                                      context
+                                          .read<DepartmentBloc>()
+                                          .add(DepartmentsListEvent());
+                                    },
+                                    validator: (value) {
+                                      if (value?.isEmpty ?? true) {
+                                        return 'This field cannot be left empty';
+                                      }
+                                      return null;
+                                    },
+                                    // items: [],
+
+                                    items: sectors
+                                        .map<DropdownMenuItem<String>>(
+                                            (sectorValue) {
+                                      return DropdownMenuItem<String>(
+                                          value: sectorValue.id.toString(),
+                                          child: Text(
+                                              sectorValue.name.toString()));
+                                    }).toList(),
+                                  );
+                                })),
+                            const SizedBox(height: 24),
+                            TextFieldLabelWrapper(
+                                // labelText: 'Email',
+                                labelText: lang.department,
+                                inputField: BlocBuilder<DepartmentBloc,
+                                        DepartmentState>(
+                                    builder: (dContext, dState) {
+                                  if (dState is DepartmentsListState) {
+                                    departments = dState.departments;
+                                    sectorDepartments = departments
+                                        .where((element) =>
+                                            element.sectorId.toString() ==
+                                            selectedSectorId)
+                                        .toList();
                                   }
 
                                   return DropdownButtonFormField<String>(
-                                    value: selectedSectorId,
+                                    value: selectedDeptId,
                                     hint: Text('Select any department'),
-                                    onChanged: (sectValue) {
+                                    onChanged: (deptValue) {
                                       setState(() {
-                                        selectedSectorId = sectValue;
+                                        selectedDeptId = deptValue;
                                       });
                                     },
                                     validator: (value) {
@@ -211,13 +253,13 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                       }
                                       return null;
                                     },
-                                    items: sectors
+                                    items: sectorDepartments
                                         .map<DropdownMenuItem<String>>(
-                                            (sectValue) {
+                                            (depValue) {
                                       return DropdownMenuItem<String>(
-                                          value: sectValue.id.toString(),
+                                          value: depValue.id.toString(),
                                           child:
-                                              Text(sectValue.name.toString()));
+                                              Text(depValue.name.toString()));
                                     }).toList(),
                                   );
                                 })),
@@ -256,16 +298,14 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (departmentCreationFormKey
-                                          .currentState!
+                                      if (sectionCreationFormKey.currentState!
                                           .validate()) {
-                                        blocContext.read<DepartmentBloc>().add(
-                                              DepartmentCreateEvent(
-                                                Department(
-                                                  name:
-                                                      _departmentNameController
-                                                          .text,
-                                                  sectorId: 1,
+                                        blocContext.read<SectionBloc>().add(
+                                              SectionCreateEvent(
+                                                Section(
+                                                  name: _sectionNameController
+                                                      .text,
+                                                  departmentId: 1,
                                                   id: null,
                                                 ),
                                               ),
