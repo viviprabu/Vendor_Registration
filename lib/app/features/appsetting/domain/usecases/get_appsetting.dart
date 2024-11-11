@@ -1,14 +1,14 @@
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/domain/repositories/sector_repository.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/repositories/appsetting_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
 
-class GetSector {
-  final SectorRepository repository;
+class GetAppSetting {
+  final AppSettingRepository repository;
 
-  GetSector(this.repository);
+  GetAppSetting(this.repository);
 
-  Future<Either<Failure, Sector>> call(int id) async {
-    return await repository.getSector(id);
+  Future<Either<Failure, AppSetting>> call(int id) async {
+    return await repository.getAppSetting(id);
   }
 }

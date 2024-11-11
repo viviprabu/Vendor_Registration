@@ -9719,6 +9719,15 @@ class S {
     );
   }
 
+  String get addNewAppSettings {
+    return Intl.message(
+      'Add New App Settings',
+      name: 'addNewAppSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
   // user creation page
   /// `Create User`
 }

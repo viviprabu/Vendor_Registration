@@ -39,9 +39,12 @@ class _SignupViewState extends State<SignupView> {
   late List<Department> sectorDepartments = [];
   late List<Section> section = [];
   late List<Section> sectionDepartments = [];
+  late List<String> language = ['English', 'Arabic'];
   String? selectedSectorId;
   String? selectedDeptId;
   String? selectedSectionId;
+  String? selectedLanguageId;
+  int? langId;
 
   // List<String>? getSubItems() {
   //   return selectedSector == null ? [] : items[selectedSector];
@@ -298,6 +301,37 @@ class _SignupViewState extends State<SignupView> {
                                           ),
                                         ),
                                       ),
+                                      const SizedBox(height: 20),
+
+                                      TextFieldLabelWrapper(
+                                          // labelText: 'Email',
+                                          labelText: lang.language,
+                                          inputField:
+                                              DropdownButtonFormField<String>(
+                                            value: selectedLanguageId,
+                                            hint: Text('Select any language'),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                selectedLanguageId = newValue;
+                                              });
+                                            },
+                                            validator: (value) {
+                                              if (value?.isEmpty ?? true) {
+                                                return 'This field cannot be left empty';
+                                              }
+                                              return null;
+                                            },
+                                            // items: [],
+
+                                            items: language
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          )),
 
                                       const SizedBox(height: 20),
 
@@ -471,6 +505,12 @@ class _SignupViewState extends State<SignupView> {
                                         child: ElevatedButton(
                                           onPressed: () {
                                             try {
+                                              if (selectedLanguageId ==
+                                                  'English') {
+                                                langId = 1;
+                                              } else {
+                                                langId == 2;
+                                              }
                                               context.read<UserBloc>().add(
                                                       UserCreateEvent(
                                                           UserCreate(
@@ -488,7 +528,7 @@ class _SignupViewState extends State<SignupView> {
                                                     businessRoleId: 0,
                                                     isDarkMode: false,
                                                     isActive: false,
-                                                    languageId: 1,
+                                                    languageId: langId,
                                                     logoPath: '',
                                                     logoFileName: '',
                                                     description: '',

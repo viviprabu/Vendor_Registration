@@ -2,9 +2,9 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-import 'package:finance_app/app/features/sector/presentation/pages/sector_list/edit_sector_popup.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
+import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_list/edit_appsetting_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,18 +19,18 @@ import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 import 'add_appsetting_popup.dart';
 
-class SectorsListView extends StatefulWidget {
-  const SectorsListView({super.key});
+class AppSettingListView extends StatefulWidget {
+  const AppSettingListView({super.key});
 
   @override
-  _SectorsListViewState createState() => _SectorsListViewState();
+  _AppSettingsListViewState createState() => _AppSettingsListViewState();
 }
 
-class _SectorsListViewState extends State<SectorsListView> {
+class _AppSettingsListViewState extends State<AppSettingListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<Sector> _filteredData;
+  late List<AppSetting> _filteredData;
   final ScrollController _scrollController = ScrollController();
-  List<Sector> sectors = [];
+  List<AppSetting> appSetting = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -39,7 +39,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(sectors);
+    _filteredData = List.from(appSetting);
   }
 
   @override
@@ -91,7 +91,7 @@ class _SectorsListViewState extends State<SectorsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddSectorDialog(),
+          child: const AddAppSettingDialog(),
         );
       },
     );
@@ -99,7 +99,7 @@ class _SectorsListViewState extends State<SectorsListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(Sector sectorData) {
+  void _showEditFormDialog(AppSetting appSettingData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -108,8 +108,8 @@ class _SectorsListViewState extends State<SectorsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditSectorDialog(
-            sectorData: sectorData,
+          child: EditAppSettingDialog(
+            appSettingData: appSettingData,
           ),
         );
       },
@@ -118,7 +118,7 @@ class _SectorsListViewState extends State<SectorsListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<SectorBloc>().add(SectorsListEvent());
+    context.read<AppSettingBloc>().add(AppSettingsListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -155,10 +155,10 @@ class _SectorsListViewState extends State<SectorsListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<SectorBloc, SectorState>(
+    return BlocBuilder<AppSettingBloc, AppSettingState>(
       builder: (context, state) {
-        if (state is SectorsListState) {
-          sectors = state.sectors;
+        if (state is AppSettingsListState) {
+          appSetting = state.appSettings;
         }
         return Scaffold(
           body: Padding(
@@ -196,7 +196,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                               textTheme: textTheme),
                                         ),
                                         const Spacer(),
-                                        addSectorButton(textTheme),
+                                        addAppSettingButton(textTheme),
                                       ],
                                     ),
                                     const SizedBox(height: 16.0),
@@ -224,7 +224,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                           searchFormField(textTheme: textTheme),
                                     ),
                                     Spacer(flex: isTablet || isMobile ? 1 : 2),
-                                    addSectorButton(textTheme),
+                                    addAppSettingButton(textTheme),
                                   ],
                                 ),
                               ),
@@ -250,14 +250,14 @@ class _SectorsListViewState extends State<SectorsListView> {
                                         constraints: BoxConstraints(
                                           minWidth: constraints.maxWidth,
                                         ),
-                                        child: sectorListDataTable(
-                                            context, sectors),
+                                        child: appSettingListDataTable(
+                                            context, appSetting),
                                       ),
                                     ),
                                     Padding(
                                       padding: sizeInfo.padding,
                                       child: Text(
-                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + sectors.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + appSetting.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -271,7 +271,8 @@ class _SectorsListViewState extends State<SectorsListView> {
                                   constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth,
                                   ),
-                                  child: sectorListDataTable(context, sectors),
+                                  child: appSettingListDataTable(
+                                      context, appSetting),
                                 ),
                               ),
 
@@ -295,7 +296,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   }
 
   ///_____________________________________________________________________add_user_button___________________________
-  ElevatedButton addSectorButton(TextTheme textTheme) {
+  ElevatedButton addAppSettingButton(TextTheme textTheme) {
     final lang = l.S.of(context);
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -307,7 +308,7 @@ class _SectorsListViewState extends State<SectorsListView> {
         });
       },
       label: Text(
-        lang.addNewSector,
+        lang.addNewAppSettings,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -360,7 +361,7 @@ class _SectorsListViewState extends State<SectorsListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + sectors.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + appSetting.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -493,7 +494,8 @@ class _SectorsListViewState extends State<SectorsListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme sectorListDataTable(BuildContext context, List<Sector> sectors) {
+  Theme appSettingListDataTable(
+      BuildContext context, List<AppSetting> appSetting) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -530,7 +532,7 @@ class _SectorsListViewState extends State<SectorsListView> {
           DataColumn(label: Text(lang.name)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: sectors.map(
+        rows: appSetting.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -546,7 +548,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = sectors.every((d) => d.isSelected);
+                            _selectAll = appSetting.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -580,7 +582,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            sectors.remove(data);
+                            appSetting.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -623,7 +625,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in sectors) {
+      for (var data in appSetting) {
         data.isSelected = select;
       }
       _selectAll = select;

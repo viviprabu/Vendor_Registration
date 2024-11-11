@@ -1,14 +1,14 @@
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/domain/repositories/sector_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/repositories/appsetting_repository.dart';
 
-class DeleteSector {
-  final SectorRepository sectorRepository;
+class DeleteAppSetting {
+  final AppSettingRepository appSettingRepository;
 
-  DeleteSector(this.sectorRepository);
+  DeleteAppSetting(this.appSettingRepository);
 
-  Future<Either<Failure, Sector>> call(Sector sector) async {
-    return await sectorRepository.deleteSector(sector);
+  Future<Either<Failure, AppSetting>> call(AppSetting appSetting) async {
+    return await appSettingRepository.deleteAppSetting(appSetting);
   }
 }
