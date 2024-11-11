@@ -68,6 +68,7 @@ class AppSettingRemoteDataSourceImpl implements AppSettingRemoteDataSource {
     final List<AppSettingModal> appSetting = (responseBody as List)
         .map((appSetting) => AppSettingModal.fromJson(appSetting))
         .toList();
+    print(appSetting);
     return appSetting;
   }
 

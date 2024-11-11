@@ -221,6 +221,7 @@ class _AddAppSettingDialogState extends State<AddAppSettingDialog> {
                                                   name:
                                                       _appSettingNameController
                                                           .text,
+                                                  isSelected: false,
                                                 ),
                                               ),
                                             );

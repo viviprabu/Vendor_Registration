@@ -52,23 +52,6 @@ abstract class FinanceAppRoutes {
             ],
           ),
 
-          GoRoute(
-            path: '/appsetting',
-            redirect: (context, state) async {
-              if (state.fullPath == '/appsetting') {
-                return '/appsetting/application-list';
-              }
-              return null;
-            },
-            routes: [
-              GoRoute(
-                path: 'application-list',
-                pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: AppSettingsGridView(),
-                ),
-              ),
-            ],
-          ),
           // Users Route
           GoRoute(
             path: '/users',
@@ -153,13 +136,13 @@ abstract class FinanceAppRoutes {
         ),
       ),
 
-      // GoRoute(
-      //   path: '/authentication/signup',
-      //   name: 'signup',
-      //   pageBuilder: (context, state) => NoTransitionPage(
-      //     child: SignupView(),
-      //   ),
-      // ),
+      GoRoute(
+        path: '/authentication/applicationlist',
+        name: 'applicationlist',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AppSettingGridView(),
+        ),
+      ),
 
       GoRoute(
         path: '/authentication/signout',
