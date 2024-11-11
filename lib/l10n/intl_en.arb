@@ -972,4 +972,7 @@
     "AddNewSections":"Add New Sections",
   "listDepartments":"List Departments",
   "listSections":"List Sections",
+  "AddNewAppSetting":"Add New App Settings",
+    "unAuthorisedUsersList":"Un Authorised Users List",
+    "applicationList":"Application List"
 }

@@ -2,6 +2,17 @@ import 'dart:io';
 
 import 'package:finance_app/app/core/network/http_logger.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
+import 'package:finance_app/app/features/appsetting/data/datasources/appsetting_remote_data_source.dart';
+import 'package:finance_app/app/features/appsetting/data/datasources/appsetting_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/appsetting/data/repositories/appsetting_repository_impl.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/repositories/appsetting_repository.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/create_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/delete_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/get_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/get_appsettings.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/update_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:finance_app/app/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -111,6 +122,15 @@ void init() {
       deleteSection: getIt(),
     ),
   );
+  getIt.registerFactory(
+    () => AppSettingBloc(
+      getAppSetting: getIt(),
+      getAppSettings: getIt(),
+      createAppSetting: getIt(),
+      updateAppSetting: getIt(),
+      deleteAppSetting: getIt(),
+    ),
+  );
 
   // use cases
 
@@ -142,6 +162,12 @@ void init() {
   getIt.registerLazySingleton(() => CreateSection(getIt()));
   getIt.registerLazySingleton(() => UpdateSection(getIt()));
   getIt.registerLazySingleton(() => DeleteSection(getIt()));
+
+  getIt.registerLazySingleton(() => GetAppSetting(getIt()));
+  getIt.registerLazySingleton(() => GetAppSettings(getIt()));
+  getIt.registerLazySingleton(() => CreateAppSetting(getIt()));
+  getIt.registerLazySingleton(() => UpdateAppSetting(getIt()));
+  getIt.registerLazySingleton(() => DeleteAppSetting(getIt()));
   // repositories
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
@@ -170,6 +196,12 @@ void init() {
       sectionRemoteDataSource: getIt(),
     ),
   );
+
+  getIt.registerLazySingleton<AppSettingRepository>(
+    () => AppSettingRepositoryImpl(
+      appSettingRemoteDataSource: getIt(),
+    ),
+  );
   // Data sources
   getIt.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
@@ -195,6 +227,11 @@ void init() {
   );
   getIt.registerLazySingleton<SectionRemoteDataSource>(
     () => SectionRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<AppSettingRemoteDataSource>(
+    () => AppSettingRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );

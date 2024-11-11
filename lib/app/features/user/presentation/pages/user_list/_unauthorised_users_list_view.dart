@@ -1,36 +1,30 @@
-// 🎯 Dart imports:
 import 'dart:ui';
-
-// 🐦 Flutter imports:
-import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
-import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_list/edit_appsetting_popup.dart';
+import 'package:finance_app/app/features/user/domain/entities/user.dart';
+import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/user/presentation/pages/user_list/edit_user_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// 📦 Package imports:
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-
-// 🌎 Project imports:
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_appsetting_popup.dart';
+import 'add_user_popup.dart';
 
-class AppSettingListView extends StatefulWidget {
-  const AppSettingListView({super.key});
-
+class UnAuthorisedUsersListView extends StatefulWidget {
+  const UnAuthorisedUsersListView({super.key});
   @override
-  _AppSettingsListViewState createState() => _AppSettingsListViewState();
+  _UnAuthorisedUsersListViewState createState() =>
+      _UnAuthorisedUsersListViewState();
 }
 
-class _AppSettingsListViewState extends State<AppSettingListView> {
+class _UnAuthorisedUsersListViewState extends State<UnAuthorisedUsersListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<AppSetting> _filteredData;
+  late List<User> _filteredData;
   final ScrollController _scrollController = ScrollController();
-  List<AppSetting> appSetting = [];
+  List<User> users = [];
+  List<User> UnAuthorisedList = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -39,7 +33,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(appSetting);
+    _filteredData = List.from(users);
   }
 
   @override
@@ -91,15 +85,14 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddAppSettingDialog(),
+          child: const AddUserDialog(),
         );
       },
     );
   }
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
-
-  void _showEditFormDialog(AppSetting appSettingData) {
+  void _showEditFormDialog(User userData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -108,8 +101,8 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditAppSettingDialog(
-            appSettingData: appSettingData,
+          child: EditUserDialog(
+            userData: userData,
           ),
         );
       },
@@ -118,7 +111,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AppSettingBloc>().add(AppSettingsListEvent());
+    context.read<UserBloc>().add(UsersListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -155,10 +148,10 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<AppSettingBloc, AppSettingState>(
+    return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        if (state is AppSettingsListState) {
-          appSetting = state.appSettings;
+        if (state is UsersListState) {
+          users = state.users;
         }
         return Scaffold(
           body: Padding(
@@ -196,7 +189,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                                               textTheme: textTheme),
                                         ),
                                         const Spacer(),
-                                        addAppSettingButton(textTheme),
+                                        addUserButton(textTheme),
                                       ],
                                     ),
                                     const SizedBox(height: 16.0),
@@ -224,7 +217,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                                           searchFormField(textTheme: textTheme),
                                     ),
                                     Spacer(flex: isTablet || isMobile ? 1 : 2),
-                                    addAppSettingButton(textTheme),
+                                    addUserButton(textTheme),
                                   ],
                                 ),
                               ),
@@ -250,14 +243,14 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                                         constraints: BoxConstraints(
                                           minWidth: constraints.maxWidth,
                                         ),
-                                        child: appSettingListDataTable(
-                                            context, appSetting),
+                                        child:
+                                            userListDataTable(context, users),
                                       ),
                                     ),
                                     Padding(
                                       padding: sizeInfo.padding,
                                       child: Text(
-                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + appSetting.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + users.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -271,8 +264,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                                   constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth,
                                   ),
-                                  child: appSettingListDataTable(
-                                      context, appSetting),
+                                  child: userListDataTable(context, users),
                                 ),
                               ),
 
@@ -296,7 +288,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
   }
 
   ///_____________________________________________________________________add_user_button___________________________
-  ElevatedButton addAppSettingButton(TextTheme textTheme) {
+  ElevatedButton addUserButton(TextTheme textTheme) {
     final lang = l.S.of(context);
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -308,7 +300,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
         });
       },
       label: Text(
-        lang.addNewAppSettings,
+        lang.addNewUser,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -361,7 +353,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + appSetting.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + users.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -494,8 +486,9 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme appSettingListDataTable(
-      BuildContext context, List<AppSetting> appSetting) {
+  Theme userListDataTable(BuildContext context, List<User> users) {
+    UnAuthorisedList =
+        users.where((element) => element.isActive == false).toList();
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -530,9 +523,14 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
             ),
           ),
           DataColumn(label: Text(lang.name)),
+          DataColumn(label: Text(lang.userName)),
+          DataColumn(label: Text(lang.email)),
+          DataColumn(label: Text(lang.phone)),
+          DataColumn(label: Text(lang.position)),
+          DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: appSetting.map(
+        rows: UnAuthorisedList.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -548,7 +546,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = appSetting.every((d) => d.isSelected);
+                            _selectAll = users.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -559,6 +557,42 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                 ),
                 DataCell(
                   Text(data.name ?? ''),
+                ),
+                DataCell(Row(
+                  children: [
+                    /* Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AvatarWidget(
+                          fit: BoxFit.cover,
+                          avatarShape: AvatarShape.circle,
+                          size: const Size(40, 40),
+                          imagePath: data.),
+                    ), */
+                    const SizedBox(width: 8.0),
+                    Text(data.userName ?? ''),
+                  ],
+                )),
+                DataCell(Text(data.email ?? '')),
+                DataCell(Text(data.phoneNumber ?? '')),
+                DataCell(Text(data.role ?? '')),
+                DataCell(
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: data.isActive == true
+                          ? FinanceAppColors.kSuccess.withOpacity(0.2)
+                          : FinanceAppColors.kError.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: Text(
+                      data.isActive == true ? lang.active : lang.inactive,
+                      style: textTheme.bodySmall?.copyWith(
+                          color: data.isActive == true
+                              ? FinanceAppColors.kSuccess
+                              : FinanceAppColors.kError),
+                    ),
+                  ),
                 ),
                 DataCell(
                   PopupMenuButton<String>(
@@ -582,7 +616,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            appSetting.remove(data);
+                            users.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -625,7 +659,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in appSetting) {
+      for (var data in users) {
         data.isSelected = select;
       }
       _selectAll = select;

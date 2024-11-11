@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 
@@ -13,34 +15,36 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditSectorDialog extends StatefulWidget {
-  final Sector sectorData;
-  const EditSectorDialog({
-    required this.sectorData,
+class EditAppSettingDialog extends StatefulWidget {
+  final AppSetting appSettingData;
+
+  const EditAppSettingDialog({
+    required this.appSettingData,
     super.key,
   });
 
   @override
-  State<EditSectorDialog> createState() => _EditSectorDialogState();
+  State<EditAppSettingDialog> createState() => _EditAppSettingDialogState();
 }
 
-class _EditSectorDialogState extends State<EditSectorDialog> {
+class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
   late final Logger logger;
-  final TextEditingController _sectorNameController = TextEditingController();
+  final TextEditingController _appSettingNameController =
+      TextEditingController();
 
-  final sectorCreationFormKey = GlobalKey<FormState>();
+  final appSettingCreationFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    final sectorDetail = widget.sectorData;
-    final sectorId = sectorDetail.id ?? 0;
-    context.read<SectorBloc>().add(SectorListEvent(sectorId));
+    final appSettingDetail = widget.appSettingData;
+    final appSettingId = appSettingDetail.id ?? 0;
+    context.read<AppSettingBloc>().add(AppSettingListEvent(appSettingId));
     super.initState();
   }
 
   @override
   void dispose() {
-    _sectorNameController.dispose();
+    _appSettingNameController.dispose();
     super.dispose();
   }
 
@@ -82,9 +86,9 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<SectorBloc, SectorState>(
+    return BlocListener<AppSettingBloc, AppSettingState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is SectorError) {
+        if (listenerState is AppSettingError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -92,21 +96,21 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
           );
         }
 
-        if (listenerState is SectorUpdateState) {
-          if (listenerState.sector.id != null) {
+        if (listenerState is AppSettingUpdateState) {
+          if (listenerState.appSetting.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Sector Updated Successfully'),
+                content: Text('AppSettings Updated Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<SectorBloc>().add(SectorsListEvent());
+            listenerContext.read<AppSettingBloc>().add(AppSettingsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Sector Creation Failed'),
+                content: Text('AppSettings Creation Failed'),
               ),
             );
           }
@@ -118,15 +122,15 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<SectorBloc, SectorState>(
+        content: BlocBuilder<AppSettingBloc, AppSettingState>(
           builder: (blocContext, blocState) {
-            if (blocState is SectorListState) {
-              final sectorDetails = blocState.sector;
-              _sectorNameController.text = sectorDetails.name ?? '';
+            if (blocState is AppSettingListState) {
+              final appSettingDetails = blocState.appSetting;
+              _appSettingNameController.text = appSettingDetails.name ?? '';
             }
             return SingleChildScrollView(
               child: Form(
-                key: sectorCreationFormKey,
+                key: appSettingCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +187,7 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _sectorNameController,
+                              controller: _appSettingNameController,
                             ),
 
                             const SizedBox(height: 24),
@@ -222,14 +226,16 @@ class _EditSectorDialogState extends State<EditSectorDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (sectorCreationFormKey.currentState!
+                                      if (appSettingCreationFormKey
+                                          .currentState!
                                           .validate()) {
                                         blocContext.read<SectorBloc>().add(
                                               SectorUpdateEvent(
                                                 Sector(
-                                                  id: widget.sectorData.id,
-                                                  name: _sectorNameController
-                                                      .text,
+                                                  id: widget.appSettingData.id,
+                                                  name:
+                                                      _appSettingNameController
+                                                          .text,
                                                 ),
                                               ),
                                             );
