@@ -67,6 +67,20 @@ List<GroupedMenuModel> get _groupedMenus {
       menus: [
         SidebarItemModel(
           //name: 'Users',
+          name: l.S.current.application,
+          iconPath: 'assets/images/sidebar_icons/clipboard-text.svg',
+          sidebarItemType: SidebarItemType.submenu,
+          navigationPath: '/appsetting',
+          submenus: [
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.applicationlist,
+              navigationPath: "application-list",
+            ),
+          ],
+        ),
+        SidebarItemModel(
+          //name: 'Users',
           name: l.S.current.users,
           iconPath: 'assets/images/sidebar_icons/users-group.svg',
           sidebarItemType: SidebarItemType.submenu,
@@ -76,6 +90,11 @@ List<GroupedMenuModel> get _groupedMenus {
               //name: "Users List",
               name: l.S.current.usersList,
               navigationPath: "user-list",
+            ),
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.unauthorisedusersList,
+              navigationPath: "unauthorised-users",
             ),
             SidebarSubmenuModel(
               //name: "Users Grid",

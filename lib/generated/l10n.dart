@@ -6331,6 +6331,24 @@ class S {
     );
   }
 
+  String get applicationlist {
+    return Intl.message(
+      'Application List',
+      name: 'applicationList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get unauthorisedusersList {
+    return Intl.message(
+      'Un Authorised Users',
+      name: 'unAuthorisedUsersList',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Users Grid`
   String get usersGrid {
     return Intl.message(
