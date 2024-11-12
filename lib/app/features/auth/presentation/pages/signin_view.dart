@@ -86,20 +86,26 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
-
             VariableModal.username = _userUserNameController.text;
             VariableModal.password = _userPasswordController.text;
-
             // ignore: unnecessary_null_comparison
             if (_userUserNameController.text != null &&
                 state.message == 'User is awaitng approval.') {
               context.go('/authentication/signin');
-            } else if (state.message == 'User needs registration') {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupView()));
-            } else {
-              context.go('/authentication/signin');
             }
+          }
+
+          if (state.message == 'User needs registration') {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignupView()));
+          }
+
+          if (state.message == 'Email is not confirmed') {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Your email is not Confirmed'),
+              ),
+            );
           }
 
           if (state.message.contains('401')) {

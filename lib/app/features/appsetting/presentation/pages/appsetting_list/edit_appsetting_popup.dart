@@ -229,13 +229,14 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
                                       if (appSettingCreationFormKey
                                           .currentState!
                                           .validate()) {
-                                        blocContext.read<SectorBloc>().add(
-                                              SectorUpdateEvent(
-                                                Sector(
+                                        blocContext.read<AppSettingBloc>().add(
+                                              AppSettingUpdateEvent(
+                                                AppSetting(
                                                   id: widget.appSettingData.id,
                                                   name:
                                                       _appSettingNameController
                                                           .text,
+                                                  isSelected: false,
                                                 ),
                                               ),
                                             );

@@ -5,8 +5,8 @@ import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.d
 class AppSettingModal {
   final int? id;
   final String? name;
-  final List<AppSettingRolesModal> roles;
-  final List<AppSettingSysFunctionModal> sysFunction;
+  List<AppSettingRolesModal> roles = [];
+  List<AppSettingSysFunctionModal> sysFunction = [];
 
   AppSettingModal(
       {required this.id,
@@ -18,13 +18,21 @@ class AppSettingModal {
     return AppSettingModal(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
-      roles: json["roles"] ?? [],
-      sysFunction: json["sysFunction"] ?? [],
+      roles: (json["roles"] as List<dynamic>? ?? [])
+          .map((item) => AppSettingRolesModal.fromJson(item))
+          .toList(),
+      sysFunction: (json["sysFunction"] as List<dynamic>? ?? [])
+          .map((item) => AppSettingSysFunctionModal.fromJson(item))
+          .toList(),
     );
   }
 
-  Map<String, dynamic> toJson() =>
-      {"id": id ?? 0, "name": name, "roles": roles, "sysFunction": sysFunction};
+  Map<String, dynamic> toJson() => {
+        "id": id ?? 0,
+        "name": name,
+        "roles": roles.map((role) => role.toJson()).toList(),
+        "sysFunction": sysFunction.map((func) => func.toJson()).toList(),
+      };
 
   factory AppSettingModal.fromEntity(AppSetting appSetting) {
     return AppSettingModal(
