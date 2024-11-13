@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/appsetting/data/models/appsetting_roles_modal.dart';
 import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/appsetting/domain/entities/appsetting_roles.dart';
 import 'package:finance_app/app/features/appsetting/domain/entities/appsetting_sysfunction.dart';

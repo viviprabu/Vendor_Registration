@@ -1,4 +1,7 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/appsetting/data/models/appsetting_roles_modal.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
@@ -51,6 +54,7 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AppSettingBloc>().add(AppSettingsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
 
@@ -79,6 +83,7 @@ class _SigninViewState extends State<SigninView> {
       listener: (BuildContext context, AuthState state) {
         //print(state);
         // TODO: implement listener
+
         if (state is AuthErrorState) {
           if (!state.message.contains('401')) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -88,9 +93,9 @@ class _SigninViewState extends State<SigninView> {
             );
             VariableModal.username = _userUserNameController.text;
             VariableModal.password = _userPasswordController.text;
-            // ignore: unnecessary_null_comparison
-            if (_userUserNameController.text != null &&
-                state.message == 'User is awaitng approval.') {
+            // ignore: unnecessary_null_comparison, unrelated_type_equality_checks
+
+            if (state.message == 'User is awaitng approval.') {
               context.go('/authentication/signin');
             }
           }
@@ -118,7 +123,13 @@ class _SigninViewState extends State<SigninView> {
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {
-            context.go('/authentication/applicationlist');
+            context.go('/authentication/applicationlist',
+                extra: AppSettingRolesModal(
+                    id: 1,
+                    name: 'Admin',
+                    isActive: true,
+                    isEditable: true,
+                    description: 'Admin Rights'));
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => AppSettingsGridView()));
           } else {

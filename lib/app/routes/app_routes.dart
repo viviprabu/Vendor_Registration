@@ -1,6 +1,6 @@
 // 📦 Package imports:
 import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
-import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/grid.dart';
+import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/appsetting_grid.dart';
 import 'package:finance_app/app/features/department/presentation/pages/departments_page.dart';
 import 'package:finance_app/app/features/sector/presentation/pages/sectors_page.dart';
 import 'package:finance_app/app/features/user/presentation/pages/user_list/_unauthorised_users_list_view.dart';
@@ -141,7 +141,7 @@ abstract class FinanceAppRoutes {
         path: '/authentication/applicationlist',
         name: 'applicationlist',
         pageBuilder: (context, state) => NoTransitionPage(
-          child: GlossyView(),
+          child: AppSettingGlossyView(),
         ),
       ),
 
