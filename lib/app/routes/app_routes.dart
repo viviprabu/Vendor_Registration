@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:finance_app/app/features/department/presentation/pages/departments_page.dart';
 import 'package:finance_app/app/features/sector/presentation/pages/sectors_page.dart';
+import 'package:finance_app/app/features/user_role/presentation/pages/user_role_list/_user_roles_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -68,6 +69,12 @@ abstract class FinanceAppRoutes {
                 path: 'user-list',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
                   child: UsersListView(),
+                ),
+              ),
+              GoRoute(
+                path: 'user-role-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: UserRolesListView(),
                 ),
               ),
               GoRoute(

@@ -41,6 +41,16 @@ import 'package:finance_app/app/features/user/domain/usecases/get_user.dart';
 import 'package:finance_app/app/features/user/domain/usecases/get_users.dart';
 import 'package:finance_app/app/features/user/domain/usecases/update_user.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/user_role/data/datasources/remote/user_role_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/user_role/data/datasources/user_role_remote_data_source.dart';
+import 'package:finance_app/app/features/user_role/data/repositories/user_role_repository_impl.dart';
+import 'package:finance_app/app/features/user_role/domain/repositories/user_role_repository.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/create_user_role.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/get_user_role.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/list_system_functions.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/list_user_roles.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/update_user_role.dart';
+import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:http/http.dart' as http;
@@ -93,6 +103,16 @@ void init() {
     ),
   );
 
+  getIt.registerFactory(
+    () => UserRoleBloc(
+      createUserRole: getIt(),
+      getUserRole: getIt(),
+      listSystemFunctions: getIt(),
+      listUserRoles: getIt(),
+      updateUserRole: getIt(),
+    ),
+  );
+
   // use cases
 
   getIt.registerLazySingleton(() => SignIn(getIt()));
@@ -118,6 +138,12 @@ void init() {
   getIt.registerLazySingleton(() => UpdateDepartment(getIt()));
   getIt.registerLazySingleton(() => DeleteDepartment(getIt()));
 
+  getIt.registerLazySingleton(() => GetUserRole(getIt()));
+  getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
+  getIt.registerLazySingleton(() => ListUserRoles(getIt()));
+  getIt.registerLazySingleton(() => CreateUserRole(getIt()));
+  getIt.registerLazySingleton(() => UpdateUserRole(getIt()));
+
   // repositories
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
@@ -141,6 +167,13 @@ void init() {
       departmentRemoteDataSource: getIt(),
     ),
   );
+
+  getIt.registerLazySingleton<UserRoleRepository>(
+    () => UserRoleRepositoryImpl(
+      userRoleRemoteDataSource: getIt(),
+    ),
+  );
+
   // Data sources
   getIt.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
@@ -161,6 +194,12 @@ void init() {
   );
   getIt.registerLazySingleton<DepartmentRemoteDataSource>(
     () => DepartmentRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<UserRoleRemoteDataSource>(
+    () => UserRoleRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );

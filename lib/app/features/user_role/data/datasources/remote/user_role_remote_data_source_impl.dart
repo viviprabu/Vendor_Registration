@@ -1,106 +1,109 @@
 import 'dart:convert';
+
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
-import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
-import 'package:finance_app/app/features/department/data/models/department_create_modal.dart';
-import 'package:finance_app/app/features/department/data/models/department_modal.dart';
-import 'package:finance_app/app/features/department/domain/usecases/add_department.dart';
+import 'package:finance_app/app/features/user_role/data/datasources/user_role_remote_data_source.dart';
+import 'package:finance_app/app/features/user_role/data/models/role_function_model.dart';
+import 'package:finance_app/app/features/user_role/data/models/system_function_model.dart';
+import 'package:finance_app/app/features/user_role/data/models/user_role_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
+class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   final HttpClient httpClient;
-
-  DepartmentRemoteDataSourceImpl({required this.httpClient});
-
+  UserRoleRemoteDataSourceImpl({required this.httpClient});
   @override
-  Future<DepartmentModal> deleteDepartment(DepartmentModal depatModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.delete(
-      '$applicationId/${ApiUrls.department}/${depatModel.id}',
-      data: depatModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    final responseBody = json.decode(response.body);
-    return DepartmentModal.fromJson(responseBody);
-  }
-
-  @override
-  Future<DepartmentModal> getDepartment(int id) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.get(
-      '$applicationId/${ApiUrls.getDept}?id=$id',
-      //ApiUrls.userProfile,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    final responseBody = json.decode(response.body);
-    return DepartmentModal.fromJson(responseBody);
-  }
-
-  @override
-  Future<List<DepartmentModal>> getDepartments() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.get(
-      '$applicationId/${ApiUrls.department}',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    final responseBody = json.decode(response.body);
-    final List<DepartmentModal> dept = (responseBody as List)
-        .map((dept) => DepartmentModal.fromJson(dept))
-        .toList();
-    print(responseBody);
-    return dept;
-  }
-
-  @override
-  Future<DepartmentModal> updateDepartment(DepartmentModal deptModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.put(
-      //'${ApiUrls.updateUser}/${userModel.id}',
-      '$applicationId/${ApiUrls.updateDept}',
-      data: deptModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    final responseBody = json.decode(response.body);
-    return DepartmentModal.fromJson(responseBody);
-  }
-
-  @override
-  Future<DepartmentModal> createDepartment(DepartmentModal deptModel) async {
+  Future<UserRoleModel> createUserRole(UserRoleModel userRoleModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.post(
-      '$applicationId/${ApiUrls.createDept}',
-      data: deptModel.toJson(),
+      '$applicationId/${ApiUrls.createRole}',
+      data: userRoleModel.toJson(),
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
+
     final responseBody = json.decode(response.body);
-    return DepartmentModal.fromJson(responseBody);
+    return UserRoleModel.fromJson(responseBody);
+  }
+
+  @override
+  Future<UserRoleModel> getUserRole(int id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    var applicationId = '0';
+    final response = await httpClient.get(
+      '$applicationId/${ApiUrls.getRole}?roleId=$id',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    final responseBody = json.decode(response.body);
+    return UserRoleModel.fromJson(responseBody);
+  }
+
+  @override
+  Future<List<UserRoleModel>> listUserRoles() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    var applicationId = '0';
+    final response = await httpClient.get(
+      '$applicationId/${ApiUrls.listRoles}',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    final responseBody = json.decode(response.body);
+    final List<UserRoleModel> userRoles = (responseBody as List)
+        .map((userRoles) => UserRoleModel.fromJson(userRoles))
+        .toList();
+    print(responseBody);
+    return userRoles;
+  }
+
+  @override
+  Future<UserRoleModel> updateUserRole(UserRoleModel userRoleModel) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    var applicationId = '0';
+
+    final response = await httpClient.post(
+      '$applicationId/${ApiUrls.updateRole}',
+      data: userRoleModel.toJson(),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    final responseBody = json.decode(response.body);
+    return UserRoleModel.fromJson(responseBody);
+  }
+
+  @override
+  Future<List<SystemFunctionModel>> listSystemFunctions() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    var applicationId = '0';
+    final response = await httpClient.get(
+      '$applicationId/${ApiUrls.listSystemFunctions}',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    final responseBody = json.decode(response.body);
+    final List<SystemFunctionModel> systemFunctions = (responseBody as List)
+        .map((systemFunctions) => SystemFunctionModel.fromJson(systemFunctions))
+        .toList();
+    print(responseBody);
+    return systemFunctions;
   }
 }

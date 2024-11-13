@@ -78,6 +78,11 @@ List<GroupedMenuModel> get _groupedMenus {
               navigationPath: "user-list",
             ),
             SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.userRole,
+              navigationPath: "user-role-list",
+            ),
+            SidebarSubmenuModel(
               //name: "Users Grid",
               name: l.S.current.usersGrid,
               navigationPath: "user-grid",

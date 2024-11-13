@@ -5,6 +5,7 @@ import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:finance_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,10 +50,17 @@ Future<void> main() async {
           ),
       ),
       BlocProvider(
-          create: (context) => getIt<SectorBloc>()..add(SectorInitialEvent())),
+        create: (context) => getIt<SectorBloc>()..add(SectorInitialEvent()),
+      ),
       BlocProvider(
         create: (context) =>
             getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
+      ),
+      BlocProvider(
+        create: (context) => getIt<UserRoleBloc>()
+          ..add(
+            UserRoleInitialEvent(),
+          ),
       ),
     ],
     child: const FinanceApp(),
