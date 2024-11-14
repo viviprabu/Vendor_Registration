@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/appsetting/data/models/appsetting_roles_modal.dart';
-import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
-import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
+import 'package:finance_app/app/features/services/data/models/appsetting_roles_modal.dart';
+import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
