@@ -35,6 +35,13 @@ class ApiUrls {
   static const getAppSetting = 'System/ApplicationSettings';
   static const updateAppSetting = 'System/ApplicationSettings';
 
+  // manage role
+  static const createRole = 'System/Role';
+  static const listRoles = 'System/Roles';
+  static const getRole = 'System/UserRoleFunctions';
+  static const updateRole = 'System/Role';
+  static const listSystemFunctions = 'System/SystemFunctions';
+
   static const createSetting = 'System/Settings';
   static const setting = 'System/Settings';
   static const getSetting = 'System/Settings';
