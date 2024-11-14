@@ -1,6 +1,5 @@
 class ApiUrls {
   static const baseURL = 'https://h4434l95-7045.inc1.devtunnels.ms/MEW/';
-  //static const baseURL = 'https://nw5t5w76-7045.asse.devtunnels.ms/MEW/';
 
   static const applicationId = '0';
   // Manage User
@@ -34,6 +33,11 @@ class ApiUrls {
   static const appSetting = 'System/ApplicationSettings';
   static const getAppSetting = 'System/ApplicationSettings';
   static const updateAppSetting = 'System/ApplicationSettings';
+
+  static const createSetting = 'System/Settings';
+  static const setting = 'System/Settings';
+  static const getSetting = 'System/Settings';
+  static const updateSetting = 'System/Settings';
 
   // manage role
   static const createRole = 'System/Role';

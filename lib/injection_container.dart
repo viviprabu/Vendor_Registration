@@ -152,6 +152,14 @@ void init() {
   );
 
   getIt.registerFactory(
+
+    () => SettingBloc(
+      getSetting: getIt(),
+      getSettings: getIt(),
+      createSetting: getIt(),
+      updateSetting: getIt(),
+      deleteSetting: getIt(),
+
     () => UserRoleBloc(
       createUserRole: getIt(),
       getUserRole: getIt(),
@@ -168,6 +176,7 @@ void init() {
       createSetting: getIt(),
       updateSetting: getIt(),
       deleteSetting: getIt(),
+
     ),
   );
 
@@ -253,6 +262,11 @@ void init() {
       appSettingRemoteDataSource: getIt(),
     ),
   );
+
+  getIt.registerLazySingleton<SettingRepository>(
+    () => SettingRepositoryImpl(
+      settingRemoteDataSource: getIt(),
+
 
   getIt.registerLazySingleton<UserRoleRepository>(
     () => UserRoleRepositoryImpl(
