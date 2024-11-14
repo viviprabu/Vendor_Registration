@@ -152,21 +152,22 @@ void init() {
   );
 
   getIt.registerFactory(
-
     () => SettingBloc(
       getSetting: getIt(),
       getSettings: getIt(),
       createSetting: getIt(),
       updateSetting: getIt(),
       deleteSetting: getIt(),
+    ),
+  );
 
+  getIt.registerFactory(
     () => UserRoleBloc(
-      createUserRole: getIt(),
       getUserRole: getIt(),
-      listSystemFunctions: getIt(),
       listUserRoles: getIt(),
+      createUserRole: getIt(),
       updateUserRole: getIt(),
-
+      listSystemFunctions: getIt(),
     ),
   );
 
@@ -253,15 +254,15 @@ void init() {
     ),
   );
 
-  getIt.registerLazySingleton<SettingRepository>(
-    () => SettingRepositoryImpl(
-      settingRemoteDataSource: getIt(),
-
-
   getIt.registerLazySingleton<UserRoleRepository>(
     () => UserRoleRepositoryImpl(
       userRoleRemoteDataSource: getIt(),
+    ),
+  );
 
+  getIt.registerLazySingleton<SettingRepository>(
+    () => SettingRepositoryImpl(
+      settingRemoteDataSource: getIt(),
     ),
   );
 
@@ -298,14 +299,14 @@ void init() {
       httpClient: getIt(),
     ),
   );
-  getIt.registerLazySingleton<SettingRemoteDataSource>(
-    () => SettingRemoteDataSourceImpl(
-      httpClient: getIt(),
-    ),
-  );
 
   getIt.registerLazySingleton<UserRoleRemoteDataSource>(
     () => UserRoleRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<SettingRemoteDataSource>(
+    () => SettingRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );
