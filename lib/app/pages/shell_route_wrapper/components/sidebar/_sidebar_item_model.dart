@@ -65,20 +65,20 @@ List<GroupedMenuModel> get _groupedMenus {
       //name: 'Application',
       name: l.S.current.application,
       menus: [
-        SidebarItemModel(
-          //name: 'Users',
-          name: l.S.current.application,
-          iconPath: 'assets/images/sidebar_icons/clipboard-text.svg',
-          sidebarItemType: SidebarItemType.submenu,
-          navigationPath: '/appsetting',
-          submenus: [
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.applicationlist,
-              navigationPath: "application-list",
-            ),
-          ],
-        ),
+        // SidebarItemModel(
+        //   //name: 'Users',
+        //   name: l.S.current.application,
+        //   iconPath: 'assets/images/sidebar_icons/clipboard-text.svg',
+        //   sidebarItemType: SidebarItemType.submenu,
+        //   navigationPath: '/appsetting',
+        //   submenus: [
+        //     SidebarSubmenuModel(
+        //       //name: "Users List",
+        //       name: l.S.current.applicationlist,
+        //       navigationPath: "application-list",
+        //     ),
+        //   ],
+        // ),
         SidebarItemModel(
           //name: 'Users',
           name: l.S.current.users,
