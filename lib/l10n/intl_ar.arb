@@ -965,9 +965,14 @@
   "sector":"قطاع",
   "section:"قسم",
   "addNewDepartment":"إضافة قسم جديد",
+  "addNewSections":"إضافة قسم جديد",
   "AddNewSections":"إضافة أقسام قائمة الأقسام",
   "listDepartments":"الجديدة",
   "listSections":"قائمة الأقسام",
+  "AddNewAppSetting":"إضافة إعدادات التطبيق الجديدة",
+  "unAuthorisedUsersList":"قائمة المستخدمين غير المصرح لهم",
+  "applicationlist":"قائمة التطبيقات"
+
 
 
 

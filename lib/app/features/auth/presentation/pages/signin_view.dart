@@ -1,5 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/auth/domain/entities/token.dart';
+import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
@@ -87,12 +87,15 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
+
             VariableModal.username = _userUserNameController.text;
             VariableModal.password = _userPasswordController.text;
 
-            // context.go('signup', extra: email);
             // ignore: unnecessary_null_comparison
-            if (_userUserNameController.text != null) {
+            if (_userUserNameController.text != null &&
+                state.message == 'User is awaitng approval.') {
+              context.go('/authentication/signin');
+            } else if (state.message == 'User needs registration') {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SignupView()));
             } else {
@@ -110,7 +113,9 @@ class _SigninViewState extends State<SigninView> {
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {
-            context.go('/dashboard/home');
+            context.go('/appsetting/application-list');
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => AppSettingsGridView()));
           } else {
             context.go('/authentication/signin');
           }
@@ -369,7 +374,7 @@ class _SigninViewState extends State<SigninView> {
                     height: double.maxFinite, */
                     width: double.maxFinite,
                     height: double.maxFinite,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.fill,
                   ),
                 ),
             ],

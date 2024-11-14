@@ -6331,6 +6331,24 @@ class S {
     );
   }
 
+  String get applicationlist {
+    return Intl.message(
+      'Application List',
+      name: 'applicationList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get unauthorisedusersList {
+    return Intl.message(
+      'Un Authorised Users',
+      name: 'unAuthorisedUsersList',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Users Grid`
   String get usersGrid {
     return Intl.message(
@@ -9705,6 +9723,24 @@ class S {
     return Intl.message(
       'Add New Department',
       name: 'addNewDepartment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addNewSection {
+    return Intl.message(
+      'Add New Sections',
+      name: 'addNewSection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get addNewAppSettings {
+    return Intl.message(
+      'Add New App Settings',
+      name: 'addNewAppSetting',
       desc: '',
       args: [],
     );

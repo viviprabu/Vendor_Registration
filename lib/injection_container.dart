@@ -2,6 +2,17 @@ import 'dart:io';
 
 import 'package:finance_app/app/core/network/http_logger.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
+import 'package:finance_app/app/features/appsetting/data/datasources/appsetting_remote_data_source.dart';
+import 'package:finance_app/app/features/appsetting/data/datasources/appsetting_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/appsetting/data/repositories/appsetting_repository_impl.dart';
+import 'package:finance_app/app/features/appsetting/domain/entities/appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/repositories/appsetting_repository.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/create_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/delete_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/get_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/get_appsettings.dart';
+import 'package:finance_app/app/features/appsetting/domain/usecases/update_appsetting.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:finance_app/app/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -21,6 +32,16 @@ import 'package:finance_app/app/features/department/domain/usecases/get_departme
 import 'package:finance_app/app/features/department/domain/usecases/get_departments.dart';
 import 'package:finance_app/app/features/department/domain/usecases/update_department.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/data/datasources/section_remote_data_source.dart';
+import 'package:finance_app/app/features/section/data/datasources/section_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/section/data/repositories/section_repository_impl.dart';
+import 'package:finance_app/app/features/section/domain/repositories/sections_repository.dart';
+import 'package:finance_app/app/features/section/domain/usecases/add_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/delete_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/get_section.dart';
+import 'package:finance_app/app/features/section/domain/usecases/get_sections.dart';
+import 'package:finance_app/app/features/section/domain/usecases/update_section.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/sector/data/repositories/sector_repository_impl.dart';
@@ -102,6 +123,24 @@ void init() {
       deleteDepartment: getIt(),
     ),
   );
+  getIt.registerFactory(
+    () => SectionBloc(
+      getSection: getIt(),
+      getSections: getIt(),
+      createSection: getIt(),
+      updateSection: getIt(),
+      deleteSection: getIt(),
+    ),
+  );
+  getIt.registerFactory(
+    () => AppSettingBloc(
+      getAppSetting: getIt(),
+      getAppSettings: getIt(),
+      createAppSetting: getIt(),
+      updateAppSetting: getIt(),
+      deleteAppSetting: getIt(),
+    ),
+  );
 
   getIt.registerFactory(
     () => UserRoleBloc(
@@ -144,6 +183,17 @@ void init() {
   getIt.registerLazySingleton(() => CreateUserRole(getIt()));
   getIt.registerLazySingleton(() => UpdateUserRole(getIt()));
 
+  getIt.registerLazySingleton(() => GetSection(getIt()));
+  getIt.registerLazySingleton(() => GetSections(getIt()));
+  getIt.registerLazySingleton(() => CreateSection(getIt()));
+  getIt.registerLazySingleton(() => UpdateSection(getIt()));
+  getIt.registerLazySingleton(() => DeleteSection(getIt()));
+
+  getIt.registerLazySingleton(() => GetAppSetting(getIt()));
+  getIt.registerLazySingleton(() => GetAppSettings(getIt()));
+  getIt.registerLazySingleton(() => CreateAppSetting(getIt()));
+  getIt.registerLazySingleton(() => UpdateAppSetting(getIt()));
+  getIt.registerLazySingleton(() => DeleteAppSetting(getIt()));
   // repositories
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
@@ -165,6 +215,17 @@ void init() {
   getIt.registerLazySingleton<DepartmentRepository>(
     () => DepartmentRepositoryImpl(
       departmentRemoteDataSource: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<SectionRepository>(
+    () => SectionRepositoryImpl(
+      sectionRemoteDataSource: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<AppSettingRepository>(
+    () => AppSettingRepositoryImpl(
+      appSettingRemoteDataSource: getIt(),
     ),
   );
 
@@ -194,6 +255,16 @@ void init() {
   );
   getIt.registerLazySingleton<DepartmentRemoteDataSource>(
     () => DepartmentRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<SectionRemoteDataSource>(
+    () => SectionRemoteDataSourceImpl(
+      httpClient: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<AppSettingRemoteDataSource>(
+    () => AppSettingRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );

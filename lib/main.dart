@@ -1,8 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
+import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
@@ -56,6 +58,12 @@ Future<void> main() async {
         create: (context) =>
             getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
       ),
+      BlocProvider(
+          create: (context) =>
+              getIt<SectionBloc>()..add(SectionInitialEvent())),
+      BlocProvider(
+          create: (context) =>
+              getIt<AppSettingBloc>()..add(AppSettingInitialEvent()))
       BlocProvider(
         create: (context) => getIt<UserRoleBloc>()
           ..add(

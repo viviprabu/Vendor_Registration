@@ -133,11 +133,23 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'Application / Open AI',
       childRoute: 'AI Voiceover',
     ),
+    '/appsetting/application-list': RouteBreadcrumbModel(
+      //title: 'Users List',
+      title: l.S.current.applicationlist,
+      parentRoute: 'Application / appsetting',
+      childRoute: 'Applications List',
+    ),
     '/users/user-list': RouteBreadcrumbModel(
       //title: 'Users List',
       title: l.S.current.usersList,
       parentRoute: 'Application / Users',
       childRoute: 'Users List',
+    ),
+    '/users/unauthorised-users': RouteBreadcrumbModel(
+      //title: 'Users List',
+      title: l.S.current.unauthorisedusersList,
+      parentRoute: 'Application / Un Authorised Users',
+      childRoute: 'Un Authorised Users',
     ),
     '/users/user-grid': RouteBreadcrumbModel(
       //title: 'Users Grid',

@@ -20,6 +20,21 @@ class ApiUrls {
   static const getDept = 'System/Department';
   static const updateDept = 'System/Department';
 
+  static const createSection = 'System/Section';
+  static const Section = 'System/Section';
+  static const getSection = 'System/Section';
+  static const updateSection = 'System/Section';
+
+  static const createAppList = 'Authentication';
+  static const appList = 'Authentication';
+  static const getAppList = 'Authentication';
+  static const updateAppList = 'Authentication';
+
+  static const createAppSetting = 'System/ApplicationSettings';
+  static const appSetting = 'System/ApplicationSettings';
+  static const getAppSetting = 'System/ApplicationSettings';
+  static const updateAppSetting = 'System/ApplicationSettings';
+
   // manage role
   static const createRole = 'System/Role';
   static const listRoles = 'System/Roles';

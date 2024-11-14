@@ -18,6 +18,7 @@ abstract class FinanceAppColors {
   static const kPrimary700 = Color(0xFF3463CF); //#3463cf
   static const kPrimary800 = Color(0xFF1B50C9); //#1b50c9
   static const kPrimary900 = Color(0xFF023DC3); //#023DC3
+  static const kPrimary1000 = Color(0xFF0A65C6); //#023DC3
   //---------------Primary Colors---------------//
 
   //---------------Neutral Colors---------------//

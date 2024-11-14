@@ -34,7 +34,8 @@ abstract class FinanceAppTheme {
       primaryColor: FinanceAppColors.kPrimary600,
       colorScheme: const ColorScheme.light(
         surface: FinanceAppColors.kPrimary50,
-        primary: FinanceAppColors.kPrimary600,
+        // primary: FinanceAppColors.kPrimary600,
+        primary: FinanceAppColors.kPrimary1000,
         onPrimary: FinanceAppColors.kWhiteColor,
         secondary: FinanceAppColors.kNeutral200,
         error: FinanceAppColors.kError,
@@ -135,7 +136,7 @@ abstract class FinanceAppTheme {
         padding: _buttonPadding,
         visualDensity: _buttonDensity,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        backgroundColor: FinanceAppColors.kPrimary500,
+        backgroundColor: FinanceAppColors.kPrimary1000,
         foregroundColor: FinanceAppColors.kWhiteColor,
         textStyle: baseTextTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.w600,

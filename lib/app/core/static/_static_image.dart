@@ -10,7 +10,7 @@ abstract class FinanceStaticImage {
 
   // Authentication Images
   static const signInCover =
-      'assets/images/widget_images/authentication_images/auth_bg.png';
+      'assets/images/widget_images/authentication_images/mew2.jpg';
   static const signUpCover =
       'assets/images/widget_images/authentication_images/auth_bg.png';
   static const googleIcon =

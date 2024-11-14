@@ -1,6 +1,8 @@
 // 📦 Package imports:
+import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
 import 'package:finance_app/app/features/department/presentation/pages/departments_page.dart';
 import 'package:finance_app/app/features/sector/presentation/pages/sectors_page.dart';
+import 'package:finance_app/app/features/user/presentation/pages/user_list/_unauthorised_users_list_view.dart';
 import 'package:finance_app/app/features/user_role/presentation/pages/user_role_list/_user_roles_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +11,7 @@ import 'package:go_router/go_router.dart';
 import '../features/pages.dart';
 
 abstract class FinanceAppRoutes {
-  //--------------Navigator Keys--------------//
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
-  /* static final _emailShellNavigatorKey = GlobalKey<NavigatorState>(); */
-  //--------------Navigator Keys--------------//
-
   static const _initialPath = '/';
   static final routerConfig = GoRouter(
     navigatorKey: GlobalKey<NavigatorState>(),
@@ -55,6 +53,23 @@ abstract class FinanceAppRoutes {
             ],
           ),
 
+          GoRoute(
+            path: '/appsetting',
+            redirect: (context, state) async {
+              if (state.fullPath == '/appsetting') {
+                return '/appsetting/application-list';
+              }
+              return null;
+            },
+            routes: [
+              GoRoute(
+                path: 'application-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: AppSettingsGridView(),
+                ),
+              ),
+            ],
+          ),
           // Users Route
           GoRoute(
             path: '/users',
@@ -69,6 +84,12 @@ abstract class FinanceAppRoutes {
                 path: 'user-list',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
                   child: UsersListView(),
+                ),
+              ),
+              GoRoute(
+                path: 'unauthorised-users',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: UnAuthorisedUsersListView(),
                 ),
               ),
               GoRoute(
