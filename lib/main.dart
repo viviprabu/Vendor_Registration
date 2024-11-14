@@ -63,7 +63,7 @@ Future<void> main() async {
               getIt<SectionBloc>()..add(SectionInitialEvent())),
       BlocProvider(
           create: (context) =>
-              getIt<AppSettingBloc>()..add(AppSettingInitialEvent()))
+              getIt<AppSettingBloc>()..add(AppSettingInitialEvent())),
       BlocProvider(
         create: (context) => getIt<UserRoleBloc>()
           ..add(
