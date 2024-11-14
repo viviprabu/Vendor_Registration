@@ -67,16 +67,14 @@ Future<void> main() async {
           create: (context) =>
               getIt<AppSettingBloc>()..add(AppSettingInitialEvent())),
       BlocProvider(
-
           create: (context) =>
               getIt<SettingBloc>()..add(SettingInitialEvent())),
-
+      BlocProvider(
         create: (context) => getIt<UserRoleBloc>()
           ..add(
             UserRoleInitialEvent(),
           ),
       ),
-
     ],
     child: const FinanceApp(),
   );

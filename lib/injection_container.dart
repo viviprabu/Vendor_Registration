@@ -152,31 +152,22 @@ void init() {
   );
 
   getIt.registerFactory(
-
     () => SettingBloc(
       getSetting: getIt(),
       getSettings: getIt(),
       createSetting: getIt(),
       updateSetting: getIt(),
       deleteSetting: getIt(),
-
-    () => UserRoleBloc(
-      createUserRole: getIt(),
-      getUserRole: getIt(),
-      listSystemFunctions: getIt(),
-      listUserRoles: getIt(),
-      updateUserRole: getIt(),
     ),
   );
 
   getIt.registerFactory(
-    () => SettingBloc(
-      getSetting: getIt(),
-      getSettings: getIt(),
-      createSetting: getIt(),
-      updateSetting: getIt(),
-      deleteSetting: getIt(),
-
+    () => UserRoleBloc(
+      getUserRole: getIt(),
+      listUserRoles: getIt(),
+      createUserRole: getIt(),
+      updateUserRole: getIt(),
+      listSystemFunctions: getIt(),
     ),
   );
 
@@ -262,11 +253,6 @@ void init() {
       appSettingRemoteDataSource: getIt(),
     ),
   );
-
-  getIt.registerLazySingleton<SettingRepository>(
-    () => SettingRepositoryImpl(
-      settingRemoteDataSource: getIt(),
-
 
   getIt.registerLazySingleton<UserRoleRepository>(
     () => UserRoleRepositoryImpl(

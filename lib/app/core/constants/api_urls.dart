@@ -46,11 +46,6 @@ class ApiUrls {
   static const updateRole = 'System/Role';
   static const listSystemFunctions = 'System/SystemFunctions';
 
-  static const createSetting = 'System/Settings';
-  static const setting = 'System/Settings';
-  static const getSetting = 'System/Settings';
-  static const updateSetting = 'System/Settings';
-
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
   static const login = 'Authentication/login';
