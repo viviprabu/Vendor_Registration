@@ -302,5 +302,12 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'Master/Sections',
       childRoute: 'List Sections',
     ),
+
+    '/users/user-role-list': RouteBreadcrumbModel(
+      // title: 'Terms & Conditions',
+      title: l.S.current.userRole,
+      parentRoute: 'User/User Role',
+      childRoute: 'List User Role',
+    ),
   };
 }
