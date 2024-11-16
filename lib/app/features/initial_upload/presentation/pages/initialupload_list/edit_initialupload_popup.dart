@@ -1,10 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
-import 'package:finance_app/app/features/user/domain/usecases/update_user.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -16,30 +13,33 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditUserDialog extends StatefulWidget {
-  final User userData;
-  const EditUserDialog({
-    required this.userData,
+class EditInitialUploadDialog extends StatefulWidget {
+  final InitialUpload initialUploadData;
+  const EditInitialUploadDialog({
+    required this.initialUploadData,
     super.key,
   });
 
   @override
-  State<EditUserDialog> createState() => _EditUserDialogState();
+  State<EditInitialUploadDialog> createState() =>
+      _EditInitialUploadDialogState();
 }
 
-class _EditUserDialogState extends State<EditUserDialog> {
+class _EditInitialUploadDialogState extends State<EditInitialUploadDialog> {
   late final Logger logger;
-  final TextEditingController _userEmailController = TextEditingController();
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _userPhoneNumberController =
+  final TextEditingController _InitialUploadEmailController =
       TextEditingController();
-  final TextEditingController _userMobileNumberController =
+  final TextEditingController _InitialUploadNameController =
       TextEditingController();
-  final TextEditingController _userOfficePhoneController =
+  final TextEditingController _InitialUploadPhoneNumberController =
       TextEditingController();
-  final TextEditingController _userDescriptionController =
+  final TextEditingController _InitialUploadMobileNumberController =
       TextEditingController();
-  final TextEditingController _userSuspendendReasonController =
+  final TextEditingController _InitialUploadOfficePhoneController =
+      TextEditingController();
+  final TextEditingController _InitialUploadDescriptionController =
+      TextEditingController();
+  final TextEditingController _InitialUploadSuspendendReasonController =
       TextEditingController();
 
   int? _selectedRole;
@@ -49,7 +49,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
   final bool _isSuspended = false;
   int toggleValue = 0;
 
-  final userCreationFormKey = GlobalKey<FormState>();
+  final InitialUploadCreationFormKey = GlobalKey<FormState>();
 
   List<String> get _positions => [
         //'Manager',
@@ -69,29 +69,31 @@ class _EditUserDialogState extends State<EditUserDialog> {
 
   List<Map<int, String>> get _businessRole => [
         {1: 'admin'},
-        {2: 'user'},
+        {2: 'InitialUpload'},
       ];
 
-  List<Map<int, String>> get _userRoles => [
+  List<Map<int, String>> get _InitialUploadRoles => [
         {1: 'admin'},
-        {2: 'user'},
+        {2: 'InitialUpload'},
       ];
 
   @override
   void initState() {
-    final userDetail = widget.userData;
-    final userId = userDetail.id ?? '';
-    context.read<UserBloc>().add(UserListEvent(userId.toString()));
+    final initialUploadDetail = widget.initialUploadData;
+    final initialUploadId = initialUploadDetail.id ?? '';
+    context
+        .read<InitialUploadBloc>()
+        .add(InitialUploadListEvent(InitialUploadId.toString()));
     super.initState();
   }
 
   @override
   void dispose() {
-    _userEmailController.dispose();
-    _userNameController.dispose();
-    _userPhoneNumberController.dispose();
-    _userMobileNumberController.dispose();
-    _userOfficePhoneController.dispose();
+    _InitialUploadEmailController.dispose();
+    _InitialUploadNameController.dispose();
+    _InitialUploadPhoneNumberController.dispose();
+    _InitialUploadMobileNumberController.dispose();
+    _InitialUploadOfficePhoneController.dispose();
     super.dispose();
   }
 
@@ -133,9 +135,9 @@ class _EditUserDialogState extends State<EditUserDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<UserBloc, UserState>(
+    return BlocListener<InitialUploadBloc, InitialUploadState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is UserError) {
+        if (listenerState is InitialUploadError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -143,21 +145,23 @@ class _EditUserDialogState extends State<EditUserDialog> {
           );
         }
 
-        if (listenerState is UserUpdateState) {
-          if (listenerState.user.id != null) {
+        if (listenerState is InitialUploadUpdateState) {
+          if (listenerState.InitialUpload.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('User Updated Successfully'),
+                content: Text('InitialUpload Updated Successfully'),
               ),
             );
-            // refresh the user list
-            listenerContext.read<UserBloc>().add(UsersListEvent());
+            // refresh the InitialUpload list
+            listenerContext
+                .read<InitialUploadBloc>()
+                .add(InitialUploadsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('User Creation Failed'),
+                content: Text('InitialUpload Creation Failed'),
               ),
             );
           }
@@ -169,19 +173,24 @@ class _EditUserDialogState extends State<EditUserDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<UserBloc, UserState>(
+        content: BlocBuilder<InitialUploadBloc, InitialUploadState>(
           builder: (blocContext, blocState) {
-            if (blocState is UserListState) {
-              final userDetails = blocState.user;
-              _userEmailController.text = userDetails.email ?? '';
-              _userNameController.text = userDetails.name ?? '';
-              _userPhoneNumberController.text = userDetails.phoneNumber ?? '';
-              _userMobileNumberController.text = userDetails.phoneNumber ?? '';
-              _userOfficePhoneController.text = userDetails.phoneNumber ?? '';
+            if (blocState is InitialUploadListState) {
+              final InitialUploadDetails = blocState.InitialUpload;
+              _InitialUploadEmailController.text =
+                  InitialUploadDetails.email ?? '';
+              _InitialUploadNameController.text =
+                  InitialUploadDetails.name ?? '';
+              _InitialUploadPhoneNumberController.text =
+                  InitialUploadDetails.phoneNumber ?? '';
+              _InitialUploadMobileNumberController.text =
+                  InitialUploadDetails.phoneNumber ?? '';
+              _InitialUploadOfficePhoneController.text =
+                  InitialUploadDetails.phoneNumber ?? '';
             }
             return SingleChildScrollView(
               child: Form(
-                key: userCreationFormKey,
+                key: InitialUploadCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +202,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewUser),
+                          Text(lang.addNewInitialUpload),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -237,8 +246,8 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 return null;
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userNameController,
+                                  AutovalidateMode.onInitialUploadInteraction,
+                              controller: _InitialUploadNameController,
                             ),
 
                             const SizedBox(height: 20),
@@ -268,8 +277,8 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 return null;
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userEmailController,
+                                  AutovalidateMode.onInitialUploadInteraction,
+                              controller: _InitialUploadEmailController,
                             ),
 
                             const SizedBox(height: 20),
@@ -283,7 +292,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userPhoneNumberController,
+                              controller: _InitialUploadPhoneNumberController,
                             ),
                             const SizedBox(height: 20),
 
@@ -296,7 +305,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userMobileNumberController,
+                              controller: _InitialUploadMobileNumberController,
                             ),
                             const SizedBox(height: 20),
 
@@ -310,7 +319,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userOfficePhoneController,
+                              controller: _InitialUploadOfficePhoneController,
                             ),
 
                             const SizedBox(height: 20),
@@ -345,20 +354,21 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 }
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
-                            Text(lang.userRole, style: textTheme.bodySmall),
+                            Text(lang.InitialUploadRole,
+                                style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<int>(
                               dropdownColor: theme.colorScheme.primaryContainer,
                               value: _selectedRole,
                               hint: Text(
-                                lang.selectUserRole,
+                                lang.selectInitialUploadRole,
                                 style: textTheme.bodySmall,
                               ),
-                              items: _userRoles.map((role) {
+                              items: _InitialUploadRoles.map((role) {
                                 return DropdownMenuItem<int>(
                                   value: role.keys.first,
                                   child: Text(role.values.first),
@@ -369,21 +379,22 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                   _selectedRole = value;
                                 });
                               },
-                              validator: (value) =>
-                                  value == null ? lang.selectUserRole : null,
+                              validator: (value) => value == null
+                                  ? lang.selectInitialUploadRole
+                                  : null,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
-                            Text(lang.userBusinessRole,
+                            Text(lang.InitialUploadBusinessRole,
                                 style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<int>(
                               dropdownColor: theme.colorScheme.primaryContainer,
                               value: _selectedBusinessRole,
                               hint: Text(
-                                lang.selectUserBusinessRole,
+                                lang.selectInitialUploadBusinessRole,
                                 style: textTheme.bodySmall,
                               ),
                               items: _businessRole.map((bRole) {
@@ -398,10 +409,10 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 });
                               },
                               validator: (value) => value == null
-                                  ? lang.selectUserBusinessRole
+                                  ? lang.selectInitialUploadBusinessRole
                                   : null,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
@@ -427,7 +438,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               maxLines: 3,
-                              controller: _userDescriptionController,
+                              controller: _InitialUploadDescriptionController,
                             ),
                             const SizedBox(height: 20),
                             Text(lang.suspendReason,
@@ -440,7 +451,8 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               maxLines: 3,
-                              controller: _userSuspendendReasonController,
+                              controller:
+                                  _InitialUploadSuspendendReasonController,
                             ),
                             const SizedBox(height: 24),
 
@@ -478,33 +490,40 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (userCreationFormKey.currentState!
+                                      if (InitialUploadCreationFormKey
+                                          .currentState!
                                           .validate()) {
-                                        blocContext.read<UserBloc>().add(
-                                              UserUpdateEvent(
-                                                UserUpdate(
-                                                  id: widget.userData.id,
+                                        blocContext
+                                            .read<InitialUploadBloc>()
+                                            .add(
+                                              InitialUploadUpdateEvent(
+                                                InitialUploadUpdate(
+                                                  id: widget
+                                                      .InitialUploadData.id,
                                                   name:
-                                                      _userNameController.text,
+                                                      _InitialUploadNameController
+                                                          .text,
                                                   email:
-                                                      _userEmailController.text,
-                                                  userName:
-                                                      _userEmailController.text,
+                                                      _InitialUploadEmailController
+                                                          .text,
+                                                  InitialUploadName:
+                                                      _InitialUploadEmailController
+                                                          .text,
                                                   mobileNumber:
-                                                      _userMobileNumberController
+                                                      _InitialUploadMobileNumberController
                                                           .text,
                                                   phoneNumber:
-                                                      _userPhoneNumberController
+                                                      _InitialUploadPhoneNumberController
                                                           .text,
                                                   officePhone:
-                                                      _userOfficePhoneController
+                                                      _InitialUploadOfficePhoneController
                                                           .text,
                                                   homePhone:
-                                                      _userPhoneNumberController
+                                                      _InitialUploadPhoneNumberController
                                                           .text,
                                                   isSuspended: _isSuspended,
                                                   suspendReason:
-                                                      _userSuspendendReasonController
+                                                      _InitialUploadSuspendendReasonController
                                                           .text,
                                                   roleId:
                                                       _selectedRole!.toInt(),
@@ -524,7 +543,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
                                                   logoPath: 'path',
                                                   logoFile: 'filename',
                                                   description:
-                                                      _userDescriptionController
+                                                      _InitialUploadDescriptionController
                                                           .text,
                                                 ),
                                               ),

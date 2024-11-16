@@ -46,6 +46,11 @@ class ApiUrls {
   static const updateRole = 'System/Role';
   static const listSystemFunctions = 'System/SystemFunctions';
 
+  static const createInitialUpload = 'System/InitialUpload';
+  static const initialUpload = 'System/InitialUpload';
+  static const getInitialUpload = 'System/InitialUpload';
+  static const updateInitialUpload = 'System/InitialUpload';
+
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
   static const login = 'Authentication/login';

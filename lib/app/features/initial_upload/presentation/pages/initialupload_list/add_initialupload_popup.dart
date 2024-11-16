@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -14,24 +14,24 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddUserDialog extends StatefulWidget {
-  const AddUserDialog({super.key});
+class AddInitialUploadDialog extends StatefulWidget {
+  const AddInitialUploadDialog({super.key});
 
   @override
-  State<AddUserDialog> createState() => _AddUserDialogState();
+  State<AddInitialUploadDialog> createState() => _AddInitialUploadDialogState();
 }
 
-class _AddUserDialogState extends State<AddUserDialog> {
+class _AddInitialUploadDialogState extends State<AddInitialUploadDialog> {
   late final Logger logger;
-  final _userEmailController = TextEditingController();
-  final _userPasswordController = TextEditingController();
-  final _userNameController = TextEditingController();
-  final _userPhoneNumberController = TextEditingController();
-  final _userMobileNumberController = TextEditingController();
-  final _userOfficePhoneController = TextEditingController();
-  final _userDescriptionController = TextEditingController();
-  final _userLogoPathController = TextEditingController();
-  final _userLogoFileController = TextEditingController();
+  final _InitialUploadEmailController = TextEditingController();
+  final _InitialUploadPasswordController = TextEditingController();
+  final _InitialUploadNameController = TextEditingController();
+  final _InitialUploadPhoneNumberController = TextEditingController();
+  final _InitialUploadMobileNumberController = TextEditingController();
+  final _InitialUploadOfficePhoneController = TextEditingController();
+  final _InitialUploadDescriptionController = TextEditingController();
+  final _InitialUploadLogoPathController = TextEditingController();
+  final _InitialUploadLogoFileController = TextEditingController();
 
   int? _selectedRole;
   int? _selectedLanguage;
@@ -39,7 +39,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
   int toggleValue = 0;
   int isDarkMode = 1;
 
-  final userCreationFormKey = GlobalKey<FormState>();
+  final InitialUploadCreationFormKey = GlobalKey<FormState>();
 
   List<Map<int, String>> get _language => [
         {1: 'English'},
@@ -48,12 +48,12 @@ class _AddUserDialogState extends State<AddUserDialog> {
 
   List<Map<int, String>> get _businessRole => [
         {1: 'admin'},
-        {2: 'user'},
+        {2: 'InitialUpload'},
       ];
 
-  List<Map<int, String>> get _userRoles => [
+  List<Map<int, String>> get _InitialUploadRoles => [
         {1: 'admin'},
-        {2: 'user'},
+        {2: 'InitialUpload'},
       ];
 
   @override
@@ -105,9 +105,9 @@ class _AddUserDialogState extends State<AddUserDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<UserBloc, UserState>(
+    return BlocListener<InitialUploadBloc, InitialUploadState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is UserError) {
+        if (listenerState is InitialUploadError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -115,21 +115,23 @@ class _AddUserDialogState extends State<AddUserDialog> {
           );
         }
 
-        if (listenerState is UserCreateState) {
-          if (listenerState.user.id != null) {
+        if (listenerState is InitialUploadCreateState) {
+          if (listenerState.initialUpload.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('User Created Successfully'),
+                content: Text('InitialUpload Created Successfully'),
               ),
             );
-            // refresh the user list
-            listenerContext.read<UserBloc>().add(UsersListEvent());
+            // refresh the InitialUpload list
+            listenerContext
+                .read<InitialUploadBloc>()
+                .add(InitialUploadsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('User Creation Failed'),
+                content: Text('InitialUpload Creation Failed'),
               ),
             );
           }
@@ -141,11 +143,11 @@ class _AddUserDialogState extends State<AddUserDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<UserBloc, UserState>(
+        content: BlocBuilder<InitialUploadBloc, InitialUploadState>(
           builder: (blocContext, blocState) {
             return SingleChildScrollView(
               child: Form(
-                key: userCreationFormKey,
+                key: InitialUploadCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +159,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewUser),
+                          Text(lang.addNewInitialUpload),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -201,8 +203,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 return null;
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userNameController,
+                                  AutovalidateMode.onInitialUploadInteraction,
+                              controller: _InitialUploadNameController,
                             ),
                             const SizedBox(height: 20),
                             Text(lang.email, style: textTheme.bodySmall),
@@ -230,8 +232,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 return null;
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userEmailController,
+                                  AutovalidateMode.onInitialUploadInteraction,
+                              controller: _InitialUploadEmailController,
                             ),
                             const SizedBox(height: 20),
 
@@ -244,7 +246,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userPhoneNumberController,
+                              controller: _InitialUploadPhoneNumberController,
                             ),
                             const SizedBox(height: 20),
 
@@ -257,7 +259,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userMobileNumberController,
+                              controller: _InitialUploadMobileNumberController,
                             ),
                             const SizedBox(height: 20),
 
@@ -271,7 +273,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               keyboardType: TextInputType.phone,
-                              controller: _userOfficePhoneController,
+                              controller: _InitialUploadOfficePhoneController,
                             ),
                             const SizedBox(height: 20),
                             Text(lang.password, style: textTheme.bodySmall),
@@ -292,8 +294,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 return null;
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _userPasswordController,
+                                  AutovalidateMode.onInitialUploadInteraction,
+                              controller: _InitialUploadPasswordController,
                             ),
                             const SizedBox(height: 20),
                             Text(lang.language, style: textTheme.bodySmall),
@@ -327,20 +329,21 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 }
                               },
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
-                            Text(lang.userRole, style: textTheme.bodySmall),
+                            Text(lang.InitialUploadRole,
+                                style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<int>(
                               dropdownColor: theme.colorScheme.primaryContainer,
                               value: _selectedRole,
                               hint: Text(
-                                lang.selectUserRole,
+                                lang.selectInitialUploadRole,
                                 style: textTheme.bodySmall,
                               ),
-                              items: _userRoles.map((role) {
+                              items: _InitialUploadRoles.map((role) {
                                 return DropdownMenuItem<int>(
                                   value: role.keys.first,
                                   child: Text(role.values.first),
@@ -351,21 +354,22 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                   _selectedRole = value;
                                 });
                               },
-                              validator: (value) =>
-                                  value == null ? lang.selectUserRole : null,
+                              validator: (value) => value == null
+                                  ? lang.selectInitialUploadRole
+                                  : null,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
-                            Text(lang.userBusinessRole,
+                            Text(lang.InitialUploadBusinessRole,
                                 style: textTheme.bodySmall),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<int>(
                               dropdownColor: theme.colorScheme.primaryContainer,
                               value: _selectedBusinessRole,
                               hint: Text(
-                                lang.selectUserBusinessRole,
+                                lang.selectInitialUploadBusinessRole,
                                 style: textTheme.bodySmall,
                               ),
                               items: _businessRole.map((bRole) {
@@ -380,10 +384,10 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 });
                               },
                               validator: (value) => value == null
-                                  ? lang.selectUserBusinessRole
+                                  ? lang.selectInitialUploadBusinessRole
                                   : null,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onInitialUploadInteraction,
                             ),
 
                             const SizedBox(height: 20),
@@ -409,7 +413,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                 hintStyle: textTheme.bodySmall,
                               ),
                               maxLines: 3,
-                              controller: _userDescriptionController,
+                              controller: _InitialUploadDescriptionController,
                             ),
 
                             const SizedBox(height: 20),
@@ -461,26 +465,31 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (userCreationFormKey.currentState!
+                                      if (InitialUploadCreationFormKey
+                                          .currentState!
                                           .validate()) {
-                                        blocContext.read<UserBloc>().add(
-                                              UserCreateEvent(
-                                                UserCreate(
+                                        blocContext
+                                            .read<InitialUploadBloc>()
+                                            .add(
+                                              InitialUploadCreateEvent(
+                                                InitialUploadCreate(
                                                   name:
-                                                      _userNameController.text,
+                                                      _InitialUploadNameController
+                                                          .text,
                                                   email:
-                                                      _userEmailController.text,
+                                                      _InitialUploadEmailController
+                                                          .text,
                                                   password:
-                                                      _userPasswordController
+                                                      _InitialUploadPasswordController
                                                           .text,
                                                   mobileNumber:
-                                                      _userMobileNumberController
+                                                      _InitialUploadMobileNumberController
                                                           .text,
                                                   phoneNumber:
-                                                      _userPhoneNumberController
+                                                      _InitialUploadPhoneNumberController
                                                           .text,
                                                   officePhone:
-                                                      _userOfficePhoneController
+                                                      _InitialUploadOfficePhoneController
                                                           .text,
                                                   roleId:
                                                       _selectedRole!.toInt(),
@@ -506,7 +515,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                                                   logoPath: 'path',
                                                   logoFileName: 'filename',
                                                   description:
-                                                      _userDescriptionController
+                                                      _InitialUploadDescriptionController
                                                           .text,
                                                   sectionId: '',
                                                 ),

@@ -1,14 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Setting extends Equatable {
+class InitialUploadUpdate extends Equatable {
   final String? id;
   final String? name;
 
-  bool isSelected = false;
-
-  Setting({
-    this.id,
-    this.name,
+  const InitialUploadUpdate({
+    required this.id,
+    required this.name,
   });
 
   @override

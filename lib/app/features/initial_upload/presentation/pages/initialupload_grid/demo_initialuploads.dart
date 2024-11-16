@@ -1,4 +1,4 @@
-class Setting {
+class DemoInitialuploads {
   final String imagePath;
   final String name;
   final String designation;
@@ -9,7 +9,7 @@ class Setting {
   final String totalRevenue;
   bool isSelected;
 
-  Setting({
+  DemoInitialuploads({
     required this.imagePath,
     required this.name,
     required this.designation,
@@ -22,8 +22,8 @@ class Setting {
   });
 }
 
-final List<Setting> demoSettings = [
-  Setting(
+final List<DemoInitialuploads> demoSettings = [
+  DemoInitialuploads(
     imagePath: _SettingProfile.$1,
     name: 'Courtney Henry',
     designation: 'Developer',
@@ -34,7 +34,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$27,000',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$2,
     name: 'Courtney Henry',
     designation: 'UI/UX Designer',
@@ -45,7 +45,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$8,200',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$3,
     name: 'Charlie Brown',
     designation: 'Product Manager',
@@ -56,7 +56,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$24,300',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$4,
     name: 'Diana Prince',
     designation: 'UI/UX Designer',
@@ -67,7 +67,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$12,750',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$5,
     name: 'Evan Williams',
     designation: 'Data Scientist',
@@ -78,7 +78,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$18,600',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$6,
     name: 'Fiona Green',
     designation: 'Marketing Specialist',
@@ -89,7 +89,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$9,400',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$7,
     name: 'George Hill',
     designation: 'Sales Manager',
@@ -100,7 +100,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$20,500',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$8,
     name: 'Hannah Davis',
     designation: 'Content Writer',
@@ -111,7 +111,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$6,750',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$9,
     name: 'Isaac Newton',
     designation: 'Web Developer',
@@ -122,7 +122,7 @@ final List<Setting> demoSettings = [
     totalRevenue: '\$22,000',
     isSelected: false,
   ),
-  Setting(
+  DemoInitialuploads(
     imagePath: _SettingProfile.$10,
     name: 'Jane Austen',
     designation: 'HR Manager',

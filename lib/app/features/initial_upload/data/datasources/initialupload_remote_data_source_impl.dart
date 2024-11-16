@@ -1,40 +1,42 @@
 import 'dart:convert';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
-import 'package:finance_app/app/features/setting/data/datasources/setting_remote_data_source.dart';
-import 'package:finance_app/app/features/setting/data/models/setting_create_model.dart';
-import 'package:finance_app/app/features/setting/data/models/setting_model.dart';
-import 'package:finance_app/app/features/setting/data/models/setting_update_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/datasources/initialupload_remote_data_source.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initialupload_create_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initialupload_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initialupload_update_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingRemoteDataSourceImpl implements SettingRemoteDataSource {
+class InitialUploadRemoteDataSourceImpl
+    implements InitialUploadRemoteDataSource {
   final HttpClient httpClient;
 
-  SettingRemoteDataSourceImpl({required this.httpClient});
+  InitialUploadRemoteDataSourceImpl({required this.httpClient});
 
   @override
-  Future<SettingModal> createSetting(
-      SettingCreateModal settingCreateModel) async {
+  Future<InitialUploadModal> createInitialUpload(
+      InitialUploadCreateModal initialUploadCreateModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     final response = await httpClient.postFormData(
-      ApiUrls.createSetting,
-      data: settingCreateModel.toFormData(),
+      ApiUrls.createInitialUpload,
+      data: initialUploadCreateModel.toFormData(),
       headers: {
         'Authorization': 'Bearer $token',
       },
     );
     final responseBody = json.decode(response.body);
-    return SettingModal.fromJson(responseBody);
+    return InitialUploadModal.fromJson(responseBody);
   }
 
   @override
-  Future<SettingModal> deleteSetting(SettingModal settingModel) async {
+  Future<InitialUploadModal> deleteInitialUpload(
+      InitialUploadModal initialUploadModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     final response = await httpClient.delete(
-      '${ApiUrls.setting}/${settingModel.id}',
-      data: settingModel.toJson(),
+      '${ApiUrls.initialUpload}/${initialUploadModel.id}',
+      data: initialUploadModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -42,15 +44,15 @@ class SettingRemoteDataSourceImpl implements SettingRemoteDataSource {
     );
 
     final responseBody = json.decode(response.body);
-    return SettingModal.fromJson(responseBody);
+    return InitialUploadModal.fromJson(responseBody);
   }
 
   @override
-  Future<SettingModal> getSetting(String id) async {
+  Future<InitialUploadModal> getInitialUpload(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     final response = await httpClient.get(
-      '${ApiUrls.getSetting}?id=$id',
+      '${ApiUrls.getInitialUpload}?id=$id',
       //ApiUrls.SettingProfile,
       headers: {
         'Content-Type': 'application/json',
@@ -59,15 +61,15 @@ class SettingRemoteDataSourceImpl implements SettingRemoteDataSource {
     );
 
     final responseBody = json.decode(response.body);
-    return SettingModal.fromJson(responseBody);
+    return InitialUploadModal.fromJson(responseBody);
   }
 
   @override
-  Future<List<SettingModal>> getSettings() async {
+  Future<List<InitialUploadModal>> getInitialUploads() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     final response = await httpClient.get(
-      ApiUrls.setting,
+      ApiUrls.initialUpload,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -75,26 +77,26 @@ class SettingRemoteDataSourceImpl implements SettingRemoteDataSource {
     );
 
     final responseBody = json.decode(response.body);
-    final List<SettingModal> settings = (responseBody as List)
-        .map((setting) => SettingModal.fromJson(setting))
+    final List<InitialUploadModal> initialUpload = (responseBody as List)
+        .map((initialUpload) => InitialUploadModal.fromJson(initialUpload))
         .toList();
-    return settings;
+    return initialUpload;
   }
 
   @override
-  Future<SettingModal> updateSetting(
-      SettingUpdateModal settingUpdateModel) async {
+  Future<InitialUploadModal> updateInitialUpload(
+      InitialUploadUpdateModal initialUploadUpdateModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     final response = await httpClient.postFormData(
-      ApiUrls.updateSetting,
-      data: settingUpdateModel.toFormData(),
+      ApiUrls.updateInitialUpload,
+      data: initialUploadUpdateModel.toFormData(),
       headers: {
         'Authorization': 'Bearer $token',
       },
     );
 
     final responseBody = json.decode(response.body);
-    return SettingModal.fromJson(responseBody);
+    return InitialUploadModal.fromJson(responseBody);
   }
 }

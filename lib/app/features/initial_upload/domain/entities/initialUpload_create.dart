@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class SettingCreate extends Equatable {
+class InitialUploadCreate extends Equatable {
   final String? name;
 
-  const SettingCreate({
+  const InitialUploadCreate({
     required this.name,
   });
 

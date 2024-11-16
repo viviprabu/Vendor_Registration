@@ -1,16 +1,17 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/widgets/settings_grid_widget/settings_grid_widget.dart';
+import 'package:finance_app/app/widgets/initialUploads_grid_widget%20copy/initialUploads_grid_widget.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 
 // 🌎 Project imports:
-import 'demo_settings.dart';
+import 'demo_initialuploads.dart';
 
-class SettingsGridView extends StatelessWidget {
-  const SettingsGridView({super.key});
+List<DemoInitialuploads> demoInitialUploads = [];
+
+class InitialUploadsGridView extends StatelessWidget {
+  const InitialUploadsGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class SettingsGridView extends StatelessWidget {
         padding: sizeInfo.padding / 2.5,
         child: SingleChildScrollView(
           child: ResponsiveGridRow(
-            children: demoSettings
+            children: demoInitialUploads
                 .asMap()
                 .entries
                 .map(
@@ -68,9 +69,11 @@ class SettingsGridView extends StatelessWidget {
                       ),
                       builder: (context, snapshot) => Padding(
                         padding: sizeInfo.padding / 2.5,
-                        child: SettingsGridWidget(
+                        child: InitialUploadsGridWidget(
                           imagePath: e.value.imagePath,
                           name: e.value.name,
+                          roles: [],
+                          sysFunction: [],
                         ),
                       ),
                     ),

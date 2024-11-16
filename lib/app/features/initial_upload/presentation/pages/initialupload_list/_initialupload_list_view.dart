@@ -2,6 +2,11 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/pages/initialupload_list/edit_initialupload_popup.dart';
 import 'package:finance_app/app/features/setting/presentation/bloc/setting_state.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
@@ -18,20 +23,20 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_setting_popup.dart';
+import 'add_initialupload_popup.dart';
 
-class UsersListView extends StatefulWidget {
-  const UsersListView({super.key});
+class InitialUploadListView extends StatefulWidget {
+  const InitialUploadListView({super.key});
 
   @override
-  _UsersListViewState createState() => _UsersListViewState();
+  _InitialUploadListViewState createState() => _InitialUploadListViewState();
 }
 
-class _UsersListViewState extends State<UsersListView> {
+class _InitialUploadListViewState extends State<InitialUploadListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<User> _filteredData;
+  late List<InitialUpload> _filteredData;
   final ScrollController _scrollController = ScrollController();
-  List<User> users = [];
+  List<InitialUpload> initialUpload = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -40,7 +45,7 @@ class _UsersListViewState extends State<UsersListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(users);
+    _filteredData = List.from(initialUpload);
   }
 
   @override
@@ -52,7 +57,7 @@ class _UsersListViewState extends State<UsersListView> {
   ///_____________________________________________________________________data__________________________________
   /* List<UserDataModel> get _currentPageData {
     if (_searchQuery.isNotEmpty) {
-      _filteredData = users
+      _filteredData = InitialUpload
           .where(
             (data) =>
                 data.username
@@ -65,7 +70,7 @@ class _UsersListViewState extends State<UsersListView> {
           )
           .toList();
     } else {
-      _filteredData = List.from(users);
+      _filteredData = List.from(InitialUpload);
     }
 
     int start = _currentPage * _rowsPerPage;
@@ -92,7 +97,7 @@ class _UsersListViewState extends State<UsersListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddUserDialog(),
+          child: const AddInitialUploadDialog(),
         );
       },
     );
@@ -100,7 +105,7 @@ class _UsersListViewState extends State<UsersListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(User userData) {
+  void _showEditFormDialog(InitialUpload initialUploadData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -109,8 +114,8 @@ class _UsersListViewState extends State<UsersListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditUserDialog(
-            userData: userData,
+          child: EditInitialUploadDialog(
+            initialUploadData: initialUploadData,
           ),
         );
       },
@@ -119,7 +124,7 @@ class _UsersListViewState extends State<UsersListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserBloc>().add(UsersListEvent());
+    context.read<InitialUploadBloc>().add(InitialUploadsListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -156,10 +161,10 @@ class _UsersListViewState extends State<UsersListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<InitialUploadBloc, InitialUploadState>(
       builder: (context, state) {
-        if (state is UsersListState) {
-          users = state.users;
+        if (state is InitialUploadListState) {
+          initialUpload = state.initialUpload as List<InitialUpload>;
 
           return Scaffold(
             body: Padding(
@@ -256,14 +261,14 @@ class _UsersListViewState extends State<UsersListView> {
                                           constraints: BoxConstraints(
                                             minWidth: constraints.maxWidth,
                                           ),
-                                          child:
-                                              userListDataTable(context, users),
+                                          child: initialUploadListDataTable(
+                                              context, initialUpload),
                                         ),
                                       ),
                                       Padding(
                                         padding: sizeInfo.padding,
                                         child: Text(
-                                          '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + users.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                          '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + initialUpload.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
@@ -277,7 +282,8 @@ class _UsersListViewState extends State<UsersListView> {
                                     constraints: BoxConstraints(
                                       minWidth: constraints.maxWidth,
                                     ),
-                                    child: userListDataTable(context, users),
+                                    child: initialUploadListDataTable(
+                                        context, initialUpload),
                                   ),
                                 ),
 
@@ -372,7 +378,7 @@ class _UsersListViewState extends State<UsersListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + users.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + initialUpload.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -505,7 +511,8 @@ class _UsersListViewState extends State<UsersListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme userListDataTable(BuildContext context, List<User> users) {
+  Theme userListDataTable(
+      BuildContext context, List<InitialUpload> initialUpload) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -547,7 +554,7 @@ class _UsersListViewState extends State<UsersListView> {
           DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: users.map(
+        rows: initialUpload.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -563,7 +570,8 @@ class _UsersListViewState extends State<UsersListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = users.every((d) => d.isSelected);
+                            _selectAll =
+                                initialUpload.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -586,31 +594,29 @@ class _UsersListViewState extends State<UsersListView> {
                           imagePath: data.),
                     ), */
                     const SizedBox(width: 8.0),
-                    Text(data.userName ?? ''),
+                    Text(data.id ?? ''),
                   ],
                 )),
-                DataCell(Text(data.email ?? '')),
-                DataCell(Text(data.phoneNumber ?? '')),
-                DataCell(Text(data.role ?? '')),
-                DataCell(
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: data.isActive == true
-                          ? FinanceAppColors.kSuccess.withOpacity(0.2)
-                          : FinanceAppColors.kError.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Text(
-                      data.isActive == true ? lang.active : lang.inactive,
-                      style: textTheme.bodySmall?.copyWith(
-                          color: data.isActive == true
-                              ? FinanceAppColors.kSuccess
-                              : FinanceAppColors.kError),
-                    ),
-                  ),
-                ),
+                DataCell(Text(data.name ?? '')),
+                // DataCell(
+                //   Container(
+                //     padding:
+                //         const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                //     decoration: BoxDecoration(
+                //       color: data.isActive == true
+                //           ? FinanceAppColors.kSuccess.withOpacity(0.2)
+                //           : FinanceAppColors.kError.withOpacity(0.2),
+                //       borderRadius: BorderRadius.circular(16.0),
+                //     ),
+                //     child: Text(
+                //       data.isActive == true ? lang.active : lang.inactive,
+                //       style: textTheme.bodySmall?.copyWith(
+                //           color: data.isActive == true
+                //               ? FinanceAppColors.kSuccess
+                //               : FinanceAppColors.kError),
+                //     ),
+                //   ),
+                // ),
                 DataCell(
                   PopupMenuButton<String>(
                     iconColor: theme.colorScheme.onTertiary,
@@ -633,7 +639,7 @@ class _UsersListViewState extends State<UsersListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            users.remove(data);
+                            initialUpload.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -676,7 +682,7 @@ class _UsersListViewState extends State<UsersListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in users) {
+      for (var data in initialUpload) {
         data.isSelected = select;
       }
       _selectAll = select;
