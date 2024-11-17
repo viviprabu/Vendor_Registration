@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(organizationName) => "Made with ❤ by ${organizationName}";
+  static String m0(organizationName) => "Made for ${organizationName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -1373,14 +1373,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sector": MessageLookupByLibrary.simpleMessage("Sector"),
         "section": MessageLookupByLibrary.simpleMessage("Section"),
         "addNewDepartment":
-            MessageLookupByLibrary.simpleMessage("Add New Department"),
-        "addNewSections":
-            MessageLookupByLibrary.simpleMessage("Add New Section"),
+            MessageLookupByLibrary.simpleMessage("Add Department"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
         "listDepartments":
             MessageLookupByLibrary.simpleMessage("Department List"),
         "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
-        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add New Sector"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
         "AddNewAppSetting":
-            MessageLookupByLibrary.simpleMessage(" Add New App Settings"),
+            MessageLookupByLibrary.simpleMessage("Add Services"),
       };
 }

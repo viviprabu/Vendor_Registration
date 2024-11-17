@@ -20,8 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(organizationName) =>
-      "مصنوعة من ❤ بواسطة ${organizationName}";
+  static String m0(organizationName) => "صنع ل ${organizationName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -1374,15 +1373,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "department": MessageLookupByLibrary.simpleMessage(" قسم"),
         "sector": MessageLookupByLibrary.simpleMessage(" قطاع"),
         "section": MessageLookupByLibrary.simpleMessage(" قسم"),
-        "addNewDepartment":
-            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
-        "addNewSections":
-            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
+        "addNewDepartment": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
         "listDepartments": MessageLookupByLibrary.simpleMessage(" الجديد"),
         "listSections": MessageLookupByLibrary.simpleMessage(" قائمة الأقسام"),
-        "addNewSectors": MessageLookupByLibrary.simpleMessage(
-            " قائمة المستخدمين غير المصرح لهم"),
-        "AddNewAppSetting": MessageLookupByLibrary.simpleMessage(
-            " إضافة إعدادات التطبيق الجديد"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("أضف القطاع"),
+        "AddNewAppSetting": MessageLookupByLibrary.simpleMessage("أضف الخدمات"),
       };
 }

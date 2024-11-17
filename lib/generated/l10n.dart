@@ -2851,7 +2851,7 @@ class S {
   /// `Made with ❤ by {organizationName}`
   String madeWithFooter(String organizationName) {
     return Intl.message(
-      'Made with ❤ by $organizationName',
+      'Made for $organizationName',
       name: 'madeWithFooter',
       desc: '',
       args: [organizationName],
@@ -9748,7 +9748,7 @@ class S {
 
   String get addNewSector {
     return Intl.message(
-      'Add New Sector',
+      'Add Sector',
       name: 'addNewSector',
       desc: '',
       args: [],
@@ -9757,7 +9757,7 @@ class S {
 
   String get addNewDepartment {
     return Intl.message(
-      'Add New Department',
+      'Add Department',
       name: 'addNewDepartment',
       desc: '',
       args: [],
@@ -9766,7 +9766,7 @@ class S {
 
   String get addNewSection {
     return Intl.message(
-      'Add New Sections',
+      'Add Sections',
       name: 'addNewSection',
       desc: '',
       args: [],

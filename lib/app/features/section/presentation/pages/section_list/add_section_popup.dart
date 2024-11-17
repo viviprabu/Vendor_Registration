@@ -47,6 +47,8 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SectorBloc>().add(SectorsListEvent());
+    context.read<DepartmentBloc>().add(DepartmentsListEvent());
     final lang = l.S.of(context);
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
@@ -135,7 +137,7 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewSector),
+                          Text(lang.addNewSection),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -156,37 +158,42 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
 
                             ///---------------- Text Field section
-                            Text(lang.name, style: textTheme.bodySmall),
+                            // Text(lang.name, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: lang.name,
-                                hintStyle: textTheme.bodySmall,
+                            TextFieldLabelWrapper(
+                              labelText: lang.name,
+                              labelStyle: textTheme.bodySmall,
+                              inputField: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: lang.name,
+                                  hintStyle: textTheme.bodySmall,
+                                ),
+                                keyboardType: TextInputType.name,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    // return 'Please enter your first name';
+                                    return lang.name;
+                                  }
+                                  return null;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: _sectionNameController,
                               ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.name;
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _sectionNameController,
                             ),
 
                             const SizedBox(height: 24),
                             TextFieldLabelWrapper(
                                 // labelText: 'Email',
                                 labelText: lang.sector,
+                                labelStyle: textTheme.bodySmall,
                                 inputField:
                                     BlocBuilder<SectorBloc, SectorState>(
                                         builder: (context, state) {
@@ -227,6 +234,7 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                             TextFieldLabelWrapper(
                                 // labelText: 'Email',
                                 labelText: lang.department,
+                                labelStyle: textTheme.bodySmall,
                                 inputField: BlocBuilder<DepartmentBloc,
                                         DepartmentState>(
                                     builder: (dContext, dState) {
@@ -265,6 +273,7 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                                 })),
 
                             ///---------------- Submit Button section
+                            const SizedBox(height: 24),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: sizeInfo.innerSpacing),
