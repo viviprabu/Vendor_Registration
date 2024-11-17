@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_create.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_update.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_create.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_update.dart';
 
 abstract class InitialUploadEvent extends Equatable {
   const InitialUploadEvent();

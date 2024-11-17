@@ -6,7 +6,7 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 
 // 🌎 Project imports:
-import 'demo_initialuploads.dart';
+import 'demo_initial_uploads.dart';
 
 List<DemoInitialuploads> demoInitialUploads = [];
 

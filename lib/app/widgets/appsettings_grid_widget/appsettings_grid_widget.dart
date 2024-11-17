@@ -195,7 +195,7 @@ class _AppsettingsGridWidgetState extends State<AppsettingsGridWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // _value(widget.name, lang.name, textTheme),
+                        // _value(widget.name, lang.userRole, textTheme),
                       ],
                     ),
                   ),

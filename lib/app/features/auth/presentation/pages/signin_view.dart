@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:file_picker/file_picker.dart';
 import 'package:finance_app/app/features/services/data/models/appsetting_roles_modal.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -122,7 +123,7 @@ class _SigninViewState extends State<SigninView> {
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {
-            context.go('/authentication/applicationlist',
+            context.go('/authentication/services_list',
                 extra: AppSettingRolesModal(
                     id: 1,
                     name: 'Admin',

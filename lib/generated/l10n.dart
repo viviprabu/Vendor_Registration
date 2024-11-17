@@ -2749,6 +2749,15 @@ class S {
     );
   }
 
+  String get addNewInitialUpload {
+    return Intl.message(
+      'Add New Upload',
+      name: 'addNewInitialUpload',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Previous`
   String get previous {
     return Intl.message(
@@ -3219,8 +3228,26 @@ class S {
     );
   }
 
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter your full name`
   String get pleaseEnterYourFullName {
+    return Intl.message(
+      'Please enter your full name',
+      name: 'pleaseEnterYourFullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pleaseUploadAnyFile {
     return Intl.message(
       'Please enter your full name',
       name: 'pleaseEnterYourFullName',
@@ -6335,6 +6362,15 @@ class S {
     return Intl.message(
       'Application List',
       name: 'applicationList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get uploadlist {
+    return Intl.message(
+      'Upload List',
+      name: 'uploadlist',
       desc: '',
       args: [],
     );

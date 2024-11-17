@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/initial_upload/data/datasources/initialupload_remote_data_source.dart';
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_create_model.dart';
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_model.dart';
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_update_model.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_create.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_update.dart';
-import 'package:finance_app/app/features/initial_upload/domain/repositories/initialUpload_repository.dart';
+import 'package:finance_app/app/features/initial_upload/data/datasources/initial_upload_remote_data_source.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_create_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_update_model.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_create.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_update.dart';
+import 'package:finance_app/app/features/initial_upload/domain/repositories/initial_upload_repository.dart';
 
 class InitialUploadRepositoryImpl implements InitialUploadRepository {
   final InitialUploadRemoteDataSource initialUploadRemoteDataSource;

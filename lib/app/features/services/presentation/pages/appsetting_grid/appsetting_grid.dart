@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/widgets/company_header/_company_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

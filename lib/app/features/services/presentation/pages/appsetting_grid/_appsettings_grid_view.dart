@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'dart:ui';
+
 import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting_roles.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting_sysfunction.dart';
@@ -59,14 +61,16 @@ class AppSettingGridView extends StatelessWidget {
     ).value;
 
     return Scaffold(
+      // backgroundColor: const Color.fromARGB(255, 51, 51, 51),
       appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: Text('MEW Applications'),
+          title: Text('MEW Services'),
           centerTitle: true,
           titleTextStyle: TextStyle(
-              fontFamily: 'verdana',
+              fontFamily: 'Segoe UI',
               fontWeight: FontWeight.bold,
-              fontSize: 20)),
+              fontSize: 20,
+              color: const Color.fromARGB(255, 12, 12, 12))),
       body: Padding(
           padding: sizeInfo.padding / 2.5,
           child: BlocBuilder<AppSettingBloc, AppSettingState>(
@@ -79,46 +83,57 @@ class AppSettingGridView extends StatelessWidget {
               //     .cast<AppSettingRoles>()
               //     .toList();
               // print(appSettingRoles);
-            }
-            return SingleChildScrollView(
-              child: ResponsiveGridRow(
-                children: appSetting
-                    .asMap()
-                    .entries
-                    .map(
-                      (e) => ResponsiveGridCol(
-                        lg: 3,
-                        md: 6,
-                        xs: 12,
-                        child: FutureBuilder<String?>(
-                          future: Future.delayed(
-                            const Duration(milliseconds: 2500),
-                            () => 'completed',
-                          ),
-                          builder: (context, snapshot) => Padding(
-                            padding: sizeInfo.padding / 2.5,
-                            child: Card(
-                              elevation: 10,
-                              shadowColor: Colors.blue,
-                              child: InkWell(
-                                onTap: () {
-                                  context.go('/dashboard/home');
-                                },
-                                child: AppsettingsGridWidget(
-                                  imagePath: e.value.imagePath,
-                                  name: e.value.name.toString(),
-                                  roles: [e.value.roles],
-                                  sysFunction: [e.value.sysFunction],
+
+              return SingleChildScrollView(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(200, 25, 200, 25),
+                    child: ResponsiveGridRow(
+                      children: appSetting
+                          .asMap()
+                          .entries
+                          .map(
+                            (e) => ResponsiveGridCol(
+                              lg: 3,
+                              md: 6,
+                              xs: 12,
+                              child: FutureBuilder<String?>(
+                                future: Future.delayed(
+                                  const Duration(milliseconds: 2500),
+                                  () => 'completed',
+                                ),
+                                builder: (context, snapshot) => Padding(
+                                  padding: sizeInfo.padding / 2.5,
+                                  child: Card(
+                                    elevation: 20,
+                                    shadowColor: Colors.blue,
+                                    child: InkWell(
+                                      onTap: () {
+                                        context.go('/dashboard/home');
+                                      },
+                                      child: AppsettingsGridWidget(
+                                        imagePath: e.value.imagePath,
+                                        name: e.value.name.toString(),
+                                        roles: [e.value.roles],
+                                        sysFunction: [e.value.sysFunction],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            );
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              );
+            }
+            if (state is AppSettingLoadingState) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            return Center(child: Text('Failed to load data.'));
           })),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_create.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_create.dart';
 
 class InitialUploadCreateModal extends InitialUploadCreate {
   const InitialUploadCreateModal({

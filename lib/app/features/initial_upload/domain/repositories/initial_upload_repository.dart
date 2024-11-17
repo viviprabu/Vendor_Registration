@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_create.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload_update.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_create.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_update.dart';
 
 abstract interface class InitialUploadRepository {
   Future<Either<Failure, InitialUpload>> getInitialUpload(String id);

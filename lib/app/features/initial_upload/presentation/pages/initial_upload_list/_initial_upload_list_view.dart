@@ -2,28 +2,21 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/initial_upload/domain/entities/initialUpload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
-import 'package:finance_app/app/features/initial_upload/presentation/pages/initialupload_list/edit_initialupload_popup.dart';
 import 'package:finance_app/app/features/setting/presentation/bloc/setting_state.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
-import 'package:finance_app/app/features/user/presentation/pages/user_list/edit_user_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 📦 Package imports:
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-
 // 🌎 Project imports:
 import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_initialupload_popup.dart';
 
 class InitialUploadListView extends StatefulWidget {
   const InitialUploadListView({super.key});
@@ -88,39 +81,39 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
   }
 
   ///_____________________________________________________________________Add_User_____________________________
-  void _showFormDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
-          ),
-          child: const AddInitialUploadDialog(),
-        );
-      },
-    );
-  }
+  // void _showFormDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return BackdropFilter(
+  //         filter: ImageFilter.blur(
+  //           sigmaX: 5,
+  //           sigmaY: 5,
+  //         ),
+  //         child: const AddInitialUploadDialog(),
+  //       );
+  //     },
+  //   );
+  // }
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(InitialUpload initialUploadData) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
-          ),
-          child: EditInitialUploadDialog(
-            initialUploadData: initialUploadData,
-          ),
-        );
-      },
-    );
-  }
+  // void _showEditFormDialog(InitialUpload initialUploadData) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return BackdropFilter(
+  //         filter: ImageFilter.blur(
+  //           sigmaX: 5,
+  //           sigmaY: 5,
+  //         ),
+  //         child: EditInitialUploadDialog(
+  //           initialUploadData: initialUploadData,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +156,8 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
     final theme = Theme.of(context);
     return BlocBuilder<InitialUploadBloc, InitialUploadState>(
       builder: (context, state) {
-        if (state is InitialUploadListState) {
-          initialUpload = state.initialUpload as List<InitialUpload>;
+        if (state is InitialUploadsListState) {
+          initialUpload = state.initialUploads;
 
           return Scaffold(
             body: Padding(
@@ -203,8 +196,8 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
                                                 isMobile: isMobile,
                                                 textTheme: textTheme),
                                           ),
-                                          const Spacer(),
-                                          addUserButton(textTheme),
+                                          // const Spacer(),
+                                          // addInitialUploadButton(textTheme),
                                         ],
                                       ),
                                       const SizedBox(height: 16.0),
@@ -232,9 +225,9 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
                                         child: searchFormField(
                                             textTheme: textTheme),
                                       ),
-                                      Spacer(
-                                          flex: isTablet || isMobile ? 1 : 2),
-                                      addUserButton(textTheme),
+                                      // Spacer(
+                                      //     flex: isTablet || isMobile ? 1 : 2),
+                                      // addInitialUploadButton(textTheme),
                                     ],
                                   ),
                                 ),
@@ -313,33 +306,33 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
   }
 
   ///_____________________________________________________________________add_user_button___________________________
-  ElevatedButton addUserButton(TextTheme textTheme) {
-    final lang = l.S.of(context);
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
-      ),
-      onPressed: () {
-        setState(() {
-          _showFormDialog(context);
-        });
-      },
-      label: Text(
-        lang.addNewUser,
-        //'Add New User',
-        style: textTheme.bodySmall?.copyWith(
-          color: FinanceAppColors.kWhiteColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      iconAlignment: IconAlignment.start,
-      icon: const Icon(
-        Icons.add_circle_outline_outlined,
-        color: FinanceAppColors.kWhiteColor,
-        size: 20.0,
-      ),
-    );
-  }
+  // ElevatedButton addInitialUploadButton(TextTheme textTheme) {
+  //   final lang = l.S.of(context);
+  //   return ElevatedButton.icon(
+  //     style: ElevatedButton.styleFrom(
+  //       padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+  //     ),
+  //     onPressed: () {
+  //       setState(() {
+  //         _showFormDialog(context);
+  //       });
+  //     },
+  //     label: Text(
+  //       lang.addNewUser,
+  //       //'Add New User',
+  //       style: textTheme.bodySmall?.copyWith(
+  //         color: FinanceAppColors.kWhiteColor,
+  //         fontWeight: FontWeight.bold,
+  //       ),
+  //     ),
+  //     iconAlignment: IconAlignment.start,
+  //     icon: const Icon(
+  //       Icons.add_circle_outline_outlined,
+  //       color: FinanceAppColors.kWhiteColor,
+  //       size: 20.0,
+  //     ),
+  //   );
+  // }
 
   ///_____________________________________________________________________pagination_functions_______________________
   int get _totalPages => (_filteredData.length / _rowsPerPage).ceil();
@@ -511,7 +504,7 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme userListDataTable(
+  Theme initialUploadListDataTable(
       BuildContext context, List<InitialUpload> initialUpload) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
@@ -548,9 +541,6 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
           ),
           DataColumn(label: Text(lang.name)),
           DataColumn(label: Text(lang.userName)),
-          DataColumn(label: Text(lang.email)),
-          DataColumn(label: Text(lang.phone)),
-          DataColumn(label: Text(lang.position)),
           DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
@@ -629,7 +619,7 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
                               content: Text('${lang.edit} ${data.name}'),
                             ),
                           ); */
-                          _showEditFormDialog(data);
+                          // _showEditFormDialog(data);
                           break;
                         case 'View':
                           ScaffoldMessenger.of(context).showSnackBar(

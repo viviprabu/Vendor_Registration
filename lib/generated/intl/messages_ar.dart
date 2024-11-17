@@ -1362,6 +1362,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveTheRightToAccessCorrect": MessageLookupByLibrary.simpleMessage(
             "لديك الحق في الوصول إلى معلوماتك الشخصية وتصحيحها أو حذفها. يمكنك أيضًا الانسحاب من بعض ممارسات جمع البيانات. لمزيد من التفاصيل حول كيفية ممارسة هذه الحقوق، يرجى الاتصال بنا."),
         "yourAccountIsCurrently":
-            MessageLookupByLibrary.simpleMessage("حسابك حاليًا ")
+            MessageLookupByLibrary.simpleMessage("حسابك حاليًا "),
+        "upload": MessageLookupByLibrary.simpleMessage("رفع"),
+        "uploadlist": MessageLookupByLibrary.simpleMessage("تحميل القائمة"),
+        "pleaseUploadAnyFile":
+            MessageLookupByLibrary.simpleMessage(" الرجاء تحميل أي ملف"),
+        "applicationlist":
+            MessageLookupByLibrary.simpleMessage(" قائمة التطبيقات"),
+        "unAuthorisedUsersList":
+            MessageLookupByLibrary.simpleMessage("المستخدمين المصرح لهم"),
+        "department": MessageLookupByLibrary.simpleMessage(" قسم"),
+        "sector": MessageLookupByLibrary.simpleMessage(" قطاع"),
+        "section": MessageLookupByLibrary.simpleMessage(" قسم"),
+        "addNewDepartment":
+            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
+        "addNewSections":
+            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
+        "listDepartments": MessageLookupByLibrary.simpleMessage(" الجديد"),
+        "listSections": MessageLookupByLibrary.simpleMessage(" قائمة الأقسام"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage(
+            " قائمة المستخدمين غير المصرح لهم"),
+        "AddNewAppSetting": MessageLookupByLibrary.simpleMessage(
+            " إضافة إعدادات التطبيق الجديد"),
       };
 }

@@ -1,6 +1,6 @@
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_create_model.dart';
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_model.dart';
-import 'package:finance_app/app/features/initial_upload/data/models/initialupload_update_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_create_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_model.dart';
+import 'package:finance_app/app/features/initial_upload/data/models/initial_upload_update_model.dart';
 
 abstract interface class InitialUploadRemoteDataSource {
   Future<InitialUploadModal> getInitialUpload(String id);

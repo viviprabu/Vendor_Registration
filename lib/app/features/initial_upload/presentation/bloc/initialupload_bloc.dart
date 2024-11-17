@@ -1,8 +1,8 @@
-import 'package:finance_app/app/features/initial_upload/domain/usecases/create_initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/delete_initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initialUpload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initialUploads.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/update_initialUpload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/usecases/create_initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/usecases/delete_initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initial_uploads.dart';
+import 'package:finance_app/app/features/initial_upload/domain/usecases/update_initial_upload.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
