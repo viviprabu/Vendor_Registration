@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class RoleFunction extends Equatable {
   final String id;
   final int? roleId;
-  final String? roleName;
+  final String? name;
   final int? systemFunctionId;
   final String? systemFunctionName;
   bool? accView;
@@ -16,7 +16,7 @@ class RoleFunction extends Equatable {
     required this.id,
     required this.roleId,
     required this.systemFunctionId,
-    this.roleName,
+    this.name,
     this.systemFunctionName,
     this.accView = false,
     this.accAdd = false,
@@ -29,7 +29,7 @@ class RoleFunction extends Equatable {
   List<Object?> get props => [
         id,
         roleId,
-        roleName,
+        name,
         systemFunctionId,
         systemFunctionName,
         accView,

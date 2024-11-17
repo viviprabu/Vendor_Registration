@@ -5,18 +5,18 @@ class UserRole extends Equatable {
   final int id;
   final String name;
   final bool? isActive;
-  final bool? isEnable;
+  final bool? isEditable;
   final String? description;
-  final RoleFunction? roleFunction;
+  final List<RoleFunction>? roleSystemFunctions;
   bool isSelected = false;
 
   UserRole({
     required this.id,
     required this.name,
     this.isActive = true,
-    this.isEnable = true,
+    this.isEditable = true,
     this.description,
-    this.roleFunction,
+    this.roleSystemFunctions,
   });
 
   @override
@@ -24,8 +24,8 @@ class UserRole extends Equatable {
         id,
         name,
         isActive,
-        isEnable,
+        isEditable,
         description,
-        roleFunction,
+        roleSystemFunctions,
       ];
 }

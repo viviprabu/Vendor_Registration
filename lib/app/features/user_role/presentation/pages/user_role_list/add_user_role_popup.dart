@@ -7,6 +7,7 @@ import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_b
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:uuid/uuid.dart';
 
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
@@ -25,10 +26,13 @@ class AddUserRoleDialog extends StatefulWidget {
 class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
   late final Logger logger;
 
+  var uuid = Uuid();
+
   final _userRoleNameController = TextEditingController();
   final _userRoleDescriptionController = TextEditingController();
 
   List<RoleFunction> roleFunctions = [];
+  //List<SystemFunction> systemFunctions = [];
   //SystemFunction? systemFunctionList;
   int toggleValue = 0;
 
@@ -38,6 +42,7 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
   void initState() {
     // TODO: implement initState
     context.read<UserRoleBloc>().add(SystemFunctionsEvent());
+    //initializeRoleFunctions();
     super.initState();
   }
 
@@ -46,7 +51,28 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
     super.dispose();
   }
 
-  void _toggleCheckbox(int index, String type, bool? value) {
+  void initializeRoleFunctions(List<SystemFunction> systemFunctions) {
+    // Initialize roleFunctions list based on systemFunctions from bloc state
+
+    roleFunctions = systemFunctions.map((systemFunction) {
+      return RoleFunction(
+        id: uuid.v4().toString(),
+        roleId: 0,
+        name: null,
+        systemFunctionId: systemFunction.id,
+        systemFunctionName: systemFunction.name,
+        accView: false,
+        accAdd: false,
+        accEdit: false,
+        accDelete: false,
+        accSpecial: false,
+      );
+    }).toList();
+
+    //print(roleFunctions);
+  }
+
+  void togglePermission(int index, String type, bool? value) {
     setState(() {
       switch (type) {
         case 'view':
@@ -136,6 +162,11 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
         ),
         content: BlocBuilder<UserRoleBloc, UserRoleState>(
           builder: (blocContext, blocState) {
+            if (blocState is SystemFunctionList) {
+              if (roleFunctions.isEmpty) {
+                initializeRoleFunctions(blocState.systemFunctions);
+              }
+            }
             return SingleChildScrollView(
               child: Form(
                 key: userRoleCreationFormKey,
@@ -299,6 +330,7 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                         ],
                                       ),
                                       // Data rows
+
                                       ...roleFunctions
                                           .asMap()
                                           .entries
@@ -307,47 +339,64 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                         RoleFunction roleFunction = entry.value;
                                         return TableRow(
                                           children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(roleFunction
-                                                      .systemFunctionName ??
-                                                  ''),
-                                            ),
-                                            Checkbox(
-                                              value: roleFunction.accAdd,
-                                              onChanged: (value) =>
-                                                  _toggleCheckbox(
-                                                      index, 'add', value),
-                                            ),
-                                            Checkbox(
-                                              value: roleFunction.accEdit,
-                                              onChanged: (value) =>
-                                                  _toggleCheckbox(
-                                                      index, 'edit', value),
-                                            ),
+                                            Text(roleFunction
+                                                    .systemFunctionName ??
+                                                ''),
                                             Checkbox(
                                               value: roleFunction.accView,
-                                              onChanged: (value) =>
-                                                  _toggleCheckbox(
-                                                      index, 'view', value),
+                                              onChanged: (value) {
+                                                togglePermission(
+                                                  index,
+                                                  'view',
+                                                  value,
+                                                );
+                                                //print('view $index');
+                                              },
                                             ),
                                             Checkbox(
-                                              value: roleFunction.accDelete,
-                                              onChanged: (value) =>
-                                                  _toggleCheckbox(
-                                                      index, 'delete', value),
+                                                value: roleFunction.accAdd,
+                                                onChanged: (value) {
+                                                  togglePermission(
+                                                      index, 'add', value);
+                                                  //print('add $index');
+                                                }),
+                                            Checkbox(
+                                              value: roleFunction.accEdit,
+                                              onChanged: (value) {
+                                                togglePermission(
+                                                  index,
+                                                  'edit',
+                                                  value,
+                                                );
+                                                //print('edit $index');
+                                              },
                                             ),
                                             Checkbox(
-                                              value: roleFunction.accSpecial,
-                                              onChanged: (value) =>
-                                                  _toggleCheckbox(
-                                                      index, 'special', value),
-                                            ),
+                                                value: roleFunction.accDelete,
+                                                onChanged: (value) {
+                                                  togglePermission(
+                                                    index,
+                                                    'delete',
+                                                    value,
+                                                  );
+                                                  // print('delete $index');
+                                                }),
+                                            Checkbox(
+                                                value: roleFunction.accSpecial,
+                                                onChanged: (value) {
+                                                  togglePermission(
+                                                    index,
+                                                    'special',
+                                                    value,
+                                                  );
+                                                  // print('special $index');
+                                                }),
                                           ],
                                         );
                                       }),
-                                      /* ...blocState.systemFunctions
+                                    ],
+                                  ),
+                                  /* ...blocState.systemFunctions
                                           .map((systemFunction) {
                                         return TableRow(
                                           children: [
@@ -358,11 +407,7 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                             ),
                                             Checkbox(
                                               value: false,
-                                              onChanged: (value) {
-                                                // Handle the 'View' checkbox toggle
-                                                // once checked, add the system function to the user role with system function id
-                                                value = value;
-                                              },
+                                              onChanged: (value) {},
                                             ),
                                             Checkbox(
                                               value: false,
@@ -390,9 +435,9 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                             ),
                                           ],
                                         );
-                                      }), */
+                                      }),
                                     ],
-                                  ),
+                                  ), */
                                 ],
                               ),
 
@@ -432,7 +477,6 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      print(roleFunctions);
                                       if (userRoleCreationFormKey.currentState!
                                           .validate()) {
                                         blocContext.read<UserRoleBloc>().add(
@@ -451,10 +495,14 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
                                                       return false;
                                                     }
                                                   }(),
-                                                  roleFunction: null,
+                                                  isEditable: false,
+                                                  roleSystemFunctions:
+                                                      roleFunctions,
                                                 ),
                                               ),
                                             );
+
+                                        //print(roleFunctions);
                                       }
                                     },
                                     //label: const Text('Save'),
