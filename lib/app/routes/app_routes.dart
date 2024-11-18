@@ -1,4 +1,7 @@
 // 📦 Package imports:
+import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/_initial_upload_list_view.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/add_initial_upload_popup.dart';
+import 'package:finance_app/app/features/section/presentation/pages/sections_page.dart';
 import 'package:finance_app/app/features/services/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
 import 'package:finance_app/app/features/services/presentation/pages/appsetting_grid/appsetting_grid.dart';
 import 'package:finance_app/app/features/department/presentation/pages/departments_page.dart';
@@ -53,7 +56,23 @@ abstract class FinanceAppRoutes {
               ),
             ],
           ),
-
+          GoRoute(
+            path: '/uploads',
+            redirect: (context, state) async {
+              if (state.fullPath == '/uploads') {
+                return '/uploads/upload_list';
+              }
+              return null;
+            },
+            routes: [
+              GoRoute(
+                path: 'upload-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: AddInitialUploadDialog(),
+                ),
+              ),
+            ],
+          ),
           // Users Route
           GoRoute(
             path: '/users',
@@ -133,6 +152,23 @@ abstract class FinanceAppRoutes {
               ),
             ],
           ),
+          GoRoute(
+            path: '/master',
+            redirect: (context, state) async {
+              if (state.fullPath == '/master') {
+                return '/sections/list-sections';
+              }
+              return null;
+            },
+            routes: [
+              GoRoute(
+                path: 'list-sections',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: SectionsListView(),
+                ),
+              ),
+            ],
+          ),
 
           //--------------Application Section--------------//
         ],
@@ -145,10 +181,10 @@ abstract class FinanceAppRoutes {
       ),
 
       GoRoute(
-        path: '/authentication/applicationlist',
-        name: 'applicationlist',
+        path: '/authentication/services_list',
+        name: 'services_list',
         pageBuilder: (context, state) => NoTransitionPage(
-          child: AppSettingGlossyView(),
+          child: AppSettingGridView(),
         ),
       ),
 

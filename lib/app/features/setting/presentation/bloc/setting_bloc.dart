@@ -24,7 +24,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     required this.deleteSetting,
   }) : super(SettingInitial()) {
     on<SettingListEvent>((event, emit) async {
-      emit(SettingLoading());
+      emit(SettingLoadingState());
       final failureOrSetting = await getSetting(event.id);
       failureOrSetting.fold(
         (failure) => emit(SettingError(failure.toString())),
@@ -33,7 +33,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     });
 
     on<SettingsListEvent>((event, emit) async {
-      emit(SettingLoading());
+      emit(SettingLoadingState());
       final failureOrSettings = await getSettings();
       failureOrSettings.fold(
         (failure) => emit(SettingError(failure.toString())),
@@ -42,7 +42,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     });
 
     on<SettingCreateEvent>((event, emit) async {
-      emit(SettingLoading());
+      emit(SettingLoadingState());
       final failureOrSetting = await createSetting(event.settingCreate);
       failureOrSetting.fold(
         (failure) => emit(SettingError(failure.toString())),
@@ -51,7 +51,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     });
 
     on<SettingUpdateEvent>((event, emit) async {
-      emit(SettingLoading());
+      emit(SettingLoadingState());
       final failureOrSetting =
           await updateSetting(event.settingUpdate as SettingUpdate);
       failureOrSetting.fold(
@@ -61,7 +61,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     });
 
     on<SettingDeleteEvent>((event, emit) async {
-      emit(SettingLoading());
+      emit(SettingLoadingState());
       final failureOrSetting = await deleteSetting(event.setting);
       failureOrSetting.fold(
         (failure) => emit(SettingError(failure.toString())),

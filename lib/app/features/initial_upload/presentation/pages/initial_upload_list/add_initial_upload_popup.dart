@@ -1,13 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
-import 'package:finance_app/app/features/services/domain/entities/appsetting_update.dart';
-import 'package:finance_app/app/features/services/domain/usecases/update_appsetting.dart';
-import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 // 📦 Package imports:
@@ -17,36 +16,126 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditAppSettingDialog extends StatefulWidget {
-  final AppSetting appSettingData;
-
-  const EditAppSettingDialog({
-    required this.appSettingData,
-    super.key,
-  });
+class AddInitialUploadDialog extends StatefulWidget {
+  const AddInitialUploadDialog({super.key});
 
   @override
-  State<EditAppSettingDialog> createState() => _EditAppSettingDialogState();
+  State<AddInitialUploadDialog> createState() => _AddInitialUploadDialogState();
 }
 
-class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
+class _AddInitialUploadDialogState extends State<AddInitialUploadDialog> {
   late final Logger logger;
-  final TextEditingController _appSettingNameController =
-      TextEditingController();
+  final _uploadController = TextEditingController();
 
-  final appSettingCreationFormKey = GlobalKey<FormState>();
+  int? _selectedRole;
+  int? _selectedLanguage;
+  int? _selectedBusinessRole;
+  int toggleValue = 0;
+  int isDarkMode = 1;
+
+  final uploadCreationFormKey = GlobalKey<FormState>();
+
+  List<Map<int, String>> get _language => [
+        {1: 'English'},
+        {2: 'Arabic'},
+      ];
+
+  List<Map<int, String>> get _businessRole => [
+        {1: 'admin'},
+        {2: 'user'},
+      ];
+
+  List<Map<int, String>> get _userRoles => [
+        {1: 'admin'},
+        {2: 'user'},
+      ];
+
+  String? savedFilePath;
+  final String _fileName = '';
+
+  // void upLoadFile() async {
+  //   final results = await FilePicker.platform.pickFiles(
+  //     allowMultiple: false,
+  //     type: FileType.custom,
+  //     allowedExtensions: ['xls', 'xlsx'],
+  //   );
+
+  //   if (results != null) {
+  //     final path = results.files.single.path!;
+
+  //     _fileName = results.files.single.name;
+  //     var storage;
+  //     storage.uploadFile(path, _fileName);
+  //     setState(() {});
+  //     // print(_fileName);
+  //     _uploadController.text = path.toString();
+  //   } else {
+  //     // User canceled the picker
+  //   }
+  // }
+
+  String? fileName;
+
+  Future<void> uploadFile() async {
+    final result = await FilePicker.platform.pickFiles();
+
+    if (result != null && result.files.isNotEmpty) {
+      setState(() {
+        fileName = result.files.first.name;
+        _uploadController.text = fileName.toString(); // Get the file name
+      });
+      // print(result.files);
+    }
+  }
+
+  // Future<void> pickAndSaveExcelFile() async {
+  //   // Request storage permissions
+  //   if (await Permission.storage.request().isGranted) {
+  //     try {
+  //       // Pick the file
+  //       FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //         type: FileType.custom,
+  //         allowedExtensions: ['xlsx', 'xls'],
+  //       );
+
+  //       if (result != null) {
+  //         File file = File(result.files.single.path!);
+
+  //         // Get the local directory
+  //         Directory directory = await getApplicationDocumentsDirectory();
+
+  //         // Save the file in the app's local directory
+  //         String newPath = "${directory.path}/${result.files.single.name}";
+  //         await file.copy(newPath);
+
+  //         setState(() {
+  //           savedFilePath = newPath;
+  //         });
+
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(content: Text('File saved to $newPath')),
+  //         );
+  //       }
+  //     } catch (e) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Error: $e')),
+  //       );
+  //     }
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Permission denied')),
+  //     );
+  //   }
+  // }
 
   @override
   void initState() {
-    final appSettingDetail = widget.appSettingData;
-    final appSettingId = appSettingDetail.id ?? 0;
-    context.read<AppSettingBloc>().add(AppSettingListEvent(appSettingId));
+    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    _appSettingNameController.dispose();
     super.dispose();
   }
 
@@ -88,9 +177,9 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<AppSettingBloc, AppSettingState>(
+    return BlocListener<InitialUploadBloc, InitialUploadState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is AppSettingError) {
+        if (listenerState is InitialUploadError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -98,21 +187,23 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
           );
         }
 
-        if (listenerState is AppSettingUpdateState) {
-          if (listenerState.appSetting.id != null) {
+        if (listenerState is InitialUploadCreateState) {
+          if (listenerState.initialUpload.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('AppSettings Updated Successfully'),
+                content: Text('File Uploaded Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<AppSettingBloc>().add(AppSettingsListEvent());
+            listenerContext
+                .read<InitialUploadBloc>()
+                .add(InitialUploadsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('AppSettings Creation Failed'),
+                content: Text('File Upload Failed'),
               ),
             );
           }
@@ -124,15 +215,11 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<AppSettingBloc, AppSettingState>(
+        content: BlocBuilder<InitialUploadBloc, InitialUploadState>(
           builder: (blocContext, blocState) {
-            if (blocState is AppSettingListState) {
-              final appSettingDetails = blocState.appSetting;
-              _appSettingNameController.text = appSettingDetails.name ?? '';
-            }
             return SingleChildScrollView(
               child: Form(
-                key: appSettingCreationFormKey,
+                key: uploadCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +231,7 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewUser),
+                          Text(lang.addNewInitialUpload),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -172,27 +259,53 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
                             const SizedBox(height: 16),
 
                             ///---------------- Text Field section
-                            Text(lang.name, style: textTheme.bodySmall),
+                            Text(lang.upload, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: lang.name,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.name;
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _appSettingNameController,
+
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 4,
+                                  child: Container(
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: lang.upload,
+                                        hintStyle: textTheme.bodySmall,
+                                      ),
+                                      keyboardType: TextInputType.name,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          // return 'Please enter your first name';
+                                          return lang.pleaseUploadAnyFile;
+                                        }
+                                        return null;
+                                      },
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      controller: _uploadController,
+                                      // Display file name
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: sizeInfo.innerSpacing),
+                                  child: Expanded(
+                                    child: Container(
+                                        child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              uploadFile();
+                                            },
+                                            label: Text(
+                                              lang.upload,
+                                            ))),
+                                  ),
+                                ),
+                              ],
                             ),
 
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 20),
 
                             ///---------------- Submit Button section
                             Padding(
@@ -201,26 +314,6 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  OutlinedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: sizeInfo.innerSpacing,
-                                        ),
-                                        backgroundColor:
-                                            theme.colorScheme.primaryContainer,
-                                        textStyle: textTheme.bodySmall
-                                            ?.copyWith(
-                                                color: FinanceAppColors.kError),
-                                        side: const BorderSide(
-                                            color: FinanceAppColors.kError)),
-                                    onPressed: () => Navigator.pop(context),
-                                    label: Text(
-                                      lang.cancel,
-                                      //'Cancel',
-                                      style: textTheme.bodySmall?.copyWith(
-                                          color: FinanceAppColors.kError),
-                                    ),
-                                  ),
                                   SizedBox(width: sizeInfo.innerSpacing),
                                   ElevatedButton.icon(
                                     style: ElevatedButton.styleFrom(
@@ -228,21 +321,7 @@ class _EditAppSettingDialogState extends State<EditAppSettingDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (appSettingCreationFormKey
-                                          .currentState!
-                                          .validate()) {
-                                        blocContext.read<AppSettingBloc>().add(
-                                              AppSettingUpdateEvent(
-                                                AppSettingUpdate(
-                                                  id: widget.appSettingData.id
-                                                      .toString(),
-                                                  name:
-                                                      _appSettingNameController
-                                                          .text,
-                                                ) as UpdateAppsetting,
-                                              ),
-                                            );
-                                      }
+                                      // uploadFile();
                                     },
                                     //label: const Text('Save'),
                                     label: Text(lang.save),

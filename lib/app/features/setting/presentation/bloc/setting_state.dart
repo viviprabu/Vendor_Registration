@@ -10,7 +10,7 @@ abstract class SettingState extends Equatable {
 
 class SettingInitial extends SettingState {}
 
-class SettingLoading extends SettingState {}
+class SettingLoadingState extends SettingState {}
 
 class SettingsListState extends SettingState {
   final List<Setting> settings;

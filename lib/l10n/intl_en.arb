@@ -974,5 +974,9 @@
   "listSections":"List Sections",
   "AddNewAppSetting":"Add New App Settings",
     "unAuthorisedUsersList":"Un Authorised Users List",
-    "applicationList":"Application List"
+    "applicationList":"Application List",
+    "addNewInitialUpload" : "Add New",
+    "upload" : "Upload",
+    "uploadlist":"Upload List",
+    "pleaseUploadAnyFile":"Please upload any file"
 }

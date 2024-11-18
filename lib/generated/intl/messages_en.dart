@@ -1360,6 +1360,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveTheRightToAccessCorrect": MessageLookupByLibrary.simpleMessage(
             "You have the right to access, correct, or delete your personal information. You can also opt out of certain data collection practices. For more details on how to exercise these rights, please contact us."),
         "yourAccountIsCurrently":
-            MessageLookupByLibrary.simpleMessage("Your Account is currently ")
+            MessageLookupByLibrary.simpleMessage("Your Account is currently "),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "uploadlist": MessageLookupByLibrary.simpleMessage("Upload List"),
+        "pleaseUploadAnyFile":
+            MessageLookupByLibrary.simpleMessage("Please upload any file"),
+        "applicationlist":
+            MessageLookupByLibrary.simpleMessage("Services List"),
+        "unAuthorisedUsersList":
+            MessageLookupByLibrary.simpleMessage("Un Authorized Users"),
+        "department": MessageLookupByLibrary.simpleMessage("Department"),
+        "sector": MessageLookupByLibrary.simpleMessage("Sector"),
+        "section": MessageLookupByLibrary.simpleMessage("Section"),
+        "addNewDepartment":
+            MessageLookupByLibrary.simpleMessage("Add Department"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
+        "listDepartments":
+            MessageLookupByLibrary.simpleMessage("Department List"),
+        "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
+        "AddNewAppSetting":
+            MessageLookupByLibrary.simpleMessage(" Add Services"),
+        "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
       };
 }

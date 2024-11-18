@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -49,17 +50,21 @@ class AppSettingGlossyView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(
+          Icons.app_registration_rounded,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.transparent,
-        title: Text('Services'),
+        title: Text('MEW SERVICES'),
         centerTitle: true,
         titleTextStyle: TextStyle(
-            fontFamily: 'verdana',
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: Colors.white),
+            fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
       ),
-      // backgroundColor: const Color.fromARGB(255, 16, 11, 85),
-      backgroundColor: Color.fromARGB(10, 101, 198, 1),
+
+      backgroundColor: const Color.fromARGB(255, 16, 11, 85),
+
+      // rgba(10, 101, 198, 1.00)
+
       body: Stack(
         children: [
           // Decorative background circles
@@ -108,7 +113,7 @@ class AppSettingGlossyView extends StatelessWidget {
                 width: 180,
                 height: 180,
                 decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
+                    shape: BoxShape.rectangle,
                     gradient: LinearGradient(colors: [
                       Color(0xff744ff9),
                       Color(0xff8369de),
@@ -143,70 +148,78 @@ class AppSettingGlossyView extends StatelessWidget {
                             ),
                             builder: (context, snapshot) => Padding(
                               padding: sizeInfo.padding / 2.5,
-                              child: Center(
-                                child: Padding(
-                                  padding: sizeInfo.padding / 2.5,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(25)),
-                                    child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 30, sigmaY: 30),
-                                      child: Container(
-                                        width: 450,
-                                        height: 250,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.withOpacity(0.1),
-                                          border: Border.all(
-                                              color:
-                                                  Colors.white.withOpacity(0.2),
-                                              width: 2.5),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(25)),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              25, 10, 25, 30),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            top: 40),
-                                                    child: Image.asset(
-                                                      'assets/app_icons/app_icon_main.png',
-                                                      width: 70,
-                                                      height: 70,
+                              child: InkWell(
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  context.go('/dashboard/home');
+                                },
+                                child: Center(
+                                  child: Padding(
+                                    padding: sizeInfo.padding / 2.5,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(25)),
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 30, sigmaY: 30),
+                                        child: Container(
+                                          width: 350,
+                                          height: 200,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(0.1),
+                                            border: Border.all(
+                                                color: Colors.white
+                                                    .withOpacity(0.2),
+                                                width: 2.5),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(25)),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                25, 10, 25, 30),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 40),
+                                                      child: Image.asset(
+                                                        'assets/app_icons/app_icon_main.png',
+                                                        width: 70,
+                                                        height: 70,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Text(
-                                                    e.value.name ?? "Unknown",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                e.value.name ?? '',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.w100,
-                                                    wordSpacing: 3),
-                                              ),
-                                            ],
+                                                    const SizedBox(height: 10),
+                                                    Text(
+                                                      e.value.name ?? "Unknown",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Text(
+                                                  e.value.name ?? '',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w100,
+                                                      wordSpacing: 3),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

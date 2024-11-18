@@ -45,6 +45,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SectorBloc>().add(SectorsListEvent());
     final lang = l.S.of(context);
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
@@ -133,7 +134,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewSector),
+                          Text(lang.addNewDepartment),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -154,37 +155,43 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
 
                             ///---------------- Text Field section
-                            Text(lang.name, style: textTheme.bodySmall),
+                            // Text(lang.name, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: lang.name,
-                                hintStyle: textTheme.bodySmall,
+                            TextFieldLabelWrapper(
+                              labelText: lang.name,
+                              labelStyle: textTheme.bodySmall,
+                              inputField: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: lang.name,
+                                  hintStyle: textTheme.bodySmall,
+                                ),
+                                keyboardType: TextInputType.name,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    // return 'Please enter your first name';
+                                    return lang.name;
+                                  }
+                                  return null;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: _departmentNameController,
                               ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.name;
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
                             ),
 
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 16),
+
                             TextFieldLabelWrapper(
                                 // labelText: 'Email',
-                                labelText: lang.department,
+                                labelText: lang.sector,
+                                labelStyle: textTheme.bodySmall,
                                 inputField:
                                     BlocBuilder<SectorBloc, SectorState>(
                                         builder: (dContext, dState) {
@@ -199,7 +206,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
 
                                   return DropdownButtonFormField<String>(
                                     value: selectedSectorId,
-                                    hint: Text('Select any department'),
+                                    hint: Text('Select any Sector'),
                                     onChanged: (sectValue) {
                                       setState(() {
                                         selectedSectorId = sectValue;
@@ -223,6 +230,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                 })),
 
                             ///---------------- Submit Button section
+                            const SizedBox(height: 16),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: sizeInfo.innerSpacing),
@@ -265,8 +273,10 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                                   name:
                                                       _departmentNameController
                                                           .text,
-                                                  sectorId: 1,
-                                                  id: null,
+                                                  sectorId: int.tryParse(
+                                                      selectedSectorId
+                                                          .toString()),
+                                                  id: 0,
                                                 ),
                                               ),
                                             );
