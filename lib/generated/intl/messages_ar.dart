@@ -1375,15 +1375,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "sector": MessageLookupByLibrary.simpleMessage(" قطاع"),
         "section": MessageLookupByLibrary.simpleMessage(" قسم"),
         "addNewDepartment":
-            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
-        "addNewSections":
-            MessageLookupByLibrary.simpleMessage(" إضافة قسم جديد"),
-        "listDepartments": MessageLookupByLibrary.simpleMessage(" الجديد"),
-        "listSections": MessageLookupByLibrary.simpleMessage(" قائمة الأقسام"),
-        "addNewSectors": MessageLookupByLibrary.simpleMessage(
-            " قائمة المستخدمين غير المصرح لهم"),
-        "AddNewAppSetting": MessageLookupByLibrary.simpleMessage(
-            " إضافة إعدادات التطبيق الجديد"),
-        "userRole": MessageLookupByLibrary.simpleMessage("دور المستخدم"),
+            MessageLookupByLibrary.simpleMessage("Add Department"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
+        "listDepartments":
+            MessageLookupByLibrary.simpleMessage("Department List"),
+        "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
+        "AddNewAppSetting":
+            MessageLookupByLibrary.simpleMessage("Add Services"),
+        "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
       };
 }

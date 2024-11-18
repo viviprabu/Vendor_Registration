@@ -1373,15 +1373,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "sector": MessageLookupByLibrary.simpleMessage("Sector"),
         "section": MessageLookupByLibrary.simpleMessage("Section"),
         "addNewDepartment":
-            MessageLookupByLibrary.simpleMessage("Add New Department"),
-        "addNewSections":
-            MessageLookupByLibrary.simpleMessage("Add New Section"),
+            MessageLookupByLibrary.simpleMessage("Add Department"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
         "listDepartments":
             MessageLookupByLibrary.simpleMessage("Department List"),
         "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
-        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add New Sector"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
         "AddNewAppSetting":
-            MessageLookupByLibrary.simpleMessage(" Add New App Settings"),
+            MessageLookupByLibrary.simpleMessage(" Add Services"),
         "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
       };
 }
