@@ -1384,5 +1384,6 @@ class MessageLookup extends MessageLookupByLibrary {
             " قائمة المستخدمين غير المصرح لهم"),
         "AddNewAppSetting": MessageLookupByLibrary.simpleMessage(
             " إضافة إعدادات التطبيق الجديد"),
+        "userRole": MessageLookupByLibrary.simpleMessage("دور المستخدم"),
       };
 }

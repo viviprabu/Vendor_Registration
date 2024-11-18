@@ -1382,5 +1382,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewSectors": MessageLookupByLibrary.simpleMessage("Add New Sector"),
         "AddNewAppSetting":
             MessageLookupByLibrary.simpleMessage(" Add New App Settings"),
+        "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
       };
 }
