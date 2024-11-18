@@ -1,7 +1,6 @@
 // 🎯 Dart imports:
 
 // 🐦 Flutter imports:
-import 'package:animated_svg/animated_svg.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:finance_app/app/core/helpers/field_styles/_input_field_styles.dart';
 import 'package:finance_app/app/core/static/_static_values.dart';
@@ -12,7 +11,6 @@ import 'package:finance_app/app/features/initial_upload/presentation/bloc/initia
 import 'package:finance_app/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 // 📦 Package imports:
 import 'package:iconly/iconly.dart';
@@ -45,13 +43,11 @@ class _InitialUploadPageState extends State<InitialUploadPage> {
   final int startYear = AppDateConfig.beginYear;
   final int endYear = AppDateConfig.endYear;
   late final Function(int) onYearSelected;
-  late final SvgController controller;
 
   @override
   void initState() {
     super.initState();
     _filteredData = List.from(initialUpload);
-    controller = AnimatedSvgController();
   }
 
   @override
@@ -324,7 +320,7 @@ class _InitialUploadPageState extends State<InitialUploadPage> {
                                                     Text(
                                                       lang.addNewInitialUpload,
                                                       style:
-                                                          textTheme.bodyLarge,
+                                                          textTheme.bodyMedium,
                                                     ),
                                                     const SizedBox(
                                                       height: 16,

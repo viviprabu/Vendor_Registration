@@ -2751,7 +2751,7 @@ class S {
 
   String get addNewInitialUpload {
     return Intl.message(
-      'Upload Files',
+      'Upload Excel Files',
       name: 'addNewInitialUpload',
       desc: '',
       args: [],

@@ -2,6 +2,7 @@
 import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/_initial_upload.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/_initial_upload_list_view.dart';
 import 'package:finance_app/app/features/section/presentation/pages/sections_page.dart';
+import 'package:finance_app/app/features/services/presentation/pages/appsetting_grid/_appsettings_grid_responsive_view.dart';
 import 'package:finance_app/app/features/services/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
 import 'package:finance_app/app/features/department/presentation/pages/departments_page.dart';
 import 'package:finance_app/app/features/sector/presentation/pages/sectors_page.dart';
@@ -189,7 +190,7 @@ abstract class FinanceAppRoutes {
         path: '/authentication/services_list',
         name: 'services_list',
         pageBuilder: (context, state) => NoTransitionPage(
-          child: AppSettingGridView(),
+          child: AppSettingResponsiveGridView(),
         ),
       ),
 

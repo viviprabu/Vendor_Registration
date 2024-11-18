@@ -1384,7 +1384,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Services"),
         "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
         "addNewInitialUpload":
-            MessageLookupByLibrary.simpleMessage("Upload Files"),
+            MessageLookupByLibrary.simpleMessage("Upload Excel File"),
         "selectYear": MessageLookupByLibrary.simpleMessage("Select Year"),
         "uploadslist": MessageLookupByLibrary.simpleMessage("Uploads List"),
         "excelUpload": MessageLookupByLibrary.simpleMessage("Excel Upload"),

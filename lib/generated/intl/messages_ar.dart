@@ -1382,7 +1382,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AddNewAppSetting": MessageLookupByLibrary.simpleMessage("أضف الخدمات"),
         "userRole": MessageLookupByLibrary.simpleMessage("دور المستخدم"),
         "addNewInitialUpload":
-            MessageLookupByLibrary.simpleMessage("تحميل الملفات"),
+            MessageLookupByLibrary.simpleMessage("تحميل ملف اكسل"),
         "selectYear": MessageLookupByLibrary.simpleMessage("اختر السنة"),
         "uploadslist": MessageLookupByLibrary.simpleMessage("قائمة التحميلات"),
       };
