@@ -1362,6 +1362,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveTheRightToAccessCorrect": MessageLookupByLibrary.simpleMessage(
             "لديك الحق في الوصول إلى معلوماتك الشخصية وتصحيحها أو حذفها. يمكنك أيضًا الانسحاب من بعض ممارسات جمع البيانات. لمزيد من التفاصيل حول كيفية ممارسة هذه الحقوق، يرجى الاتصال بنا."),
         "yourAccountIsCurrently":
-            MessageLookupByLibrary.simpleMessage("حسابك حاليًا ")
+            MessageLookupByLibrary.simpleMessage("حسابك حاليًا "),
+        "upload": MessageLookupByLibrary.simpleMessage("رفع"),
+        "uploadlist": MessageLookupByLibrary.simpleMessage("تحميل القائمة"),
+        "pleaseUploadAnyFile":
+            MessageLookupByLibrary.simpleMessage(" الرجاء تحميل أي ملف"),
+        "applicationlist":
+            MessageLookupByLibrary.simpleMessage(" قائمة التطبيقات"),
+        "unAuthorisedUsersList":
+            MessageLookupByLibrary.simpleMessage("المستخدمين المصرح لهم"),
+        "department": MessageLookupByLibrary.simpleMessage(" قسم"),
+        "sector": MessageLookupByLibrary.simpleMessage(" قطاع"),
+        "section": MessageLookupByLibrary.simpleMessage(" قسم"),
+        "addNewDepartment":
+            MessageLookupByLibrary.simpleMessage("Add Department"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
+        "listDepartments":
+            MessageLookupByLibrary.simpleMessage("Department List"),
+        "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
+        "AddNewAppSetting":
+            MessageLookupByLibrary.simpleMessage("Add Services"),
+        "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
       };
 }

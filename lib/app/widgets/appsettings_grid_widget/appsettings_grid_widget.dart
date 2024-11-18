@@ -9,22 +9,24 @@ import '../../../generated/l10n.dart' as l;
 import '../../core/helpers/fuctions/helper_functions.dart';
 import '../../core/theme/theme.dart';
 
-class AppsGridWidget extends StatefulWidget {
-  const AppsGridWidget(
+class AppsettingsGridWidget extends StatefulWidget {
+  const AppsettingsGridWidget(
       {super.key,
       required this.imagePath,
       required this.name,
-      required this.role});
+      required this.roles,
+      required this.sysFunction});
 
   final String imagePath;
   final String name;
-  final String role;
+  final List<dynamic> roles;
+  final List<dynamic> sysFunction;
 
   @override
-  _AppsGridWidgetState createState() => _AppsGridWidgetState();
+  _AppsettingsGridWidgetState createState() => _AppsettingsGridWidgetState();
 }
 
-class _AppsGridWidgetState extends State<AppsGridWidget> {
+class _AppsettingsGridWidgetState extends State<AppsettingsGridWidget> {
   bool _isHovered = false;
 
   @override
@@ -83,9 +85,9 @@ class _AppsGridWidgetState extends State<AppsGridWidget> {
           child: Container(
             width: constraints.maxWidth,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: theme.colorScheme.primaryContainer,
-            ),
+                borderRadius: BorderRadius.circular(12),
+                // color: theme.colorScheme.primaryContainer,
+                color: Colors.blue[50]),
             child: Padding(
               padding: sizeInfo.padding,
               child: Column(
@@ -122,7 +124,7 @@ class _AppsGridWidgetState extends State<AppsGridWidget> {
 
                   /// -------------designation
                   Text(
-                    widget.role,
+                    widget.name,
                     style: theme.textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: theme.colorScheme.onTertiary,
@@ -145,7 +147,8 @@ class _AppsGridWidgetState extends State<AppsGridWidget> {
                       //     ),
                       //     child: Text(
                       //       // '${widget.following} followers',
-                      //       '${widget.following} ${lang.followers}',
+                      //       // '${widget.following} ${lang.followers}',
+                      //       '',
                       //       maxLines: 1,
                       //       softWrap: true,
                       //       style: textTheme.bodySmall,
@@ -166,7 +169,8 @@ class _AppsGridWidgetState extends State<AppsGridWidget> {
                       //     ),
                       //     child: Text(
                       //       //'${widget.following} following', maxLines: 1, softWrap: true,
-                      //       '${widget.following} ${lang.following}',
+                      //       // '${widget.following} ${lang.following}',
+                      //       '',
                       //       maxLines: 1, softWrap: true,
                       //       style: textTheme.bodySmall,
                       //       overflow:
@@ -187,17 +191,13 @@ class _AppsGridWidgetState extends State<AppsGridWidget> {
 
                   /// -------------footer values
                   SizedBox(height: sizeInfo.innerSpacing),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // _value(widget.totalRevenue, 'Total Revenue', textTheme),
-                      // _value(widget.orders, 'Orders', textTheme),
-                      // _value(widget.products, 'Products', textTheme),
-
-                      // _value(widget.totalRevenue, lang.totalRevenue, textTheme),
-                      // _value(widget.orders, lang.orders, textTheme),
-                      // _value(widget.products, lang.products, textTheme),
-                    ],
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // _value(widget.name, lang.userRole, textTheme),
+                      ],
+                    ),
                   ),
                 ],
               ),

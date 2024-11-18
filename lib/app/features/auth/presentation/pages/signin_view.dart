@@ -1,5 +1,7 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/appsetting/presentation/pages/appsetting_grid/_appsettings_grid_view.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:finance_app/app/features/services/data/models/appsetting_roles_modal.dart';
+import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
@@ -52,6 +54,7 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AppSettingBloc>().add(AppSettingsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
 
@@ -80,6 +83,7 @@ class _SigninViewState extends State<SigninView> {
       listener: (BuildContext context, AuthState state) {
         //print(state);
         // TODO: implement listener
+
         if (state is AuthErrorState) {
           if (!state.message.contains('401')) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -87,20 +91,26 @@ class _SigninViewState extends State<SigninView> {
                 content: Text(state.message),
               ),
             );
-
             VariableModal.username = _userUserNameController.text;
             VariableModal.password = _userPasswordController.text;
+            // ignore: unnecessary_null_comparison, unrelated_type_equality_checks
 
-            // ignore: unnecessary_null_comparison
-            if (_userUserNameController.text != null &&
-                state.message == 'User is awaitng approval.') {
-              context.go('/authentication/signin');
-            } else if (state.message == 'User needs registration') {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupView()));
-            } else {
+            if (state.message == 'User is awaitng approval.') {
               context.go('/authentication/signin');
             }
+          }
+
+          if (state.message == 'User needs registration') {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignupView()));
+          }
+
+          if (state.message == 'Email is not confirmed') {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Your email is not Confirmed'),
+              ),
+            );
           }
 
           if (state.message.contains('401')) {
@@ -113,7 +123,13 @@ class _SigninViewState extends State<SigninView> {
         }
         if (state is AuthenticatedState) {
           if (state.token.accessToken != null) {
-            context.go('/appsetting/application-list');
+            context.go('/authentication/services_list',
+                extra: AppSettingRolesModal(
+                    id: 1,
+                    name: 'Admin',
+                    isActive: true,
+                    isEditable: true,
+                    description: 'Admin Rights'));
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => AppSettingsGridView()));
           } else {
@@ -362,7 +378,7 @@ class _SigninViewState extends State<SigninView> {
               if (desktopView)
                 Container(
                   constraints: BoxConstraints(
-                    maxWidth: screenWidth * 0.55,
+                    maxWidth: screenWidth * 0.70,
                     maxHeight: double.maxFinite,
                   ),
                   decoration: BoxDecoration(

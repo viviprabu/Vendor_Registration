@@ -147,7 +147,7 @@ class _AddSectorDialogState extends State<AddSectorDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

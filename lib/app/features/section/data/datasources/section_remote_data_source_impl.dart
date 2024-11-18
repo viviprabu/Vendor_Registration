@@ -16,7 +16,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.delete(
-      '$applicationId/${ApiUrls.Section}/${sectionModel.id}',
+      '$applicationId/${ApiUrls.section}/${sectionModel.id}',
       data: sectionModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
     var token = sharedPreferences.getString('token');
     var applicationId = '0';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.Section}',
+      '$applicationId/${ApiUrls.section}',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

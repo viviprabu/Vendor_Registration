@@ -559,17 +559,19 @@ class _SignupViewState extends State<SignupView> {
                 if (desktopView)
                   Container(
                     constraints: BoxConstraints(
-                      maxWidth: screenWidth * 0.55,
+                      maxWidth: screenWidth * 0.70,
                       maxHeight: double.maxFinite,
                     ),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.tertiaryContainer,
                     ),
                     child: getImageType(
-                      FinanceStaticImage.signUpCover,
+                      FinanceStaticImage.signInCover,
+                      /* fit: BoxFit.contain,
+                    height: double.maxFinite, */
                       width: double.maxFinite,
                       height: double.maxFinite,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                     ),
                   ),
               ],

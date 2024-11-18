@@ -56,7 +56,7 @@ class FooterWidget extends StatelessWidget {
                 final translatedLang =
                     lang.madeWithFooter(AppConfig.organizationName);
 
-                const heart = '❤';
+                // const heart = '❤';
                 final List<String> parts =
                     translatedLang.split(RegExp(r'(?=\s)|(?<=\s)'));
 
@@ -69,7 +69,7 @@ class FooterWidget extends StatelessWidget {
                         text: e,
                         style: TextStyle(
                           color: switch (trimmedText) {
-                            heart => Colors.red,
+                            // heart => Colors.red,
                             AppConfig.organizationName =>
                               theme.colorScheme.primary,
                             _ => null,

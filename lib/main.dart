@@ -1,11 +1,16 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
-import 'package:finance_app/app/features/appsetting/presentation/bloc/appsetting_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
+import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
 import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
 import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
+import 'package:finance_app/app/features/setting/presentation/bloc/setting_bloc.dart';
+import 'package:finance_app/app/features/setting/presentation/bloc/setting_event.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:finance_app/injection_container.dart';
@@ -65,9 +70,18 @@ Future<void> main() async {
           create: (context) =>
               getIt<AppSettingBloc>()..add(AppSettingInitialEvent())),
       BlocProvider(
+          create: (context) =>
+              getIt<SettingBloc>()..add(SettingInitialEvent())),
+      BlocProvider(
         create: (context) => getIt<UserRoleBloc>()
           ..add(
             UserRoleInitialEvent(),
+          ),
+      ),
+      BlocProvider(
+        create: (context) => getIt<InitialUploadBloc>()
+          ..add(
+            InitialUploadInitialEvent(),
           ),
       ),
     ],

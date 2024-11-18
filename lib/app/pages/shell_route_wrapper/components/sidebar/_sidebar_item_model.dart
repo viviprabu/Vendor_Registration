@@ -63,19 +63,19 @@ List<GroupedMenuModel> get _groupedMenus {
     // Application Group
     GroupedMenuModel(
       //name: 'Application',
-      name: l.S.current.application,
+      name: l.S.current.upload,
       menus: [
         SidebarItemModel(
           //name: 'Users',
-          name: l.S.current.application,
-          iconPath: 'assets/images/sidebar_icons/clipboard-text.svg',
+          name: l.S.current.upload,
+          iconPath: 'assets/images/sidebar_icons/copy-check.svg',
           sidebarItemType: SidebarItemType.submenu,
-          navigationPath: '/appsetting',
+          navigationPath: '/uploads',
           submenus: [
             SidebarSubmenuModel(
               //name: "Users List",
-              name: l.S.current.applicationlist,
-              navigationPath: "application-list",
+              name: l.S.current.uploadlist,
+              navigationPath: "upload-list",
             ),
           ],
         ),

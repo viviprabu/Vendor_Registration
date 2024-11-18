@@ -971,8 +971,11 @@
   "listSections":"قائمة الأقسام",
   "AddNewAppSetting":"إضافة إعدادات التطبيق الجديدة",
   "unAuthorisedUsersList":"قائمة المستخدمين غير المصرح لهم",
-  "applicationlist":"قائمة التطبيقات"
-
+  "applicationlist":"قائمة التطبيقات",
+  "addNewInitialUpload" : "إضافة جديد",
+  "upload" : "رفع",
+  "uploadlist":"تحميل القائمة",
+  'pleaseUploadAnyFile" : "الرجاء تحميل أي ملف"
 
 
 

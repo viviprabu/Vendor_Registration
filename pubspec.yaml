@@ -38,6 +38,7 @@ dependencies:
   iconsax_plus: ^1.0.0
   syntax_highlight: ^0.4.0
   url_strategy: ^0.3.0
+ 
   # Remote Packages
   appflowy_board:
     git:
@@ -56,6 +57,8 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   toggle_switch: ^2.3.0
+  file_picker: ^8.1.4
+
   uuid: ^4.5.1
 
 dev_dependencies:

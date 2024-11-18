@@ -1,6 +1,5 @@
 class ApiUrls {
   static const baseURL = 'https://cqp9mssl-7045.euw.devtunnels.ms/MEW/';
-  //static const baseURL = 'https://nw5t5w76-7045.asse.devtunnels.ms/MEW/';
 
   static const applicationId = '0';
   // Manage User
@@ -21,7 +20,7 @@ class ApiUrls {
   static const updateDept = 'System/Department';
 
   static const createSection = 'System/Section';
-  static const Section = 'System/Section';
+  static const section = 'System/Section';
   static const getSection = 'System/Section';
   static const updateSection = 'System/Section';
 
@@ -35,12 +34,22 @@ class ApiUrls {
   static const getAppSetting = 'System/ApplicationSettings';
   static const updateAppSetting = 'System/ApplicationSettings';
 
+  static const createSetting = 'System/Settings';
+  static const setting = 'System/Settings';
+  static const getSetting = 'System/Settings';
+  static const updateSetting = 'System/Settings';
+
   // manage role
   static const createRole = 'System/Role';
   static const listRoles = 'System/Roles';
   static const getRole = 'System/UserRoleFunctions';
   static const updateRole = 'System/Role';
   static const listSystemFunctions = 'System/SystemFunctions';
+
+  static const createInitialUpload = 'System/InitialUpload';
+  static const initialUpload = 'System/InitialUpload';
+  static const getInitialUpload = 'System/InitialUpload';
+  static const updateInitialUpload = 'System/InitialUpload';
 
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
