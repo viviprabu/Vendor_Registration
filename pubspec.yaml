@@ -38,6 +38,7 @@ dependencies:
   iconsax_plus: ^1.0.0
   syntax_highlight: ^0.4.0
   url_strategy: ^0.3.0
+  
  
   # Remote Packages
   appflowy_board:

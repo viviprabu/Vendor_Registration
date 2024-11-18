@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
-import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 // 📦 Package imports:
@@ -252,7 +250,7 @@ class _AddInitialUploadDialogState extends State<AddInitialUploadDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -269,7 +267,7 @@ class _AddInitialUploadDialogState extends State<AddInitialUploadDialog> {
                                   child: Container(
                                     child: TextFormField(
                                       decoration: InputDecoration(
-                                        hintText: lang.upload,
+                                        hintText: lang.pleaseUploadAnyFile,
                                         hintStyle: textTheme.bodySmall,
                                       ),
                                       keyboardType: TextInputType.name,

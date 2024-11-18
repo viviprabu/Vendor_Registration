@@ -133,9 +133,15 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'Application / Open AI',
       childRoute: 'AI Voiceover',
     ),
-    '/uploads/upload-list': RouteBreadcrumbModel(
+    '/uploads/excel_upload': RouteBreadcrumbModel(
       //title: 'Users List',
-      title: l.S.current.uploadlist,
+      title: l.S.current.excelUpload,
+      parentRoute: 'Uploads / upload',
+      childRoute: 'Excel Upload',
+    ),
+    '/uploads/uploads_list': RouteBreadcrumbModel(
+      //title: 'Users List',
+      title: l.S.current.uploadslist,
       parentRoute: 'Uploads / upload',
       childRoute: 'Uploads List',
     ),

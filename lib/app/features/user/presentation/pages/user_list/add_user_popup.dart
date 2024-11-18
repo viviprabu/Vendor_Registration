@@ -1,6 +1,5 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
 import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
 import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
@@ -178,7 +177,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

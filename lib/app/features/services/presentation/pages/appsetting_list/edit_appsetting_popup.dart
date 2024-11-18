@@ -2,8 +2,6 @@
 import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/domain/usecases/update_appsetting.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

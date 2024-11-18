@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
 import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';

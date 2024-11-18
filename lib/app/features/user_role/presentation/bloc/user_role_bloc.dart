@@ -7,7 +7,6 @@ import 'package:finance_app/app/features/user_role/domain/usecases/update_user_r
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
-import 'package:provider/provider.dart';
 
 part 'user_role_event.dart';
 part 'user_role_state.dart';

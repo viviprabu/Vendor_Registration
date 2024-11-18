@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:

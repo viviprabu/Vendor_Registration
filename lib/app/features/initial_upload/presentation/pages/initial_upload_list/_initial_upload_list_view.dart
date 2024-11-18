@@ -1,5 +1,4 @@
 // 🎯 Dart imports:
-import 'dart:ui';
 
 // 🐦 Flutter imports:
 import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload.dart';
@@ -158,149 +157,145 @@ class _InitialUploadListViewState extends State<InitialUploadListView> {
       builder: (context, state) {
         if (state is InitialUploadsListState) {
           initialUpload = state.initialUploads;
+        }
+        return Scaffold(
+          body: Padding(
+            padding: sizeInfo.padding,
+            child: ShadowContainer(
+              showHeader: false,
+              contentPadding: EdgeInsets.zero,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    final isMobile = constraints.maxWidth < 481;
+                    final isTablet = constraints.maxWidth < 992 &&
+                        constraints.maxWidth >= 481;
 
-          return Scaffold(
-            body: Padding(
-              padding: sizeInfo.padding,
-              child: ShadowContainer(
-                showHeader: false,
-                contentPadding: EdgeInsets.zero,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      final isMobile = constraints.maxWidth < 481;
-                      final isTablet = constraints.maxWidth < 992 &&
-                          constraints.maxWidth >= 481;
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //______________________________________________________________________Header__________________
-                          isMobile
-                              ? Padding(
-                                  padding: sizeInfo.padding,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: showingValueDropDown(
-                                                isTablet: isTablet,
-                                                isMobile: isMobile,
-                                                textTheme: textTheme),
-                                          ),
-                                          // const Spacer(),
-                                          // addInitialUploadButton(textTheme),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      searchFormField(textTheme: textTheme),
-                                    ],
-                                  ),
-                                )
-                              : Padding(
-                                  padding: sizeInfo.padding,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: showingValueDropDown(
-                                          isTablet: isTablet,
-                                          isMobile: isMobile,
-                                          textTheme: textTheme,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //______________________________________________________________________Header__________________
+                        isMobile
+                            ? Padding(
+                                padding: sizeInfo.padding,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: showingValueDropDown(
+                                              isTablet: isTablet,
+                                              isMobile: isMobile,
+                                              textTheme: textTheme),
                                         ),
-                                      ),
-                                      const SizedBox(width: 16.0),
-                                      Expanded(
-                                        flex: isTablet || isMobile ? 2 : 3,
-                                        child: searchFormField(
-                                            textTheme: textTheme),
-                                      ),
-                                      // Spacer(
-                                      //     flex: isTablet || isMobile ? 1 : 2),
-                                      // addInitialUploadButton(textTheme),
-                                    ],
-                                  ),
-                                ),
-
-                          //______________________________________________________________________Data_table__________________
-                          isMobile || isTablet
-                              ? RawScrollbar(
-                                  padding: const EdgeInsets.only(left: 18),
-                                  trackBorderColor: theme.colorScheme.surface,
-                                  trackVisibility: true,
-                                  scrollbarOrientation:
-                                      ScrollbarOrientation.bottom,
-                                  controller: _scrollController,
-                                  thumbVisibility: true,
-                                  thickness: 8.0,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SingleChildScrollView(
-                                        controller: _scrollController,
-                                        scrollDirection: Axis.horizontal,
-                                        child: ConstrainedBox(
-                                          constraints: BoxConstraints(
-                                            minWidth: constraints.maxWidth,
-                                          ),
-                                          child: initialUploadListDataTable(
-                                              context, initialUpload),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: sizeInfo.padding,
-                                        child: Text(
-                                          '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + initialUpload.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : SingleChildScrollView(
-                                  controller: _scrollController,
-                                  scrollDirection: Axis.horizontal,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      minWidth: constraints.maxWidth,
+                                        // const Spacer(),
+                                        // addInitialUploadButton(textTheme),
+                                      ],
                                     ),
-                                    child: initialUploadListDataTable(
-                                        context, initialUpload),
-                                  ),
+                                    const SizedBox(height: 16.0),
+                                    searchFormField(textTheme: textTheme),
+                                  ],
                                 ),
+                              )
+                            : Padding(
+                                padding: sizeInfo.padding,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: showingValueDropDown(
+                                        isTablet: isTablet,
+                                        isMobile: isMobile,
+                                        textTheme: textTheme,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16.0),
+                                    Expanded(
+                                      flex: isTablet || isMobile ? 2 : 3,
+                                      child:
+                                          searchFormField(textTheme: textTheme),
+                                    ),
+                                    // Spacer(
+                                    //     flex: isTablet || isMobile ? 1 : 2),
+                                    // addInitialUploadButton(textTheme),
+                                  ],
+                                ),
+                              ),
 
-                          //______________________________________________________________________footer__________________
-                          isTablet || isMobile
-                              ? const SizedBox.shrink()
-                              : Padding(
-                                  padding: sizeInfo.padding,
-                                  child: paginatedSection(theme, textTheme),
+                        //______________________________________________________________________Data_table__________________
+                        isMobile || isTablet
+                            ? RawScrollbar(
+                                padding: const EdgeInsets.only(left: 18),
+                                trackBorderColor: theme.colorScheme.surface,
+                                trackVisibility: true,
+                                scrollbarOrientation:
+                                    ScrollbarOrientation.bottom,
+                                controller: _scrollController,
+                                thumbVisibility: true,
+                                thickness: 8.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SingleChildScrollView(
+                                      controller: _scrollController,
+                                      scrollDirection: Axis.horizontal,
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          minWidth: constraints.maxWidth,
+                                        ),
+                                        child: initialUploadListDataTable(
+                                            context, initialUpload),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: sizeInfo.padding,
+                                      child: Text(
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + initialUpload.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                        ],
-                      );
-                    },
-                  ),
+                              )
+                            : SingleChildScrollView(
+                                controller: _scrollController,
+                                scrollDirection: Axis.horizontal,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minWidth: constraints.maxWidth,
+                                  ),
+                                  child: initialUploadListDataTable(
+                                      context, initialUpload),
+                                ),
+                              ),
+
+                        //______________________________________________________________________footer__________________
+                        isTablet || isMobile
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: sizeInfo.padding,
+                                child: paginatedSection(theme, textTheme),
+                              ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
-          );
-        }
-        if (state is SettingLoadingState) {
-          return Center(child: CircularProgressIndicator());
-        }
+          ),
+        );
+        // }
+        // if (state is SettingLoadingState) {
+        //   return Center(child: CircularProgressIndicator());
+        // }
 
-        return Center(child: Text('Failed to load data.'));
+        // return Center(child: Text('Failed to load data.'));
       },
     );
   }

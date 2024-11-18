@@ -2751,7 +2751,7 @@ class S {
 
   String get addNewInitialUpload {
     return Intl.message(
-      'Add New Upload',
+      'Upload Files',
       name: 'addNewInitialUpload',
       desc: '',
       args: [],
@@ -3237,6 +3237,15 @@ class S {
     );
   }
 
+  String get selectYear {
+    return Intl.message(
+      'Select Year',
+      name: 'selectYear',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter your full name`
   String get pleaseEnterYourFullName {
     return Intl.message(
@@ -3249,8 +3258,8 @@ class S {
 
   String get pleaseUploadAnyFile {
     return Intl.message(
-      'Please enter your full name',
-      name: 'pleaseEnterYourFullName',
+      'upload any files',
+      name: 'pleaseUploadAnyFile',
       desc: '',
       args: [],
     );
@@ -6367,10 +6376,19 @@ class S {
     );
   }
 
-  String get uploadlist {
+  String get uploadslist {
     return Intl.message(
-      'Upload List',
-      name: 'uploadlist',
+      'Uploads List',
+      name: 'uploadslist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get excelUpload {
+    return Intl.message(
+      'Excel Upload',
+      name: 'excelUpload',
       desc: '',
       args: [],
     );
