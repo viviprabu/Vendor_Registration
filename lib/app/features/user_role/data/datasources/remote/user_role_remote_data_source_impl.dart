@@ -15,8 +15,6 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   Future<UserRoleModel> createUserRole(UserRoleModel userRoleModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    print(userRoleModel.toJson());
-
     var token = sharedPreferences.getString('token');
     var applicationId = '1';
     final response = await httpClient.post(

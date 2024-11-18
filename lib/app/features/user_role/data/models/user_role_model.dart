@@ -25,14 +25,11 @@ class UserRoleModel {
       isActive: json["isActive"] ?? true,
       isEditable: json["isEditable"] ?? true,
       description: json["description"] ?? "",
-      /* roleFunctions: (json['roleFunctions'] as List<dynamic>?)
-          ?.map((item) => RoleFunctionModel.fromJson(item))
-          .toList(), */
       roleSystemFunctions: json['roleSystemFunctions'] != null
           ? (json['roleSystemFunctions'] as List<dynamic>)
               .map((item) => RoleFunctionModel.fromJson(item))
               .toList()
-          : null, // Handles the case where roleFunctions is null
+          : null,
     );
   }
 
@@ -42,7 +39,6 @@ class UserRoleModel {
         "isActive": isActive,
         "isEditable": isEditable,
         "description": description,
-        //'roleFunctions': (roleFunctions as RoleFunctionModel?)?.toJson(),
         'roleSystemFunctions':
             roleSystemFunctions?.map((item) => item.toJson()).toList(),
       };
