@@ -1,14 +1,21 @@
 import 'package:finance_app/app/features/user_role/data/models/role_function_model.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
 
-class UserRoleModel extends UserRole {
+class UserRoleModel {
+  final int id;
+  final String name;
+  final bool? isActive;
+  final bool? isEditable;
+  final String? description;
+  final List<RoleFunctionModel>? roleSystemFunctions;
+
   UserRoleModel({
-    required super.id,
-    required super.name,
-    super.isActive,
-    super.isEnable,
-    super.description,
-    super.roleFunction,
+    required this.id,
+    required this.name,
+    this.isActive = true,
+    this.isEditable = true,
+    this.description = "",
+    this.roleSystemFunctions,
   });
 
   factory UserRoleModel.fromJson(Map<String, dynamic> json) {
@@ -16,12 +23,12 @@ class UserRoleModel extends UserRole {
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
       isActive: json["isActive"] ?? true,
-      isEnable: json["isEnable"] ?? true,
+      isEditable: json["isEditable"] ?? true,
       description: json["description"] ?? "",
-      roleFunction: json['roleFunction'] != null
-          ? RoleFunctionModel.fromJson(
-              json['roleFunction'],
-            ) // Use SystemFunctionModel
+      roleSystemFunctions: json['roleSystemFunctions'] != null
+          ? (json['roleSystemFunctions'] as List<dynamic>)
+              .map((item) => RoleFunctionModel.fromJson(item))
+              .toList()
           : null,
     );
   }
@@ -30,9 +37,10 @@ class UserRoleModel extends UserRole {
         "id": id,
         "name": name,
         "isActive": isActive,
-        "isEnable": isEnable,
+        "isEditable": isEditable,
         "description": description,
-        'roleFunction': (roleFunction as RoleFunctionModel?)?.toJson(),
+        'roleSystemFunctions':
+            roleSystemFunctions?.map((item) => item.toJson()).toList(),
       };
 
   factory UserRoleModel.fromEntity(UserRole userRole) {
@@ -40,12 +48,11 @@ class UserRoleModel extends UserRole {
       id: userRole.id,
       name: userRole.name,
       isActive: userRole.isActive,
-      isEnable: userRole.isEnable,
+      isEditable: userRole.isEditable,
       description: userRole.description,
-      roleFunction: userRole.roleFunction != null
-          ? RoleFunctionModel.fromEntity(
-              userRole.roleFunction!) // Use SystemFunctionModel
-          : null,
+      roleSystemFunctions: userRole.roleSystemFunctions
+          ?.map((roleFunc) => RoleFunctionModel.fromEntity(roleFunc))
+          .toList(),
     );
   }
 
@@ -54,9 +61,9 @@ class UserRoleModel extends UserRole {
       id: id,
       name: name,
       isActive: isActive,
-      isEnable: isEnable,
+      isEditable: isEditable,
       description: description,
-      roleFunction: roleFunction,
+      roleSystemFunctions: roleSystemFunctions,
     );
   }
 }

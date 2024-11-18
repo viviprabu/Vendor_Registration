@@ -4,7 +4,7 @@ class RoleFunctionModel extends RoleFunction {
   RoleFunctionModel({
     required super.id,
     required super.roleId,
-    super.roleName,
+    super.name,
     required super.systemFunctionId,
     super.systemFunctionName,
     super.accView = true,
@@ -18,7 +18,7 @@ class RoleFunctionModel extends RoleFunction {
     return RoleFunctionModel(
       id: json['id'],
       roleId: json['roleId'],
-      roleName: json['roleName'],
+      name: json['name'],
       systemFunctionId: json['systemFunctionId'],
       systemFunctionName: json['systemFunctionName'],
       accView: json['accView'],
@@ -32,7 +32,7 @@ class RoleFunctionModel extends RoleFunction {
   Map<String, dynamic> toJson() => {
         'id': id,
         'roleId': roleId,
-        'roleName': roleName,
+        'name': name,
         'systemFunctionId': systemFunctionId,
         'systemFunctionName': systemFunctionName,
         'accView': accView,
@@ -46,7 +46,7 @@ class RoleFunctionModel extends RoleFunction {
     return RoleFunctionModel(
       id: roleFunction.id,
       roleId: roleFunction.roleId,
-      roleName: roleFunction.roleName,
+      name: roleFunction.name,
       systemFunctionId: roleFunction.systemFunctionId,
       systemFunctionName: roleFunction.systemFunctionName,
       accView: roleFunction.accView,
@@ -61,7 +61,7 @@ class RoleFunctionModel extends RoleFunction {
     return RoleFunction(
       id: id,
       roleId: roleId,
-      roleName: roleName,
+      name: name,
       systemFunctionId: systemFunctionId,
       systemFunctionName: systemFunctionName,
       accView: accView,

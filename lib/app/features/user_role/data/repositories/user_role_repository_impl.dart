@@ -22,6 +22,7 @@ class UserRoleRepositoryImpl implements UserRoleRepository {
           await userRoleRemoteDataSource.createUserRole(userRoleModel);
       return Right(createdUserRole.toEntity());
     } catch (e) {
+      //print(e);
       final ServerFailure serverFailure = ServerFailure(e.toString());
       return Left(serverFailure);
     }

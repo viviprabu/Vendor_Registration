@@ -25,12 +25,12 @@ class HttpClient {
     try {
       final uri =
           Uri.parse('$baseUrl$url').replace(queryParameters: queryParameters);
-      logger.logRequest('GET', uri.toString(), headers: headers);
+      //logger.logRequest('GET', uri.toString(), headers: headers);
       final response = await http.get(uri, headers: {
         ...defaultHeaders,
         if (headers != null) ...headers
       }).timeout(const Duration(seconds: 10));
-      logger.logResponse(response);
+      //logger.logResponse(response);
       return handleResponse(response);
     } on TimeoutException catch (e) {
       logger.logError(e);
@@ -51,7 +51,7 @@ class HttpClient {
     try {
       final uri =
           Uri.parse('$baseUrl$url').replace(queryParameters: queryParameters);
-      logger.logRequest('POST', uri.toString(), body: data, headers: headers);
+      //logger.logRequest('POST', uri.toString(), body: data, headers: headers);
       final response = await http
           .post(
             uri,
@@ -59,7 +59,7 @@ class HttpClient {
             body: jsonEncode(data),
           )
           .timeout(const Duration(seconds: 30));
-      logger.logResponse(response);
+      //logger.logResponse(response);
       return handleResponse(response);
     } on TimeoutException catch (e) {
       logger.logError(e);
@@ -81,7 +81,7 @@ class HttpClient {
       //print(data);
       final uri =
           Uri.parse('$baseUrl$url').replace(queryParameters: queryParameters);
-      logger.logRequest('POST', uri.toString(), body: data, headers: headers);
+      //logger.logRequest('POST', uri.toString(), body: data, headers: headers);
 
       // Create the MultipartRequest
       var request = http.MultipartRequest('POST', uri);
@@ -116,7 +116,7 @@ class HttpClient {
       final response = await http.Response.fromStream(streamedResponse);
 
       // Log the response for debugging
-      logger.logResponse(response);
+      //logger.logResponse(response);
 
       // Handle the response as needed
       return handleResponse(
@@ -129,6 +129,65 @@ class HttpClient {
       rethrow;
     }
   }
+
+  // post method for uploading files
+  Future<http.Response> postFile(
+    String url, {
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
+    try {
+      final uri =
+          Uri.parse('$baseUrl$url').replace(queryParameters: queryParameters);
+      //logger.logRequest('POST', uri.toString(), body: data, headers: headers);
+
+      // Create the MultipartRequest
+      var request = http.MultipartRequest('POST', uri);
+
+      // Add headers if they are provided
+      if (headers != null) {
+        request.headers.addAll(headers);
+      }
+
+      // Add fields (key-value pairs) to the form-data
+      data.forEach((key, value) {
+        if (value is String || value is int || value is bool) {
+          request.fields[key] =
+              value.toString(); // Convert all values to strings
+        }
+      });
+
+      // If there are files in data, add them as files
+      data.forEach((key, value) async {
+        if (value is http.MultipartFile) {
+          request.files.add(value);
+        }
+      });
+
+      // Send the request and get the streamed response
+      final streamedResponse =
+          await request.send().timeout(const Duration(seconds: 10));
+
+      // Convert streamed response to a regular Response object
+      final response = await http.Response.fromStream(streamedResponse);
+
+      // Log the response for debugging
+      //logger.logResponse(response);
+
+      // Handle the response as needed
+      return handleResponse(
+          response); // Assuming handleResponse is a custom function
+    } on TimeoutException catch (e) {
+      logger.logError(e);
+      throw Exception('Request timeout: $e');
+    } catch (e) {
+      logger.logError(e);
+      rethrow;
+    }
+  }
+
+  //
 
   // PUT METHOD
   Future<http.Response> put(
