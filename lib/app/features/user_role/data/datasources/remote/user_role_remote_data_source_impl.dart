@@ -15,6 +15,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   Future<UserRoleModel> createUserRole(UserRoleModel userRoleModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
+    print(userRoleModel);
+
     var token = sharedPreferences.getString('token');
     var applicationId = '1';
     final response = await httpClient.post(
@@ -31,7 +33,7 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   }
 
   @override
-  Future<UserRoleModel> getUserRole(int id) async {
+  Future<List<RoleFunctionModel>> getUserRoleFunctions(int id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var applicationId = '1';
@@ -44,7 +46,12 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
     );
 
     final responseBody = json.decode(response.body);
-    return UserRoleModel.fromJson(responseBody);
+
+    final List<RoleFunctionModel> roleFunctions = (responseBody as List)
+        .map((roleFunctions) => RoleFunctionModel.fromJson(roleFunctions))
+        .toList();
+
+    return roleFunctions;
   }
 
   @override
@@ -72,7 +79,9 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   Future<UserRoleModel> updateUserRole(UserRoleModel userRoleModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
-    var applicationId = '0';
+    var applicationId = '1';
+
+    //print(userRoleModel.toJson());
 
     final response = await httpClient.post(
       '$applicationId/${ApiUrls.updateRole}',
@@ -104,7 +113,7 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
     final List<SystemFunctionModel> systemFunctions = (responseBody as List)
         .map((systemFunctions) => SystemFunctionModel.fromJson(systemFunctions))
         .toList();
-    print(responseBody);
+    //print(responseBody);
     return systemFunctions;
   }
 }

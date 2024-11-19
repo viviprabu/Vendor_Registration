@@ -32,7 +32,7 @@ class _UserRolesListViewState extends State<UserRolesListView> {
   final ScrollController _scrollController = ScrollController();
   List<UserRole> userRoles = [];
   int _currentPage = 0;
-  int _rowsPerPage = 10;
+  int _rowsPerPage = 30;
   String _searchQuery = '';
   bool _selectAll = false;
 

@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class RoleFunction extends Equatable {
-  final String id;
-  final int? roleId;
+  String id;
+  int? roleId;
   final String? name;
   final int? systemFunctionId;
   final String? systemFunctionName;

@@ -1,11 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/role_function.dart';
+import 'package:finance_app/app/features/user_role/domain/entities/system_function.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
 import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:uuid/uuid.dart';
 
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
@@ -31,8 +33,10 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
   final TextEditingController _userRoleDescriptionController =
       TextEditingController();
 
-  RoleFunction? selectedSystemRoleFunction;
-  RoleFunction? roleFunctionList;
+  List<RoleFunction> roleFunctions = [];
+  List<RoleFunction> currentRoleFunctions = [];
+  var uuid = Uuid();
+
   int toggleValue = 0;
 
   final userRoleCreationFormKey = GlobalKey<FormState>();
@@ -42,6 +46,7 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
     final userRoleDetail = widget.userData;
     final userRoleId = userRoleDetail.id;
     context.read<UserRoleBloc>().add(UserRoleListEvent(userRoleId));
+    context.read<UserRoleBloc>().add(SystemFunctionsEvent());
     super.initState();
   }
 
@@ -49,7 +54,66 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
   void dispose() {
     _userRoleNameController.dispose();
     _userRoleDescriptionController.dispose();
+    roleFunctions.clear();
+    currentRoleFunctions.clear();
     super.dispose();
+  }
+
+  void initializeRoleFunctions(List<SystemFunction> systemFunctions) {
+    roleFunctions = systemFunctions.map((systemFunction) {
+      return RoleFunction(
+        id: uuid.v4().toString(),
+        roleId: 0,
+        name: null,
+        systemFunctionId: systemFunction.id,
+        systemFunctionName: systemFunction.name,
+        accView: false,
+        accAdd: false,
+        accEdit: false,
+        accDelete: false,
+        accSpecial: false,
+      );
+    }).toList();
+
+    bindCurrentRoleFunctions();
+  }
+
+  void bindCurrentRoleFunctions() {
+    for (var currentRole in currentRoleFunctions) {
+      for (var roleFunction in roleFunctions) {
+        if (roleFunction.systemFunctionId == currentRole.systemFunctionId) {
+          roleFunction.id = currentRole.id.toString();
+          roleFunction.roleId = currentRole.roleId;
+          roleFunction.accView = currentRole.accView;
+          roleFunction.accAdd = currentRole.accAdd;
+          roleFunction.accEdit = currentRole.accEdit;
+          roleFunction.accDelete = currentRole.accDelete;
+          roleFunction.accSpecial = currentRole.accSpecial;
+        }
+      }
+    }
+  }
+
+  void togglePermission(int index, String type, bool? value) {
+    setState(() {
+      switch (type) {
+        case 'view':
+          roleFunctions[index].accView = value!;
+          break;
+        case 'add':
+          roleFunctions[index].accAdd = value!;
+          break;
+        case 'edit':
+          roleFunctions[index].accEdit = value!;
+          break;
+        case 'delete':
+          roleFunctions[index].accDelete = value!;
+          break;
+        case 'special':
+          roleFunctions[index].accSpecial = value!;
+          break;
+      }
+    });
   }
 
   @override
@@ -120,13 +184,21 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
         ),
         content: BlocBuilder<UserRoleBloc, UserRoleState>(
           builder: (blocContext, blocState) {
-            if (blocState is UserRoleList) {
-              final userRoleDetails = blocState.userRole;
-              _userRoleNameController.text = userRoleDetails.name;
-              _userRoleDescriptionController.text =
-                  userRoleDetails.description ?? '';
-              toggleValue = userRoleDetails.isActive! ? 0 : 1;
+            if (blocState is SystemFunctionList) {
+              if (roleFunctions.isEmpty) {
+                initializeRoleFunctions(blocState.systemFunctions);
+              }
             }
+            if (blocState is UserRoleList) {
+              //loadCurrentRoleFunctions(blocState.userRoleFunctions);
+              currentRoleFunctions = blocState.userRoleFunctions;
+              bindCurrentRoleFunctions();
+              _userRoleNameController.text = widget.userData.name;
+              _userRoleDescriptionController.text =
+                  widget.userData.description!;
+              toggleValue = widget.userData.isActive! ? 0 : 1;
+            }
+
             return SingleChildScrollView(
               child: Form(
                 key: userRoleCreationFormKey,
@@ -216,6 +288,146 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
                               },
                             ),
 
+                            const SizedBox(height: 20),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 8),
+                                Table(
+                                  columnWidths: const {
+                                    0: FixedColumnWidth(
+                                        150), // Adjust the width for the "Name" column as needed
+                                  },
+                                  border: TableBorder.all(color: Colors.grey),
+                                  children: [
+                                    // Header row
+                                    TableRow(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Name',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'View',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Add',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Edit',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Delete',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Special',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // Data rows
+
+                                    ...roleFunctions
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      int index = entry.key;
+                                      RoleFunction roleFunction = entry.value;
+                                      return TableRow(
+                                        children: [
+                                          Text(
+                                              roleFunction.systemFunctionName ??
+                                                  ''),
+                                          Checkbox(
+                                            value: roleFunction.accView,
+                                            onChanged: (value) {
+                                              togglePermission(
+                                                index,
+                                                'view',
+                                                value,
+                                              );
+                                              //print('view $index');
+                                            },
+                                          ),
+                                          Checkbox(
+                                              value: roleFunction.accAdd,
+                                              onChanged: (value) {
+                                                togglePermission(
+                                                    index, 'add', value);
+                                                //print('add $index');
+                                              }),
+                                          Checkbox(
+                                            value: roleFunction.accEdit,
+                                            onChanged: (value) {
+                                              togglePermission(
+                                                index,
+                                                'edit',
+                                                value,
+                                              );
+                                              //print('edit $index');
+                                            },
+                                          ),
+                                          Checkbox(
+                                              value: roleFunction.accDelete,
+                                              onChanged: (value) {
+                                                togglePermission(
+                                                  index,
+                                                  'delete',
+                                                  value,
+                                                );
+                                                // print('delete $index');
+                                              }),
+                                          Checkbox(
+                                              value: roleFunction.accSpecial,
+                                              onChanged: (value) {
+                                                togglePermission(
+                                                  index,
+                                                  'special',
+                                                  value,
+                                                );
+                                                // print('special $index');
+                                              }),
+                                        ],
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              ],
+                            ),
+
                             const SizedBox(height: 24),
 
                             ///---------------- Submit Button section
@@ -270,21 +482,8 @@ class _EditUserRoleDialogState extends State<EditUserRoleDialog> {
                                                       return false;
                                                     }
                                                   }(),
-
-                                                  /* systemFunction: SystemFunction(
-                                                    id: widget.userData.systemFunction!.id,
-                                                    roleId: widget.userData.systemFunction!.roleId,
-                                                    roleName: widget.userData.systemFunction!.roleName,
-                                                    systemFunctionId: widget.userData.systemFunction!.systemFunctionId,
-                                                    systemFunctionName: widget.userData.systemFunction!.systemFunctionName,
-                                                    accView: widget.userData.systemFunction!.accView,
-                                                    accAdd: widget.userData.systemFunction!.accAdd,
-                                                    accEdit: widget.userData.systemFunction!.accEdit,
-                                                    accDelete: widget.userData.systemFunction!.accDelete,
-                                                    accSpecial: widget.userData.systemFunction!.accSpecial,
-                                                  ), */
-
-                                                  /* systemFunction: null, */
+                                                  roleSystemFunctions:
+                                                      roleFunctions,
                                                 ),
                                               ),
                                             );

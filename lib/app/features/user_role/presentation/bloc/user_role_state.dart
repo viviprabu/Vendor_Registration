@@ -39,12 +39,12 @@ class UserRoleUpdate extends UserRoleState {
 }
 
 class UserRoleList extends UserRoleState {
-  final UserRole userRole;
+  final List<RoleFunction> userRoleFunctions;
 
-  const UserRoleList(this.userRole);
+  const UserRoleList(this.userRoleFunctions);
 
   @override
-  List<Object> get props => [userRole];
+  List<Object> get props => [userRoleFunctions];
 }
 
 class UserRolesList extends UserRoleState {
