@@ -137,7 +137,7 @@ class _AppSettingResponsiveGridViewState
                           },
                           child: Card(
                             shadowColor: FinanceAppColors.kPrimary900,
-                            surfaceTintColor: Colors.blue[100],
+                            surfaceTintColor: const Color(0xffddecff),
                             elevation: 50,
                             child: Center(
                               child: Padding(
@@ -146,7 +146,7 @@ class _AppSettingResponsiveGridViewState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.network(
-                                        'assets/app_icons/app_icon_main.png',
+                                        'assets/images/widget_images/dashboard_overview_icon/total_products.svg',
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover),
