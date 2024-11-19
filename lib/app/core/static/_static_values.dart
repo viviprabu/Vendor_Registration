@@ -5,6 +5,9 @@ abstract class AppDateConfig {
   static final appFirstDate = DateTime(2000);
   static final appLastDate = DateTime(2077);
 
+  static final int beginYear = 2020;
+  static final endYear = 2200;
+
   static const appNumberOnlyDateFormat = 'dd/MM/yyyy';
   static const appMonthNameDateFormat = 'dd MMM yyyy';
 }

@@ -1,4 +1,3 @@
-import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting_roles.dart';
 
 class AppSettingRolesModal {

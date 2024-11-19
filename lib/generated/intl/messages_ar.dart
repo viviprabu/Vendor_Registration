@@ -20,8 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(organizationName) =>
-      "مصنوعة من ❤ بواسطة ${organizationName}";
+  static String m0(organizationName) => "صنع ل ${organizationName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -1364,7 +1363,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yourAccountIsCurrently":
             MessageLookupByLibrary.simpleMessage("حسابك حاليًا "),
         "upload": MessageLookupByLibrary.simpleMessage("رفع"),
-        "uploadlist": MessageLookupByLibrary.simpleMessage("تحميل القائمة"),
+        "excelUpload": MessageLookupByLibrary.simpleMessage("تحميل اكسل"),
         "pleaseUploadAnyFile":
             MessageLookupByLibrary.simpleMessage(" الرجاء تحميل أي ملف"),
         "applicationlist":
@@ -1374,15 +1373,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "department": MessageLookupByLibrary.simpleMessage(" قسم"),
         "sector": MessageLookupByLibrary.simpleMessage(" قطاع"),
         "section": MessageLookupByLibrary.simpleMessage(" قسم"),
-        "addNewDepartment":
-            MessageLookupByLibrary.simpleMessage("Add Department"),
-        "addNewSections": MessageLookupByLibrary.simpleMessage("Add Section"),
-        "listDepartments":
-            MessageLookupByLibrary.simpleMessage("Department List"),
-        "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
-        "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
-        "AddNewAppSetting":
-            MessageLookupByLibrary.simpleMessage("Add Services"),
-        "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
+        "addNewDepartment": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
+        "addNewSections": MessageLookupByLibrary.simpleMessage(""),
+        "listDepartments": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
+        "listSections": MessageLookupByLibrary.simpleMessage("قائمة الأقسام"),
+        "addNewSectors": MessageLookupByLibrary.simpleMessage("أضف القطاع"),
+        "addNewupload": MessageLookupByLibrary.simpleMessage("رفع"),
+        "AddNewAppSetting": MessageLookupByLibrary.simpleMessage("أضف الخدمات"),
+        "userRole": MessageLookupByLibrary.simpleMessage("دور المستخدم"),
+        "addNewInitialUpload":
+            MessageLookupByLibrary.simpleMessage("تحميل ملف اكسل"),
+        "selectYear": MessageLookupByLibrary.simpleMessage("اختر السنة"),
+        "uploadslist": MessageLookupByLibrary.simpleMessage("قائمة التحميلات"),
       };
 }

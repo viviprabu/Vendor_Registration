@@ -39,6 +39,8 @@ dependencies:
   syntax_highlight: ^0.4.0
   url_strategy: ^0.3.0
  
+  
+ 
   # Remote Packages
   appflowy_board:
     git:

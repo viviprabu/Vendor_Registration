@@ -34,9 +34,7 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
   void initState() {
     final departmentDetail = widget.departmentData;
     final departmentId = departmentDetail.id ?? 0;
-    context
-        .read<DepartmentBloc>()
-        .add(DepartmentListEvent(departmentId as int));
+    context.read<DepartmentBloc>().add(DepartmentListEvent(departmentId));
     super.initState();
   }
 

@@ -27,21 +27,21 @@ class FinanceInputFieldStyles {
     double? strokeAlign,
     double gapPadding = 4.0,
   }) {
-    final _tID = _theme.inputDecorationTheme;
-    final _currentBorderSide = switch (getRoundedBorderType) {
-      RoundedBorderType.border => _tID.border?.borderSide,
-      RoundedBorderType.enabledBorder => _tID.enabledBorder?.borderSide,
-      RoundedBorderType.focusedBorder => _tID.focusedBorder?.borderSide,
-      RoundedBorderType.errorBorder => _tID.errorBorder?.borderSide,
+    final tID = _theme.inputDecorationTheme;
+    final currentBorderSide = switch (getRoundedBorderType) {
+      RoundedBorderType.border => tID.border?.borderSide,
+      RoundedBorderType.enabledBorder => tID.enabledBorder?.borderSide,
+      RoundedBorderType.focusedBorder => tID.focusedBorder?.borderSide,
+      RoundedBorderType.errorBorder => tID.errorBorder?.borderSide,
       RoundedBorderType.focusedErrorBorder =>
-        _tID.focusedErrorBorder?.borderSide,
-      RoundedBorderType.disabledBorder => _tID.disabledBorder?.borderSide,
+        tID.focusedErrorBorder?.borderSide,
+      RoundedBorderType.disabledBorder => tID.disabledBorder?.borderSide,
       _ => null,
     };
 
     return OutlineInputBorder(
       borderRadius: borderRadius ?? BorderRadius.circular(40),
-      borderSide: _currentBorderSide ?? BorderSide.none,
+      borderSide: currentBorderSide ?? BorderSide.none,
       gapPadding: gapPadding,
     );
   }

@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/services/data/models/appsetting_roles_modal.dart';
-import 'package:finance_app/app/features/services/data/models/appsetting_sysfunction_modal.dart';
 
 class AppSettingRoles extends Equatable {
   final int? id;

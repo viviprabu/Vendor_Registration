@@ -96,8 +96,8 @@ class _AppsettingsGridWidgetState extends State<AppsettingsGridWidget> {
                 children: [
                   /// -------------image
                   Container(
-                    height: 120,
-                    width: 120,
+                    // height: 120,
+                    // width: 120,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),

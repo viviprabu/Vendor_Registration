@@ -74,8 +74,13 @@ List<GroupedMenuModel> get _groupedMenus {
           submenus: [
             SidebarSubmenuModel(
               //name: "Users List",
-              name: l.S.current.uploadlist,
-              navigationPath: "upload-list",
+              name: l.S.current.excelUpload,
+              navigationPath: "excel_upload",
+            ),
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.uploadslist,
+              navigationPath: "uploads_list",
             ),
           ],
         ),

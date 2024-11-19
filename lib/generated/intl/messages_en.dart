@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(organizationName) => "Made with ❤ by ${organizationName}";
+  static String m0(organizationName) => "Made for ${organizationName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -1364,7 +1364,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "uploadlist": MessageLookupByLibrary.simpleMessage("Upload List"),
         "pleaseUploadAnyFile":
-            MessageLookupByLibrary.simpleMessage("Please upload any file"),
+            MessageLookupByLibrary.simpleMessage("Upload any file"),
         "applicationlist":
             MessageLookupByLibrary.simpleMessage("Services List"),
         "unAuthorisedUsersList":
@@ -1379,8 +1379,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Department List"),
         "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
         "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
+        "AddNewUpload": MessageLookupByLibrary.simpleMessage("Upload"),
         "AddNewAppSetting":
-            MessageLookupByLibrary.simpleMessage(" Add Services"),
+            MessageLookupByLibrary.simpleMessage("Add Services"),
         "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
+        "addNewInitialUpload":
+            MessageLookupByLibrary.simpleMessage("Upload Excel File"),
+        "selectYear": MessageLookupByLibrary.simpleMessage("Select Year"),
+        "uploadslist": MessageLookupByLibrary.simpleMessage("Uploads List"),
+        "excelUpload": MessageLookupByLibrary.simpleMessage("Excel Upload"),
       };
 }

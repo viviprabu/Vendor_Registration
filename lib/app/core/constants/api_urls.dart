@@ -1,5 +1,6 @@
 class ApiUrls {
-  static const baseURL = 'https://cqp9mssl-7045.euw.devtunnels.ms/MEW/';
+  // static const baseURL = 'https://cqp9mssl-7045.euw.devtunnels.ms/MEW/';
+  static const baseURL = 'https://gqll1rmk-7045.euw.devtunnels.ms/MEW/';
 
   static const applicationId = '0';
   // Manage User
@@ -50,6 +51,11 @@ class ApiUrls {
   static const initialUpload = 'System/InitialUpload';
   static const getInitialUpload = 'System/InitialUpload';
   static const updateInitialUpload = 'System/InitialUpload';
+
+  static const createAssignedList = 'System/AssignedList';
+  static const assignedList = 'System/AssignedList';
+  static const getAssignedList = 'System/AssignedList';
+  static const updateAssignedList = 'System/AssignedList';
 
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';

@@ -1,4 +1,3 @@
-import 'package:finance_app/app/features/department/data/models/department_create_modal.dart';
 import 'package:finance_app/app/features/department/data/models/department_modal.dart';
 
 abstract interface class DepartmentRemoteDataSource {
