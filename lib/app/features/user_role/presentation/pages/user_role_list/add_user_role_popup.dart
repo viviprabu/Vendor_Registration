@@ -56,7 +56,7 @@ class _AddUserRoleDialogState extends State<AddUserRoleDialog> {
 
     roleFunctions = systemFunctions.map((systemFunction) {
       return RoleFunction(
-        id: uuid.v4().toString(),
+        id: uuid.v4(),
         roleId: 0,
         name: null,
         systemFunctionId: systemFunction.id,

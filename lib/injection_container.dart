@@ -86,7 +86,7 @@ import 'package:finance_app/app/features/user_role/data/datasources/user_role_re
 import 'package:finance_app/app/features/user_role/data/repositories/user_role_repository_impl.dart';
 import 'package:finance_app/app/features/user_role/domain/repositories/user_role_repository.dart';
 import 'package:finance_app/app/features/user_role/domain/usecases/create_user_role.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/get_user_role.dart';
+import 'package:finance_app/app/features/user_role/domain/usecases/get_user_role_functions.dart';
 import 'package:finance_app/app/features/user_role/domain/usecases/list_system_functions.dart';
 import 'package:finance_app/app/features/user_role/domain/usecases/list_user_roles.dart';
 import 'package:finance_app/app/features/user_role/domain/usecases/update_user_role.dart';
@@ -173,7 +173,7 @@ void init() {
 
   getIt.registerFactory(
     () => UserRoleBloc(
-      getUserRole: getIt(),
+      getUserRoleFunctions: getIt(),
       listUserRoles: getIt(),
       createUserRole: getIt(),
       updateUserRole: getIt(),
@@ -216,7 +216,7 @@ void init() {
   getIt.registerLazySingleton(() => UpdateDepartment(getIt()));
   getIt.registerLazySingleton(() => DeleteDepartment(getIt()));
 
-  getIt.registerLazySingleton(() => GetUserRole(getIt()));
+  getIt.registerLazySingleton(() => GetUserRoleFunctions(getIt()));
   getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
   getIt.registerLazySingleton(() => ListUserRoles(getIt()));
   getIt.registerLazySingleton(() => CreateUserRole(getIt()));
