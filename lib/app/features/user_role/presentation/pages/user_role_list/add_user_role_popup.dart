@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/role_function.dart';
+import 'package:finance_app/app/features/user_role/domain/entities/system_function.dart';
 import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
 import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:flutter/material.dart';
