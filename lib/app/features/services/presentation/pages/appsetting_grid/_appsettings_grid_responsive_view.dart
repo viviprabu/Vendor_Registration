@@ -1,13 +1,13 @@
 // 🐦 Flutter imports:
 
-import 'package:animated_svg/animated_svg.dart';
+import 'package:finance_app/app/core/theme/_app_colors.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting_roles.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting_sysfunction.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 // 📦 Package imports:
@@ -28,21 +28,22 @@ class _AppSettingResponsiveGridViewState
   List<AppSetting> appSetting = [];
   List<AppSettingRoles> appSettingRoles = [];
   List<AppSettingSysFunction> appSettingSysFunction = [];
-  late final SvgController controller;
+  // late final AnimatedSvgController controller;
 
   @override
   void initState() {
     // Initialize SvgController
-    controller = AnimatedSvgController();
+    // controller = AnimatedSvgController();
+    print(appSetting);
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // Dispose SvgController
-    controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Dispose SvgController
+  //   // controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +102,9 @@ class _AppSettingResponsiveGridViewState
               builder: (context, state) {
             if (state is AppSettingsListState) {
               appSetting = state.appSettings;
-
+              // if (kDebugMode) {
+              //   print(appSetting);
+              // }
               return Padding(
                 padding: const EdgeInsets.all(20),
                 child: LayoutBuilder(
@@ -133,41 +136,41 @@ class _AppSettingResponsiveGridViewState
                             context.go('/dashboard/home');
                           },
                           child: Card(
-                            shadowColor: Colors.amber,
+                            shadowColor: FinanceAppColors.kPrimary900,
                             surfaceTintColor: Colors.blue[100],
-                            elevation: 20,
+                            elevation: 50,
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    // Image.network(
-                                    //     'assets/app_icons/app_icon_main.png',
-                                    //     width: 70,
-                                    //     height: 70,
-                                    //     fit: BoxFit.cover),
+                                    Image.network(
+                                        'assets/app_icons/app_icon_main.png',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover),
                                     const SizedBox(
                                       height: 10,
                                     ),
 
-                                    AnimatedSvg(
-                                      controller: controller,
-                                      duration:
-                                          const Duration(milliseconds: 600),
-                                      onTap: () {},
-                                      size: 80,
-                                      clockwise: true,
-                                      isActive: true,
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/images/widget_images/svg_icons/gallery_icon.svg',
-                                        ),
-                                        SvgPicture.asset(
-                                          'assets/images/widget_images/svg_icons/send.svg',
-                                        ),
-                                      ],
-                                    ),
+                                    // AnimatedSvg(
+                                    //   controller: controller,
+                                    //   duration:
+                                    //       const Duration(milliseconds: 600),
+                                    //   onTap: () {},
+                                    //   size: 80,
+                                    //   clockwise: true,
+                                    //   isActive: true,
+                                    //   children: [
+                                    //     SvgPicture.asset(
+                                    //       'assets/images/widget_images/svg_icons/gallery_icon.svg',
+                                    //     ),
+                                    //     SvgPicture.asset(
+                                    //       'assets/images/widget_images/svg_icons/send.svg',
+                                    //     ),
+                                    //   ],
+                                    // ),
 
                                     Text(appSetting[index].name.toString(),
                                         style: textTheme.bodyMedium),

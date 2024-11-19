@@ -8,7 +8,6 @@ import 'package:finance_app/app/widgets/appsettings_grid_widget/appsettings_grid
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
@@ -130,7 +129,7 @@ class AppSettingGridView extends StatelessWidget {
               );
             }
             if (state is AppSettingLoadingState) {
-              return Center(child: Lottie.asset('assets/Animation.json'));
+              return Center(child: CircularProgressIndicator());
             }
 
             return Center(child: Text('Failed to load data.'));
