@@ -2749,10 +2749,10 @@ class S {
     );
   }
 
-  String get addNewInitialUpload {
+  String get addNewInitialRequest {
     return Intl.message(
-      'Upload Excel Files',
-      name: 'addNewInitialUpload',
+      'New Request',
+      name: 'addNewInitialRequest',
       desc: '',
       args: [],
     );
@@ -3228,10 +3228,10 @@ class S {
     );
   }
 
-  String get upload {
+  String get request {
     return Intl.message(
-      'Upload',
-      name: 'upload',
+      'Request',
+      name: 'request',
       desc: '',
       args: [],
     );
@@ -6376,19 +6376,19 @@ class S {
     );
   }
 
-  String get uploadslist {
+  String get requestlist {
     return Intl.message(
-      'Uploads List',
-      name: 'uploadslist',
+      'Request List',
+      name: 'requestlist',
       desc: '',
       args: [],
     );
   }
 
-  String get excelUpload {
+  String get fileUpload {
     return Intl.message(
-      'Excel Upload',
-      name: 'excelUpload',
+      'File Upload',
+      name: 'fileUpload',
       desc: '',
       args: [],
     );
@@ -9791,10 +9791,100 @@ class S {
     );
   }
 
-  String get addNewAppSettings {
+  String get requestNumber {
     return Intl.message(
-      'Add New App Settings',
-      name: 'addNewAppSetting',
+      'Request Number',
+      name: 'requestNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get estimatedAmount {
+    return Intl.message(
+      'Estimated Amount',
+      name: 'estmatedAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get requestDate {
+    return Intl.message(
+      'Requested Date',
+      name: 'requestDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get yearFrom {
+    return Intl.message(
+      'Year From',
+      name: 'yearFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get yearTo {
+    return Intl.message(
+      'Year To',
+      name: 'yearTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cdRepContact {
+    return Intl.message(
+      'CD Rep Contact',
+      name: 'cdRepContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get subject {
+    return Intl.message(
+      'Subject',
+      name: 'subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get refFileNumber {
+    return Intl.message(
+      'Reference File Number',
+      name: 'refFileNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get documentFees {
+    return Intl.message(
+      'Document Fees',
+      name: 'documentFees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get tenderCategory {
+    return Intl.message(
+      'Tender Category',
+      name: 'tenderCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get comments {
+    return Intl.message(
+      'Comments',
+      name: 'comments',
       desc: '',
       args: [],
     );

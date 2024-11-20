@@ -1,5 +1,5 @@
 import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list_update.dart';
-import 'package:finance_app/app/features/initial_upload/domain/entities/initial_upload_update.dart';
+import 'package:finance_app/app/features/initial_request/domain/entities/initial_request_update.dart';
 
 class AssignedListUpdateModal extends AssignedListUpdate {
   const AssignedListUpdateModal({

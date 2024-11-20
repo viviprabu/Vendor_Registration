@@ -57,6 +57,11 @@ class ApiUrls {
   static const getAssignedList = 'System/AssignedList';
   static const updateAssignedList = 'System/AssignedList';
 
+  static const createInitialRequest = 'System/InitialRequest';
+  static const initialRequest = 'System/InitialRequest';
+  static const getInitialRequest = 'System/InitialRequest';
+  static const updateInitialRequest = 'System/InitialRequest';
+
   /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
   static const userProfile = 'Authentication/UserDetail';
   static const login = 'Authentication/login';

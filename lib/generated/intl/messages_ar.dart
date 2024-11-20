@@ -1362,8 +1362,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "لديك الحق في الوصول إلى معلوماتك الشخصية وتصحيحها أو حذفها. يمكنك أيضًا الانسحاب من بعض ممارسات جمع البيانات. لمزيد من التفاصيل حول كيفية ممارسة هذه الحقوق، يرجى الاتصال بنا."),
         "yourAccountIsCurrently":
             MessageLookupByLibrary.simpleMessage("حسابك حاليًا "),
-        "upload": MessageLookupByLibrary.simpleMessage("رفع"),
-        "excelUpload": MessageLookupByLibrary.simpleMessage("تحميل اكسل"),
+        "request": MessageLookupByLibrary.simpleMessage("طلب"),
+        "fileUpload": MessageLookupByLibrary.simpleMessage("تحميل الملف"),
         "pleaseUploadAnyFile":
             MessageLookupByLibrary.simpleMessage(" الرجاء تحميل أي ملف"),
         "applicationlist":
@@ -1378,12 +1378,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "listDepartments": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
         "listSections": MessageLookupByLibrary.simpleMessage("قائمة الأقسام"),
         "addNewSectors": MessageLookupByLibrary.simpleMessage("أضف القطاع"),
-        "addNewupload": MessageLookupByLibrary.simpleMessage("رفع"),
+        "addNewRequest": MessageLookupByLibrary.simpleMessage("إضافة طلب جديد"),
         "AddNewAppSetting": MessageLookupByLibrary.simpleMessage("أضف الخدمات"),
         "userRole": MessageLookupByLibrary.simpleMessage("دور المستخدم"),
         "addNewInitialUpload":
             MessageLookupByLibrary.simpleMessage("تحميل ملف اكسل"),
         "selectYear": MessageLookupByLibrary.simpleMessage("اختر السنة"),
-        "uploadslist": MessageLookupByLibrary.simpleMessage("قائمة التحميلات"),
+        "requestlist": MessageLookupByLibrary.simpleMessage("قائمة الطلبات"),
+        "requestNumber": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
+        "requestDate": MessageLookupByLibrary.simpleMessage("تاريخ الطلب"),
+        "yearFrom": MessageLookupByLibrary.simpleMessage("سنة من"),
+        "yearTo": MessageLookupByLibrary.simpleMessage("سنة إلى"),
+        "cdRepContact": MessageLookupByLibrary.simpleMessage(
+            "جهة اتصال مندوب القرص المضغوط"),
+        "subject": MessageLookupByLibrary.simpleMessage("موضوع"),
+        "refFileNumber":
+            MessageLookupByLibrary.simpleMessage("رقم الملف المرجعي"),
+        "documentFees": MessageLookupByLibrary.simpleMessage("رسوم الوثيقة"),
+        "tenderCategory": MessageLookupByLibrary.simpleMessage("فئة المناقصة"),
+        "comments": MessageLookupByLibrary.simpleMessage("تعليقات"),
       };
 }

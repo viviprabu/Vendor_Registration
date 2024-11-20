@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:finance_app/app/bloc/language/language_bloc.dart';
 import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
-import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
-import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_event.dart';
+import 'package:finance_app/app/features/initial_request/presentation/bloc/initial_request_bloc.dart';
+import 'package:finance_app/app/features/initial_request/presentation/bloc/initial_request_event.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
@@ -78,9 +78,9 @@ Future<void> main() async {
           ),
       ),
       BlocProvider(
-        create: (context) => getIt<InitialUploadBloc>()
+        create: (context) => getIt<InitialRequestBloc>()
           ..add(
-            InitialUploadInitialEvent(),
+            InitialRequestInitialEvent(),
           ),
       ),
     ],
