@@ -146,7 +146,7 @@ class _AppSettingResponsiveGridViewState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.network(
-                                        'assets/images/widget_images/dashboard_overview_icon/total_products.svg',
+                                        'assets/app_icons/app_icon_main.png',
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover),

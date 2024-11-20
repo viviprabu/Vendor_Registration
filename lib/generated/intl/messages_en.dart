@@ -1361,8 +1361,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "You have the right to access, correct, or delete your personal information. You can also opt out of certain data collection practices. For more details on how to exercise these rights, please contact us."),
         "yourAccountIsCurrently":
             MessageLookupByLibrary.simpleMessage("Your Account is currently "),
-        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
-        "uploadlist": MessageLookupByLibrary.simpleMessage("Upload List"),
+        "request": MessageLookupByLibrary.simpleMessage("Request"),
         "pleaseUploadAnyFile":
             MessageLookupByLibrary.simpleMessage("Upload any file"),
         "applicationlist":
@@ -1379,14 +1378,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Department List"),
         "listSections": MessageLookupByLibrary.simpleMessage("Section List"),
         "addNewSectors": MessageLookupByLibrary.simpleMessage("Add Sector"),
-        "AddNewUpload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "AddNewRequest": MessageLookupByLibrary.simpleMessage("New Request"),
         "AddNewAppSetting":
             MessageLookupByLibrary.simpleMessage("Add Services"),
         "userRole": MessageLookupByLibrary.simpleMessage("User Role"),
         "addNewInitialUpload":
             MessageLookupByLibrary.simpleMessage("Upload Excel File"),
         "selectYear": MessageLookupByLibrary.simpleMessage("Select Year"),
-        "uploadslist": MessageLookupByLibrary.simpleMessage("Uploads List"),
-        "excelUpload": MessageLookupByLibrary.simpleMessage("Excel Upload"),
+        "requestlist": MessageLookupByLibrary.simpleMessage("Request List"),
+        "fileUpload": MessageLookupByLibrary.simpleMessage("File Upload"),
+        "requestNumber": MessageLookupByLibrary.simpleMessage("Request Number"),
+        "requestDate": MessageLookupByLibrary.simpleMessage("Request Date"),
+        "yearFrom": MessageLookupByLibrary.simpleMessage("Year From"),
+        "yearTo": MessageLookupByLibrary.simpleMessage("Year To"),
+        "cdRepContact": MessageLookupByLibrary.simpleMessage("CD Rep Contact"),
+        "subject": MessageLookupByLibrary.simpleMessage("Subject"),
+        "refFileNumber":
+            MessageLookupByLibrary.simpleMessage("Reference File Number"),
+        "documentFees": MessageLookupByLibrary.simpleMessage("document Fees"),
+        "tenderCategory":
+            MessageLookupByLibrary.simpleMessage("Tender Category"),
+        "comments": MessageLookupByLibrary.simpleMessage("Comments"),
       };
 }

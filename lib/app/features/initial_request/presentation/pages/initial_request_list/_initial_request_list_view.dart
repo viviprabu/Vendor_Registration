@@ -533,19 +533,10 @@ class _InitialRequestListViewState extends State<InitialRequestListView> {
               ],
             ),
           ),
-          DataColumn(label: Text(lang.requestNumber)),
-          DataColumn(label: Text(lang.requestDate)),
-          DataColumn(label: Text(lang.estimatedAmount)),
-          DataColumn(label: Text(lang.yearFrom)),
-          DataColumn(label: Text(lang.yearTo)),
-          DataColumn(label: Text(lang.cdRepContact)),
-          DataColumn(label: Text(lang.subject)),
-          DataColumn(label: Text(lang.documentFees)),
-          DataColumn(label: Text(lang.fileUpload)),
-          DataColumn(label: Text(lang.state)),
-          DataColumn(label: Text(lang.next)),
-          DataColumn(label: Text(lang.actions)),
+          DataColumn(label: Text(lang.name)),
+          DataColumn(label: Text(lang.userName)),
           DataColumn(label: Text(lang.status)),
+          DataColumn(label: Text(lang.actions)),
         ],
         rows: initialRequest.map(
           (data) {
@@ -590,39 +581,7 @@ class _InitialRequestListViewState extends State<InitialRequestListView> {
                     Text(data.id ?? ''),
                   ],
                 )),
-                DataCell(
-                  Text(data.requestNumber ?? ''),
-                ),
-                DataCell(
-                  Text(data.requestDate.toString()),
-                ),
-                DataCell(
-                  Text(data.estimatedAmount ?? ''),
-                ),
-                DataCell(
-                  Text(data.yearFrom ?? ''),
-                ),
-                DataCell(
-                  Text(data.yearTo ?? ''),
-                ),
-                DataCell(
-                  Text(data.cdRepContact ?? ''),
-                ),
-                DataCell(
-                  Text(data.subject ?? ''),
-                ),
-                DataCell(
-                  Text(data.documentFees ?? ''),
-                ),
-                DataCell(
-                  Text(data.uploadDocument ?? ''),
-                ),
-                DataCell(
-                  Text(data.state ?? ''),
-                ),
-                DataCell(
-                  Text(data.nextStep ?? ''),
-                ),
+                DataCell(Text(data.requestNumber ?? '')),
                 // DataCell(
                 //   Container(
                 //     padding:

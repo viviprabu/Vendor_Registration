@@ -63,24 +63,24 @@ List<GroupedMenuModel> get _groupedMenus {
     // Application Group
     GroupedMenuModel(
       //name: 'Application',
-      name: l.S.current.upload,
+      name: l.S.current.request,
       menus: [
         SidebarItemModel(
           //name: 'Users',
-          name: l.S.current.upload,
+          name: l.S.current.request,
           iconPath: 'assets/images/sidebar_icons/copy-check.svg',
           sidebarItemType: SidebarItemType.submenu,
-          navigationPath: '/uploads',
+          navigationPath: '/requests',
           submenus: [
             SidebarSubmenuModel(
               //name: "Users List",
-              name: l.S.current.excelUpload,
-              navigationPath: "excel_upload",
+              name: l.S.current.request,
+              navigationPath: "initial_request",
             ),
             SidebarSubmenuModel(
               //name: "Users List",
-              name: l.S.current.uploadslist,
-              navigationPath: "uploads_list",
+              name: l.S.current.requestlist,
+              navigationPath: "request_list",
             ),
           ],
         ),

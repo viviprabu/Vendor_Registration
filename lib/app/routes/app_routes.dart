@@ -1,6 +1,7 @@
 // 📦 Package imports:
-import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/_initial_upload.dart';
-import 'package:finance_app/app/features/initial_upload/presentation/pages/initial_upload_list/_initial_upload_list_view.dart';
+import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_list/_initial_request.dart';
+import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_list/_initial_request_list_view.dart';
+import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_list/_request.dart';
 import 'package:finance_app/app/features/section/presentation/pages/sections_page.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/presentation/pages/appsetting_grid/_appsettings_grid_responsive_view.dart';
@@ -57,24 +58,24 @@ abstract class FinanceAppRoutes {
             ],
           ),
           GoRoute(
-            path: '/uploads',
+            path: '/requests',
             redirect: (context, state) async {
-              if (state.fullPath == '/uploads') {
-                return '/uploads/excel_upload';
+              if (state.fullPath == '/requests') {
+                return '/requests/initial_request';
               }
               return null;
             },
             routes: [
               GoRoute(
-                path: 'excel_upload',
+                path: 'initial_request',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: InitialUploadPage(),
+                  child: RequestCreation(),
                 ),
               ),
               GoRoute(
-                path: 'uploads_list',
+                path: 'request_list',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: InitialUploadListView(),
+                  child: InitialRequestListView(),
                 ),
               ),
             ],

@@ -5,16 +5,16 @@ import 'package:finance_app/app/features/Setting/domain/usecases/delete_Setting.
 import 'package:finance_app/app/features/Setting/domain/usecases/get_Setting.dart';
 import 'package:finance_app/app/features/Setting/domain/usecases/get_Settings.dart';
 import 'package:finance_app/app/features/Setting/domain/usecases/update_Setting.dart';
-import 'package:finance_app/app/features/initial_upload/data/datasources/initial_upload_remote_data_source.dart';
-import 'package:finance_app/app/features/initial_upload/data/datasources/initial_upload_remote_data_source_impl.dart';
-import 'package:finance_app/app/features/initial_upload/data/repositories/inital_upload_repository_impl.dart';
-import 'package:finance_app/app/features/initial_upload/domain/repositories/initial_upload_repository.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/create_initial_upload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/delete_initial_upload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initial_upload.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/get_initial_uploads.dart';
-import 'package:finance_app/app/features/initial_upload/domain/usecases/update_initial_upload.dart';
-import 'package:finance_app/app/features/initial_upload/presentation/bloc/initialupload_bloc.dart';
+import 'package:finance_app/app/features/initial_request/data/datasources/initial_request_remote_data_source.dart';
+import 'package:finance_app/app/features/initial_request/data/datasources/initial_request_remote_data_source_impl.dart';
+import 'package:finance_app/app/features/initial_request/data/repositories/inital_request_repository_impl.dart';
+import 'package:finance_app/app/features/initial_request/domain/repositories/initial_request_repository.dart';
+import 'package:finance_app/app/features/initial_request/domain/usecases/create_initial_request.dart';
+import 'package:finance_app/app/features/initial_request/domain/usecases/delete_initial_request.dart';
+import 'package:finance_app/app/features/initial_request/domain/usecases/get_initial_request.dart';
+import 'package:finance_app/app/features/initial_request/domain/usecases/get_initial_requests.dart';
+import 'package:finance_app/app/features/initial_request/domain/usecases/update_initial_request.dart';
+import 'package:finance_app/app/features/initial_request/presentation/bloc/initial_request_bloc.dart';
 import 'package:finance_app/app/features/services/data/datasources/appsetting_remote_data_source.dart';
 import 'package:finance_app/app/features/services/data/datasources/appsetting_remote_data_source_impl.dart';
 import 'package:finance_app/app/features/services/data/repositories/appsetting_repository_impl.dart';
@@ -180,12 +180,12 @@ void init() {
   );
 
   getIt.registerFactory(
-    () => InitialUploadBloc(
-      getInitialUpload: getIt(),
-      getInitialUploads: getIt(),
-      createInitialUpload: getIt(),
-      updateInitialUpload: getIt(),
-      deleteInitialUpload: getIt(),
+    () => InitialRequestBloc(
+      getInitialRequest: getIt(),
+      getInitialRequests: getIt(),
+      createInitialRequest: getIt(),
+      updateInitialRequest: getIt(),
+      deleteInitialRequest: getIt(),
     ),
   );
 
@@ -238,11 +238,11 @@ void init() {
   getIt.registerLazySingleton(() => UpdateSetting(getIt()));
   getIt.registerLazySingleton(() => DeleteSetting(getIt()));
 
-  getIt.registerLazySingleton(() => GetInitialUpload(getIt()));
-  getIt.registerLazySingleton(() => GetInitialUploads(getIt()));
-  getIt.registerLazySingleton(() => CreateInitialUpload(getIt()));
-  getIt.registerLazySingleton(() => UpdateInitialUpload(getIt()));
-  getIt.registerLazySingleton(() => DeleteInitialUpload(getIt()));
+  getIt.registerLazySingleton(() => GetInitialRequest(getIt()));
+  getIt.registerLazySingleton(() => GetInitialRequests(getIt()));
+  getIt.registerLazySingleton(() => CreateInitialRequest(getIt()));
+  getIt.registerLazySingleton(() => UpdateInitialRequest(getIt()));
+  getIt.registerLazySingleton(() => DeleteInitialRequest(getIt()));
   // repositories
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
@@ -290,9 +290,9 @@ void init() {
     ),
   );
 
-  getIt.registerLazySingleton<InitialUploadRepository>(
-    () => InitialUploadRepositoryImpl(
-      initialUploadRemoteDataSource: getIt(),
+  getIt.registerLazySingleton<InitialRequestRepository>(
+    () => InitialRequestRepositoryImpl(
+      initialRequestRemoteDataSource: getIt(),
     ),
   );
 
@@ -341,8 +341,8 @@ void init() {
     ),
   );
 
-  getIt.registerLazySingleton<InitialUploadRemoteDataSource>(
-    () => InitialUploadRemoteDataSourceImpl(
+  getIt.registerLazySingleton<InitialRequestRemoteDataSource>(
+    () => InitialRequestRemoteDataSourceImpl(
       httpClient: getIt(),
     ),
   );
