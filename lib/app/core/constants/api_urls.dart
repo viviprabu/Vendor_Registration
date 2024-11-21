@@ -62,10 +62,10 @@ class ApiUrls {
   static const getInitialRequest = 'System/InitialRequest';
   static const updateInitialRequest = 'System/InitialRequest';
 
-  /* static const baseURL = 'https://gzctskv5-7045.euw.devtunnels.ms/MEW';
-  static const userProfile = 'Authentication/UserDetail';
-  static const login = 'Authentication/login';
-  static const users = 'Authentication/UserList'; 
-    //static const baseURL = 'https://localhost:7045/ideaX/';
-  */
+  // manage request status
+  static const createRequestStatus = 'System/RequestStatus';
+  static const listRequestStatus = 'System/RequestStatuses';
+  static const getRequestStatus = 'System/RequestStatus';
+  static const updateRequestStatus = 'System/RequestStatus';
+  static const deleteRequestStatus = 'System/RequestStatus';
 }

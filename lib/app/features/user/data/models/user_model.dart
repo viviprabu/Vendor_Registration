@@ -1,31 +1,59 @@
+import 'package:finance_app/app/features/auth/data/models/user_rights_model.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 
-class UserModel extends User {
-  UserModel(
-      {required super.id,
-      required super.name,
-      required super.userName,
-      required super.email,
-      required super.emailConfirmed,
-      required super.phoneNumber,
-      required super.mobileNumber,
-      required super.officePhone,
-      required super.description,
-      required super.phoneNumberConfirmed,
-      required super.lockoutEnd,
-      required super.lockoutEnabled,
-      required super.isActive,
-      required super.isSuspended,
-      required super.suspendReason,
-      required super.role,
-      required super.isDarkMode,
-      required super.businessRoleId,
-      required super.languageId,
-      required super.roleId,
-      required super.language,
-      required super.dateOfBirth,
-      required super.logoPath,
-      required super.sectionId});
+class UserModel {
+  final String? id;
+  final String? name;
+  final String? userName;
+  final String? email;
+  final bool? emailConfirmed;
+  final String? phoneNumber;
+  final String? mobileNumber;
+  final String? officePhone;
+  final String? description;
+  final bool? phoneNumberConfirmed;
+  final String? lockoutEnd;
+  final bool? lockoutEnabled;
+  final bool? isActive;
+  final bool? isSuspended;
+  final String? suspendReason;
+  final String? role;
+  final bool? isDarkMode;
+  final int? businessRoleId;
+  final int? languageId;
+  final int? roleId;
+  final String? language;
+  final String? dateOfBirth;
+  final String? logoPath;
+  final String? sectionId;
+  List<UserRightsModel>? userRights;
+
+  UserModel({
+    this.id,
+    this.name,
+    this.userName,
+    this.email,
+    this.emailConfirmed,
+    this.phoneNumber,
+    this.mobileNumber,
+    this.officePhone,
+    this.description,
+    this.phoneNumberConfirmed,
+    this.lockoutEnd,
+    this.lockoutEnabled,
+    this.isActive,
+    this.isSuspended,
+    this.suspendReason,
+    this.role,
+    this.isDarkMode,
+    this.businessRoleId,
+    this.languageId,
+    this.roleId,
+    this.language,
+    this.dateOfBirth,
+    this.logoPath,
+    this.sectionId,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
