@@ -41,11 +41,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     // save token to shared preferences
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('token', responseBody['token']['accessToken']);
-    //sharedPreferences.setStringList('user', responseBody['token']['user']);
+
+    /* sharedPreferences.setStringList(
+        'userRights', responseBody['token']['user']['userRights']); */
     //sharedPreferences.setStringList('token', responseBody);
     //print(sharedPreferences);
     //return AuthModel.fromJson(responseBody);
     //print(responseBody['token']['user']);
+
+    //final userRights = responseBody['token']['user']['userRights'];
+
+    responseBody['token']['user']['userRights'];
 
     final UserModel userModel =
         UserModel.fromJson(responseBody['token']['user']);

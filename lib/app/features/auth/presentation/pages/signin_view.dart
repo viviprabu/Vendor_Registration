@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
 import 'package:finance_app/app/features/services/data/models/appsetting_roles_modal.dart';
 import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
 import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
@@ -37,6 +38,7 @@ class _SigninViewState extends State<SigninView> {
   final signInFormKey = GlobalKey<FormState>();
   List<String> list = <String>[];
   List<AppSetting> appsetting = [];
+  List<UserRights> userRights = [];
 
   @override
   void initState() {

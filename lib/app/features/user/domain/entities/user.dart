@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
 
 class User extends Equatable {
   final String? id;
@@ -26,6 +27,7 @@ class User extends Equatable {
   final String? logoPath;
   final String? sectionId;
   bool isSelected = false;
+  List<UserRights>? userRights;
 
   User(
       {this.id,
