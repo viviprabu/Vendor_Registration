@@ -1,5 +1,3 @@
-import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list_create.dart';
-import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list_create.dart';
 import 'package:finance_app/app/features/assigned_list/domain/usecases/create_assigned_list.dart';
 import 'package:finance_app/app/features/assigned_list/domain/usecases/delete_assigned_list.dart';
 import 'package:finance_app/app/features/assigned_list/domain/usecases/get_assigned_list.dart';

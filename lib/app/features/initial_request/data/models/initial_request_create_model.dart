@@ -2,6 +2,8 @@ import 'package:finance_app/app/features/initial_request/domain/entities/initial
 
 class InitialRequestCreateModal extends InitialRequestCreate {
   const InitialRequestCreateModal({
+    required sectorId,
+    required deptId,
     required requestNumber,
     required requestDate,
     required estimatedAmount,
@@ -15,6 +17,8 @@ class InitialRequestCreateModal extends InitialRequestCreate {
 
   factory InitialRequestCreateModal.fromJson(Map<String, dynamic> json) {
     return InitialRequestCreateModal(
+      sectorId: json["sectorId"] ?? "",
+      deptId: json["deptId"] ?? "",
       requestNumber: json["requestNumber"] ?? "",
       requestDate: json["requestDate"] ?? "",
       estimatedAmount: json["estimatedAmount"] ?? "",
@@ -30,6 +34,8 @@ class InitialRequestCreateModal extends InitialRequestCreate {
   /// have to send as a form data
   Map<String, dynamic> toFormData() {
     return {
+      "sectorId": sectorId,
+      "deptId": deptId,
       "requestNumber": requestNumber,
       "requestDate": requestDate,
       "estimatedAmount": estimatedAmount,
@@ -43,6 +49,8 @@ class InitialRequestCreateModal extends InitialRequestCreate {
   }
 
   Map<String, dynamic> toJson() => {
+        "sectorId": sectorId,
+        "deptId": deptId,
         "requestNumber": requestNumber,
         "requestDate": requestDate,
         "estimatedAmount": estimatedAmount,
@@ -57,6 +65,8 @@ class InitialRequestCreateModal extends InitialRequestCreate {
   factory InitialRequestCreateModal.fromEntity(
       InitialRequestCreate initialRequestCreate) {
     return InitialRequestCreateModal(
+      sectorId: initialRequestCreate.sectorId,
+      deptId: initialRequestCreate.deptId,
       requestNumber: initialRequestCreate.requestNumber,
       requestDate: initialRequestCreate.requestDate,
       estimatedAmount: initialRequestCreate.estimatedAmount,
@@ -71,6 +81,8 @@ class InitialRequestCreateModal extends InitialRequestCreate {
 
   InitialRequestCreate toEntity() {
     return InitialRequestCreate(
+      sectorId: sectorId,
+      deptId: deptId,
       requestNumber: requestNumber,
       requestDate: requestDate,
       estimatedAmount: estimatedAmount,

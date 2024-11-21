@@ -3,6 +3,8 @@ import 'package:finance_app/app/features/initial_request/domain/entities/initial
 class InitialRequestModal extends InitialRequest {
   InitialRequestModal({
     required super.id,
+    required sectorId,
+    required deptId,
     required requestNumber,
     required requestDate,
     required estimatedAmount,
@@ -17,6 +19,8 @@ class InitialRequestModal extends InitialRequest {
   factory InitialRequestModal.fromJson(Map<String, dynamic> json) {
     return InitialRequestModal(
       id: json["id"] ?? "",
+      sectorId: json["sectorId"] ?? "",
+      deptId: json["deptId"] ?? "",
       requestNumber: json["requestNumber"] ?? "",
       requestDate: json["requestDate"] ?? "",
       estimatedAmount: json["estimatedAmount"] ?? "",
@@ -31,6 +35,8 @@ class InitialRequestModal extends InitialRequest {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "sectorId": sectorId,
+        "deptId": deptId,
         "requestNumber": requestNumber,
         "requestDate": requestDate,
         "estimatedAmount": estimatedAmount,
@@ -45,6 +51,8 @@ class InitialRequestModal extends InitialRequest {
   factory InitialRequestModal.fromEntity(InitialRequest initialRequest) {
     return InitialRequestModal(
       id: initialRequest.id,
+      sectorId: initialRequest.sectorId,
+      deptId: initialRequest.deptId,
       requestNumber: initialRequest.requestNumber,
       requestDate: initialRequest.requestDate,
       estimatedAmount: initialRequest.estimatedAmount,
@@ -60,6 +68,8 @@ class InitialRequestModal extends InitialRequest {
   InitialRequest toEntity() {
     return InitialRequest(
       id: id,
+      sectorId: sectorId,
+      deptId: deptId,
       requestNumber: requestNumber,
       requestDate: requestDate,
       estimatedAmount: estimatedAmount,

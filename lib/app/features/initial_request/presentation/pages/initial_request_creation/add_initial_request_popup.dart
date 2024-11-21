@@ -319,9 +319,7 @@ class _AddInitialRequestDialogState extends State<AddInitialRequestDialog> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
-                                    onPressed: () {
-                                      // RequestFile();
-                                    },
+                                    onPressed: () {},
                                     //label: const Text('Save'),
                                     label: Text(lang.save),
                                   )

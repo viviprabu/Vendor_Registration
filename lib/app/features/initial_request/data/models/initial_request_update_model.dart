@@ -1,23 +1,28 @@
 import 'package:finance_app/app/features/initial_request/domain/entities/initial_Request_update.dart';
 
 class InitialRequestUpdateModal extends InitialRequestUpdate {
-  const InitialRequestUpdateModal(
-      {required super.id,
-      required super.requestNumber,
-      required super.requestDate,
-      required super.estimatedAmount,
-      required super.yearFrom,
-      required super.yearTo,
-      required super.cdRepContact,
-      required super.subject,
-      required super.documentFees,
-      required super.uploadDocument,
-      required super.state,
-      required super.nextStep});
+  const InitialRequestUpdateModal({
+    required super.id,
+    required super.sectorId,
+    required super.deptId,
+    required super.requestNumber,
+    required super.requestDate,
+    required super.estimatedAmount,
+    required super.yearFrom,
+    required super.yearTo,
+    required super.cdRepContact,
+    required super.subject,
+    required super.documentFees,
+    required super.uploadDocument,
+    required super.state,
+    required super.nextStep,
+  });
 
   factory InitialRequestUpdateModal.fromJson(Map<String, dynamic> json) {
     return InitialRequestUpdateModal(
       id: json["id"] ?? "",
+      sectorId: json["sectorId"] ?? 0,
+      deptId: json["deptId"] ?? 0,
       requestNumber: json["requestNumber"] ?? "",
       requestDate: json["requestDate"] ?? "",
       estimatedAmount: json["estimatedAmount"] ?? "",
@@ -37,6 +42,8 @@ class InitialRequestUpdateModal extends InitialRequestUpdate {
   Map<String, dynamic> toFormData() {
     return {
       "id": id,
+      "sectorId": sectorId,
+      "deptId": deptId,
       "requestNumber": requestNumber,
       "requestDate": requestDate,
       "estimatedAmount": estimatedAmount,
@@ -53,6 +60,8 @@ class InitialRequestUpdateModal extends InitialRequestUpdate {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "sectorId": sectorId,
+        "deptId": deptId,
         "requestNumber": requestNumber,
         "requestDate": requestDate,
         "estimatedAmount": estimatedAmount,
@@ -71,6 +80,8 @@ class InitialRequestUpdateModal extends InitialRequestUpdate {
       InitialRequestUpdate initialRequestUpdate) {
     return InitialRequestUpdateModal(
       id: initialRequestUpdate.id,
+      sectorId: initialRequestUpdate.sectorId,
+      deptId: initialRequestUpdate.deptId,
       requestNumber: initialRequestUpdate.requestNumber,
       requestDate: initialRequestUpdate.requestDate,
       estimatedAmount: initialRequestUpdate.estimatedAmount,
@@ -89,6 +100,8 @@ class InitialRequestUpdateModal extends InitialRequestUpdate {
   InitialRequestUpdate toEntity() {
     return InitialRequestUpdate(
       id: id,
+      sectorId: sectorId,
+      deptId: deptId,
       requestNumber: requestNumber,
       requestDate: requestDate,
       estimatedAmount: estimatedAmount,

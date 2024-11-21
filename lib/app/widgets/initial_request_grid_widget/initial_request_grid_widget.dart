@@ -10,15 +10,36 @@ import '../../core/helpers/fuctions/helper_functions.dart';
 import '../../core/theme/theme.dart';
 
 class InitialRequestsGridWidget extends StatefulWidget {
-  const InitialRequestsGridWidget(
-      {super.key,
-      required this.imagePath,
-      required this.name,
-      required this.roles,
-      required this.sysFunction});
+  const InitialRequestsGridWidget({
+    super.key,
+    required this.imagePath,
+    this.requestNumber,
+    this.requestDate,
+    this.estimatedAmount,
+    this.yearFrom,
+    this.yearTo,
+    this.cdRepContact,
+    this.subject,
+    this.documentFees,
+    this.uploadDocument,
+    this.state,
+    this.nextStep,
+    required this.roles,
+    required this.sysFunction,
+  });
 
   final String imagePath;
-  final String name;
+  final String? requestNumber;
+  final DateTime? requestDate;
+  final String? estimatedAmount;
+  final String? yearFrom;
+  final String? yearTo;
+  final String? cdRepContact;
+  final String? subject;
+  final String? documentFees;
+  final String? uploadDocument;
+  final String? state;
+  final String? nextStep;
   final List<dynamic> roles;
   final List<dynamic> sysFunction;
 
@@ -112,7 +133,7 @@ class _InitialRequestsGridWidgetState extends State<InitialRequestsGridWidget> {
 
                   /// -------------name
                   Text(
-                    widget.name,
+                    widget.requestNumber.toString(),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       overflow: TextOverflow.ellipsis,
@@ -125,7 +146,7 @@ class _InitialRequestsGridWidgetState extends State<InitialRequestsGridWidget> {
 
                   /// -------------designation
                   Text(
-                    widget.name,
+                    widget.requestDate.toString(),
                     style: theme.textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: theme.colorScheme.onTertiary,
