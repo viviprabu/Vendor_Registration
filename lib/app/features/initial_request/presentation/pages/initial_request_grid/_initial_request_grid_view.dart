@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/assigned_list/presentation/pages/assigned_list_grid/demo_assign_teams.dart';
 import 'package:finance_app/app/widgets/initial_request_grid_widget/initial_request_grid_widget.dart';
 import 'package:flutter/material.dart';
 // 📦 Package imports:
@@ -7,11 +6,12 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 
 // 🌎 Project imports:
+import 'demo_initial_requests.dart';
 
-List<DemoInitialuploads> demoInitialUploads = [];
+List<DemoInitialRequests> demoInitialRequests = [];
 
-class InitialUploadsGridView extends StatelessWidget {
-  const InitialUploadsGridView({super.key});
+class InitialRequestsGridView extends StatelessWidget {
+  const InitialRequestsGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class InitialUploadsGridView extends StatelessWidget {
         padding: sizeInfo.padding / 2.5,
         child: SingleChildScrollView(
           child: ResponsiveGridRow(
-            children: demoInitialUploads
+            children: demoInitialRequests
                 .asMap()
                 .entries
                 .map(

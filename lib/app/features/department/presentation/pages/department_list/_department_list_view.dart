@@ -28,6 +28,7 @@ class DepartmentsListView extends StatefulWidget {
 class _DepartmentsListViewState extends State<DepartmentsListView> {
   ///_____________________________________________________________________Variables_______________________________
   late List<Department> _filteredData;
+  late List<Department> paginatedData;
   final ScrollController _scrollController = ScrollController();
   List<Department> departments = [];
   int _currentPage = 0;
@@ -158,6 +159,24 @@ class _DepartmentsListViewState extends State<DepartmentsListView> {
       builder: (context, state) {
         if (state is DepartmentsListState) {
           departments = state.departments;
+
+          if (_searchQuery.isNotEmpty) {
+            _filteredData = departments;
+            // .where((data) =>
+            //     data.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+            // .toList();
+          } else {
+            _filteredData = List.from(departments);
+          }
+
+          // int start = _currentPage * _rowsPerPage;
+          // int end = start + _rowsPerPage;
+          // _filteredData.sublist(
+          //     start, end > _filteredData.length ? _filteredData.length : end);
+          int start = _currentPage * _rowsPerPage;
+          int end = start + _rowsPerPage;
+          paginatedData = _filteredData.sublist(
+              start, end > _filteredData.length ? _filteredData.length : end);
 
           return Scaffold(
             body: Padding(

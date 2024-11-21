@@ -137,7 +137,7 @@ class _AppSettingResponsiveGridViewState
                           },
                           child: Card(
                             shadowColor: FinanceAppColors.kPrimary900,
-                            surfaceTintColor: Colors.blue[100],
+                            surfaceTintColor: const Color(0xffddecff),
                             elevation: 50,
                             child: Center(
                               child: Padding(

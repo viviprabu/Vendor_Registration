@@ -57,6 +57,11 @@ class ApiUrls {
   static const getAssignedList = 'System/AssignedList';
   static const updateAssignedList = 'System/AssignedList';
 
+  static const createInitialRequest = 'System/InitialRequest';
+  static const initialRequest = 'System/InitialRequest';
+  static const getInitialRequest = 'System/InitialRequest';
+  static const updateInitialRequest = 'System/InitialRequest';
+
   // manage request status
   static const createRequestStatus = 'System/RequestStatus';
   static const listRequestStatus = 'System/RequestStatuses';

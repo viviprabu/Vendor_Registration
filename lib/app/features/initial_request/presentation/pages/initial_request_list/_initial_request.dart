@@ -1,5 +1,4 @@
 // 🎯 Dart imports:
-
 // 🐦 Flutter imports:
 import 'package:file_picker/file_picker.dart';
 import 'package:finance_app/app/core/helpers/field_styles/_input_field_styles.dart';
@@ -38,21 +37,33 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
   String _searchQuery = '';
   bool _selectAll = false;
   final _RequestController = TextEditingController();
+  final _requestNumberController = TextEditingController();
+  final _estimatedAmountController = TextEditingController();
+  final _requestDateController = TextEditingController();
+  final _yearController = TextEditingController();
+  final _cdRepController = TextEditingController();
+  final _subjectController = TextEditingController();
+  final _cdListController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _notesController = TextEditingController();
+
   final _dateController = TextEditingController();
 
   final int startYear = AppDateConfig.beginYear;
   final int endYear = AppDateConfig.endYear;
   late final Function(int) onYearSelected;
+  // late final SvgController controller;
 
   @override
   void initState() {
     super.initState();
     _filteredData = List.from(initialRequest);
+    // controller = AnimatedSvgController();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    // _scrollController.dispose();
     super.dispose();
   }
 
@@ -320,7 +331,7 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
                                                     Text(
                                                       lang.addNewInitialRequest,
                                                       style:
-                                                          textTheme.bodyMedium,
+                                                          textTheme.bodyLarge,
                                                     ),
                                                     const SizedBox(
                                                       height: 16,
@@ -632,7 +643,122 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
                                                 const SizedBox(height: 16),
 
                                                 ///---------------- Text Field section
+                                                Row(
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Container(
+                                                        child:
+                                                            TextFieldLabelWrapper(
+                                                          //labelText: 'Input Date',
+                                                          labelText:
+                                                              lang.selectYear,
+                                                          labelStyle: textTheme
+                                                              .bodySmall,
+                                                          inputField:
+                                                              TextFormField(
+                                                            decoration:
+                                                                InputDecoration(
+                                                              hintText: lang
+                                                                  .enterYourFullName,
+                                                              hintStyle:
+                                                                  textTheme
+                                                                      .bodySmall,
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .name,
+                                                            validator: (value) {
+                                                              if (value ==
+                                                                      null ||
+                                                                  value
+                                                                      .isEmpty) {
+                                                                // return 'Please enter your first name';
+                                                                return lang
+                                                                    .pleaseEnterYourFullName;
+                                                              }
+                                                              return null;
+                                                            },
+                                                            autovalidateMode:
+                                                                AutovalidateMode
+                                                                    .onUserInteraction,
+                                                            controller:
+                                                                _requestNumberController,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Container(
+                                                        child:
+                                                            TextFieldLabelWrapper(
+                                                          labelText:
+                                                              lang.request,
+                                                          labelStyle: textTheme
+                                                              .bodySmall,
+                                                          inputField:
+                                                              TextFormField(
+                                                            controller:
+                                                                _RequestController,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              //hintText: 'Document Name',
+                                                              hintText: lang
+                                                                  .pleaseUploadAnyFile,
 
+                                                              suffixIcon:
+                                                                  Container(
+                                                                margin:
+                                                                    const EdgeInsetsDirectional
+                                                                        .all(5),
+                                                                child:
+                                                                    ElevatedButton
+                                                                        .icon(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .select_all_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    RequestFile();
+                                                                  },
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    padding:
+                                                                        const EdgeInsetsDirectional
+                                                                            .symmetric(
+                                                                      horizontal:
+                                                                          24,
+                                                                    ),
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              4),
+                                                                    ),
+                                                                    visualDensity:
+                                                                        const VisualDensity(
+                                                                            vertical:
+                                                                                -4),
+                                                                  ),
+                                                                  // child: const Text('Save'),
+                                                                  label: Text(lang
+                                                                      .select),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                const SizedBox(height: 16),
                                                 Row(
                                                   children: <Widget>[
                                                     Expanded(
@@ -1168,10 +1294,19 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
               ],
             ),
           ),
-          DataColumn(label: Text(lang.name)),
-          DataColumn(label: Text(lang.userName)),
-          DataColumn(label: Text(lang.status)),
+          DataColumn(label: Text(lang.requestNumber)),
+          DataColumn(label: Text(lang.requestDate)),
+          DataColumn(label: Text(lang.estimatedAmount)),
+          DataColumn(label: Text(lang.yearFrom)),
+          DataColumn(label: Text(lang.yearTo)),
+          DataColumn(label: Text(lang.cdRepContact)),
+          DataColumn(label: Text(lang.subject)),
+          DataColumn(label: Text(lang.documentFees)),
+          DataColumn(label: Text(lang.fileUpload)),
+          DataColumn(label: Text(lang.state)),
+          DataColumn(label: Text(lang.next)),
           DataColumn(label: Text(lang.actions)),
+          DataColumn(label: Text(lang.status)),
         ],
         rows: initialRequest.map(
           (data) {
@@ -1201,6 +1336,36 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
                 ),
                 DataCell(
                   Text(data.requestNumber ?? ''),
+                ),
+                DataCell(
+                  Text(data.requestDate.toString()),
+                ),
+                DataCell(
+                  Text(data.estimatedAmount ?? ''),
+                ),
+                DataCell(
+                  Text(data.yearFrom ?? ''),
+                ),
+                DataCell(
+                  Text(data.yearTo ?? ''),
+                ),
+                DataCell(
+                  Text(data.cdRepContact ?? ''),
+                ),
+                DataCell(
+                  Text(data.subject ?? ''),
+                ),
+                DataCell(
+                  Text(data.documentFees ?? ''),
+                ),
+                DataCell(
+                  Text(data.uploadDocument ?? ''),
+                ),
+                DataCell(
+                  Text(data.state ?? ''),
+                ),
+                DataCell(
+                  Text(data.nextStep ?? ''),
                 ),
                 DataCell(Row(
                   children: [

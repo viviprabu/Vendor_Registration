@@ -28,7 +28,8 @@ class SectorsListView extends StatefulWidget {
 
 class _SectorsListViewState extends State<SectorsListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<Sector> _filteredData;
+  List<Sector> _filteredData = [];
+  List<Sector> paginatedData = [];
   final ScrollController _scrollController = ScrollController();
   List<Sector> sectors = [];
   int _currentPage = 0;
@@ -39,6 +40,7 @@ class _SectorsListViewState extends State<SectorsListView> {
   @override
   void initState() {
     // _filteredData = sectors;
+    // _filteredData = List.from(sectors);
     super.initState();
   }
 
@@ -49,29 +51,6 @@ class _SectorsListViewState extends State<SectorsListView> {
   }
 
   ///_____________________________________________________________________data__________________________________
-  // List<Sector> get _currentPageData {
-  //   if (_searchQuery.isNotEmpty) {
-  //     _filteredData = sectors
-  //         .where(
-  //           (data) =>
-  //               data.username
-  //                   .toLowerCase()
-  //                   .contains(_searchQuery.toLowerCase()) ||
-  //               data.email.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-  //               data.phone.contains(
-  //                 _searchQuery,
-  //               ),
-  //         )
-  //         .toList();
-  //   } else {
-  //     _filteredData = List.from(sectors);
-  //   }
-
-  //   int start = _currentPage * _rowsPerPage;
-  //   int end = start + _rowsPerPage;
-  //   return _filteredData.sublist(
-  //       start, end > _filteredData.length ? _filteredData.length : end);
-  // }
 
   ///_____________________________________________________________________Search_query_________________________
   void _setSearchQuery(String query) {
@@ -155,15 +134,27 @@ class _SectorsListViewState extends State<SectorsListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<SectorBloc, SectorState>(
-      builder: (context, state) {
-        if (state is SectorsListState) {
-          sectors = state.sectors;
+    return BlocBuilder<SectorBloc, SectorState>(builder: (context, state) {
+      if (state is SectorsListState) {
+        sectors = state.sectors;
+
+        if (_searchQuery.isNotEmpty) {
+          _filteredData = sectors;
+          // .where((data) =>
+          //     data.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+          // .toList();
+        } else {
           _filteredData = List.from(sectors);
         }
-        if (state is SectorLoadingState) {
-          return Center(child: CircularProgressIndicator());
-        }
+
+        // int start = _currentPage * _rowsPerPage;
+        // int end = start + _rowsPerPage;
+        // _filteredData.sublist(
+        //     start, end > _filteredData.length ? _filteredData.length : end);
+        int start = _currentPage * _rowsPerPage;
+        int end = start + _rowsPerPage;
+        paginatedData = _filteredData.sublist(
+            start, end > _filteredData.length ? _filteredData.length : end);
 
         return Scaffold(
           body: Padding(
@@ -256,7 +247,7 @@ class _SectorsListViewState extends State<SectorsListView> {
                                           minWidth: constraints.maxWidth,
                                         ),
                                         child: sectorListDataTable(
-                                            context, sectors),
+                                            context, paginatedData),
                                       ),
                                     ),
                                     Padding(
@@ -276,7 +267,8 @@ class _SectorsListViewState extends State<SectorsListView> {
                                   constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth,
                                   ),
-                                  child: sectorListDataTable(context, sectors),
+                                  child: sectorListDataTable(
+                                      context, paginatedData),
                                 ),
                               ),
 
@@ -295,8 +287,12 @@ class _SectorsListViewState extends State<SectorsListView> {
             ),
           ),
         );
-      },
-    );
+      }
+      if (state is SectorLoadingState) {
+        return Center(child: CircularProgressIndicator());
+      }
+      return Center(child: Text('Failed to Load Data'));
+    });
   }
 
   ///_____________________________________________________________________add_user_button___________________________
@@ -360,10 +356,10 @@ class _SectorsListViewState extends State<SectorsListView> {
   ///_______________________________________________________________pagination_footer_______________________________
   Row paginatedSection(ThemeData theme, TextTheme textTheme) {
     final lang = l.S.of(context);
-    int start = _currentPage * _rowsPerPage;
-    int end = start + _rowsPerPage;
-    _filteredData.sublist(
-        start, end > _filteredData.length ? _filteredData.length : end);
+    // int start = _currentPage * _rowsPerPage;
+    // int end = start + _rowsPerPage;
+    // _filteredData.sublist(
+    //     start, end > _filteredData.length ? _filteredData.length : end);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

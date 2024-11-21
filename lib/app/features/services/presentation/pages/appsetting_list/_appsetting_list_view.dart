@@ -308,7 +308,7 @@ class _AppSettingsListViewState extends State<AppSettingListView> {
         });
       },
       label: Text(
-        lang.addNewAppSettings,
+        lang.application,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
