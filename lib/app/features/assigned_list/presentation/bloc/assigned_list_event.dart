@@ -2,9 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list.dart';
 import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list_create.dart';
 import 'package:finance_app/app/features/assigned_list/domain/entities/assigned_list_update.dart';
-import 'package:finance_app/app/features/initial_request/domain/entities/initial_request.dart';
-import 'package:finance_app/app/features/initial_request/domain/entities/initial_request_create.dart';
-import 'package:finance_app/app/features/initial_request/domain/entities/initial_request_update.dart';
 
 abstract class AssignedListEvent extends Equatable {
   const AssignedListEvent();

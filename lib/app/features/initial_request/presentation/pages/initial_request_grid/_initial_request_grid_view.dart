@@ -71,7 +71,6 @@ class InitialRequestsGridView extends StatelessWidget {
                         padding: sizeInfo.padding / 2.5,
                         child: InitialRequestsGridWidget(
                           imagePath: e.value.imagePath,
-                          name: e.value.name,
                           roles: [],
                           sysFunction: [],
                         ),

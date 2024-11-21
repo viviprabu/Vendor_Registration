@@ -1397,5 +1397,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "documentFees": MessageLookupByLibrary.simpleMessage("رسوم الوثيقة"),
         "tenderCategory": MessageLookupByLibrary.simpleMessage("فئة المناقصة"),
         "comments": MessageLookupByLibrary.simpleMessage("تعليقات"),
+        "viewrequest": MessageLookupByLibrary.simpleMessage("عرض الطلب"),
       };
 }

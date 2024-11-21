@@ -82,6 +82,11 @@ List<GroupedMenuModel> get _groupedMenus {
               name: l.S.current.requestlist,
               navigationPath: "request_list",
             ),
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.ViewRequest,
+              navigationPath: "view_request",
+            ),
           ],
         ),
         SidebarItemModel(

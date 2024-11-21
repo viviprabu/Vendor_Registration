@@ -69,20 +69,20 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
 
   final RequestCreationFormKey = GlobalKey<FormState>();
 
-  List<Map<int, String>> get _language => [
-        {1: 'English'},
-        {2: 'Arabic'},
-      ];
+  // List<Map<int, String>> get _language => [
+  //       {1: 'English'},
+  //       {2: 'Arabic'},
+  //     ];
 
-  List<Map<int, String>> get _businessRole => [
-        {1: 'admin'},
-        {2: 'user'},
-      ];
+  // List<Map<int, String>> get _businessRole => [
+  //       {1: 'admin'},
+  //       {2: 'user'},
+  //     ];
 
-  List<Map<int, String>> get _userRoles => [
-        {1: 'admin'},
-        {2: 'user'},
-      ];
+  // List<Map<int, String>> get _userRoles => [
+  //       {1: 'admin'},
+  //       {2: 'user'},
+  //     ];
 
   String? savedFilePath;
   final String _fileName = '';
@@ -1382,6 +1382,16 @@ class _InitialRequestPageState extends State<InitialRequestPage> {
                   ],
                 )),
                 DataCell(Text(data.requestNumber ?? '')),
+                DataCell(Text(data.requestDate.toString())),
+                DataCell(Text(data.estimatedAmount ?? '')),
+                DataCell(Text(data.yearFrom ?? '')),
+                DataCell(Text(data.yearTo ?? '')),
+                DataCell(Text(data.cdRepContact ?? '')),
+                DataCell(Text(data.subject ?? '')),
+                DataCell(Text(data.documentFees ?? '')),
+                DataCell(Text(data.uploadDocument ?? '')),
+                DataCell(Text(data.state ?? '')),
+                DataCell(Text(data.nextStep ?? '')),
                 // DataCell(
                 //   Container(
                 //     padding:

@@ -1399,5 +1399,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "tenderCategory":
             MessageLookupByLibrary.simpleMessage("Tender Category"),
         "comments": MessageLookupByLibrary.simpleMessage("Comments"),
+        "viewrequest": MessageLookupByLibrary.simpleMessage("View Request"),
       };
 }
