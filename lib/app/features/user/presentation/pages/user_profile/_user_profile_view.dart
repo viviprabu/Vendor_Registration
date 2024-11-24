@@ -35,7 +35,7 @@ class UserProfileView extends StatelessWidget {
         User? userDetails;
 
         if (authState is GetAuthenicatedUserState) {
-          userDetails = authState.user;
+          userDetails = authState.user as User?;
           //print(userDetails.name);
         }
 

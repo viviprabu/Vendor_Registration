@@ -1,4 +1,6 @@
 // 📦 Package imports:
+import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
+import 'package:finance_app/app/features/auth/presentation/pages/services_view.dart';
 import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_list/_initial_request_list_view.dart';
 import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_creation/create_request.dart';
 import 'package:finance_app/app/features/initial_request/presentation/pages/initial_request_list/_initial_request_view.dart';
@@ -199,6 +201,16 @@ abstract class FinanceAppRoutes {
             // final List<AppSetting> data = state.extra as List<AppSetting>;
             return NoTransitionPage(
               child: AppSettingResponsiveGridView(),
+            );
+          }),
+
+      GoRoute(
+          path: '/authentication/services',
+          name: 'services',
+          pageBuilder: (context, state) {
+            List<UserRights> userRights = state.extra as List<UserRights>;
+            return NoTransitionPage(
+              child: ServicesView(userRights: userRights),
             );
           }),
 

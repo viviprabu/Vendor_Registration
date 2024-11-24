@@ -7,7 +7,7 @@ import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
 import 'package:finance_app/app/features/auth/data/models/token_model.dart';
 import 'package:finance_app/app/features/auth/domain/entities/token.dart';
 import 'package:finance_app/app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
+import 'package:finance_app/app/features/auth/domain/entities/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
@@ -32,6 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
           .signIn(AuthModel(userName: userName, password: password));
       return Right(singedInUser.toEntity());
     } catch (e) {
+      print(e);
       var error = e.toString();
 
       if (error.startsWith('Exception:')) {

@@ -17,7 +17,7 @@ class CookieOptionsModel {
   final String? path;
   final DateTime? expires;
   final bool? secure;
-  final num? sameSite;
+  final int? sameSite;
   final bool? httpOnly;
   final String? maxAge;
   final bool? isEssential;
