@@ -6,7 +6,7 @@ import 'package:finance_app/app/core/network/http_client.dart';
 import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
 import 'package:finance_app/app/features/auth/data/models/token_model.dart';
-import 'package:finance_app/app/features/user/data/models/user_model.dart';
+import 'package:finance_app/app/features/auth/data/models/user_model.dart';
 import 'package:finance_app/app/models/_variable_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,7 +40,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final responseBody = json.decode(response.body);
     // save token to shared preferences
     final sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString('token', responseBody['token']['accessToken']);
+    sharedPreferences.setString('token', responseBody['accessToken']);
 
     /* sharedPreferences.setStringList(
         'userRights', responseBody['token']['user']['userRights']); */
@@ -51,14 +51,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     //final userRights = responseBody['token']['user']['userRights'];
 
-    responseBody['token']['user']['userRights'];
+    //responseBody['token']['user']['userRights'];
 
-    final UserModel userModel =
-        UserModel.fromJson(responseBody['token']['user']);
+    final UserModel userModel = UserModel.fromJson(responseBody['user']);
     sharedPreferences.setString(
         'loggedUserDetails', json.encode(userModel.toJson()));
 
-    return TokenModel.fromJson(responseBody['token']);
+    //print(sharedPreferences.getString('loggedUserDetails'));
+
+    return TokenModel.fromJson(responseBody);
   }
 
   @override

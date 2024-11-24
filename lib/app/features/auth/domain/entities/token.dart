@@ -1,15 +1,18 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
+import 'package:finance_app/app/features/auth/domain/entities/cookie_options.dart';
+import 'package:finance_app/app/features/auth/domain/entities/user.dart';
 
 class Token extends Equatable {
   final String? accessToken;
   final String? refreshToken;
   final User? user;
+  final CookieOptions? cookieOptions;
 
   const Token({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.user,
+    this.accessToken,
+    this.refreshToken,
+    this.user,
+    this.cookieOptions,
   });
 
   @override
@@ -18,5 +21,6 @@ class Token extends Equatable {
         accessToken,
         refreshToken,
         user,
+        cookieOptions,
       ];
 }

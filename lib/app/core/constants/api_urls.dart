@@ -1,6 +1,6 @@
 class ApiUrls {
   // static const baseURL = 'https://cqp9mssl-7045.euw.devtunnels.ms/MEW/';
-  static const baseURL = 'https://gqll1rmk-7045.euw.devtunnels.ms/MEW/';
+  static const baseURL = 'https://cz96gw2l-7045.asse.devtunnels.ms/MEW/';
 
   static const applicationId = '0';
   // Manage User

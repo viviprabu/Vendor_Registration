@@ -1,4 +1,3 @@
-import 'package:finance_app/app/features/auth/data/models/user_rights_model.dart';
 import 'package:finance_app/app/features/user/domain/entities/user.dart';
 
 class UserModel {
@@ -26,7 +25,6 @@ class UserModel {
   final String? dateOfBirth;
   final String? logoPath;
   final String? sectionId;
-  List<UserRightsModel>? userRights;
 
   UserModel({
     this.id,
@@ -108,7 +106,7 @@ class UserModel {
         "language": language,
         "dateOfBirth": dateOfBirth,
         "logoPath": logoPath,
-        "sectionID": sectionId
+        "sectionId": sectionId
       };
 
   factory UserModel.fromEntity(User user) {

@@ -16,7 +16,7 @@ class UserProfileAvatar extends StatelessWidget {
       builder: (authContext, authState) {
         if (authState is GetAuthenicatedUserState) {
           userName = authState.user.name;
-          roleName = authState.user.role;
+          roleName = authState.user.roleName;
         }
 
         return ClipRRect(
