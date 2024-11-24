@@ -19,14 +19,14 @@ import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart'
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class InitialRequestListView extends StatefulWidget {
-  const InitialRequestListView({super.key});
+class ViewRequest extends StatefulWidget {
+  const ViewRequest({super.key});
 
   @override
-  _InitialRequestListViewState createState() => _InitialRequestListViewState();
+  _ViewRequestState createState() => _ViewRequestState();
 }
 
-class _InitialRequestListViewState extends State<InitialRequestListView> {
+class _ViewRequestState extends State<ViewRequest> {
   ///_____________________________________________________________________Variables_______________________________
   late List<InitialRequest> _filteredData;
   final ScrollController _scrollController = ScrollController();
@@ -47,31 +47,6 @@ class _InitialRequestListViewState extends State<InitialRequestListView> {
     _scrollController.dispose();
     super.dispose();
   }
-
-  ///_____________________________________________________________________data__________________________________
-  /* List<UserDataModel> get _currentPageData {
-    if (_searchQuery.isNotEmpty) {
-      _filteredData = InitialRequest
-          .where(
-            (data) =>
-                data.username
-                    .toLowerCase()
-                    .contains(_searchQuery.toLowerCase()) ||
-                data.email.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-                data.phone.contains(
-                  _searchQuery,
-                ),
-          )
-          .toList();
-    } else {
-      _filteredData = List.from(InitialRequest);
-    }
-
-    int start = _currentPage * _rowsPerPage;
-    int end = start + _rowsPerPage;
-    return _filteredData.sublist(
-        start, end > _filteredData.length ? _filteredData.length : end);
-  } */
 
   ///_____________________________________________________________________Search_query_________________________
   void _setSearchQuery(String query) {
@@ -99,23 +74,23 @@ class _InitialRequestListViewState extends State<InitialRequestListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(InitialRequest initialRequestData) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
-          ),
-          child: EditInitialRequestDialog(
-            initialRequestData: initialRequestData,
-            requestData: initialRequestData,
-          ),
-        );
-      },
-    );
-  }
+  // void _showEditFormDialog(InitialRequest initialRequestData) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return BackdropFilter(
+  //         filter: ImageFilter.blur(
+  //           sigmaX: 5,
+  //           sigmaY: 5,
+  //         ),
+  //         child: EditInitialRequestDialog(
+  //           initialRequestData: initialRequestData,
+  //           requestData: initialRequestData,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

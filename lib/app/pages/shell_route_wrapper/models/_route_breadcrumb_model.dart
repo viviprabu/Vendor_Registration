@@ -139,11 +139,17 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'requests / initial_request',
       childRoute: 'Initial Request',
     ),
-    '/request/request_list': RouteBreadcrumbModel(
+    '/requests/request_list': RouteBreadcrumbModel(
       //title: 'Users List',
       title: l.S.current.requestlist,
-      parentRoute: 'request / request',
+      parentRoute: 'requests / request_list',
       childRoute: 'Request List',
+    ),
+    '/requests/view_request': RouteBreadcrumbModel(
+      //title: 'Users List',
+      title: l.S.current.ViewRequest,
+      parentRoute: 'requests / view_request',
+      childRoute: 'View Request',
     ),
     '/users/user-list': RouteBreadcrumbModel(
       //title: 'Users List',

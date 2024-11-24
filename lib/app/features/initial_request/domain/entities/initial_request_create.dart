@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class InitialRequestCreate extends Equatable {
+  final String? id;
+  final String? sectorId;
+  final String? deptId;
   final String? requestNumber;
   final DateTime? requestDate;
   final String? estimatedAmount;
@@ -14,7 +17,10 @@ class InitialRequestCreate extends Equatable {
   final String? nextStep;
 
   const InitialRequestCreate(
-      {this.requestNumber,
+      {this.id,
+      this.sectorId,
+      this.deptId,
+      this.requestNumber,
       this.requestDate,
       this.estimatedAmount,
       this.yearFrom,
@@ -28,6 +34,9 @@ class InitialRequestCreate extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
+        sectorId,
+        deptId,
         requestNumber,
         requestDate,
         estimatedAmount,

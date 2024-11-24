@@ -17,16 +17,16 @@ Widget? getImageType(
 }) {
   if (imagePath == null || imagePath.isEmpty) return null;
 
-  final _extension = imagePath.split('.').lastOrNull?.toLowerCase();
-  if (_extension == null) return null;
+  final extension = imagePath.split('.').lastOrNull?.toLowerCase();
+  if (extension == null) return null;
 
   final isNetworkImage = imagePath.startsWith(RegExp(r'https?://'));
   assert(
-    _extension == 'svg' || colorFilter == null,
+    extension == 'svg' || colorFilter == null,
     'ColorFilter can only be used with SVG images',
   );
 
-  if (_extension == 'svg') {
+  if (extension == 'svg') {
     if (isNetworkImage) {
       return SvgPicture.network(
         imagePath,
@@ -87,26 +87,26 @@ class AnimageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     if (imagePath == null || (imagePath?.isEmpty == true)) {
       return ColoredBox(
-        color: _theme.colorScheme.tertiaryContainer,
+        color: theme.colorScheme.tertiaryContainer,
       );
     }
 
-    final _imagePath = imagePath!;
-    final _extension = _imagePath.split('.').last.toLowerCase();
-    final _isNetworkImage = _imagePath.startsWith(RegExp(r'https?://'));
+    final imagePath1 = imagePath!;
+    final extension = imagePath1.split('.').last.toLowerCase();
+    final isNetworkImage = imagePath1.startsWith(RegExp(r'https?://'));
     assert(
-      _extension == 'svg' || colorFilter == null,
+      extension == 'svg' || colorFilter == null,
       'ColorFilter can only be used with SVG images',
     );
 
-    if (_extension == 'svg') {
-      if (_isNetworkImage) {
+    if (extension == 'svg') {
+      if (isNetworkImage) {
         return SvgPicture.network(
-          _imagePath,
+          imagePath1,
           height: height,
           width: width,
           fit: fit,
@@ -114,7 +114,7 @@ class AnimageWidget extends StatelessWidget {
         );
       } else {
         return SvgPicture.asset(
-          _imagePath,
+          imagePath1,
           height: height,
           width: width,
           fit: fit,
@@ -123,9 +123,9 @@ class AnimageWidget extends StatelessWidget {
       }
     }
 
-    if (_isNetworkImage) {
+    if (isNetworkImage) {
       return Image.network(
-        _imagePath,
+        imagePath1,
         height: height,
         width: width,
         fit: fit,
@@ -137,7 +137,7 @@ class AnimageWidget extends StatelessWidget {
         },
         errorBuilder: (context, error, stackTrace) {
           return ColoredBox(
-            color: _theme.colorScheme.errorContainer,
+            color: theme.colorScheme.errorContainer,
             child: SizedBox(
               height: height,
               width: width,
@@ -149,7 +149,7 @@ class AnimageWidget extends StatelessWidget {
     }
 
     return Image.asset(
-      _imagePath,
+      imagePath1,
       height: height,
       width: width,
       fit: fit,
@@ -159,10 +159,10 @@ class AnimageWidget extends StatelessWidget {
 }
 
 Widget _buildLoadingPlaceholder(BuildContext context) {
-  final _theme = Theme.of(context);
+  final theme = Theme.of(context);
   return ShimmerPlaceholder(
     decoration: BoxDecoration(
-      color: _theme.colorScheme.surfaceContainer,
+      color: theme.colorScheme.surfaceContainer,
     ),
   );
 }
