@@ -1,5 +1,6 @@
 import 'package:finance_app/app/features/auth/domain/entities/token.dart';
 import 'package:finance_app/app/features/auth/domain/entities/user.dart';
+import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
 import 'package:finance_app/app/features/auth/domain/usecases/get_logged_user_detail.dart';
 import 'package:finance_app/app/features/auth/domain/usecases/is_logged_in.dart';
 import 'package:finance_app/app/features/auth/domain/usecases/sign_in.dart';
@@ -56,7 +57,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<GetAuthenicatedUserEvent>((event, emit) async {
-      //emit(AuthLoadingState());
       final failureOrUser = await getLoggedUserDetail();
       failureOrUser.fold(
         (failure) => emit(AuthErrorState(failure.toString())),

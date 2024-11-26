@@ -9,12 +9,13 @@ class HttpClient {
   final Map<String, String> defaultHeaders;
   final HttpLogger logger;
 
-  HttpClient(
-      {this.baseUrl = ApiUrls.baseURL,
-      this.defaultHeaders = const {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      required this.logger});
+  HttpClient({
+    this.baseUrl = ApiUrls.baseURL,
+    this.defaultHeaders = const {
+      'Content-Type': 'application/json',
+    },
+    required this.logger,
+  });
 
   // GET METHOD
   Future<http.Response> get(

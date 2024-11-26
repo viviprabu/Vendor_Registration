@@ -32,4 +32,8 @@ class HttpLogger {
   void logError(dynamic error) {
     logger.e('Error: $error');
   }
+
+  void logRequestBody(dynamic body) {
+    logger.d('Request Body: ${jsonEncode(body)}');
+  }
 }

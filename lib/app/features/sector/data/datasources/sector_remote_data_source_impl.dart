@@ -1,29 +1,24 @@
 import 'dart:convert';
 
 import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client.dart';
+import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source.dart';
 import 'package:finance_app/app/features/sector/data/models/sector_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
-  final HttpClient httpClient;
+  final HttpClientWithInterceptor httpClientWithInterceptor;
 
-  SectorRemoteDataSourceImpl({required this.httpClient});
+  SectorRemoteDataSourceImpl({required this.httpClientWithInterceptor});
 
   @override
   Future<SectorModal> createSector(SectorModal sectorModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.post(
+    var applicationId = '1';
+    final response = await httpClientWithInterceptor.post(
       '$applicationId/${ApiUrls.createUpdateSector}',
       data: sectorModel.toJson(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
     );
-    print(sectorModel.toJson());
+
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
   }
@@ -36,15 +31,9 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<SectorModal> getSector(int id) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.get(
+    var applicationId = '1';
+    final response = await httpClientWithInterceptor.get(
       '$applicationId/${ApiUrls.getSector}/$id',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
     );
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
@@ -52,15 +41,9 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<List<SectorModal>> getSectors() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
-    final response = await httpClient.get(
+    var applicationId = '1';
+    final response = await httpClientWithInterceptor.get(
       '$applicationId/${ApiUrls.listSectors}',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
     );
 
     final responseBody = json.decode(response.body);
@@ -71,8 +54,14 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
   }
 
   @override
-  Future<SectorModal> updateSector(SectorModal sectorModel) {
-    // TODO: implement updateSector
-    throw UnimplementedError();
+  Future<SectorModal> updateSector(SectorModal sectorModel) async {
+    var applicationId = '1';
+    final response = await httpClientWithInterceptor.post(
+      '$applicationId/${ApiUrls.createUpdateSector}',
+      data: sectorModel.toJson(),
+    );
+
+    final responseBody = json.decode(response.body);
+    return SectorModal.fromJson(responseBody);
   }
 }
