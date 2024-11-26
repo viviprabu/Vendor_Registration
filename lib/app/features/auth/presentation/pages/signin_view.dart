@@ -126,11 +126,8 @@ class _SigninViewState extends State<SigninView> {
         if (state is AuthenticatedState) {
           //print(state.token.accessToken);
           if (state.token.accessToken != null) {
-            userRights = state.token.user?.userRights ?? [];
             /* context.go('/authentication/services_list', extra: userRights); */
-            context.goNamed('services', extra: userRights);
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => AppSettingsGridView()));
+            context.goNamed('services');
           } else {
             context.go('/authentication/signin');
           }

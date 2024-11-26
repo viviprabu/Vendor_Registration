@@ -208,9 +208,8 @@ abstract class FinanceAppRoutes {
           path: '/authentication/services',
           name: 'services',
           pageBuilder: (context, state) {
-            List<UserRights> userRights = state.extra as List<UserRights>;
             return NoTransitionPage(
-              child: ServicesView(userRights: userRights),
+              child: ServicesView(),
             );
           }),
 

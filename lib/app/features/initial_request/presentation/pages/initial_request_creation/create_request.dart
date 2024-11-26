@@ -954,7 +954,7 @@ class _CreateRequestState extends State<CreateRequest> {
                                     context.read<InitialRequestBloc>().add(
                                           InitialRequestCreateEvent(
                                             InitialRequestCreate(
-                                              id: '0',
+                                              /* id: '0', */
                                               requestNumber:
                                                   _requestNumberController.text,
                                               requestDate: DateTime.tryParse(
@@ -975,8 +975,8 @@ class _CreateRequestState extends State<CreateRequest> {
                                               state: _stateController.text,
                                               nextStep:
                                                   _nextStepController.text,
-                                              sectorId: selectedSectorId,
-                                              deptId: selectedDeptId,
+                                              /* sectorId: selectedSectorId,
+                                              deptId: selectedDeptId, */
                                             ),
                                           ),
                                         );

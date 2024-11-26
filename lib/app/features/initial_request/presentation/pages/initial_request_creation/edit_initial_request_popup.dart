@@ -511,7 +511,7 @@ class _EditUserDialogState extends State<EditInitialRequestDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (initialRequestFormKey.currentState!
+                                      /* if (initialRequestFormKey.currentState!
                                           .validate()) {
                                         blocContext
                                             .read<InitialRequestBloc>()
@@ -546,12 +546,12 @@ class _EditUserDialogState extends State<EditInitialRequestDialog> {
                                                   state: _stateController.text,
                                                   nextStep:
                                                       _nextStepController.text,
-                                                  sectorId: 1,
-                                                  deptId: 1,
+                                                  /* sectorId: 1,
+                                                  deptId: 1, */
                                                 ),
                                               ),
                                             );
-                                      }
+                                      } */
                                     },
                                     //label: const Text('Save'),
                                     label: Text(lang.save),

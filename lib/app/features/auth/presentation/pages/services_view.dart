@@ -12,6 +12,7 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 
 // 🌎 Project imports:
 
+// ignore: must_be_immutable
 class ServicesView extends StatefulWidget {
   List<UserRights>? userRights = [];
   ServicesView({super.key, this.userRights});
@@ -23,9 +24,7 @@ class ServicesView extends StatefulWidget {
 class _ServicesViewState extends State<ServicesView> {
   @override
   void initState() {
-    // Initialize SvgController
-    // controller = AnimatedSvgController();
-    print(widget.userRights);
+    context.read<AuthBloc>().add(GetAuthenicatedUserEvent());
     super.initState();
   }
 
@@ -88,132 +87,117 @@ class _ServicesViewState extends State<ServicesView> {
       body: Padding(
           padding: sizeInfo.padding / 2.5,
           child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-            if (state is AuthenticatedState) {
-              return Padding(
-                padding: const EdgeInsets.all(20),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    // Adjust number of columns based on the screen width
-                    int crossAxisCount;
+            if (state is GetAuthenicatedUserState) {
+              widget.userRights = state.user.userRights;
+            }
 
-                    if (constraints.maxWidth < 600) {
-                      // Small screen (Phone)
-                      crossAxisCount = 2;
-                    } else if (constraints.maxWidth < 1200) {
-                      // Medium screen (Tablet/Small screen)
-                      crossAxisCount = 4;
-                    } else {
-                      // Large screen (Desktop/Large Tablet)
-                      crossAxisCount = 6;
-                    }
+            return Padding(
+              padding: const EdgeInsets.all(20),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Adjust number of columns based on the screen width
+                  int crossAxisCount;
 
-                    return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: crossAxisCount,
-                        crossAxisSpacing: 10.0,
-                        mainAxisSpacing: 10.0,
-                      ),
-                      itemCount: widget.userRights!.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            context.go('/dashboard/home');
-                          },
-                          child: Card(
-                            shadowColor: FinanceAppColors.kPrimary900,
-                            surfaceTintColor: const Color(0xffddecff),
-                            elevation: 50,
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.network(
-                                        'assets/app_icons/app_icon_main.png',
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.cover),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                  if (constraints.maxWidth < 600) {
+                    // Small screen (Phone)
+                    crossAxisCount = 2;
+                  } else if (constraints.maxWidth < 1200) {
+                    // Medium screen (Tablet/Small screen)
+                    crossAxisCount = 4;
+                  } else {
+                    // Large screen (Desktop/Large Tablet)
+                    crossAxisCount = 6;
+                  }
 
-                                    // AnimatedSvg(
-                                    //   controller: controller,
-                                    //   duration:
-                                    //       const Duration(milliseconds: 600),
-                                    //   onTap: () {},
-                                    //   size: 80,
-                                    //   clockwise: true,
-                                    //   isActive: true,
-                                    //   children: [
-                                    //     SvgPicture.asset(
-                                    //       'assets/images/widget_images/svg_icons/gallery_icon.svg',
-                                    //     ),
-                                    //     SvgPicture.asset(
-                                    //       'assets/images/widget_images/svg_icons/send.svg',
-                                    //     ),
-                                    //   ],
-                                    // ),
+                  if (widget.userRights == null || widget.userRights!.isEmpty) {
+                    return Center(
+                        child: Text('You dont have any applications'));
+                  }
 
-                                    Text(
-                                        widget.userRights![index]
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      crossAxisSpacing: 10.0,
+                      mainAxisSpacing: 10.0,
+                    ),
+                    itemCount: widget.userRights?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          context.go('/dashboard/home');
+                        },
+                        child: Card(
+                          shadowColor: FinanceAppColors.kPrimary900,
+                          surfaceTintColor: const Color(0xffddecff),
+                          elevation: 50,
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
+                                      'assets/app_icons/app_icon_main.png',
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    widget.userRights?[index]
                                             .applicationSettingName
-                                            .toString(),
-                                        style: textTheme.bodyMedium),
-                                  ],
-                                ),
+                                            .toString() ??
+                                        'Unknown',
+                                    style: textTheme.bodyMedium,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              );
-              // appSettingRoles = appSetting
-              //     .map((item) => AppSettingRolesModal.fromJson(
-              //         item as Map<String, dynamic>))
-              //     .cast<AppSettingRoles>()
-              //     .toList();
-              // print(appSettingRoles);
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            );
+            // appSettingRoles = appSetting
+            //     .map((item) => AppSettingRolesModal.fromJson(
+            //         item as Map<String, dynamic>))
+            //     .cast<AppSettingRoles>()
+            //     .toList();
+            // print(appSettingRoles);
 
-              // return Padding(
-              //   padding: const EdgeInsets.all(10.0),
-              //   child: GridView.builder(
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //       crossAxisCount: 2, // Two items per row
-              //       crossAxisSpacing: 10,
-              //       mainAxisSpacing: 10,
-              //     ),
-              //     itemCount: appSetting.length,
-              //     itemBuilder: (context, index) {
-              //       var item = appSetting[index];
-              //       return Card(
-              //         shadowColor: Colors.blue[600],
-              //         elevation: 30,
-              //         child: Column(
-              //           children: [
-              //             // Assuming you have image URLs stored in the database
-              //             Image.network('assets/app_icons/app_icon_main.png',
-              //                 fit: BoxFit.cover),
-              //             const SizedBox(
-              //               height: 16,
-              //             ),
-              //             Text(item.name.toString(),
-              //                 textAlign: TextAlign.center),
-              //           ],
-              //         ),
-              //       );
-              //     },
-              //   ),
-            }
-            if (state is AuthLoadingState) {
-              return Center(child: CircularProgressIndicator());
-            }
-
-            return Center(child: Text('Failed to load data. hello'));
+            // return Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: GridView.builder(
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2, // Two items per row
+            //       crossAxisSpacing: 10,
+            //       mainAxisSpacing: 10,
+            //     ),
+            //     itemCount: appSetting.length,
+            //     itemBuilder: (context, index) {
+            //       var item = appSetting[index];
+            //       return Card(
+            //         shadowColor: Colors.blue[600],
+            //         elevation: 30,
+            //         child: Column(
+            //           children: [
+            //             // Assuming you have image URLs stored in the database
+            //             Image.network('assets/app_icons/app_icon_main.png',
+            //                 fit: BoxFit.cover),
+            //             const SizedBox(
+            //               height: 16,
+            //             ),
+            //             Text(item.name.toString(),
+            //                 textAlign: TextAlign.center),
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //   ),
           })),
     );
   }

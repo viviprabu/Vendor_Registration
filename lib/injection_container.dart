@@ -1,3 +1,4 @@
+import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/core/network/http_logger.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
 import 'package:finance_app/app/features/Setting/domain/usecases/create_Setting.dart';
@@ -101,6 +102,10 @@ void init() {
 
   // Register the http client
   getIt.registerLazySingleton<HttpClient>(() => HttpClient(logger: getIt()));
+
+  // Register the http client with interceptor
+  getIt.registerLazySingleton<HttpClientWithInterceptor>(
+      () => HttpClientWithInterceptor());
 
   // Bloc
   getIt.registerFactory(
@@ -299,7 +304,7 @@ void init() {
   // Data sources
   getIt.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(
-      httpClient: getIt(),
+      httpClientWithInterceptor: getIt(),
     ),
   );
 
@@ -311,7 +316,7 @@ void init() {
 
   getIt.registerLazySingleton<SectorRemoteDataSource>(
     () => SectorRemoteDataSourceImpl(
-      httpClient: getIt(),
+      httpClientWithInterceptor: getIt(),
     ),
   );
   getIt.registerLazySingleton<DepartmentRemoteDataSource>(
@@ -332,7 +337,7 @@ void init() {
 
   getIt.registerLazySingleton<UserRoleRemoteDataSource>(
     () => UserRoleRemoteDataSourceImpl(
-      httpClient: getIt(),
+      httpClientWithInterceptor: getIt(),
     ),
   );
   getIt.registerLazySingleton<SettingRemoteDataSource>(
