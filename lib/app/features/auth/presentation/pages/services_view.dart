@@ -124,7 +124,7 @@ class _ServicesViewState extends State<ServicesView> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          context.go('/dashboard/home');
+                          context.goNamed('home');
                         },
                         child: Card(
                           shadowColor: FinanceAppColors.kPrimary900,
