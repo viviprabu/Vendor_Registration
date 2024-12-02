@@ -43,7 +43,7 @@ class ApiUrls {
   // manage role
   static const createRole = 'System/Role';
   static const listRoles = 'System/Roles';
-  static const getRole = 'System/UserRoleFunctions';
+  static const getRoleFunctions = 'System/UserRoleFunctions';
   static const updateRole = 'System/Role';
   static const listSystemFunctions = 'System/SystemFunctions';
 

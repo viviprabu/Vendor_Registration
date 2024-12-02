@@ -1,11 +1,12 @@
 // 🐦 Flutter imports:
-
 import 'package:finance_app/app/core/theme/_app_colors.dart';
 import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
 import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
@@ -123,8 +124,26 @@ class _ServicesViewState extends State<ServicesView> {
                     itemCount: widget.userRights?.length ?? 0,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {
-                          context.go('/dashboard/home');
+                        onTap: () async {
+                          //context.goNamed('home');
+                          /* final Uri appUrl = Uri.parse(
+                            'http://localhost:58947/dashboard/home',
+                            
+                          );
+                          _launchUrl(appUrl); */
+                          /*  final Uri appUrl = Uri.parse(
+                            'http://localhost:58947/dashboard/home',
+                          ); */
+
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          var token = sharedPreferences.getString('token');
+
+                          final Uri appUrl = Uri.parse(
+                            'http://localhost:57999/application/landing?roleId=${widget.userRights?[index].roleId}&token=$token',
+                          );
+
+                          _launchUrl(appUrl);
                         },
                         child: Card(
                           shadowColor: FinanceAppColors.kPrimary900,
@@ -213,4 +232,32 @@ class _SizeInfo {
     this.padding = const EdgeInsets.all(24),
     this.innerSpacing = 24,
   });
+}
+
+/* Future<void> _launchUrl(Uri url) async =>
+    canLaunchUrl(url).then((bool canLaunch) async {
+      if (canLaunch) {
+        await launchUrl(url);
+      } else {
+        print('Cannot launch URL');
+      }
+    }); */
+
+Future<void> _launchUrl(Uri url) async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final token = sharedPreferences.getString('token');
+  final bool canLaunch = await canLaunchUrl(url);
+
+  if (canLaunch) {
+    await launchUrl(
+      url,
+      /* webViewConfiguration: WebViewConfiguration(
+        headers: {
+          'Authorization': 'Bearer $token', // Pass the token here
+        },
+      ), */
+    );
+  } else {
+    print('Cannot launch URL');
+  }
 }

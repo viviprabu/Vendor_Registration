@@ -32,7 +32,7 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   @override
   Future<List<RoleFunctionModel>> getUserRoleFunctions(int id) async {
     final response = await httpClientWithInterceptor.get(
-      '${AppConfig.applicationId}/${ApiUrls.getRole}?roleId=$id',
+      '${AppConfig.applicationId}/${ApiUrls.getRoleFunctions}?roleId=$id',
     );
 
     final responseBody = json.decode(response.body);

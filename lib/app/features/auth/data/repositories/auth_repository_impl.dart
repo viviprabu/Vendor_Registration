@@ -27,12 +27,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, Token>> signIn(
       String userName, String password) async {
     try {
-      //print('hello');
       TokenModel singedInUser = await authRemoteDataSource
           .signIn(AuthModel(userName: userName, password: password));
       return Right(singedInUser.toEntity());
     } catch (e) {
-      print(e);
+      //print(e);
       var error = e.toString();
 
       if (error.startsWith('Exception:')) {
