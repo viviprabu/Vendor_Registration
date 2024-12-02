@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client.dart';
+import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
 import 'package:finance_app/app/features/department/data/models/department_modal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
-  final HttpClient httpClient;
+  final HttpClientWithInterceptor httpClientWithInterceptor;
 
-  DepartmentRemoteDataSourceImpl({required this.httpClient});
+  DepartmentRemoteDataSourceImpl({required this.httpClientWithInterceptor});
 
   @override
   Future<DepartmentModal> deleteDepartment(DepartmentModal depatModel) async {
-    final response = await httpClient.delete(
+    final response = await httpClientWithInterceptor.delete(
       '${AppConfig.applicationId}/${ApiUrls.department}/${depatModel.id}',
       data: depatModel.toJson(),
     );
@@ -24,7 +23,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
 
   @override
   Future<DepartmentModal> getDepartment(int id) async {
-    final response = await httpClient.get(
+    final response = await httpClientWithInterceptor.get(
       '${AppConfig.applicationId}/${ApiUrls.getDept}?id=$id',
       //ApiUrls.userProfile,
     );
@@ -35,7 +34,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
 
   @override
   Future<List<DepartmentModal>> getDepartments() async {
-    final response = await httpClient.get(
+    final response = await httpClientWithInterceptor.get(
       '${AppConfig.applicationId}/${ApiUrls.department}',
     );
 
@@ -49,7 +48,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
 
   @override
   Future<DepartmentModal> updateDepartment(DepartmentModal deptModel) async {
-    final response = await httpClient.put(
+    final response = await httpClientWithInterceptor.put(
       //'${ApiUrls.updateUser}/${userModel.id}',
       '${AppConfig.applicationId}/${ApiUrls.updateDept}',
       data: deptModel.toJson(),
@@ -61,7 +60,7 @@ class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
 
   @override
   Future<DepartmentModal> createDepartment(DepartmentModal deptModel) async {
-    final response = await httpClient.post(
+    final response = await httpClientWithInterceptor.post(
       '${AppConfig.applicationId}/${ApiUrls.createDept}',
       data: deptModel.toJson(),
     );

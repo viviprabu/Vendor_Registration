@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
+import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/features/initial_request/data/datasources/initial_request_remote_data_source.dart';
 import 'package:finance_app/app/features/initial_request/data/models/initial_request_create_model.dart';
 import 'package:finance_app/app/features/initial_request/data/models/initial_request_model.dart';
@@ -9,14 +10,14 @@ import 'package:finance_app/app/features/initial_request/data/models/initial_req
 
 class InitialRequestRemoteDataSourceImpl
     implements InitialRequestRemoteDataSource {
-  final HttpClient httpClient;
+  final HttpClientWithInterceptor httpClientWithInterceptor;
 
-  InitialRequestRemoteDataSourceImpl({required this.httpClient});
+  InitialRequestRemoteDataSourceImpl({required this.httpClientWithInterceptor});
 
   @override
   Future<InitialRequestModal> createInitialRequest(
       InitialRequestCreateModal initialRequestCreateModel) async {
-    final response = await httpClient.postFormData(
+    final response = await httpClientWithInterceptor.postFormData(
       '${AppConfig.applicationId}/${ApiUrls.createInitialRequest}',
       data: initialRequestCreateModel.toFormData(),
     );
@@ -27,7 +28,7 @@ class InitialRequestRemoteDataSourceImpl
   @override
   Future<InitialRequestModal> deleteInitialRequest(
       InitialRequestModal initialRequestModel) async {
-    final response = await httpClient.delete(
+    final response = await httpClientWithInterceptor.delete(
       '${AppConfig.applicationId}/${ApiUrls.initialRequest}/${initialRequestModel.id}',
       data: initialRequestModel.toJson(),
     );
@@ -38,7 +39,7 @@ class InitialRequestRemoteDataSourceImpl
 
   @override
   Future<InitialRequestModal> getInitialRequest(String id) async {
-    final response = await httpClient.get(
+    final response = await httpClientWithInterceptor.get(
       '${AppConfig.applicationId}/${ApiUrls.getInitialRequest}?id=$id',
       //ApiUrls.SettingProfile,
     );
@@ -49,7 +50,7 @@ class InitialRequestRemoteDataSourceImpl
 
   @override
   Future<List<InitialRequestModal>> getInitialRequests() async {
-    final response = await httpClient.get(
+    final response = await httpClientWithInterceptor.get(
       '${AppConfig.applicationId}/${ApiUrls.initialRequest}',
     );
 
@@ -63,7 +64,7 @@ class InitialRequestRemoteDataSourceImpl
   @override
   Future<InitialRequestModal> updateInitialRequest(
       InitialRequestUpdateModal initialRequestUpdateModel) async {
-    final response = await httpClient.postFormData(
+    final response = await httpClientWithInterceptor.postFormData(
       '${AppConfig.applicationId}/${ApiUrls.updateInitialRequest}',
       data: initialRequestUpdateModel.toFormData(),
     );
