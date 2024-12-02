@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
 import 'package:finance_app/app/features/section/data/datasources/section_remote_data_source.dart';
@@ -12,16 +13,9 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
 
   @override
   Future<SectionModal> deleteSection(SectionModal sectionModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
     final response = await httpClient.delete(
-      '$applicationId/${ApiUrls.section}/${sectionModel.id}',
+      '${AppConfig.applicationId}/${ApiUrls.section}/${sectionModel.id}',
       data: sectionModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
     );
 
     final responseBody = json.decode(response.body);
@@ -30,16 +24,9 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
 
   @override
   Future<SectionModal> getSection(int id) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.getSection}?id=$id',
+      '${AppConfig.applicationId}/${ApiUrls.getSection}?id=$id',
       //ApiUrls.userProfile,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
     );
 
     final responseBody = json.decode(response.body);
@@ -48,15 +35,8 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
 
   @override
   Future<List<SectionModal>> getSections() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.section}',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      '${AppConfig.applicationId}/${ApiUrls.section}',
     );
 
     final responseBody = json.decode(response.body);
@@ -69,17 +49,10 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
 
   @override
   Future<SectionModal> updateSection(SectionModal sectionModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
     final response = await httpClient.put(
       //'${ApiUrls.updateUser}/${userModel.id}',
-      '$applicationId/${ApiUrls.updateSection}',
+      '${AppConfig.applicationId}/${ApiUrls.updateSection}',
       data: sectionModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
     );
 
     final responseBody = json.decode(response.body);
@@ -88,15 +61,9 @@ class SectionRemoteDataSourceImpl implements SectionRemoteDataSource {
 
   @override
   Future<SectionModal> createSection(SectionModal sectionModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '0';
     final response = await httpClient.postFormData(
-      '$applicationId/${ApiUrls.createSection}',
+      '${AppConfig.applicationId}/${ApiUrls.createSection}',
       data: sectionModel.toJson(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
     );
     final responseBody = json.decode(response.body);
     return SectionModal.fromJson(responseBody);

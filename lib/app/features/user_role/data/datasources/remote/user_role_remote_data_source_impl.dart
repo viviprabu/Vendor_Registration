@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/features/user_role/data/datasources/user_role_remote_data_source.dart';
@@ -16,9 +17,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
 
   @override
   Future<UserRoleModel> createUserRole(UserRoleModel userRoleModel) async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.post(
-      '$applicationId/${ApiUrls.createRole}',
+      '${AppConfig.applicationId}/${ApiUrls.createRole}',
       data: userRoleModel.toJson(),
       headers: {
         'Content-Type': 'application/json',
@@ -31,9 +31,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
 
   @override
   Future<List<RoleFunctionModel>> getUserRoleFunctions(int id) async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.getRole}?roleId=$id',
+      '${AppConfig.applicationId}/${ApiUrls.getRole}?roleId=$id',
     );
 
     final responseBody = json.decode(response.body);
@@ -47,9 +46,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
 
   @override
   Future<List<UserRoleModel>> listUserRoles() async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.listRoles}',
+      '${AppConfig.applicationId}/${ApiUrls.listRoles}',
     );
 
     final responseBody = json.decode(response.body);
@@ -61,10 +59,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
 
   @override
   Future<UserRoleModel> updateUserRole(UserRoleModel userRoleModel) async {
-    var applicationId = '1';
-
     final response = await httpClientWithInterceptor.post(
-      '$applicationId/${ApiUrls.updateRole}',
+      '${AppConfig.applicationId}/${ApiUrls.updateRole}',
       data: userRoleModel.toJson(),
     );
 
@@ -74,9 +70,8 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
 
   @override
   Future<List<SystemFunctionModel>> listSystemFunctions() async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.listSystemFunctions}',
+      '${AppConfig.applicationId}/${ApiUrls.listSystemFunctions}',
     );
 
     final responseBody = json.decode(response.body);

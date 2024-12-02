@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/features/request_status/data/datasources/request_status_remote_data_source.dart';
 import 'package:finance_app/app/features/request_status/data/models/request_status_model.dart';
 import 'package:finance_app/app/core/network/http_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RequestStatusRemoteDataSourceImpl
     implements RequestStatusRemoteDataSource {
@@ -15,15 +15,9 @@ class RequestStatusRemoteDataSourceImpl
   @override
   Future<RequestStatusModel> createRequestStatus(
       RequestStatusModel requestStatusModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '1';
     final response = await httpClient.post(
-      '$applicationId/${ApiUrls.createRequestStatus}',
+      '${AppConfig.applicationId}/${ApiUrls.createRequestStatus}',
       data: requestStatusModel.toJson(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
     );
     //print(requestStatusModel.toJson());
     final responseBody = json.decode(response.body);
@@ -33,15 +27,9 @@ class RequestStatusRemoteDataSourceImpl
   @override
   Future<RequestStatusModel> deleteRequestStatus(
       RequestStatusModel requestStatusModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '1';
     final response = await httpClient.delete(
-      '$applicationId/${ApiUrls.deleteRequestStatus}/${requestStatusModel.id}',
+      '${AppConfig.applicationId}/${ApiUrls.deleteRequestStatus}/${requestStatusModel.id}',
       data: requestStatusModel.toJson(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
     );
     final responseBody = json.decode(response.body);
     return RequestStatusModel.fromJson(responseBody);
@@ -49,15 +37,8 @@ class RequestStatusRemoteDataSourceImpl
 
   @override
   Future<RequestStatusModel> getRequestStatus(int id) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '1';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.getRequestStatus}/$id',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      '${AppConfig.applicationId}/${ApiUrls.getRequestStatus}/$id',
     );
     final responseBody = json.decode(response.body);
     return RequestStatusModel.fromJson(responseBody);
@@ -65,15 +46,8 @@ class RequestStatusRemoteDataSourceImpl
 
   @override
   Future<List<RequestStatusModel>> listRequestStatuses() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '1';
     final response = await httpClient.get(
-      '$applicationId/${ApiUrls.listRequestStatus}',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      '${AppConfig.applicationId}/${ApiUrls.listRequestStatus}',
     );
 
     final responseBody = json.decode(response.body);
@@ -86,15 +60,9 @@ class RequestStatusRemoteDataSourceImpl
   @override
   Future<RequestStatusModel> updateRequestStatus(
       RequestStatusModel requestStatusModel) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
-    var applicationId = '1';
     final response = await httpClient.put(
-      '$applicationId/${ApiUrls.updateRequestStatus}/${requestStatusModel.id}',
+      '${AppConfig.applicationId}/${ApiUrls.updateRequestStatus}/${requestStatusModel.id}',
       data: requestStatusModel.toJson(),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
     );
     final responseBody = json.decode(response.body);
     return RequestStatusModel.fromJson(responseBody);

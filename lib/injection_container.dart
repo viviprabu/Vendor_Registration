@@ -331,7 +331,7 @@ void init() {
   );
   getIt.registerLazySingleton<AppSettingRemoteDataSource>(
     () => AppSettingRemoteDataSourceImpl(
-      httpClient: getIt(),
+      httpClientWithInterceptor: getIt(),
     ),
   );
 
@@ -342,7 +342,7 @@ void init() {
   );
   getIt.registerLazySingleton<SettingRemoteDataSource>(
     () => SettingRemoteDataSourceImpl(
-      httpClient: getIt(),
+      httpClientWithInterceptor: getIt(),
     ),
   );
 

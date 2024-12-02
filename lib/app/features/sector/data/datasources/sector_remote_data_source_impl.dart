@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:finance_app/app/core/app_config/app_config.dart';
 import 'package:finance_app/app/core/constants/api_urls.dart';
 import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
 import 'package:finance_app/app/features/sector/data/datasources/sector_remote_data_source.dart';
 import 'package:finance_app/app/features/sector/data/models/sector_modal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
   final HttpClientWithInterceptor httpClientWithInterceptor;
@@ -13,9 +13,8 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<SectorModal> createSector(SectorModal sectorModel) async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.post(
-      '$applicationId/${ApiUrls.createUpdateSector}',
+      '${AppConfig.applicationId}/${ApiUrls.createUpdateSector}',
       data: sectorModel.toJson(),
     );
 
@@ -31,9 +30,8 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<SectorModal> getSector(int id) async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.getSector}/$id',
+      '${AppConfig.applicationId}/${ApiUrls.getSector}/$id',
     );
     final responseBody = json.decode(response.body);
     return SectorModal.fromJson(responseBody);
@@ -41,9 +39,8 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<List<SectorModal>> getSectors() async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.listSectors}',
+      '${AppConfig.applicationId}/${ApiUrls.listSectors}',
     );
 
     final responseBody = json.decode(response.body);
@@ -55,9 +52,8 @@ class SectorRemoteDataSourceImpl implements SectorRemoteDataSource {
 
   @override
   Future<SectorModal> updateSector(SectorModal sectorModel) async {
-    var applicationId = '1';
     final response = await httpClientWithInterceptor.post(
-      '$applicationId/${ApiUrls.createUpdateSector}',
+      '${AppConfig.applicationId}/${ApiUrls.createUpdateSector}',
       data: sectorModel.toJson(),
     );
 
