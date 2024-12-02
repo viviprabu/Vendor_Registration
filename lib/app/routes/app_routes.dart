@@ -51,10 +51,14 @@ abstract class FinanceAppRoutes {
             },
             routes: [
               GoRoute(
-                path: 'home',
+                path: '/home',
+                name: 'home',
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: ECommerceAdminDashboardView(),
                 ),
+                /* builder: (context, state) => ECommerceAdminDashboardView(
+                  appId: state.uri.queryParameters['appId'],
+                ), */
               ),
             ],
           ),

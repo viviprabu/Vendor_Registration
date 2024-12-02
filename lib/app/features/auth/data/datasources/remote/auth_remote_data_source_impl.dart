@@ -33,9 +33,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await httpClient.post(
       ApiUrls.login,
       data: authModel.toJson(),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     );
     final responseBody = json.decode(response.body);
     // save token to shared preferences
@@ -58,6 +55,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'loggedUserDetails', json.encode(userModel.toJson()));
 
     //print(sharedPreferences.getString('loggedUserDetails'));
+
+    //print('User Rights: ${responseBody['user']['userRights']}');
 
     return TokenModel.fromJson(responseBody);
   }

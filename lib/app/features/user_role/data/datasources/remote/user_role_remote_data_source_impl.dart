@@ -33,7 +33,7 @@ class UserRoleRemoteDataSourceImpl implements UserRoleRemoteDataSource {
   Future<List<RoleFunctionModel>> getUserRoleFunctions(int id) async {
     var applicationId = '1';
     final response = await httpClientWithInterceptor.get(
-      '$applicationId/${ApiUrls.getRole}?roleId=$id',
+      '$applicationId/${ApiUrls.getRoleFunctions}?roleId=$id',
     );
 
     final responseBody = json.decode(response.body);
