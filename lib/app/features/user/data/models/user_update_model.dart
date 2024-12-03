@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_update.dart';
 
 class UserUpdateModel extends UserUpdate {
   const UserUpdateModel({

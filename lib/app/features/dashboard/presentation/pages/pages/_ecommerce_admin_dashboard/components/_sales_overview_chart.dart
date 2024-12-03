@@ -6,7 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 
 // 🌎 Project imports:
-import 'package:finance_app/app/core/theme/theme.dart';
+import 'package:vendor_registration/app/core/theme/theme.dart';
 import '../../../../../../../../generated/l10n.dart' as l;
 import '../../../../../../../core/static/static.dart';
 

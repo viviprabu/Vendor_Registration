@@ -1,18 +1,11 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/bloc/language/language_bloc.dart';
-import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
-import 'package:finance_app/app/features/initial_request/presentation/bloc/initial_request_bloc.dart';
-import 'package:finance_app/app/features/initial_request/presentation/bloc/initial_request_event.dart';
-import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-import 'package:finance_app/app/features/setting/presentation/bloc/setting_bloc.dart';
-import 'package:finance_app/app/features/setting/presentation/bloc/setting_event.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
-import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
-import 'package:finance_app/injection_container.dart';
+import 'package:vendor_registration/app/bloc/language/language_bloc.dart';
+import 'package:vendor_registration/app/bloc/theme/theme_bloc.dart';
+import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:vendor_registration/app/features/user_role/presentation/bloc/user_role_bloc.dart';
+import 'package:vendor_registration/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,32 +49,8 @@ Future<void> main() async {
           ),
       ),
       BlocProvider(
-        create: (context) => getIt<SectorBloc>()..add(SectorInitialEvent()),
-      ),
-      BlocProvider(
         create: (context) =>
             getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
-      ),
-      BlocProvider(
-          create: (context) =>
-              getIt<SectionBloc>()..add(SectionInitialEvent())),
-      BlocProvider(
-          create: (context) =>
-              getIt<AppSettingBloc>()..add(AppSettingInitialEvent())),
-      BlocProvider(
-          create: (context) =>
-              getIt<SettingBloc>()..add(SettingInitialEvent())),
-      BlocProvider(
-        create: (context) => getIt<UserRoleBloc>()
-          ..add(
-            UserRoleInitialEvent(),
-          ),
-      ),
-      BlocProvider(
-        create: (context) => getIt<InitialRequestBloc>()
-          ..add(
-            InitialRequestInitialEvent(),
-          ),
       ),
     ],
     child: const FinanceApp(),

@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+
+import 'package:vendor_registration/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -12,40 +14,37 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditDepartmentDialog extends StatefulWidget {
-  final Department departmentData;
-  const EditDepartmentDialog({
-    required this.departmentData,
-    super.key,
-  });
+class AddDepartmentDialog extends StatefulWidget {
+  const AddDepartmentDialog({super.key});
 
   @override
-  State<EditDepartmentDialog> createState() => _EditDepartmentDialogState();
+  State<AddDepartmentDialog> createState() => _AddDepartmentDialogState();
 }
 
-class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
+class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
   late final Logger logger;
-  final TextEditingController _departmentNameController =
-      TextEditingController();
-
+  final _departmentNameController = TextEditingController();
   final departmentCreationFormKey = GlobalKey<FormState>();
+
+  // late List<Sector> sectors = [];
+  late List<Department> sectorDepartments = [];
+  String? selectedSectorId;
+  late List<Department> departments = [];
 
   @override
   void initState() {
-    final departmentDetail = widget.departmentData;
-    final departmentId = departmentDetail.id ?? 0;
-    context.read<DepartmentBloc>().add(DepartmentListEvent(departmentId));
+    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    _departmentNameController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // context.read<SectorBloc>().add(SectorsListEvent());
     final lang = l.S.of(context);
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
@@ -92,11 +91,11 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentUpdateState) {
+        if (listenerState is DepartmentCreateState) {
           if (listenerState.department.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Updated Successfully'),
+                content: Text('Department Created Successfully'),
               ),
             );
             // refresh the user list
@@ -120,10 +119,6 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
         ),
         content: BlocBuilder<DepartmentBloc, DepartmentState>(
           builder: (blocContext, blocState) {
-            if (blocState is DepartmentListState) {
-              final departmentDetails = blocState.department;
-              _departmentNameController.text = departmentDetails.name ?? '';
-            }
             return SingleChildScrollView(
               child: Form(
                 key: departmentCreationFormKey,
@@ -138,7 +133,7 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewUser),
+                          Text(lang.addNewDepartment),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -159,36 +154,82 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: SizedBox(
-                        width: 1200,
+                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
 
                             ///---------------- Text Field section
-                            Text(lang.name, style: textTheme.bodySmall),
+                            // Text(lang.name, style: textTheme.bodySmall),
                             const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: lang.name,
-                                hintStyle: textTheme.bodySmall,
+                            TextFieldLabelWrapper(
+                              labelText: lang.name,
+                              labelStyle: textTheme.bodySmall,
+                              inputField: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: lang.name,
+                                  hintStyle: textTheme.bodySmall,
+                                ),
+                                keyboardType: TextInputType.name,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    // return 'Please enter your first name';
+                                    return lang.name;
+                                  }
+                                  return null;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: _departmentNameController,
                               ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.name;
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
                             ),
 
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 16),
+
+                            // TextFieldLabelWrapper(
+                            //     // labelText: 'Email',
+                            //     labelText: lang.sector,
+                            //     labelStyle: textTheme.bodySmall,
+                            //     inputField:
+                            //         BlocBuilder<SectorBloc, SectorState>(
+                            //             builder: (dContext, dState) {
+                            //       if (dState is SectorsListState) {
+                            //         sectors = dState.sectors;
+                            //         // sectorDepartments = departments
+                            //         //     .where((element) =>
+                            //         //         element.sectorId.toString() ==
+                            //         //         selectedSectorId)
+                            //         //     .toList();
+                            //       }
+
+                            //       return DropdownButtonFormField<String>(
+                            //         value: selectedSectorId,
+                            //         hint: Text('Select any Sector'),
+                            //         onChanged: (sectValue) {
+                            //           setState(() {
+                            //             selectedSectorId = sectValue;
+                            //           });
+                            //         },
+                            //         validator: (value) {
+                            //           if (value?.isEmpty ?? true) {
+                            //             return 'This field cannot be left empty';
+                            //           }
+                            //           return null;
+                            //         },
+                            //         items: sectors
+                            //             .map<DropdownMenuItem<String>>(
+                            //                 (sectValue) {
+                            //           return DropdownMenuItem<String>(
+                            //               value: sectValue.id.toString(),
+                            //               child:
+                            //                   Text(sectValue.name.toString()));
+                            //         }).toList(),
+                            //       );
+                            //     })),
 
                             ///---------------- Submit Button section
+                            const SizedBox(height: 16),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: sizeInfo.innerSpacing),
@@ -226,12 +267,15 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                                           .currentState!
                                           .validate()) {
                                         blocContext.read<DepartmentBloc>().add(
-                                              DepartmentUpdateEvent(
+                                              DepartmentCreateEvent(
                                                 Department(
-                                                  id: widget.departmentData.id,
                                                   name:
                                                       _departmentNameController
                                                           .text,
+                                                  sectorId: int.tryParse(
+                                                      selectedSectorId
+                                                          .toString()),
+                                                  id: 0,
                                                 ),
                                               ),
                                             );

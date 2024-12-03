@@ -1,13 +1,13 @@
-import 'package:finance_app/app/features/user_role/domain/entities/role_function.dart';
-import 'package:finance_app/app/features/user_role/domain/entities/system_function.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/create_user_role.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/get_user_role_functions.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/list_system_functions.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/list_user_roles.dart';
-import 'package:finance_app/app/features/user_role/domain/usecases/update_user_role.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/role_function.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/system_function.dart';
+import 'package:vendor_registration/app/features/user_role/domain/usecases/create_user_role.dart';
+import 'package:vendor_registration/app/features/user_role/domain/usecases/get_user_role_functions.dart';
+import 'package:vendor_registration/app/features/user_role/domain/usecases/list_system_functions.dart';
+import 'package:vendor_registration/app/features/user_role/domain/usecases/list_user_roles.dart';
+import 'package:vendor_registration/app/features/user_role/domain/usecases/update_user_role.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/user_role.dart';
 
 part 'user_role_event.dart';
 part 'user_role_state.dart';

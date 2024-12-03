@@ -1,7 +1,7 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:vendor_registration/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';

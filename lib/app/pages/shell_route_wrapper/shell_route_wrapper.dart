@@ -1,5 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

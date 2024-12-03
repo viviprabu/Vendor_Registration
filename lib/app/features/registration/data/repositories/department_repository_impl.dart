@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
-import 'package:finance_app/app/features/department/data/models/department_modal.dart';
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/domain/repositories/department_repository.dart';
+import 'package:vendor_registration/app/core/errors/server_failure.dart';
+import 'package:vendor_registration/app/features/registration/data/datasources/department_remote_data_source.dart';
+import 'package:vendor_registration/app/features/registration/data/models/department_modal.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/domain/repositories/department_repository.dart';
 
 class DepartmentRepositoryImpl implements DepartmentRepository {
   final DepartmentRemoteDataSource departmentRemoteDataSource;

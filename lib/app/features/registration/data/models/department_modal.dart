@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
 
 class DepartmentModal {
   final int? id;

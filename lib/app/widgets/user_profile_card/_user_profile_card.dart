@@ -6,7 +6,7 @@ import 'package:iconly/iconly.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 // 🌎 Project imports:
-import 'package:finance_app/generated/l10n.dart' as l;
+import 'package:vendor_registration/generated/l10n.dart' as l;
 import '../../core/helpers/fuctions/helper_functions.dart';
 import '../../core/theme/theme.dart';
 

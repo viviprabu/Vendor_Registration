@@ -1,6 +1,6 @@
-import 'package:finance_app/app/features/auth/data/models/cookie_options_model.dart';
-import 'package:finance_app/app/features/auth/data/models/user_model.dart';
-import 'package:finance_app/app/features/auth/domain/entities/token.dart';
+import 'package:vendor_registration/app/features/auth/data/models/cookie_options_model.dart';
+import 'package:vendor_registration/app/features/auth/data/models/user_model.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/token.dart';
 
 class TokenModel {
   final String accessToken;

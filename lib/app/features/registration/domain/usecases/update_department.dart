@@ -1,7 +1,7 @@
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/domain/repositories/department_repository.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/domain/repositories/department_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/errors/server_failure.dart';
+import 'package:vendor_registration/app/core/errors/server_failure.dart';
 
 class UpdateDepartment {
   final DepartmentRepository departmentRepository;

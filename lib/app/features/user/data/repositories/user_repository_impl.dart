@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/user/data/datasources/user_remote_data_source.dart';
-import 'package:finance_app/app/features/user/data/models/user_create_model.dart';
-import 'package:finance_app/app/features/user/data/models/user_model.dart';
-import 'package:finance_app/app/features/user/data/models/user_update_model.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
-import 'package:finance_app/app/features/user/domain/repositories/user_repository.dart';
+import 'package:vendor_registration/app/core/errors/server_failure.dart';
+import 'package:vendor_registration/app/features/user/data/datasources/user_remote_data_source.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_create_model.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_model.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_update_model.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_update.dart';
+import 'package:vendor_registration/app/features/user/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSource userRemoteDataSource;

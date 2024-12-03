@@ -1,9 +1,9 @@
 // 🎯 Dart imports:
 import 'dart:ui';
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/department/presentation/pages/department_list/edit_department_popup.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/department_list/edit_department_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +13,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 
 // 🌎 Project imports:
-import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
+import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 import 'add_department_popup.dart';

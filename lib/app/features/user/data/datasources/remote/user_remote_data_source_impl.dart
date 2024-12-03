@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
-import 'package:finance_app/app/features/user/data/datasources/user_remote_data_source.dart';
-import 'package:finance_app/app/features/user/data/models/user_create_model.dart';
-import 'package:finance_app/app/features/user/data/models/user_model.dart';
-import 'package:finance_app/app/features/user/data/models/user_update_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vendor_registration/app/core/constants/api_urls.dart';
+import 'package:vendor_registration/app/core/network/http_client_with_interceptor.dart';
+import 'package:vendor_registration/app/features/user/data/datasources/user_remote_data_source.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_create_model.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_model.dart';
+import 'package:vendor_registration/app/features/user/data/models/user_update_model.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final HttpClientWithInterceptor httpClientWithInterceptor;

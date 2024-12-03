@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/auth/domain/entities/cookie_options.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/cookie_options.dart';
 
 class CookieOptionsModel {
   CookieOptionsModel({

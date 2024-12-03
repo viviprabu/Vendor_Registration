@@ -2,9 +2,9 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:finance_app/app/bloc/language/language_bloc.dart';
-import 'package:finance_app/app/bloc/theme/theme_bloc.dart';
-import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/bloc/language/language_bloc.dart';
+import 'package:vendor_registration/app/bloc/theme/theme_bloc.dart';
+import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

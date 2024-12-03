@@ -1,13 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/presentation/bloc/department_bloc.dart';
-import 'package:finance_app/app/features/section/domain/entities/sections.dart';
-import 'package:finance_app/app/features/section/presentation/bloc/section_bloc.dart';
-import 'package:finance_app/app/features/sector/domain/entities/sector.dart';
-import 'package:finance_app/app/features/sector/presentation/bloc/sector_bloc.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
-import 'package:finance_app/app/models/_variable_model.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:vendor_registration/app/models/_variable_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,11 +30,11 @@ class _SignupViewState extends State<SignupView> {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
-  late List<Sector> sector = [];
+  // late List<Sector> sector = [];
   late List<Department> departments = [];
   late List<Department> sectorDepartments = [];
-  late List<Section> section = [];
-  late List<Section> sectionDepartments = [];
+  // late List<Section> section = [];
+  // late List<Section> sectionDepartments = [];
   late List<String> language = ['English', 'Arabic'];
   String? selectedSectorId;
   String? selectedDeptId;
@@ -58,7 +54,7 @@ class _SignupViewState extends State<SignupView> {
 
   @override
   void initState() {
-    context.read<SectorBloc>().add(SectorsListEvent());
+    // context.read<SectorBloc>().add(SectorsListEvent());
 
     //context.read<DepartmentBloc>().add(DepartmentsListEvent());
     // loginPassword = widget.password;
@@ -335,145 +331,145 @@ class _SignupViewState extends State<SignupView> {
 
                                       const SizedBox(height: 20),
 
-                                      TextFieldLabelWrapper(
-                                          // labelText: 'Email',
-                                          labelText: lang.sector,
-                                          inputField: BlocBuilder<SectorBloc,
-                                                  SectorState>(
-                                              builder: (context, state) {
-                                            if (state is SectorsListState) {
-                                              sector = state.sectors;
-                                            }
-                                            return DropdownButtonFormField<
-                                                String>(
-                                              value: selectedSectorId,
-                                              hint: Text('Select any sector'),
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  selectedSectorId = newValue;
-                                                  selectedDeptId = null;
-                                                });
-                                                context
-                                                    .read<DepartmentBloc>()
-                                                    .add(
-                                                        DepartmentsListEvent());
-                                              },
-                                              validator: (value) {
-                                                if (value?.isEmpty ?? true) {
-                                                  return 'This field cannot be left empty';
-                                                }
-                                                return null;
-                                              },
-                                              // items: [],
+                                      // TextFieldLabelWrapper(
+                                      //     // labelText: 'Email',
+                                      //     labelText: lang.sector,
+                                      //     inputField: BlocBuilder<SectorBloc,
+                                      //             SectorState>(
+                                      //         builder: (context, state) {
+                                      //       if (state is SectorsListState) {
+                                      //         sector = state.sectors;
+                                      //       }
+                                      //       return DropdownButtonFormField<
+                                      //           String>(
+                                      //         value: selectedSectorId,
+                                      //         hint: Text('Select any sector'),
+                                      //         onChanged: (newValue) {
+                                      //           setState(() {
+                                      //             selectedSectorId = newValue;
+                                      //             selectedDeptId = null;
+                                      //           });
+                                      //           context
+                                      //               .read<DepartmentBloc>()
+                                      //               .add(
+                                      //                   DepartmentsListEvent());
+                                      //         },
+                                      //         validator: (value) {
+                                      //           if (value?.isEmpty ?? true) {
+                                      //             return 'This field cannot be left empty';
+                                      //           }
+                                      //           return null;
+                                      //         },
+                                      //         // items: [],
 
-                                              items: sector.map<
-                                                      DropdownMenuItem<String>>(
-                                                  (sectorValue) {
-                                                return DropdownMenuItem<String>(
-                                                    value: sectorValue.id
-                                                        .toString(),
-                                                    child: Text(sectorValue.name
-                                                        .toString()));
-                                              }).toList(),
-                                            );
-                                          })),
+                                      //         items: sector.map<
+                                      //                 DropdownMenuItem<String>>(
+                                      //             (sectorValue) {
+                                      //           return DropdownMenuItem<String>(
+                                      //               value: sectorValue.id
+                                      //                   .toString(),
+                                      //               child: Text(sectorValue.name
+                                      //                   .toString()));
+                                      //         }).toList(),
+                                      //       );
+                                      //     })),
                                       const SizedBox(height: 20),
 
-                                      TextFieldLabelWrapper(
-                                          // labelText: 'Email',
-                                          labelText: lang.department,
-                                          inputField: BlocBuilder<
-                                                  DepartmentBloc,
-                                                  DepartmentState>(
-                                              builder: (dContext, dState) {
-                                            if (dState
-                                                is DepartmentsListState) {
-                                              departments = dState.departments;
-                                              sectorDepartments = departments
-                                                  .where((element) =>
-                                                      element.sectorId
-                                                          .toString() ==
-                                                      selectedSectorId)
-                                                  .toList();
-                                            }
+                                      // TextFieldLabelWrapper(
+                                      //     // labelText: 'Email',
+                                      //     labelText: lang.department,
+                                      //     inputField: BlocBuilder<
+                                      //             DepartmentBloc,
+                                      //             DepartmentState>(
+                                      //         builder: (dContext, dState) {
+                                      //       if (dState
+                                      //           is DepartmentsListState) {
+                                      //         departments = dState.departments;
+                                      //         sectorDepartments = departments
+                                      //             .where((element) =>
+                                      //                 element.sectorId
+                                      //                     .toString() ==
+                                      //                 selectedSectorId)
+                                      //             .toList();
+                                      //       }
 
-                                            return DropdownButtonFormField<
-                                                String>(
-                                              value: selectedDeptId,
-                                              hint:
-                                                  Text('Select any department'),
-                                              onChanged: (deptValue) {
-                                                setState(() {
-                                                  selectedDeptId = deptValue;
-                                                  selectedSectionId = null;
-                                                });
-                                                context
-                                                    .read<SectionBloc>()
-                                                    .add(SectionsListEvent());
-                                              },
-                                              validator: (value) {
-                                                if (value?.isEmpty ?? true) {
-                                                  return 'This field cannot be left empty';
-                                                }
-                                                return null;
-                                              },
-                                              items: sectorDepartments.map<
-                                                      DropdownMenuItem<String>>(
-                                                  (depValue) {
-                                                return DropdownMenuItem<String>(
-                                                    value:
-                                                        depValue.id.toString(),
-                                                    child: Text(depValue.name
-                                                        .toString()));
-                                              }).toList(),
-                                            );
-                                          })),
+                                      //       return DropdownButtonFormField<
+                                      //           String>(
+                                      //         value: selectedDeptId,
+                                      //         hint:
+                                      //             Text('Select any department'),
+                                      //         onChanged: (deptValue) {
+                                      //           setState(() {
+                                      //             selectedDeptId = deptValue;
+                                      //             selectedSectionId = null;
+                                      //           });
+                                      //           context
+                                      //               .read<SectionBloc>()
+                                      //               .add(SectionsListEvent());
+                                      //         },
+                                      //         validator: (value) {
+                                      //           if (value?.isEmpty ?? true) {
+                                      //             return 'This field cannot be left empty';
+                                      //           }
+                                      //           return null;
+                                      //         },
+                                      //         items: sectorDepartments.map<
+                                      //                 DropdownMenuItem<String>>(
+                                      //             (depValue) {
+                                      //           return DropdownMenuItem<String>(
+                                      //               value:
+                                      //                   depValue.id.toString(),
+                                      //               child: Text(depValue.name
+                                      //                   .toString()));
+                                      //         }).toList(),
+                                      //       );
+                                      //     })),
 
                                       const SizedBox(height: 20),
 
-                                      TextFieldLabelWrapper(
-                                          // labelText: 'Email',
-                                          labelText: lang.section,
-                                          inputField: BlocBuilder<SectionBloc,
-                                                  SectionState>(
-                                              builder: (dContext, dState) {
-                                            if (dState is SectionsListState) {
-                                              section = dState.sections;
-                                              sectionDepartments = section
-                                                  .where((element) =>
-                                                      element.departmentId
-                                                          .toString() ==
-                                                      selectedDeptId)
-                                                  .toList();
-                                            }
+                                      // TextFieldLabelWrapper(
+                                      //     // labelText: 'Email',
+                                      //     labelText: lang.section,
+                                      //     inputField: BlocBuilder<SectionBloc,
+                                      //             SectionState>(
+                                      //         builder: (dContext, dState) {
+                                      //       if (dState is SectionsListState) {
+                                      //         section = dState.sections;
+                                      //         sectionDepartments = section
+                                      //             .where((element) =>
+                                      //                 element.departmentId
+                                      //                     .toString() ==
+                                      //                 selectedDeptId)
+                                      //             .toList();
+                                      //       }
 
-                                            return DropdownButtonFormField<
-                                                String>(
-                                              value: selectedSectionId,
-                                              hint: Text('Select any Sections'),
-                                              onChanged: (sectValue) {
-                                                setState(() {
-                                                  selectedSectionId = sectValue;
-                                                  // selectedSectionId = null;
-                                                });
-                                              },
-                                              validator: (value) {
-                                                if (value?.isEmpty ?? true) {
-                                                  return 'This field cannot be left empty';
-                                                }
-                                                return null;
-                                              },
-                                              items: sectionDepartments.map<
-                                                      DropdownMenuItem<String>>(
-                                                  (depValue) {
-                                                return DropdownMenuItem<String>(
-                                                    value:
-                                                        depValue.id.toString(),
-                                                    child: Text(depValue.name
-                                                        .toString()));
-                                              }).toList(),
-                                            );
-                                          })),
+                                      //       return DropdownButtonFormField<
+                                      //           String>(
+                                      //         value: selectedSectionId,
+                                      //         hint: Text('Select any Sections'),
+                                      //         onChanged: (sectValue) {
+                                      //           setState(() {
+                                      //             selectedSectionId = sectValue;
+                                      //             // selectedSectionId = null;
+                                      //           });
+                                      //         },
+                                      //         validator: (value) {
+                                      //           if (value?.isEmpty ?? true) {
+                                      //             return 'This field cannot be left empty';
+                                      //           }
+                                      //           return null;
+                                      //         },
+                                      //         items: sectionDepartments.map<
+                                      //                 DropdownMenuItem<String>>(
+                                      //             (depValue) {
+                                      //           return DropdownMenuItem<String>(
+                                      //               value:
+                                      //                   depValue.id.toString(),
+                                      //               child: Text(depValue.name
+                                      //                   .toString()));
+                                      //         }).toList(),
+                                      //       );
+                                      //     })),
 
                                       // Password Field
                                       // TextFieldLabelWrapper(

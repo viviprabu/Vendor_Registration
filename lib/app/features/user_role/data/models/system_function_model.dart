@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/user_role/domain/entities/system_function.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/system_function.dart';
 
 class SystemFunctionModel extends SystemFunction {
   const SystemFunctionModel({

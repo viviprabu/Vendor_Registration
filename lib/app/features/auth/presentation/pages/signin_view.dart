@@ -1,15 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:feather_icons/feather_icons.dart';
-import 'package:finance_app/app/core/helpers/fuctions/_get_image.dart';
-import 'package:finance_app/app/core/static/_static_image.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
-import 'package:finance_app/app/features/services/domain/entities/appsetting.dart';
-import 'package:finance_app/app/features/services/presentation/bloc/appsetting_bloc.dart';
-import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:finance_app/app/features/auth/presentation/pages/signup_view.dart';
-import 'package:finance_app/app/models/_variable_model.dart';
-import 'package:finance_app/app/widgets/company_header/_company_header.dart';
-import 'package:finance_app/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
+import 'package:vendor_registration/app/core/helpers/fuctions/_get_image.dart';
+import 'package:vendor_registration/app/core/static/_static_image.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
+import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/features/auth/presentation/pages/signup_view.dart';
+import 'package:vendor_registration/app/models/_variable_model.dart';
+import 'package:vendor_registration/app/widgets/company_header/_company_header.dart';
+import 'package:vendor_registration/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +35,7 @@ class _SigninViewState extends State<SigninView> {
   bool showPassword = false;
   final signInFormKey = GlobalKey<FormState>();
   List<String> list = <String>[];
-  List<AppSetting> appsetting = [];
+  // List<AppSetting> appsetting = [];
   List<UserRights>? userRights = [];
 
   @override
@@ -57,7 +55,7 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AppSettingBloc>().add(AppSettingsListEvent());
+    // context.read<AppSettingBloc>().add(AppSettingsListEvent());
     final lang = l.S.of(context);
     final theme = Theme.of(context);
 
@@ -125,12 +123,8 @@ class _SigninViewState extends State<SigninView> {
 
         if (state is AuthenticatedState) {
           //print(state.token.accessToken);
-          if (state.token.accessToken != null) {
-            /* context.go('/authentication/services_list', extra: userRights); */
-            context.goNamed('services');
-          } else {
-            context.go('/authentication/signin');
-          }
+          /* context.go('/authentication/services_list', extra: userRights); */
+          context.goNamed('services');
         }
       },
       child: GestureDetector(

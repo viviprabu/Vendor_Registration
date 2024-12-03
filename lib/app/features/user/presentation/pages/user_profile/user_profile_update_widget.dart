@@ -1,5 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:

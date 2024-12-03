@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:finance_app/app/core/network/Interceptors/logging_interceptor.dart';
+import 'package:vendor_registration/app/core/network/Interceptors/logging_interceptor.dart';
 import 'package:http/http.dart' as http;
 import '../constants/api_urls.dart';
-import 'package:finance_app/app/core/network/Interceptors/auth_interceptor.dart';
-import 'package:finance_app/app/core/network/Interceptors/error_interceptor.dart';
-import 'package:finance_app/app/core/network/Interceptors/expired_token_retry_policy.dart';
-import 'package:finance_app/app/core/network/Interceptors/params_interceptor.dart';
+import 'package:vendor_registration/app/core/network/Interceptors/auth_interceptor.dart';
+import 'package:vendor_registration/app/core/network/Interceptors/error_interceptor.dart';
+import 'package:vendor_registration/app/core/network/Interceptors/expired_token_retry_policy.dart';
+import 'package:vendor_registration/app/core/network/Interceptors/params_interceptor.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 
 class HttpClientWithInterceptor {

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
-import 'package:finance_app/app/features/user_permission/data/datasources/user_permission_remote_data_source.dart';
-import 'package:finance_app/app/features/user_permission/data/models/role_function_model.dart';
+import 'package:vendor_registration/app/core/constants/api_urls.dart';
+import 'package:vendor_registration/app/core/network/http_client_with_interceptor.dart';
+import 'package:vendor_registration/app/features/user_permission/data/datasources/user_permission_remote_data_source.dart';
+import 'package:vendor_registration/app/features/user_permission/data/models/role_function_model.dart';
 
 class UserPermissionRemoteDataSourceImpl
     implements UserPermissionRemoteDataSource {

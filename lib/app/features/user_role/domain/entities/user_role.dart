@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/user_role/domain/entities/role_function.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/role_function.dart';
 
 class UserRole extends Equatable {
   final int id;

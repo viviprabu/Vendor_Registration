@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:finance_app/app/core/app_config/app_config.dart';
-import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client_with_interceptor.dart';
-import 'package:finance_app/app/features/department/data/datasources/department_remote_data_source.dart';
-import 'package:finance_app/app/features/department/data/models/department_modal.dart';
+import 'package:vendor_registration/app/core/app_config/app_config.dart';
+import 'package:vendor_registration/app/core/constants/api_urls.dart';
+import 'package:vendor_registration/app/core/network/http_client_with_interceptor.dart';
+import 'package:vendor_registration/app/features/registration/data/datasources/department_remote_data_source.dart';
+import 'package:vendor_registration/app/features/registration/data/models/department_modal.dart';
 
 class DepartmentRemoteDataSourceImpl implements DepartmentRemoteDataSource {
   final HttpClientWithInterceptor httpClientWithInterceptor;

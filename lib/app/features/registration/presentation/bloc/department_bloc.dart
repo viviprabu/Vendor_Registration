@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/department/domain/entities/department.dart';
-import 'package:finance_app/app/features/department/domain/usecases/add_department.dart';
-import 'package:finance_app/app/features/department/domain/usecases/delete_department.dart';
-import 'package:finance_app/app/features/department/domain/usecases/get_department.dart';
-import 'package:finance_app/app/features/department/domain/usecases/get_departments.dart';
-import 'package:finance_app/app/features/department/domain/usecases/update_department.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/add_department.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/delete_department.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/get_department.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/get_departments.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/update_department.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'department_event.dart';
 part 'department_state.dart';

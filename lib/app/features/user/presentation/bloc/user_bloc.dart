@@ -1,11 +1,11 @@
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/domain/entities/user_update.dart';
-import 'package:finance_app/app/features/user/domain/usecases/create_user.dart';
-import 'package:finance_app/app/features/user/domain/usecases/delete_user.dart';
-import 'package:finance_app/app/features/user/domain/usecases/get_user.dart';
-import 'package:finance_app/app/features/user/domain/usecases/get_users.dart';
-import 'package:finance_app/app/features/user/domain/usecases/update_user.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_update.dart';
+import 'package:vendor_registration/app/features/user/domain/usecases/create_user.dart';
+import 'package:vendor_registration/app/features/user/domain/usecases/delete_user.dart';
+import 'package:vendor_registration/app/features/user/domain/usecases/get_user.dart';
+import 'package:vendor_registration/app/features/user/domain/usecases/get_users.dart';
+import 'package:vendor_registration/app/features/user/domain/usecases/update_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

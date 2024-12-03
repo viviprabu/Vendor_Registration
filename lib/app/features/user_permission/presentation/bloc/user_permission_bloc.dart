@@ -1,7 +1,7 @@
-import 'package:finance_app/app/features/user_permission/domain/usecases/get_user_role_functions.dart';
+import 'package:vendor_registration/app/features/user_permission/domain/usecases/get_user_role_functions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/user_permission/domain/entities/role_function.dart';
+import 'package:vendor_registration/app/features/user_permission/domain/entities/role_function.dart';
 
 part 'user_permission_event.dart';
 part 'user_permission_state.dart';

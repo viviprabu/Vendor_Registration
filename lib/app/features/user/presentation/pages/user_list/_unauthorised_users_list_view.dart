@@ -1,13 +1,13 @@
 import 'dart:ui';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
-import 'package:finance_app/app/features/user/presentation/bloc/user_bloc.dart';
-import 'package:finance_app/app/features/user/presentation/pages/user_list/edit_user_popup.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
+import 'package:vendor_registration/app/features/user/presentation/pages/user_list/edit_user_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
+import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 import 'add_user_popup.dart';

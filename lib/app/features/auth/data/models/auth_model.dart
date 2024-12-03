@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/auth/domain/entities/auth.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/auth.dart';
 
 class AuthModel {
   final String userName;

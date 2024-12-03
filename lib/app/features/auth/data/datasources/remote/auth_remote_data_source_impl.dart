@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/constants/api_urls.dart';
-import 'package:finance_app/app/core/network/http_client.dart';
-import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
-import 'package:finance_app/app/features/auth/data/models/token_model.dart';
-import 'package:finance_app/app/features/auth/data/models/user_model.dart';
-import 'package:finance_app/app/models/_variable_model.dart';
+import 'package:vendor_registration/app/core/constants/api_urls.dart';
+import 'package:vendor_registration/app/core/network/http_client.dart';
+import 'package:vendor_registration/app/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:vendor_registration/app/features/auth/data/models/auth_model.dart';
+import 'package:vendor_registration/app/features/auth/data/models/token_model.dart';
+import 'package:vendor_registration/app/features/auth/data/models/user_model.dart';
+import 'package:vendor_registration/app/models/_variable_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {

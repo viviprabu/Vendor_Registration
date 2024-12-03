@@ -1,10 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:finance_app/app/core/theme/_app_colors.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
-import 'package:finance_app/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/core/theme/_app_colors.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
+import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

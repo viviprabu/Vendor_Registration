@@ -1,5 +1,5 @@
-import 'package:finance_app/app/features/auth/data/models/user_rights_model.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/auth/data/models/user_rights_model.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user.dart';
 
 class UserModel {
   String? id;

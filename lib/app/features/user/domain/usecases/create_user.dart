@@ -1,8 +1,8 @@
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
-import 'package:finance_app/app/features/user/domain/repositories/user_repository.dart';
-import 'package:finance_app/app/features/user/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/domain/repositories/user_repository.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/errors/server_failure.dart';
+import 'package:vendor_registration/app/core/errors/server_failure.dart';
 
 class CreateUser {
   final UserRepository userRepository;

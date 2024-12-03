@@ -2,9 +2,9 @@
 import 'dart:ui';
 
 // 🐦 Flutter imports:
-import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
-import 'package:finance_app/app/features/user_role/presentation/bloc/user_role_bloc.dart';
-import 'package:finance_app/app/features/user_role/presentation/pages/user_role_list/edit_user_role_popup.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/user_role.dart';
+import 'package:vendor_registration/app/features/user_role/presentation/bloc/user_role_bloc.dart';
+import 'package:vendor_registration/app/features/user_role/presentation/pages/user_role_list/edit_user_role_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +14,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 
 // 🌎 Project imports:
-import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
+import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 import 'add_user_role_popup.dart';

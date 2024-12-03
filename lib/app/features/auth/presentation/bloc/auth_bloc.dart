@@ -1,10 +1,9 @@
-import 'package:finance_app/app/features/auth/domain/entities/token.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
-import 'package:finance_app/app/features/auth/domain/usecases/get_logged_user_detail.dart';
-import 'package:finance_app/app/features/auth/domain/usecases/is_logged_in.dart';
-import 'package:finance_app/app/features/auth/domain/usecases/sign_in.dart';
-import 'package:finance_app/app/features/auth/domain/usecases/sign_out.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/token.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user.dart';
+import 'package:vendor_registration/app/features/auth/domain/usecases/get_logged_user_detail.dart';
+import 'package:vendor_registration/app/features/auth/domain/usecases/is_logged_in.dart';
+import 'package:vendor_registration/app/features/auth/domain/usecases/sign_in.dart';
+import 'package:vendor_registration/app/features/auth/domain/usecases/sign_out.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/department/data/models/department_modal.dart';
+import 'package:vendor_registration/app/features/registration/data/models/department_modal.dart';
 
 abstract interface class DepartmentRemoteDataSource {
   Future<DepartmentModal> getDepartment(int id);

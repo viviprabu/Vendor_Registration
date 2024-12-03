@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
 
 class UserRightsModel extends UserRights {
   const UserRightsModel({

@@ -6,7 +6,7 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 
 // 🌎 Project imports:
-import 'package:finance_app/app/widgets/shadow_container/_shadow_container.dart';
+import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../generated/l10n.dart' as l;
 import '../../core/static/static.dart';
 import '../../core/theme/theme.dart';

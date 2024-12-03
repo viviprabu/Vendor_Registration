@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:vendor_registration/app/features/auth/domain/repositories/auth_repository.dart';
 
 class SignOut {
   final AuthRepository repository;

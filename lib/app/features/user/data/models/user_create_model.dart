@@ -1,4 +1,4 @@
-import 'package:finance_app/app/features/user/domain/entities/user_create.dart';
+import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
 
 class UserCreateModel extends UserCreate {
   const UserCreateModel(

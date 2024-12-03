@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:finance_app/app/core/errors/server_failure.dart';
-import 'package:finance_app/app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:finance_app/app/features/auth/data/models/auth_model.dart';
-import 'package:finance_app/app/features/auth/data/models/token_model.dart';
-import 'package:finance_app/app/features/auth/domain/entities/token.dart';
-import 'package:finance_app/app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user.dart';
+import 'package:vendor_registration/app/core/errors/server_failure.dart';
+import 'package:vendor_registration/app/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:vendor_registration/app/features/auth/data/models/auth_model.dart';
+import 'package:vendor_registration/app/features/auth/data/models/token_model.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/token.dart';
+import 'package:vendor_registration/app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;

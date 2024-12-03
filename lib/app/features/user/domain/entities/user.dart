@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_app/app/features/auth/domain/entities/user_rights.dart';
+import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
 
 class User extends Equatable {
   final String? id;

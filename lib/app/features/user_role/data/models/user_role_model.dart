@@ -1,5 +1,5 @@
-import 'package:finance_app/app/features/user_role/data/models/role_function_model.dart';
-import 'package:finance_app/app/features/user_role/domain/entities/user_role.dart';
+import 'package:vendor_registration/app/features/user_role/data/models/role_function_model.dart';
+import 'package:vendor_registration/app/features/user_role/domain/entities/user_role.dart';
 
 class UserRoleModel {
   final int id;
