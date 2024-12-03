@@ -2,9 +2,8 @@
 import 'package:vendor_registration/app/bloc/language/language_bloc.dart';
 import 'package:vendor_registration/app/bloc/theme/theme_bloc.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/registration_bloc.dart';
 import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
-import 'package:vendor_registration/app/features/user_role/presentation/bloc/user_role_bloc.dart';
 import 'package:vendor_registration/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +49,7 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (context) =>
-            getIt<DepartmentBloc>()..add(DepartmentInitialEvent()),
+            getIt<RegistrationBloc>()..add(RegistrationInitialEvent()),
       ),
     ],
     child: const FinanceApp(),

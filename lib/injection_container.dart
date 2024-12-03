@@ -10,16 +10,16 @@ import 'package:vendor_registration/app/features/auth/domain/usecases/is_logged_
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_in.dart';
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_out.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:vendor_registration/app/features/registration/data/datasources/department_remote_data_source.dart';
-import 'package:vendor_registration/app/features/registration/data/datasources/department_remote_data_source_impl.dart';
-import 'package:vendor_registration/app/features/registration/data/repositories/department_repository_impl.dart';
-import 'package:vendor_registration/app/features/registration/domain/repositories/department_repository.dart';
-import 'package:vendor_registration/app/features/registration/domain/usecases/add_department.dart';
-import 'package:vendor_registration/app/features/registration/domain/usecases/delete_department.dart';
-import 'package:vendor_registration/app/features/registration/domain/usecases/get_department.dart';
-import 'package:vendor_registration/app/features/registration/domain/usecases/get_departments.dart';
-import 'package:vendor_registration/app/features/registration/domain/usecases/update_department.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/data/datasources/registration_remote_data_source.dart';
+import 'package:vendor_registration/app/features/registration/data/datasources/registration_remote_data_source_impl.dart';
+import 'package:vendor_registration/app/features/registration/data/repositories/registration_repository_impl.dart';
+import 'package:vendor_registration/app/features/registration/domain/repositories/registration_repository.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/add_registration.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/delete_registration.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/get_registration.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/get_registrations.dart';
+import 'package:vendor_registration/app/features/registration/domain/usecases/update_registration.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/registration_bloc.dart';
 import 'package:vendor_registration/app/features/user/data/datasources/remote/user_remote_data_source_impl.dart';
 import 'package:vendor_registration/app/features/user/data/datasources/user_remote_data_source.dart';
 import 'package:vendor_registration/app/features/user/data/repositories/user_repository_impl.dart';
@@ -76,12 +76,12 @@ void init() {
   );
 
   getIt.registerFactory(
-    () => DepartmentBloc(
-      getDepartment: getIt(),
-      getDepartments: getIt(),
-      createDepartment: getIt(),
-      updateDepartment: getIt(),
-      deleteDepartment: getIt(),
+    () => RegistrationBloc(
+      getRegistration: getIt(),
+      getRegistrations: getIt(),
+      createRegistration: getIt(),
+      updateRegistration: getIt(),
+      deleteRegistration: getIt(),
     ),
   );
 
@@ -108,11 +108,11 @@ void init() {
   getIt.registerLazySingleton(() => UpdateUser(getIt()));
   getIt.registerLazySingleton(() => DeleteUser(getIt()));
 
-  getIt.registerLazySingleton(() => GetDepartment(getIt()));
-  getIt.registerLazySingleton(() => GetDepartments(getIt()));
-  getIt.registerLazySingleton(() => CreateDepartment(getIt()));
-  getIt.registerLazySingleton(() => UpdateDepartment(getIt()));
-  getIt.registerLazySingleton(() => DeleteDepartment(getIt()));
+  getIt.registerLazySingleton(() => GetRegistration(getIt()));
+  getIt.registerLazySingleton(() => GetRegistrations(getIt()));
+  getIt.registerLazySingleton(() => CreateRegistration(getIt()));
+  getIt.registerLazySingleton(() => UpdateRegistration(getIt()));
+  getIt.registerLazySingleton(() => DeleteRegistration(getIt()));
 
   getIt.registerLazySingleton(() => GetUserRoleFunctions(getIt()));
   getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
@@ -133,9 +133,9 @@ void init() {
     ),
   );
 
-  getIt.registerLazySingleton<DepartmentRepository>(
-    () => DepartmentRepositoryImpl(
-      departmentRemoteDataSource: getIt(),
+  getIt.registerLazySingleton<RegistrationRepository>(
+    () => RegistrationRepositoryImpl(
+      registrationRemoteDataSource: getIt(),
     ),
   );
 
@@ -158,8 +158,8 @@ void init() {
     ),
   );
 
-  getIt.registerLazySingleton<DepartmentRemoteDataSource>(
-    () => DepartmentRemoteDataSourceImpl(
+  getIt.registerLazySingleton<RegistrationRemoteDataSource>(
+    () => RegistrationRemoteDataSourceImpl(
       httpClientWithInterceptor: getIt(),
     ),
   );

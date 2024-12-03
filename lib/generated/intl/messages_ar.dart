@@ -1398,5 +1398,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "tenderCategory": MessageLookupByLibrary.simpleMessage("فئة المناقصة"),
         "comments": MessageLookupByLibrary.simpleMessage("تعليقات"),
         "viewrequest": MessageLookupByLibrary.simpleMessage("عرض الطلب"),
+        "newRegistration": MessageLookupByLibrary.simpleMessage("تسجيل جديد"),
       };
 }

@@ -1,6 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/registration.dart';
 import 'package:vendor_registration/app/features/user/domain/entities/user_create.dart';
 import 'package:vendor_registration/app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:vendor_registration/app/models/_variable_model.dart';
@@ -31,10 +30,10 @@ class _SignupViewState extends State<SignupView> {
   TextEditingController phoneController = TextEditingController();
 
   // late List<Sector> sector = [];
-  late List<Department> departments = [];
-  late List<Department> sectorDepartments = [];
+  late List<Registration> registrations = [];
+  late List<Registration> sectorRegistrations = [];
   // late List<Section> section = [];
-  // late List<Section> sectionDepartments = [];
+  // late List<Section> sectionRegistrations = [];
   late List<String> language = ['English', 'Arabic'];
   String? selectedSectorId;
   String? selectedDeptId;
@@ -56,7 +55,7 @@ class _SignupViewState extends State<SignupView> {
   void initState() {
     // context.read<SectorBloc>().add(SectorsListEvent());
 
-    //context.read<DepartmentBloc>().add(DepartmentsListEvent());
+    //context.read<RegistrationBloc>().add(RegistrationsListEvent());
     // loginPassword = widget.password;
     super.initState();
   }
@@ -89,11 +88,11 @@ class _SignupViewState extends State<SignupView> {
     //   if (state is SectorsListState) {
     //     sector = state.sectors;
     //   }
-    //   return BlocBuilder<DepartmentBloc, DepartmentState>(
+    //   return BlocBuilder<RegistrationBloc, RegistrationState>(
     //       builder: (context, state) {
-    //     if (state is DepartmentsListState) {
-    //       departments = state.departments;
-    //       print(departments);
+    //     if (state is RegistrationsListState) {
+    //       Registrations = state.Registrations;
+    //       print(Registrations);
     //     }
     return BlocListener<UserBloc, UserState>(
       listener: (listenerContext, listenerState) {
@@ -350,9 +349,9 @@ class _SignupViewState extends State<SignupView> {
                                       //             selectedDeptId = null;
                                       //           });
                                       //           context
-                                      //               .read<DepartmentBloc>()
+                                      //               .read<RegistrationBloc>()
                                       //               .add(
-                                      //                   DepartmentsListEvent());
+                                      //                   RegistrationsListEvent());
                                       //         },
                                       //         validator: (value) {
                                       //           if (value?.isEmpty ?? true) {
@@ -377,15 +376,15 @@ class _SignupViewState extends State<SignupView> {
 
                                       // TextFieldLabelWrapper(
                                       //     // labelText: 'Email',
-                                      //     labelText: lang.department,
+                                      //     labelText: lang.Registration,
                                       //     inputField: BlocBuilder<
-                                      //             DepartmentBloc,
-                                      //             DepartmentState>(
+                                      //             RegistrationBloc,
+                                      //             RegistrationState>(
                                       //         builder: (dContext, dState) {
                                       //       if (dState
-                                      //           is DepartmentsListState) {
-                                      //         departments = dState.departments;
-                                      //         sectorDepartments = departments
+                                      //           is RegistrationsListState) {
+                                      //         Registrations = dState.Registrations;
+                                      //         sectorRegistrations = Registrations
                                       //             .where((element) =>
                                       //                 element.sectorId
                                       //                     .toString() ==
@@ -397,7 +396,7 @@ class _SignupViewState extends State<SignupView> {
                                       //           String>(
                                       //         value: selectedDeptId,
                                       //         hint:
-                                      //             Text('Select any department'),
+                                      //             Text('Select any Registration'),
                                       //         onChanged: (deptValue) {
                                       //           setState(() {
                                       //             selectedDeptId = deptValue;
@@ -413,7 +412,7 @@ class _SignupViewState extends State<SignupView> {
                                       //           }
                                       //           return null;
                                       //         },
-                                      //         items: sectorDepartments.map<
+                                      //         items: sectorRegistrations.map<
                                       //                 DropdownMenuItem<String>>(
                                       //             (depValue) {
                                       //           return DropdownMenuItem<String>(
@@ -435,9 +434,9 @@ class _SignupViewState extends State<SignupView> {
                                       //         builder: (dContext, dState) {
                                       //       if (dState is SectionsListState) {
                                       //         section = dState.sections;
-                                      //         sectionDepartments = section
+                                      //         sectionRegistrations = section
                                       //             .where((element) =>
-                                      //                 element.departmentId
+                                      //                 element.RegistrationId
                                       //                     .toString() ==
                                       //                 selectedDeptId)
                                       //             .toList();
@@ -459,7 +458,7 @@ class _SignupViewState extends State<SignupView> {
                                       //           }
                                       //           return null;
                                       //         },
-                                      //         items: sectionDepartments.map<
+                                      //         items: sectionRegistrations.map<
                                       //                 DropdownMenuItem<String>>(
                                       //             (depValue) {
                                       //           return DropdownMenuItem<String>(

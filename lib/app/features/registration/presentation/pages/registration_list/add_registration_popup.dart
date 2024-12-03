@@ -1,7 +1,7 @@
 // 🐦 Flutter imports:
-import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
 
+import 'package:vendor_registration/app/features/registration/domain/entities/registration.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/registration_bloc.dart';
 import 'package:vendor_registration/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,22 +14,22 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddDepartmentDialog extends StatefulWidget {
-  const AddDepartmentDialog({super.key});
+class AddRegistrationDialog extends StatefulWidget {
+  const AddRegistrationDialog({super.key});
 
   @override
-  State<AddDepartmentDialog> createState() => _AddDepartmentDialogState();
+  State<AddRegistrationDialog> createState() => _AddRegistrationDialogState();
 }
 
-class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
+class _AddRegistrationDialogState extends State<AddRegistrationDialog> {
   late final Logger logger;
-  final _departmentNameController = TextEditingController();
-  final departmentCreationFormKey = GlobalKey<FormState>();
+  final _registrationNameController = TextEditingController();
+  final registrationCreationFormKey = GlobalKey<FormState>();
 
   // late List<Sector> sectors = [];
-  late List<Department> sectorDepartments = [];
+  late List<Registration> sectorRegistrations = [];
   String? selectedSectorId;
-  late List<Department> departments = [];
+  late List<Registration> registrations = [];
 
   @override
   void initState() {
@@ -81,9 +81,9 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DepartmentBloc, DepartmentState>(
+    return BlocListener<RegistrationBloc, RegistrationState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DepartmentError) {
+        if (listenerState is RegistrationError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -91,21 +91,23 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentCreateState) {
-          if (listenerState.department.id != null) {
+        if (listenerState is RegistrationCreateState) {
+          if (listenerState.registration.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Created Successfully'),
+                content: Text('Registration Created Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
+            listenerContext
+                .read<RegistrationBloc>()
+                .add(RegistrationsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Creation Failed'),
+                content: Text('Registration Creation Failed'),
               ),
             );
           }
@@ -117,11 +119,11 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DepartmentBloc, DepartmentState>(
+        content: BlocBuilder<RegistrationBloc, RegistrationState>(
           builder: (blocContext, blocState) {
             return SingleChildScrollView(
               child: Form(
-                key: departmentCreationFormKey,
+                key: registrationCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +135,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // const Text('Form Dialog'),
-                          Text(lang.addNewDepartment),
+                          Text(lang.newRegistration),
                           IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
@@ -181,7 +183,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                 },
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                controller: _departmentNameController,
+                                controller: _registrationNameController,
                               ),
                             ),
 
@@ -196,7 +198,7 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                             //             builder: (dContext, dState) {
                             //       if (dState is SectorsListState) {
                             //         sectors = dState.sectors;
-                            //         // sectorDepartments = departments
+                            //         // sectorRegistrations = Registrations
                             //         //     .where((element) =>
                             //         //         element.sectorId.toString() ==
                             //         //         selectedSectorId)
@@ -263,18 +265,17 @@ class _AddDepartmentDialogState extends State<AddDepartmentDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (departmentCreationFormKey
+                                      if (registrationCreationFormKey
                                           .currentState!
                                           .validate()) {
-                                        blocContext.read<DepartmentBloc>().add(
-                                              DepartmentCreateEvent(
-                                                Department(
-                                                  name:
-                                                      _departmentNameController
+                                        blocContext
+                                            .read<RegistrationBloc>()
+                                            .add(
+                                              RegistrationCreateEvent(
+                                                Registration(
+                                                  fullName:
+                                                      _registrationNameController
                                                           .text,
-                                                  sectorId: int.tryParse(
-                                                      selectedSectorId
-                                                          .toString()),
                                                   id: 0,
                                                 ),
                                               ),

@@ -9900,6 +9900,14 @@ class S {
     );
   }
 
+  String get newRegistration {
+    return Intl.message(
+      'New Registration',
+      name: 'addRegistration',
+      desc: '',
+      args: [],
+    );
+  }
   // user creation page
   /// `Create User`
 }

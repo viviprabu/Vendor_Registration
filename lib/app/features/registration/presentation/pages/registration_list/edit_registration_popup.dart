@@ -1,6 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:vendor_registration/app/features/registration/domain/entities/department.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/department_bloc.dart';
+import 'package:vendor_registration/app/features/registration/domain/entities/registration.dart';
+import 'package:vendor_registration/app/features/registration/presentation/bloc/registration_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -12,35 +12,35 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class EditDepartmentDialog extends StatefulWidget {
-  final Department departmentData;
-  const EditDepartmentDialog({
-    required this.departmentData,
+class EditRegistrationDialog extends StatefulWidget {
+  final Registration registrationData;
+  const EditRegistrationDialog({
+    required this.registrationData,
     super.key,
   });
 
   @override
-  State<EditDepartmentDialog> createState() => _EditDepartmentDialogState();
+  State<EditRegistrationDialog> createState() => _EditRegistrationDialogState();
 }
 
-class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
+class _EditRegistrationDialogState extends State<EditRegistrationDialog> {
   late final Logger logger;
-  final TextEditingController _departmentNameController =
+  final TextEditingController _registrationNameController =
       TextEditingController();
 
-  final departmentCreationFormKey = GlobalKey<FormState>();
+  final registrationCreationFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    final departmentDetail = widget.departmentData;
-    final departmentId = departmentDetail.id ?? 0;
-    context.read<DepartmentBloc>().add(DepartmentListEvent(departmentId));
+    final registrationDetail = widget.registrationData;
+    final registrationId = registrationDetail.id ?? 0;
+    context.read<RegistrationBloc>().add(RegistrationListEvent(registrationId));
     super.initState();
   }
 
   @override
   void dispose() {
-    _departmentNameController.dispose();
+    _registrationNameController.dispose();
     super.dispose();
   }
 
@@ -82,9 +82,9 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DepartmentBloc, DepartmentState>(
+    return BlocListener<RegistrationBloc, RegistrationState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DepartmentError) {
+        if (listenerState is RegistrationError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -92,21 +92,23 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
           );
         }
 
-        if (listenerState is DepartmentUpdateState) {
-          if (listenerState.department.id != null) {
+        if (listenerState is RegistrationUpdateState) {
+          if (listenerState.registration.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Updated Successfully'),
+                content: Text('Registration Updated Successfully'),
               ),
             );
             // refresh the user list
-            listenerContext.read<DepartmentBloc>().add(DepartmentsListEvent());
+            listenerContext
+                .read<RegistrationBloc>()
+                .add(RegistrationsListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Department Creation Failed'),
+                content: Text('Registration Creation Failed'),
               ),
             );
           }
@@ -118,15 +120,16 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DepartmentBloc, DepartmentState>(
+        content: BlocBuilder<RegistrationBloc, RegistrationState>(
           builder: (blocContext, blocState) {
-            if (blocState is DepartmentListState) {
-              final departmentDetails = blocState.department;
-              _departmentNameController.text = departmentDetails.name ?? '';
+            if (blocState is RegistrationListState) {
+              final RegistrationDetails = blocState.registration;
+              _registrationNameController.text =
+                  RegistrationDetails.fullName ?? '';
             }
             return SingleChildScrollView(
               child: Form(
-                key: departmentCreationFormKey,
+                key: registrationCreationFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +186,7 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                               },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              controller: _departmentNameController,
+                              controller: _registrationNameController,
                             ),
 
                             const SizedBox(height: 24),
@@ -222,15 +225,18 @@ class _EditDepartmentDialogState extends State<EditDepartmentDialog> {
                                           horizontal: sizeInfo.innerSpacing),
                                     ),
                                     onPressed: () {
-                                      if (departmentCreationFormKey
+                                      if (registrationCreationFormKey
                                           .currentState!
                                           .validate()) {
-                                        blocContext.read<DepartmentBloc>().add(
-                                              DepartmentUpdateEvent(
-                                                Department(
-                                                  id: widget.departmentData.id,
-                                                  name:
-                                                      _departmentNameController
+                                        blocContext
+                                            .read<RegistrationBloc>()
+                                            .add(
+                                              RegistrationUpdateEvent(
+                                                Registration(
+                                                  id: widget
+                                                      .registrationData.id,
+                                                  fullName:
+                                                      _registrationNameController
                                                           .text,
                                                 ),
                                               ),

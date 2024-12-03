@@ -1,7 +1,7 @@
 // 📦 Package imports:
 import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
 import 'package:vendor_registration/app/features/auth/presentation/pages/services_view.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/departments_page.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration_page.dart';
 import 'package:vendor_registration/app/features/user/presentation/pages/user_list/_unauthorised_users_list_view.dart';
 import 'package:vendor_registration/app/features/user_role/presentation/pages/user_role_list/_user_roles_list_view.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +114,7 @@ abstract class FinanceAppRoutes {
               GoRoute(
                 path: 'list-departments',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: DepartmentsListView(),
+                  child: RegistrationsListView(),
                 ),
               ),
             ],
