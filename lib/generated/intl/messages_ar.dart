@@ -1399,5 +1399,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "comments": MessageLookupByLibrary.simpleMessage("تعليقات"),
         "viewrequest": MessageLookupByLibrary.simpleMessage("عرض الطلب"),
         "newRegistration": MessageLookupByLibrary.simpleMessage("تسجيل جديد"),
+                "registerHere":MessageLookupByLibrary.simpleMessage("مستخدم جديد؟ سجل هنا"),
+              "civilId":MessageLookupByLibrary.simpleMessage("الهوية المدنية"),
+
+            "userDetails":MessageLookupByLibrary.simpleMessage("تفاصيل المستخدم"),
+             "company":MessageLookupByLibrary.simpleMessage("تفاصيل الشركة"),
+             "address":MessageLookupByLibrary.simpleMessage("تفاصيل العنوان"),
+             "others":MessageLookupByLibrary.simpleMessage("آحرون"),
+             "upload":MessageLookupByLibrary.simpleMessage("تحميل الوثيقة"),
+              "companyNameArabic":MessageLookupByLibrary.simpleMessage("اسم الشركة عربي"),
+             "companyNameEnglish":MessageLookupByLibrary.simpleMessage("اسم الشركة بالانجليزية"),
+             "fax":MessageLookupByLibrary.simpleMessage("فاكس"),
+             "website":MessageLookupByLibrary.simpleMessage("موقع إلكتروني"),
+             "postBox":MessageLookupByLibrary.simpleMessage("صندوق البريد"),
+             "postalCode":MessageLookupByLibrary.simpleMessage("رمز بريدي"),
+             "postalArea":MessageLookupByLibrary.simpleMessage("المنطقة البريدية"),
       };
 }

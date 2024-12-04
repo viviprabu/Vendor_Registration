@@ -8,17 +8,17 @@ abstract class FinanceAppColors {
   //---------------Base Colors---------------//
 
   //---------------Primary Colors---------------//
-  static const kPrimary50 = Color(0xffF4F4F4);
-  static const kPrimary100 = Color(0xFFCCD8F3); //#ccd8f3
-  static const kPrimary200 = Color(0xFFB3C4ED); //#b3c4ed
-  static const kPrimary300 = Color(0xFF99B1E7); //#99b1e7
-  static const kPrimary400 = Color(0xFF809EE1); //#809ee1
-  static const kPrimary500 = Color(0xFF678ADB); //#678adb
-  static const kPrimary600 = Color(0xFF4D77D5); //#4d77d5
-  static const kPrimary700 = Color(0xFF3463CF); //#3463cf
-  static const kPrimary800 = Color(0xFF1B50C9); //#1b50c9
-  static const kPrimary900 = Color(0xFF023DC3); //#023DC3
-  static const kPrimary1000 = Color(0xFF0A65C6); //#023DC3
+  static const kPrimary50 = Color.fromARGB(255, 250, 248, 248);
+  static const kPrimary100 = Color.fromARGB(255, 246, 246, 247); //#ccd8f3
+  static const kPrimary200 = Color.fromARGB(255, 236, 236, 236); //#b3c4ed
+  static const kPrimary300 = Color.fromARGB(255, 226, 226, 226); //#99b1e7
+  static const kPrimary400 = Color.fromARGB(255, 212, 212, 212); //#809ee1
+  static const kPrimary500 = Color.fromARGB(255, 176, 176, 177); //#678adb
+  static const kPrimary600 = Color.fromARGB(255, 191, 191, 192); //#4d77d5
+  static const kPrimary700 = Color.fromARGB(255, 127, 127, 128); //#3463cf
+  static const kPrimary800 = Color.fromARGB(255, 74, 75, 75); //#1b50c9
+  static const kPrimary900 = Color.fromARGB(255, 64, 64, 65); //#023DC3
+  static const kPrimary1000 = Color.fromARGB(255, 54, 54, 54); //#023DC3
   //---------------Primary Colors---------------//
 
   //---------------Neutral Colors---------------//

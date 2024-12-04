@@ -7,7 +7,8 @@ class RegistrationCreateModal {
   final String? mobileNumber;
   final String? civilId;
   final int? companyId;
-  final String? companyName;
+  final String? companyNameEnglish;
+  final String? companyNameArabic;
   final String? address;
   final String? phoneNumber;
   final String? fax;
@@ -39,7 +40,8 @@ class RegistrationCreateModal {
       required this.mobileNumber,
       required this.civilId,
       required this.companyId,
-      required this.companyName,
+      required this.companyNameEnglish,
+      required this.companyNameArabic,
       required this.address,
       required this.phoneNumber,
       required this.fax,
@@ -72,7 +74,8 @@ class RegistrationCreateModal {
       mobileNumber: json["mobileNumber"] ?? "",
       civilId: json["civilId"] ?? "",
       companyId: json["id"] ?? "",
-      companyName: json["companyName"] ?? "",
+      companyNameEnglish: json["companyNameEnglish"] ?? "",
+      companyNameArabic: json["companyNameArabic"] ?? "",
       address: json["address"] ?? "",
       phoneNumber: json["phoneNumber"] ?? "",
       fax: json["fax"] ?? "",
@@ -108,7 +111,8 @@ class RegistrationCreateModal {
       "mobileNumber": mobileNumber,
       "civilId": civilId,
       "companyId": companyId,
-      "companyName": companyName,
+      "companyNameEnglish": companyNameEnglish,
+      "companyNameArabic": companyNameArabic,
       "address": address,
       "phoneNumber": phoneNumber,
       "fax": fax,
@@ -142,7 +146,8 @@ class RegistrationCreateModal {
         "mobileNumber": mobileNumber,
         "civilId": civilId,
         "companyId": companyId,
-        "companyName": companyName,
+        "companyNameEnglish": companyNameEnglish,
+        "companyNameArabic": companyNameArabic,
         "address": address,
         "phoneNumber": phoneNumber,
         "fax": fax,
@@ -177,7 +182,8 @@ class RegistrationCreateModal {
       mobileNumber: registrationCreate.mobileNumber,
       civilId: registrationCreate.civilId,
       companyId: registrationCreate.companyId,
-      companyName: registrationCreate.companyName,
+      companyNameEnglish: registrationCreate.companyNameEnglish,
+      companyNameArabic: registrationCreate.companyNameArabic,
       address: registrationCreate.address,
       phoneNumber: registrationCreate.phoneNumber,
       fax: registrationCreate.fax,
@@ -212,7 +218,8 @@ class RegistrationCreateModal {
       mobileNumber: mobileNumber,
       civilId: civilId,
       companyId: companyId,
-      companyName: companyName,
+      companyNameEnglish: companyNameEnglish,
+      companyNameArabic: companyNameArabic,
       address: address,
       phoneNumber: phoneNumber,
       fax: fax,

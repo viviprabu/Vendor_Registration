@@ -2210,6 +2210,104 @@ class S {
     );
   }
 
+    
+  String get company {
+    return Intl.message(
+      'Company_Details',
+      name: 'company',
+      desc: '',
+      args: [],
+    );
+  }
+   String get userDetails {
+    return Intl.message(
+      'User Details',
+      name: 'userDetails',
+      desc: '',
+      args: [],
+    );
+  }
+   String get address {
+    return Intl.message(
+      'Address Details',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+     String get others {
+    return Intl.message(
+      'Others',
+      name: 'others',
+      desc: '',
+      args: [],
+    );
+  }
+   String get upload {
+    return Intl.message(
+      'Document Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+    String get companyNameArabic {
+    return Intl.message(
+      'Company Name Arabic',
+      name: 'companyNameArabic',
+      desc: '',
+      args: [],
+    );
+  }
+    String get companyNameEnglish {
+    return Intl.message(
+      'Company Name English',
+      name: 'companyNameEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+    String get fax {
+    return Intl.message(
+      'Fax',
+      name: 'fax',
+      desc: '',
+      args: [],
+    );
+  }
+    String get website {
+    return Intl.message(
+      'Website',
+      name: 'website',
+      desc: '',
+      args: [],
+    );
+  }
+    String get postBox {
+    return Intl.message(
+      'Post Box',
+      name: 'postBox',
+      desc: '',
+      args: [],
+    );
+  }
+    String get postalCode {
+    return Intl.message(
+      'Postal Code',
+      name: 'postalCode',
+      desc: '',
+      args: [],
+    );
+  }
+    String get postalArea {
+    return Intl.message(
+      'Postal Area',
+      name: 'postalArea',
+      desc: '',
+      args: [],
+    );
+  }
+   
   /// `UI/UX Design`
   String get uIUXDesign {
     return Intl.message(
@@ -9626,6 +9724,14 @@ class S {
       args: [],
     );
   }
+    String get civilId {
+    return Intl.message(
+      'Civil Id',
+      name: 'civilId',
+      desc: '',
+      args: [],
+    );
+  }
 
   // Enter your mobile number
   String get enterYourMobileNo {
@@ -9904,6 +10010,15 @@ class S {
     return Intl.message(
       'New Registration',
       name: 'addRegistration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get registerHere {
+    return Intl.message(
+      'new user register here',
+      name: 'registerHere',
       desc: '',
       args: [],
     );

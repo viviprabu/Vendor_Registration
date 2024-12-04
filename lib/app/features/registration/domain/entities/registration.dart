@@ -8,7 +8,8 @@ class Registration extends Equatable {
   final String? mobileNumber;
   final String? civilId;
   final int? companyId;
-  final String? companyName;
+  final String? companyNameEnglish;
+  final String? companyNameArabic;
   final String? address;
   final String? phoneNumber;
   final String? fax;
@@ -42,7 +43,8 @@ class Registration extends Equatable {
       this.mobileNumber,
       this.civilId,
       this.companyId,
-      this.companyName,
+      this.companyNameEnglish,
+      this.companyNameArabic,
       this.address,
       this.phoneNumber,
       this.fax,
@@ -76,7 +78,8 @@ class Registration extends Equatable {
         mobileNumber,
         civilId,
         companyId,
-        companyName,
+        companyNameEnglish,
+        companyNameArabic,
         address,
         phoneNumber,
         fax,

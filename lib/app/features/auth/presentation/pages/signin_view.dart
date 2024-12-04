@@ -5,6 +5,8 @@ import 'package:vendor_registration/app/core/static/_static_image.dart';
 import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vendor_registration/app/features/auth/presentation/pages/signup_view.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_personal_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/register_page_view.dart';
 import 'package:vendor_registration/app/models/_variable_model.dart';
 import 'package:vendor_registration/app/widgets/company_header/_company_header.dart';
 import 'package:vendor_registration/app/widgets/textfield_wrapper/_textfield_wrapper.dart';
@@ -124,7 +126,7 @@ class _SigninViewState extends State<SigninView> {
         if (state is AuthenticatedState) {
           //print(state.token.accessToken);
           /* context.go('/authentication/services_list', extra: userRights); */
-          context.goNamed('services');
+          context.goNamed('home');
         }
       },
       child: GestureDetector(
@@ -348,7 +350,18 @@ class _SigninViewState extends State<SigninView> {
                                               // child: const Text('Sign In'),
                                               child: Text(lang.signIn),
                                             ),
-                                          )
+                                            
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Center(child: InkWell(
+                                            child: Text(lang.registerHere),
+                                            onTap: (){
+                //                               Navigator.push(
+                // context, MaterialPageRoute(builder: (context) => RegisterForm()));
+                context.go('/authentication/register');
+                                            },
+                                          ),),
+                                          
                                         ],
                                       ),
                                     ),

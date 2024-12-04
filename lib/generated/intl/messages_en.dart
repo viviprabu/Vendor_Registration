@@ -1402,5 +1402,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewrequest": MessageLookupByLibrary.simpleMessage("View Request"),
         "newRegistration":
             MessageLookupByLibrary.simpleMessage("New Registration"),
+                    "registerHere":
+            MessageLookupByLibrary.simpleMessage("New user? register here"),
+             "civilId":MessageLookupByLibrary.simpleMessage("Civil Id"),
+             "userDetails":MessageLookupByLibrary.simpleMessage("User Details"),
+             "company":MessageLookupByLibrary.simpleMessage("Company Details"),
+             "address":MessageLookupByLibrary.simpleMessage("Address Details"),
+             "others":MessageLookupByLibrary.simpleMessage("Others"),
+             "upload":MessageLookupByLibrary.simpleMessage("Document Upload"),
+              "companyNameArabic":MessageLookupByLibrary.simpleMessage("Company Name Arabic"),
+             "companyNameEnglish":MessageLookupByLibrary.simpleMessage("Company Name English"),
+             "fax":MessageLookupByLibrary.simpleMessage("Fax"),
+             "website":MessageLookupByLibrary.simpleMessage("Website"),
+             "postBox":MessageLookupByLibrary.simpleMessage("Post Box"),
+             "postalCode":MessageLookupByLibrary.simpleMessage("Postal Code"),
+             "postalArea":MessageLookupByLibrary.simpleMessage("Postal Area"),
+            
       };
 }
