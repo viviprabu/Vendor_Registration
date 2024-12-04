@@ -49,6 +49,7 @@ final FormGroup companyDetailsForm = FormGroup({
      'postalArea': FormControl<String>(
       validators: [Validators.required],
     ),
+    
   });
 class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
   final browserDefaultFormKey = GlobalKey<FormState>();
