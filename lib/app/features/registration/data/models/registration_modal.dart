@@ -29,6 +29,7 @@ class RegistrationModal {
   final String? companyType;
   final String? tradeApprovalNumber;
   final DateTime? dateStarted;
+  final String? contactName;
   final String? companyCivilId;
   final int? documentId;
   final String? documentName;
@@ -63,6 +64,7 @@ class RegistrationModal {
       required this.companyType,
       required this.tradeApprovalNumber,
       required this.dateStarted,
+      required this.contactName,
       required this.companyCivilId,
       required this.documentId,
       required this.documentName,
@@ -98,6 +100,7 @@ class RegistrationModal {
       companyType: json["companyType"] ?? "",
       tradeApprovalNumber: json["tradeApprovalNumber"] ?? "",
       dateStarted: json["dateStarted"] ?? "",
+      contactName: json["contactName"] ?? "",
       companyCivilId: json["companyCivilId"] ?? "",
       documentId: json["id"] ?? "",
       documentName: json["documentName"] ?? "",
@@ -134,6 +137,7 @@ class RegistrationModal {
         "companyType": companyType,
         "tradeApprovalNumber": tradeApprovalNumber,
         "dateStarted": dateStarted,
+        "contactName":contactName,
         "companyCivilId": companyCivilId,
         "documentId": documentId,
         "documentName": documentName,
@@ -170,6 +174,7 @@ class RegistrationModal {
       companyType: registration.companyType,
       tradeApprovalNumber: registration.tradeApprovalNumber,
       dateStarted: registration.dateStarted,
+      contactName: registration.contactName,
       companyCivilId: registration.companyCivilId,
       documentId: registration.documentId,
       documentName: registration.documentName,
@@ -207,6 +212,7 @@ class RegistrationModal {
       companyType: companyType,
       tradeApprovalNumber: tradeApprovalNumber,
       dateStarted: dateStarted,
+      contactName: contactName,
       companyCivilId: companyCivilId,
       documentId: documentId,
       documentName: documentName,

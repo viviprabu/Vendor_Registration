@@ -29,6 +29,7 @@ class Registration extends Equatable {
   final String? companyType;
   final String? tradeApprovalNumber;
   final DateTime? dateStarted;
+    final String? contactName;
   final String? companyCivilId;
   final int? documentId;
   final String? documentName;
@@ -64,6 +65,7 @@ class Registration extends Equatable {
       this.companyType,
       this.tradeApprovalNumber,
       this.dateStarted,
+      this.contactName,
       this.companyCivilId,
       this.documentId,
       this.documentName,
@@ -99,6 +101,7 @@ class Registration extends Equatable {
         companyType,
         tradeApprovalNumber,
         dateStarted,
+        contactName,
         companyCivilId,
         documentId,
         documentName,

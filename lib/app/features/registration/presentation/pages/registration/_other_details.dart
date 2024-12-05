@@ -13,45 +13,34 @@ import 'package:vendor_registration/app/widgets/shadow_container/_shadow_contain
 import '../../../../../../generated/l10n.dart' as l;
 
 
-class CompanyDetailsForm extends StatefulWidget {
-  const CompanyDetailsForm({super.key});
+class OtherDetailsForm extends StatefulWidget {
+  const OtherDetailsForm({super.key});
 
   @override
-  State<CompanyDetailsForm> createState() => _CompanyDetailsFormState();
+  State<OtherDetailsForm> createState() => _OtherDetailsFormState();
   
 }
 
-final FormGroup companyDetailsForm = FormGroup({
-    'companyNameArabic': FormControl<String>(
+final FormGroup otherDetailsForm = FormGroup({
+    'companyType': FormControl<String>(
       validators: [Validators.required],
     ),
-    'companyNameEnglish': FormControl<String>(
+    'tradeApprovalNumber': FormControl<String>(
       validators: [Validators.required],
     ),
-    'address': FormControl<String>(
+    'dateStarted': FormControl<String>(
       validators: [Validators.required],
     ),
-    'phoneNumber': FormControl<String>(
+    'contactName': FormControl<String>(
       validators: [Validators.required],
     ),
-    'fax': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'website': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postBox': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postalCode': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postalArea': FormControl<String>(
+    'companyCivilId': FormControl<String>(
       validators: [Validators.required],
     ),
     
+    
   });
-class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
+class _OtherDetailsFormState extends State<OtherDetailsForm> {
   final browserDefaultFormKey = GlobalKey<FormState>();
   bool isBrowserDefaultChecked = false;
 
@@ -92,7 +81,7 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
             key: browserDefaultFormKey,
             child: ShadowContainer(
               //headerText: 'Browser Defaults',
-              headerText: lang.company,
+              headerText: lang.others,
               child: ResponsiveGridRow(
                 children: [
                   // First Name
@@ -102,19 +91,18 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: otherDetailsForm, 
                         child: Column(
                           children: [
-                            ReactiveTextField<String>(                           
-                formControlName: 'companyNameArabic',
+                            ReactiveTextField<String>(
+                formControlName: 'companyType',
                 decoration: InputDecoration(
-                  labelText: lang.companyNameArabic,
-                  // labelStyle: TextStyle(fontSize: 10),
+                  labelText: lang.companyType,
                   border: OutlineInputBorder(),
                 ),
               ),
                           ],
-                        )),                    
+                        )),                     
                     ),
                   ),
 
@@ -125,19 +113,18 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                         child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: otherDetailsForm, 
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'companyNameEnglish',
+                formControlName: 'tradeApprovalNumber',
                 decoration: InputDecoration(
-                  labelText: lang.companyNameEnglish,
+                  labelText: lang.tradeApprovalNumber,
                   border: OutlineInputBorder(),
                 ),
               ),
                           ],
-                        )),
-                     
+                        )),                      
                     ),
                   ),
                     ResponsiveGridCol(
@@ -146,13 +133,13 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                         child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: otherDetailsForm, 
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'address',
+                formControlName: 'dateStarted',
                 decoration: InputDecoration(
-                  labelText: lang.address,
+                  labelText: lang.dateStarted,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -168,13 +155,13 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                         child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: otherDetailsForm, 
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'phoneNumber',
+                formControlName: 'contactName',
                 decoration: InputDecoration(
-                  labelText: lang.phoneNumber,
+                  labelText: lang.contactName,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -191,13 +178,13 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                         child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: otherDetailsForm, 
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'fax',
+                formControlName: 'companyCivilId',
                 decoration: InputDecoration(
-                  labelText: lang.fax,
+                  labelText: lang.companyCivilId,
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -208,128 +195,13 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                     ),
                     
                   ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'website',
-                decoration: InputDecoration(
-                  labelText: lang.website,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postBox',
-                decoration: InputDecoration(
-                  labelText: lang.postBox,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postalCode',
-                decoration: InputDecoration(
-                  labelText: lang.postalCode,
-                  border: OutlineInputBorder(),
-                ),
-              ),              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                 ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postalArea',
-                decoration: InputDecoration(
-                  labelText: lang.postalArea,
-                  border: OutlineInputBorder(),
-                ),
-              ),              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-
-                  // City Dropdown
                   
-
-                  // Check Box
-                  // ResponsiveGridCol(
-                  //   lg: 12,
-                  //   md: 12,
-                  //   child: Align(
-                  //     alignment: Alignment.centerLeft,
-                      
-                  //     child: FinanceCheckBoxFormField(
-                  //       // title: const Text('Agree to terms and conditions'),
-                  //       title: Text(lang.agreeToTermsAndConditions),
-                  //       validator: (value) {
-                  //         if (value == null || !value) {
-                  //           //return 'Please check this box to continue';
-                  //           return lang.pleaseCheckThisBoxToContinue;
-                  //         }
-                  //         return null;
-                         
-                  //       },
-                  //       autovalidateMode: AutovalidateMode.onUserInteraction,
-                  //     ),
-                  //   ),
-                  // ),
                   ResponsiveGridCol(child: Text('')),
-             
   
                   // Save Form Button
                   
-                  ResponsiveGridCol(                    
+                  ResponsiveGridCol(
+                    
                     lg: 2,
                     md: 3,
                     xl: 2,
@@ -342,19 +214,19 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                           //     true) {
                           //   browserDefaultFormKey.currentState?.save();
                           // }
-                          if (companyDetailsForm.valid) {
-                    print('Form Value: ${companyDetailsForm.value}');
+                          if (otherDetailsForm.valid) {
+                    print('Form Value: ${otherDetailsForm.value}');
                   } else {
-                    companyDetailsForm.markAllAsTouched();
+                    otherDetailsForm.markAllAsTouched();
                   }
                         },
                         //child: const Text('Save From'),
                         label: Text(lang.previous),
-                        
                       ),
                     ),
                   ),
-                  ResponsiveGridCol(                    
+                  ResponsiveGridCol(
+                    
                     lg: 2,
                     md: 3,
                     xl: 2,
@@ -367,10 +239,10 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                           //     true) {
                           //   browserDefaultFormKey.currentState?.save();
                           // }
-                          if (companyDetailsForm.valid) {
-                    print('Form Value: ${companyDetailsForm.value}');
+                          if (otherDetailsForm.valid) {
+                    print('Form Value: ${otherDetailsForm.value}');
                   } else {
-                    companyDetailsForm.markAllAsTouched();
+                    otherDetailsForm.markAllAsTouched();
                   }
                         },
                         //child: const Text('Save From'),

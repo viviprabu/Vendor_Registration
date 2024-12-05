@@ -1,11 +1,15 @@
 // 🐦 Flutter imports:
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:reactive_file_picker/reactive_file_picker.dart';
 
 // 📦 Package imports:
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
+import 'package:vendor_registration/app/core/theme/theme.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 
@@ -13,45 +17,26 @@ import 'package:vendor_registration/app/widgets/shadow_container/_shadow_contain
 import '../../../../../../generated/l10n.dart' as l;
 
 
-class CompanyDetailsForm extends StatefulWidget {
-  const CompanyDetailsForm({super.key});
+class DocumentUploadForm extends StatefulWidget {
+  const DocumentUploadForm({super.key});
 
   @override
-  State<CompanyDetailsForm> createState() => _CompanyDetailsFormState();
+  State<DocumentUploadForm> createState() => _DocumentUploadFormState();
   
 }
 
-final FormGroup companyDetailsForm = FormGroup({
-    'companyNameArabic': FormControl<String>(
+final FormGroup documentUploadForm = FormGroup({
+    'documentName': FormControl<String>(
       validators: [Validators.required],
     ),
-    'companyNameEnglish': FormControl<String>(
+    'expireDate': FormControl<String>(
       validators: [Validators.required],
     ),
-    'address': FormControl<String>(
-      validators: [Validators.required],
-    ),
-    'phoneNumber': FormControl<String>(
-      validators: [Validators.required],
-    ),
-    'fax': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'website': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postBox': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postalCode': FormControl<String>(
-      validators: [Validators.required],
-    ),
-     'postalArea': FormControl<String>(
-      validators: [Validators.required],
-    ),
+   
+    
     
   });
-class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
+class _DocumentUploadFormState extends State<DocumentUploadForm> {
   final browserDefaultFormKey = GlobalKey<FormState>();
   bool isBrowserDefaultChecked = false;
 
@@ -92,244 +77,92 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
             key: browserDefaultFormKey,
             child: ShadowContainer(
               //headerText: 'Browser Defaults',
-              headerText: lang.company,
+              headerText: lang.upload,
               child: ResponsiveGridRow(
                 children: [
                   // First Name
                   ResponsiveGridCol(
-                    lg: lg + 2,
+                    lg: lg+2,
                     md: md,
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: documentUploadForm, 
                         child: Column(
                           children: [
-                            ReactiveTextField<String>(                           
-                formControlName: 'companyNameArabic',
+                             ReactiveTextField<String>(
+                formControlName: 'documentName',
                 decoration: InputDecoration(
-                  labelText: lang.companyNameArabic,
-                  // labelStyle: TextStyle(fontSize: 10),
-                  border: OutlineInputBorder(),
+                  labelText: lang.documentName,
+                  border: const OutlineInputBorder(),
                 ),
               ),
+              // const SizedBox(width: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if (documentUploadForm.valid) {
+                    
+                    documentUploadForm.control('documentName').value = result;
+                    print('Uploaded file path: $result');
+                  } else {
+                    documentUploadForm.markAllAsTouched();
+                  }
+                },
+                child: const Text('Browse'),
+              ),             
                           ],
-                        )),                    
+                        )),                     
                     ),
                   ),
 
                   // Last Name
                   ResponsiveGridCol(
-                    lg: lg + 2,
+                    lg: lg+2,
                     md: md,
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                         child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
+                        formGroup: documentUploadForm, 
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'companyNameEnglish',
+                formControlName: 'expireDate',
                 decoration: InputDecoration(
-                  labelText: lang.companyNameEnglish,
+                  labelText: lang.expireDate,
                   border: OutlineInputBorder(),
                 ),
               ),
+               IconButton.filled(onPressed: () {  }, icon: Icon(Icons.add)),
                           ],
-                        )),
-                     
-                    ),
-                  ),
-                    ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'address',
-                decoration: InputDecoration(
-                  labelText: lang.address,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-                          ],
-                        )),
-                     
-                    ),
-                  ),
-                  // Country Dropdown
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'phoneNumber',
-                decoration: InputDecoration(
-                  labelText: lang.phoneNumber,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
-                    ),
-                  ),
 
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'fax',
-                decoration: InputDecoration(
-                  labelText: lang.fax,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
+                        )
+                        ),                      
                     ),
-                    
                   ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'website',
-                decoration: InputDecoration(
-                  labelText: lang.website,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postBox',
-                decoration: InputDecoration(
-                  labelText: lang.postBox,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                  ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postalCode',
-                decoration: InputDecoration(
-                  labelText: lang.postalCode,
-                  border: OutlineInputBorder(),
-                ),
-              ),              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-                 ResponsiveGridCol(
-                    lg: lg + 2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: companyDetailsForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'postalArea',
-                decoration: InputDecoration(
-                  labelText: lang.postalArea,
-                  border: OutlineInputBorder(),
-                ),
-              ),              
-                          ],
-                        )),
-                     
-                    ),
-                    
-                  ),
-
-                  // City Dropdown
+              //       ResponsiveGridCol(
+              //       lg: lg,
+              //       md: md,
+              //       child: Padding(
+              //         padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+              //           child: ReactiveForm(
+              //           formGroup: documentUploadForm, 
+              //           child: Column(
+              //             children: [
+              //               IconButton.filled(onPressed: () {  }, icon: Icon(Icons.add),
+                 
+              // ),
+              //             ],
+              //           )),                      
+              //       ),
+              //     ),
                   
-
-                  // Check Box
-                  // ResponsiveGridCol(
-                  //   lg: 12,
-                  //   md: 12,
-                  //   child: Align(
-                  //     alignment: Alignment.centerLeft,
-                      
-                  //     child: FinanceCheckBoxFormField(
-                  //       // title: const Text('Agree to terms and conditions'),
-                  //       title: Text(lang.agreeToTermsAndConditions),
-                  //       validator: (value) {
-                  //         if (value == null || !value) {
-                  //           //return 'Please check this box to continue';
-                  //           return lang.pleaseCheckThisBoxToContinue;
-                  //         }
-                  //         return null;
-                         
-                  //       },
-                  //       autovalidateMode: AutovalidateMode.onUserInteraction,
-                  //     ),
-                  //   ),
-                  // ),
                   ResponsiveGridCol(child: Text('')),
-             
   
                   // Save Form Button
                   
-                  ResponsiveGridCol(                    
+                  ResponsiveGridCol(
+                    
                     lg: 2,
                     md: 3,
                     xl: 2,
@@ -342,39 +175,39 @@ class _CompanyDetailsFormState extends State<CompanyDetailsForm> {
                           //     true) {
                           //   browserDefaultFormKey.currentState?.save();
                           // }
-                          if (companyDetailsForm.valid) {
-                    print('Form Value: ${companyDetailsForm.value}');
+                          if (documentUploadForm.valid) {
+                    print('Form Value: ${documentUploadForm.value}');
                   } else {
-                    companyDetailsForm.markAllAsTouched();
+                    documentUploadForm.markAllAsTouched();
                   }
                         },
                         //child: const Text('Save From'),
                         label: Text(lang.previous),
-                        
                       ),
                     ),
                   ),
-                  ResponsiveGridCol(                    
+                  ResponsiveGridCol(
+                    
                     lg: 2,
                     md: 3,
                     xl: 2,
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.arrow_forward_rounded,size: 17,),
+                        icon: Icon(Icons.save_rounded,size: 17,),
                         onPressed: () {
                           // if (browserDefaultFormKey.currentState?.validate() ==
                           //     true) {
                           //   browserDefaultFormKey.currentState?.save();
                           // }
-                          if (companyDetailsForm.valid) {
-                    print('Form Value: ${companyDetailsForm.value}');
+                          if (documentUploadForm.valid) {
+                    print('Form Value: ${documentUploadForm.value}');
                   } else {
-                    companyDetailsForm.markAllAsTouched();
+                    documentUploadForm.markAllAsTouched();
                   }
                         },
                         //child: const Text('Save From'),
-                        label: Text(lang.next),
+                        label: Text(lang.save),
                       ),
                     ),
                   ),

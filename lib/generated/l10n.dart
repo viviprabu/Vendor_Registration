@@ -2245,7 +2245,7 @@ class S {
   }
    String get upload {
     return Intl.message(
-      'Document Upload',
+      'Upload',
       name: 'upload',
       desc: '',
       args: [],
@@ -2263,6 +2263,102 @@ class S {
     return Intl.message(
       'Company Name English',
       name: 'companyNameEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+      String get governorate {
+    return Intl.message(
+      'Governorate',
+      name: 'governorate',
+      desc: '',
+      args: [],
+    );
+  }
+        String get area {
+    return Intl.message(
+      'Area',
+      name: 'area',
+      desc: '',
+      args: [],
+    );
+  }
+      String get block {
+    return Intl.message(
+      'Block',
+      name: 'block',
+      desc: '',
+      args: [],
+    );
+  }
+        String get building {
+    return Intl.message(
+      'Building',
+      name: 'building',
+      desc: '',
+      args: [],
+    );
+  }
+        String get street {
+    return Intl.message(
+      'Street',
+      name: 'street',
+      desc: '',
+      args: [],
+    );
+  }
+        String get floor {
+    return Intl.message(
+      'Floor',
+      name: 'floor',
+      desc: '',
+      args: [],
+    );
+  }
+        String get office {
+    return Intl.message(
+      'Office',
+      name: 'office',
+      desc: '',
+      args: [],
+    );
+  }
+        String get paci {
+    return Intl.message(
+      'PACI',
+      name: 'paci',
+      desc: '',
+      args: [],
+    );
+  }
+        String get companyType {
+    return Intl.message(
+      'Company Type',
+      name: 'company Type',
+      desc: '',
+      args: [],
+    );
+  }
+        String get tradeApprovalNumber {
+    return Intl.message(
+      'Trade Approval Number',
+      name: 'tradeApprovalNumber',
+      desc: '',
+      args: [],
+    );
+  }
+        String get dateStarted {
+    return Intl.message(
+      'Date Started',
+      name: 'dateStarted',
+      desc: '',
+      args: [],
+    );
+  }
+        String get companyCivilId{
+    return Intl.message(
+      'Company Civil Id',
+      name: 'companyCivilId',
       desc: '',
       args: [],
     );
@@ -10019,6 +10115,22 @@ class S {
     return Intl.message(
       'new user register here',
       name: 'registerHere',
+      desc: '',
+      args: [],
+    );
+  }
+    String get contactName {
+    return Intl.message(
+      'Contact Name',
+      name: 'contactName',
+      desc: '',
+      args: [],
+    );
+  }
+   String get expireDate {
+    return Intl.message(
+      'Expire Date',
+      name: 'expireDate',
       desc: '',
       args: [],
     );
