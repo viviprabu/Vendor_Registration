@@ -9,6 +9,7 @@ import 'package:vendor_registration/app/features/registration/presentation/pages
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_other_details.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_personal_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/upload.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 // 🌎 Project imports:

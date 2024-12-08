@@ -21,6 +21,43 @@ class AddressDetailsForm extends StatefulWidget {
   
 }
 
+
+// final Map<String, List<String>> options = {
+//     'Ahmadi Governorate': ['Abu Halifa', 'Abdullah Port'],
+//     'Al-Asimah Governorate': ['Abdulla Al-Salem', 'Adailiya'],
+//     'Farwaniya Governorate': ['Abdullah Al-Mubarak', 'Andalous'],
+//     'Hawalli Governorate': ['Bayān', 'Hawally'],
+//     'Jahra Governorate': ['Abdali', 'Jahra'],
+//     'Mubarak Al-Kabeer Governorate': ['Abu Al Hasaniya', 'Abu Futaira',],
+//   };
+
+final Map<String, List<DropdownMenuItem<String>>> governorateToArea = {
+    '1': [
+      DropdownMenuItem(value: 'Abu Halifa', child: Text('Abu Halifa')),
+      DropdownMenuItem(value: 'Abdullah Port', child: Text('Abdullah Port')),
+    ],
+    '2': [
+      DropdownMenuItem(value: 'Abdulla Al-Salem', child: Text('Abdulla Al-Salem')),
+      DropdownMenuItem(value: 'Adailiya', child: Text('Adailiya')),
+    ],
+    '3': [
+      DropdownMenuItem(value: 'Abdullah Al-Mubarak', child: Text('Abdullah Al-Mubarak')),
+      DropdownMenuItem(value: 'Andalous', child: Text('Andalous')),
+    ],
+    '4': [
+      DropdownMenuItem(value: 'Bayān', child: Text('Bayān')),
+      DropdownMenuItem(value: 'Hawally', child: Text('Hawally')),
+    ],
+    '5': [
+      DropdownMenuItem(value: 'Abdali', child: Text('Abdali')),
+      DropdownMenuItem(value: 'Jahra', child: Text('Jahra')),
+    ],
+    '6': [
+      DropdownMenuItem(value: 'Abu Al Hasaniya', child: Text('Abu Al Hasaniya')),
+      DropdownMenuItem(value: 'Abu Futaira', child: Text('Abu Futaira')),
+    ],
+  };
+  String? selected = null;
 final FormGroup addressDetailsForm = FormGroup({
     'country': FormControl<String>(
       validators: [Validators.required],
@@ -129,14 +166,12 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
             children: [
               
               ReactiveDropdownField<String>(
-                onChanged: (control) {
-                  var selected = control.value;
-                },
+                
                 formControlName: 'governorate',
                 decoration: InputDecoration(
                   labelText: lang.governorate,
                   border: const OutlineInputBorder(),
-                ),
+                ),                
                 items: [
                   DropdownMenuItem(value: '1', child: Text('Ahmadi Governorate')),
                   DropdownMenuItem(value: '2', child: Text('Al-Asimah Governorate')),
@@ -146,6 +181,13 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
                   DropdownMenuItem(value: '6', child: Text('Mubarak Al-Kabeer Governorate')),
             
                 ],
+                onChanged: (control) {
+             
+                     setState(() {
+                           selected = control.value;
+                    addressDetailsForm.control('area').reset(); // Reset the area field
+                  });
+                },
               ),
             ],),             
                         ),
@@ -169,21 +211,14 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
                   labelText: lang.area,
                   border: const OutlineInputBorder(),
                 ),
-                items: [
-                  DropdownMenuItem(value: '1', child: Text('Abu Halifa')),
-                  DropdownMenuItem(value: '1', child: Text('Abdullah Port')),
-                  DropdownMenuItem(value: '2', child: Text('Abdulla Al-Salem')),
-                  DropdownMenuItem(value: '2', child: Text('Adailiya')),
-                  DropdownMenuItem(value: '3', child: Text('Abdullah Al-Mubarak')),
-                  DropdownMenuItem(value: '3', child: Text('Andalous')),
-                  DropdownMenuItem(value: '4', child: Text('Bayān')),
-                  DropdownMenuItem(value: '4', child: Text('Hawally')),
-                  DropdownMenuItem(value: '5', child: Text('Abdali')),
-                  DropdownMenuItem(value: '5', child: Text('Jahra')),
-                  DropdownMenuItem(value: '6', child: Text('Abu Al Hasaniya')),
-                  DropdownMenuItem(value: '6', child: Text('Abu Futaira')),
+                items: addressDetailsForm.control('governorate').value != null
+                    ? governorateToArea[addressDetailsForm.control('governorate').value] ?? []
+                    : [],
+                validationMessages: {
+                  ValidationMessage.required: (_) => 'Please select an area',
+                },
             
-                ],
+                
               ),
             ],),     
                         ),

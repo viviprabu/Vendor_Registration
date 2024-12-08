@@ -9,35 +9,44 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
-import 'package:vendor_registration/app/core/theme/theme.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
+
 
 
 // 🌎 Project imports:
 import '../../../../../../generated/l10n.dart' as l;
 
-
+final browserDefaultFormKey = GlobalKey<FormState>();
 class DocumentUploadForm extends StatefulWidget {
   const DocumentUploadForm({super.key});
 
   @override
-  State<DocumentUploadForm> createState() => _DocumentUploadFormState();
+  State<DocumentUploadForm> createState() => _DocumentUploadFormState();  
   
 }
 
-final FormGroup documentUploadForm = FormGroup({
+
+
+  
+class _DocumentUploadFormState extends State<DocumentUploadForm> {
+  final FormGroup documentUploadForm = FormGroup({
     'documentName': FormControl<String>(
       validators: [Validators.required],
     ),
     'expireDate': FormControl<String>(
       validators: [Validators.required],
     ),
-   
-    
-    
   });
-class _DocumentUploadFormState extends State<DocumentUploadForm> {
-  final browserDefaultFormKey = GlobalKey<FormState>();
+  final List<String> dynamicFields = ['documentName','expireDate'];
+ List<Widget> _widgetList = [];
+   List<TextEditingController> controllers = [];
+
+   void addUpload() {
+    setState(() {
+      controllers.add(TextEditingController());
+    });
+  }
+  
   bool isBrowserDefaultChecked = false;
 
   final customFormKey = GlobalKey<FormState>();
@@ -68,411 +77,327 @@ class _DocumentUploadFormState extends State<DocumentUploadForm> {
       defaultValue: const _SizeInfo(),
     ).value;
 
-    return Scaffold(
-      body: ListView(
-        padding: sizeInfo.padding,
-        children: [
-          // Browser Default Form
-          Form(
-            key: browserDefaultFormKey,
-            child: ShadowContainer(
-              //headerText: 'Browser Defaults',
-              headerText: lang.upload,
-              child: ResponsiveGridRow(
+return Scaffold(
+
+  body: Column(
+    children: [
+      Expanded(
+        child: ListView(
+          shrinkWrap: true,
+            padding: sizeInfo.padding,
+            children: [
+              // Browser Default Form
+              Form(
+                key: browserDefaultFormKey,
+                child: ShadowContainer(
+                  //headerText: 'Browser Defaults',
+                  headerText: lang.address,
+                  child: ResponsiveGridRow(
+                    children: [
+                      // First Name
+                      ResponsiveGridCol(
+                        child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // First Name
-                  ResponsiveGridCol(
-                    lg: lg+2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                      child: ReactiveForm(
-                        formGroup: documentUploadForm, 
-                        child: Column(
-                          children: [
-                             ReactiveTextField<String>(
-                formControlName: 'documentName',
-                decoration: InputDecoration(
-                  labelText: lang.documentName,
-                  border: const OutlineInputBorder(),
+                  ElevatedButton(
+                    onPressed: addUpload,
+                    child: Text('Add Upload'),
+                  ),
+                  SizedBox(height: 20),
+                  // Dynamically generated TextFields
+                  Column(
+                    children: controllers
+                        .map((controller) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Column(
+                                children: [
+                                  ReactiveForm(
+            formGroup: documentUploadForm,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                
+                 Row(
+                    children: [
+                      // Left section (taking 50% of the space)
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          color: Colors.transparent,
+                          child: ReactiveTextField<String>(
+                  formControlName: 'documentName',
+                  decoration: InputDecoration(
+                    labelText: lang.documentName,
+                    border: const OutlineInputBorder(),
+                    suffixIcon: ElevatedButton(
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles();
+                    if (result != null && documentUploadForm.valid) {
+                      documentUploadForm.control('documentName').value = result.files.single.name;
+                      print('Uploaded file path: ${result.files.single.path}');
+                    } else {
+                      documentUploadForm.markAllAsTouched();
+                    }
+                  },
+                  child: const Text('Browse'),
                 ),
-              ),
-              // const SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  FilePickerResult? result = await FilePicker.platform.pickFiles();
-                  if (documentUploadForm.valid) {
-                    
-                    documentUploadForm.control('documentName').value = result;
-                    print('Uploaded file path: $result');
-                  } else {
-                    documentUploadForm.markAllAsTouched();
-                  }
-                },
-                child: const Text('Browse'),
-              ),             
-                          ],
-                        )),                     
-                    ),
                   ),
-
-                  // Last Name
-                  ResponsiveGridCol(
-                    lg: lg+2,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                        child: ReactiveForm(
-                        formGroup: documentUploadForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                formControlName: 'expireDate',
-                decoration: InputDecoration(
-                  labelText: lang.expireDate,
-                  border: OutlineInputBorder(),
                 ),
-              ),
-               IconButton.filled(onPressed: () {  }, icon: Icon(Icons.add)),
-                          ],
-
-                        )
-                        ),                      
-                    ),
-                  ),
-              //       ResponsiveGridCol(
-              //       lg: lg,
-              //       md: md,
-              //       child: Padding(
-              //         padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-              //           child: ReactiveForm(
-              //           formGroup: documentUploadForm, 
-              //           child: Column(
-              //             children: [
-              //               IconButton.filled(onPressed: () {  }, icon: Icon(Icons.add),
-                 
-              // ),
-              //             ],
-              //           )),                      
-              //       ),
-              //     ),
-                  
-                  ResponsiveGridCol(child: Text('')),
-  
-                  // Save Form Button
-                  
-                  ResponsiveGridCol(
-                    
-                    lg: 2,
-                    md: 3,
-                    xl: 2,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.arrow_back_rounded,size: 17,),
-                        onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (documentUploadForm.valid) {
-                    print('Form Value: ${documentUploadForm.value}');
-                  } else {
-                    documentUploadForm.markAllAsTouched();
-                  }
-                        },
-                        //child: const Text('Save From'),
-                        label: Text(lang.previous),
+                        ),
                       ),
-                    ),
+                      
+                      SizedBox(width: 16), // Space between the two columns
+                      
+                      // Right section (taking 50% of the space)
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          color: Colors.transparent,
+                          child: ReactiveForm(
+            formGroup: documentUploadForm,
+            child: Column(
+              children: [
+                ReactiveTextField<String>(
+                  formControlName: 'expireDate',
+                  decoration: InputDecoration(
+                    labelText: lang.expireDate,
+                    border: OutlineInputBorder(),
+                    suffixIcon: ElevatedButton(
+                  onPressed: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                    ).then((pickedDate) {
+                      if (pickedDate != null) {
+                        documentUploadForm.control('expireDate').value = pickedDate.toString();
+                      }
+                    });
+                  },
+                child: Icon(Icons.calendar_month, color: Colors.white,),
+                ),
                   ),
-                  ResponsiveGridCol(
-                    
-                    lg: 2,
-                    md: 3,
-                    xl: 2,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.save_rounded,size: 17,),
-                        onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (documentUploadForm.valid) {
-                    print('Form Value: ${documentUploadForm.value}');
-                  } else {
-                    documentUploadForm.markAllAsTouched();
-                  }
-                        },
-                        //child: const Text('Save From'),
-                        label: Text(lang.save),
+                ),
+                
+              ],
+            ),
+                ),
+                        ),
                       ),
-                    ),
+                     
+                    ],
                   ),
-                  
-                  
+                
+              ],
+            ),
+                ),
+                                ],
+                              ),
+                             
+                            ))
+                        .toList(),
+                  ),
                 ],
               ),
             ),
+          ),              
+      
+                     
+                      
+      
+                      // Save Form Button
+                      
+                      
+                      
+                      
+                    ],
+                    
+                  ),
+                  
+                ),
+              ),         
+              
+            ],
+            
           ),
-          SizedBox(height: sizeInfo.innerSpacing),
-
-          // Custom Form
-          // Form(
-          //   key: customFormKey,
-          //   child: ShadowContainer(
-          //     // headerText: 'Custom Styles',
-          //     headerText: lang.customStyles,
-          //     child: ResponsiveGridRow(
-          //       children: [
-          //         // First Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'First Name',
-          //               labelText: lang.firstName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your first name',
-          //                   hintText: lang.enterYourFirstName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your first name';
-          //                     return lang.pleaseEnterYourFirstName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Last Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'Last Name',
-          //               labelText: lang.lastName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your last name',
-          //                   hintText: lang.enterYourLastName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your last name';
-          //                     return lang.pleaseEnterYourLastName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Country Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'Country',
-          //               labelText: lang.country,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select Country'),
-          //                 hint: Text(lang.selectCountry),
-          //                 items: [
-          //                   "Canada",
-          //                   "Brazil",
-          //                   "Germany",
-          //                   "Australia",
-          //                   "Japan",
-          //                   "India",
-          //                   "South Africa",
-          //                   "Mexico",
-          //                   "France",
-          //                   "South Korea"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your country';
-          //                     return lang.pleaseSelectYourCountry;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // City Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'City',
-          //               labelText: lang.city,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 //hint: const Text('Select City'),
-          //                 hint: Text(lang.selectCity),
-          //                 items: [
-          //                   "Toronto",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "Sydney",
-          //                   "Tokyo",
-          //                   "Mumbai",
-          //                   "Cape Town",
-          //                   "Mexico City",
-          //                   "Paris",
-          //                   "Seoul"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     //return 'Please select your city';
-          //                     return lang.pleaseSelectYourCity;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // State Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'State',
-          //               labelText: lang.state,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select State'),
-          //                 hint: Text(lang.selectState),
-          //                 items: [
-          //                   "Ontario",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "New South Wales",
-          //                   "Tokyo Metropolis",
-          //                   "Maharashtra",
-          //                   "Western Cape",
-          //                   "Mexico City",
-          //                   "Île-de-France",
-          //                   "Seoul Capital Area"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your state';
-          //                     return lang.pleaseSelectYourState;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Check Box
-          //         ResponsiveGridCol(
-          //           lg: 12,
-          //           md: 12,
-          //           child: Align(
-          //             alignment: Alignment.centerLeft,
-          //             child: FinanceCheckBoxFormField(
-          //               // title: const Text('Agree to terms and conditions'),
-          //               title: Text(lang.agreeToTermsAndConditions),
-          //               validator: (value) {
-          //                 if (value == null || !value) {
-          //                   // return 'Please check this box to continue';
-          //                   return lang.pleaseCheckThisBoxToContinue;
-          //                 }
-          //                 return null;
-          //               },
-          //               autovalidateMode: AutovalidateMode.onUserInteraction,
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Save Form Button
-          //         ResponsiveGridCol(
-          //           lg: 2,
-          //           md: 3,
-          //           xl: 2,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: ElevatedButton(
-          //               onPressed: () {
-          //                 if (customFormKey.currentState?.validate() == true) {
-          //                   customFormKey.currentState?.save();
-          //                 }
-          //               },
-          //               //child: const Text('Save From'),
-          //               child: Text(lang.saveFrom),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
-        ],
       ),
+      Expanded(
+        child: 
+        Row(
+          children: [
+            ResponsiveGridCol(
+                        
+                        lg: 2,
+                        md: 3,
+                        xl: 2,
+                        child: Padding(
+                          padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                          child: ElevatedButton.icon(
+                             icon: Icon(Icons.arrow_back_rounded,size: 17,),
+                            onPressed: () {
+                              // if (browserDefaultFormKey.currentState?.validate() ==
+                              //     true) {
+                              //   browserDefaultFormKey.currentState?.save();
+                              // }
+                              if (documentUploadForm.valid) {
+                        print('Form Value: ${documentUploadForm.value}');
+                      } else {
+                        documentUploadForm.markAllAsTouched();
+                      }
+                            },
+                            //child: const Text('Save From'),
+                            label: Text(lang.previous),
+                          ),
+                        ),
+                      ),
+                      ResponsiveGridCol(
+                        
+                        lg: 2,
+                        md: 3,
+                        xl: 2,
+                        child: Padding(
+                          padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                          child: ElevatedButton.icon(
+                             icon: Icon(Icons.save_alt_rounded,size: 17,),
+                            onPressed: () {
+                              // if (browserDefaultFormKey.currentState?.validate() ==
+                              //     true) {
+                              //   browserDefaultFormKey.currentState?.save();
+                              // }
+                              if (documentUploadForm.valid) {
+                        // print('Form Value: ${documentUploadForm.value}');
+                      } else {
+                        documentUploadForm.markAllAsTouched();
+                      }
+                            },
+                            //child: const Text('Save From'),
+                            label: Text(lang.submit),
+                          ),
+                        ),
+                      ),
+          ],
+        )
+        ),
+    ],
+  ),
+    
+      // body: SingleChildScrollView(
+      //   scrollDirection: Axis.vertical,
+      //   child: Padding(
+      //     padding: EdgeInsets.all(16.0),
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         ElevatedButton(
+      //           onPressed: addTextField,
+      //           child: Text('Add TextField'),
+      //         ),
+      //         SizedBox(height: 20),
+      //         // Dynamically generated TextFields
+      //         Column(
+      //           children: controllers
+      //               .map((controller) => Padding(
+      //                     padding: const EdgeInsets.symmetric(vertical: 8.0),
+      //                     child: Column(
+      //                       children: [
+      //                         ReactiveForm(
+      //   formGroup: documentUploadForm,
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+            
+      //        Row(
+      //           children: [
+      //             // Left section (taking 50% of the space)
+      //             Expanded(
+      //               flex: 5,
+      //               child: Container(
+      //                 padding: EdgeInsets.all(8),
+      //                 color: Colors.transparent,
+      //                 child: ReactiveTextField<String>(
+      //         formControlName: 'documentName',
+      //         decoration: InputDecoration(
+      //           labelText: lang.documentName,
+      //           border: const OutlineInputBorder(),
+      //           suffixIcon: ElevatedButton(
+      //         onPressed: () async {
+      //           FilePickerResult? result = await FilePicker.platform.pickFiles();
+      //           if (result != null && documentUploadForm.valid) {
+      //             documentUploadForm.control('documentName').value = result.files.single.name;
+      //             print('Uploaded file path: ${result.files.single.path}');
+      //           } else {
+      //             documentUploadForm.markAllAsTouched();
+      //           }
+      //         },
+      //         child: const Text('Browse'),
+      //       ),
+      //         ),
+      //       ),
+      //               ),
+      //             ),
+                  
+      //             SizedBox(width: 16), // Space between the two columns
+                  
+      //             // Right section (taking 50% of the space)
+      //             Expanded(
+      //               flex: 5,
+      //               child: Container(
+      //                 padding: EdgeInsets.all(8),
+      //                 color: Colors.transparent,
+      //                 child: ReactiveForm(
+      //   formGroup: documentUploadForm,
+      //   child: Column(
+      //     children: [
+      //       ReactiveTextField<String>(
+      //         formControlName: 'expireDate',
+      //         decoration: InputDecoration(
+      //           labelText: lang.expireDate,
+      //           border: OutlineInputBorder(),
+      //           suffixIcon: ElevatedButton(
+      //         onPressed: () {
+      //           showDatePicker(
+      //             context: context,
+      //             initialDate: DateTime.now(),
+      //             firstDate: DateTime(2000),
+      //             lastDate: DateTime(2100),
+      //           ).then((pickedDate) {
+      //             if (pickedDate != null) {
+      //               documentUploadForm.control('expireDate').value = pickedDate.toString();
+      //             }
+      //           });
+      //         },
+      //       child: Icon(Icons.calendar_month, color: Colors.white,),
+      //       ),
+      //         ),
+      //       ),
+            
+      //     ],
+      //   ),
+      //       ),
+      //               ),
+      //             ),
+                 
+      //           ],
+      //         ),
+            
+      //     ],
+      //   ),
+      //       ),
+      //                       ],
+      //                     ),
+                         
+      //                   ))
+      //               .toList(),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
@@ -487,3 +412,5 @@ class _SizeInfo {
     this.innerSpacing = 24,
   });
 }
+
+
