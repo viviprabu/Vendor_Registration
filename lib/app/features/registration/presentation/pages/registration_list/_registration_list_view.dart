@@ -512,7 +512,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
 
   ///_______________________________________________________________User_List_Data_Table___________________________
   Theme RegistrationListDataTable(
-      BuildContext context, List<Registration> Registrations) {
+      BuildContext context, List<Registration> registrations) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -549,7 +549,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
           DataColumn(label: Text(lang.name)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: Registrations.map(
+        rows: registrations.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -566,7 +566,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
                           setState(() {
                             data.isSelected = selected ?? false;
                             _selectAll =
-                                Registrations.every((d) => d.isSelected);
+                                registrations.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -601,7 +601,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            Registrations.remove(data);
+                            registrations.remove(data);
                             _filteredData.remove(data);
                           });
                           break;

@@ -16,7 +16,7 @@ import 'package:vendor_registration/app/widgets/shadow_container/_shadow_contain
 
 
 // 🌎 Project imports:
-import '../../../../../../generated/l10n.dart' as l;
+import '../../../../../../../generated/l10n.dart' as l;
 
 final browserDefaultFormKey = GlobalKey<FormState>();
 class DocumentUploadForm extends StatefulWidget {

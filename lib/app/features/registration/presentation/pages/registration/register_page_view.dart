@@ -6,8 +6,6 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_address_details.dart';
 
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_company_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload_page.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_other_details.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_personal_details.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_upload_page.dart';
@@ -183,7 +181,7 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
                 CompanyDetailsForm(tabController: _tabController,),
                 AddressDetailsForm(tabController: _tabController,),
                 OtherDetailsForm(tabController: _tabController,),
-                UploadPage(tabController: _tabController,),
+                UploadPage(tabController: _tabController),
               ],
               // children: List<Widget>.generate(
               //     _tabController.length,

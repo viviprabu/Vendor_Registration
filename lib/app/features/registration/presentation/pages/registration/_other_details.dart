@@ -7,7 +7,7 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_address_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload_page.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/old/_document_upload_page.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 
@@ -17,7 +17,7 @@ import '../../../../../../generated/l10n.dart' as l;
 
 class OtherDetailsForm extends StatefulWidget {
   final TabController tabController;
-  const OtherDetailsForm({super.key, required this.tabController});
+  OtherDetailsForm({super.key, required this.tabController});
 
   @override
   State<OtherDetailsForm> createState() => _OtherDetailsFormState();
@@ -42,6 +42,7 @@ final FormGroup otherDetailsForm = FormGroup({
     ),
   });
 
+  
 
     final List<Map<String, String>> companyTypeList = [
     {'id': '1', 'name': 'CompanyType1',},
@@ -123,6 +124,7 @@ class _OtherDetailsFormState extends State<OtherDetailsForm> {
              
                     
                            selected = control.value;
+                           
                            otherDetailsForm.control('companyType').value = control.value;
                     // otherDetailsForm.control('companyType').reset(); // Reset the area field
                   

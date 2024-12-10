@@ -6,9 +6,10 @@ import 'package:reactive_file_picker/reactive_file_picker.dart';
 // 📦 Package imports:
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
+import 'package:vendor_registration/app/core/theme/theme.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
+
 
 
 // 🌎 Project imports:
@@ -17,13 +18,14 @@ import '../../../../../../generated/l10n.dart' as l;
 
 class UploadPage extends StatefulWidget {
   final TabController tabController;
+  
   const UploadPage({super.key, required this.tabController});
 
   @override
   State<UploadPage> createState() => _UploadPageState();
   
 }
-
+  final ScrollController _scrollController = ScrollController();
 final FormGroup documentUploadForm = FormGroup({
     'documentName': FormControl<String>(
       validators: [Validators.required],
@@ -32,17 +34,31 @@ final FormGroup documentUploadForm = FormGroup({
       validators: [Validators.required],
     ),
   });
-  // final List<String> documentList = ['Memorandum of Association',
-  // 'Ammendments to the memorandum of Association',
-  // 'Certificate from the Central Agency for Public Tenders',
-  // 'Certificate from the Central Agency for Information Technology',
-  // 'Certificate from the Chamber of Commerce and Industry',
-  // 'National Labour Certificate',
-  // 'Authorization Form',
-  // 'Civil Information Certificate',
-  // 'Commercial License Certificate'
 
-  // ];
+final List<TextEditingController> uploadControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+
+  final List<TextEditingController> expiryControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+
 
    final List<Map<String, String>> companyDocumentsList = [
     {'companyTypeId': '1', 'name': 'Memorandum of Association',},
@@ -91,6 +107,7 @@ final FormGroup documentUploadForm = FormGroup({
     {'companyTypeId': '6', 'name': 'Certificate from the Chamber of Commerce and Industry'},
     
   ];
+  
 
     String formatDate(DateTime date) {
     return DateFormat('dd/MM/yyyy').format(date);
@@ -103,10 +120,22 @@ class _UploadPageState extends State<UploadPage> {
   final customFormKey = GlobalKey<FormState>();
   bool isCustomFormChecked = false;
 
+  //   @override
+  // void dispose() {
+  //   // Dispose controllers to avoid memory leaks
+  //   for (var controller in uploadControllers) {
+  //     controller.dispose();
+  //   }
+  //   for (var controller1 in expiryControllers) {
+  //     controller1.dispose();
+  //   }
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
 
-    final filteredData = companyDocumentsList.where((data) => data['companyTypeId'] == '2').toList();
+    final filteredData = companyDocumentsList.where((data) => data['companyTypeId'] == '1').toList();
     // final _theme = Theme.of(context);
     final lang = l.S.of(context);
     final dropdownStyle = FinanceDropdownStyle(context);
@@ -129,69 +158,354 @@ class _UploadPageState extends State<UploadPage> {
       ],
       defaultValue: const _SizeInfo(),
     ).value;
-
+TextTheme textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: DataTable(
-          columns: [
-            DataColumn(label: Text('Id')),
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Upload')),
-            DataColumn(label: Text('Expiry Date')),
-          ],
-          rows: filteredData
-              .map((item) => DataRow(cells: [
-                    DataCell(Text(item['companyTypeId'].toString())),
-                    DataCell(Text(item['name'].toString())),
-                    DataCell(ReactiveForm(
-                        formGroup: documentUploadForm, 
-                        child: Column(
-                          children: [
-                            ReactiveTextField<String>(
-                        formControlName: 'documentName',
+        body: Padding(
+          padding: sizeInfo.padding,
+          child: ShadowContainer(
+            showHeader: false,
+            contentPadding: EdgeInsets.zero,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  final isMobile = constraints.maxWidth < 481;
+                  final isTablet =
+                      constraints.maxWidth < 992 && constraints.maxWidth >= 481;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                                          
+
+                      //______________________________________________________________________Data_table__________________
+                      isMobile || isTablet
+                          ? RawScrollbar(
+                              padding: const EdgeInsets.only(left: 18),
+                              trackBorderColor: theme.colorScheme.surface,
+                              trackVisibility: true,
+                              scrollbarOrientation: ScrollbarOrientation.bottom,
+                              controller: _scrollController,
+                              thumbVisibility: true,
+                              thickness: 8.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SingleChildScrollView(
+                                    controller: _scrollController,
+                                    scrollDirection: Axis.horizontal,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        minWidth: constraints.maxWidth,
+                                      ),
+                                      child: Theme(
+      data: ThemeData(
+          dividerColor: theme.colorScheme.outline,
+          dividerTheme: DividerThemeData(
+            color: theme.colorScheme.outline,
+          )),
+      child: DataTable(
+        checkboxHorizontalMargin: 16,
+        headingTextStyle: textTheme.titleMedium,
+        dataTextStyle: textTheme.bodySmall,
+        headingRowColor: WidgetStateProperty.all(theme.colorScheme.surface),
+        showBottomBorder: true,
+        columns: [     
+          DataColumn(label: Text(lang.name)),
+          DataColumn(label: Text(lang.upload)),
+          DataColumn(label: Text(lang.expireDate)),
+      
+        ],
+        rows: List.generate(filteredData.length,
+          (index) {
+            return DataRow(
+              color: WidgetStateColor.transparent,
+              cells: [               
+                DataCell(Text(filteredData[index]['name']!)),
+                DataCell(
+                  TextFormField(
+                    
+                        controller: uploadControllers[index],
                         decoration: InputDecoration(
-                          labelText: lang.documentName,
-                          border: const OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                          onPressed: () async {
-                               FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          border: InputBorder.none,
+                        suffixIcon: IconButton(
+                           style: IconButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.elliptical(10, 10)), // No rounding, making it a rectangle
+                              ),
+                              backgroundColor: FinanceAppColors.kSecondaryBtnColor,
+                              // focusColor: FinanceAppColors.kWhiteColor,
+                              foregroundColor: FinanceAppColors.kWhiteColor,
+                              ),
+                        icon: Icon(Icons.file_upload_rounded),
+                        onPressed: () async{
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
     
                           if (result != null) {
                              final file = result.files.single;                                        
                             final isValidFile = validateFile(file);
 
                           if(isValidFile){
-                            documentUploadForm.control('documentName').value = file.name ?? 'No path available'; 
-                             documentUploadForm.control('documentName').value = file.name;  
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(content: Text('File selected: ${file.name}')));            
+
+                            uploadControllers[index].text = file.name;
+                            // print(controllers[index].text);  
+                                              
                           }else{
                              ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Invalid file selected. Only PDF files are allowed.')));
                          }               
                          }
                      else {
-                      // Handle invalid file
-                      ScaffoldMessenger.of(context).showSnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Select any PDF files to upload')));
                       }
-   },
-  icon: Icon(Icons.browse_gallery_rounded),
-  // child: const Text('Browse'),
-),
-                        ),
-                                        ),
-                          ],
-                        )),    ),
-                    DataCell(Text('')),
-                    
-                  ]))
-                  
-              .toList(),
+                        // controllers[index].clear(); // Clears the text when the button is pressed
+          },
         ),
       ),
-    );
+                        
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                        
+                      ),
+                ),
+                DataCell(
+                  TextFormField(
+                        
+                        controller: expiryControllers[index],
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        suffixIcon: IconButton(
+                           style: IconButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.elliptical(10, 10)), // No rounding, making it a rectangle
+                              ),
+                              backgroundColor: FinanceAppColors.kWarning,
+                              foregroundColor: FinanceAppColors.kWhiteColor,
+                              ),
+                        icon: Icon(Icons.calendar_month_rounded),
+                        onPressed: () {
+                          
+                             showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          ).then((pickedDate) {
+                            if (pickedDate != null) {
+                              expiryControllers[index].text = formatDate(pickedDate);
+                            }
+                          });                        
+                        // controllers[index].clear(); // Clears the text when the button is pressed
+          },
+        ),
+      ),
+                        
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                        
+                      ),
+                ),
+                
+              ],
+            );
+          },
+        ).toList(),
+      ),
+    ),
+                                    ),
+                                  ),
+                                 
+                                 
+                                ],
+                                
+                              ),
+                              
+                            )
+                          : SingleChildScrollView(
+                              controller: _scrollController,
+                              scrollDirection: Axis.horizontal,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  minWidth: constraints.maxWidth,
+                                ),
+                                child:  Theme(
+      data: ThemeData(
+          dividerColor: theme.colorScheme.outline,
+          dividerTheme: DividerThemeData(
+            color: theme.colorScheme.outline,
+          )),
+      child: DataTable(
+        checkboxHorizontalMargin: 16,
+        headingTextStyle: textTheme.titleMedium,
+        dataTextStyle: textTheme.bodySmall,
+        headingRowColor: WidgetStateProperty.all(theme.colorScheme.surface),
+        showBottomBorder: true,
+        columns: [
+          
+          DataColumn(label: Text(lang.fileName)),
+          DataColumn(label: Text(lang.upload)),
+          DataColumn(label: Text(lang.expireDate)),
+          
+        ],
+        rows: List.generate(filteredData.length,
+          (index){
+            return DataRow(
+              color: WidgetStateColor.transparent,
+              cells: [
+                
+                DataCell(Text(filteredData[index]['name']!)),
+                DataCell(
+                  TextFormField(
+                    
+                        controller: uploadControllers[index],
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        suffixIcon: IconButton(
+                           style: IconButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.elliptical(10, 10)), // No rounding, making it a rectangle
+                              ),
+                              backgroundColor: FinanceAppColors.kSecondaryBtnColor,
+                              // focusColor: FinanceAppColors.kWhiteColor,
+                              foregroundColor: FinanceAppColors.kWhiteColor,
+                              ),
+                        icon: Icon(Icons.file_upload_rounded),
+                        onPressed: () async{
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+    
+                          if (result != null) {
+                             final file = result.files.single;                                        
+                            final isValidFile = validateFile(file);
+
+                          if(isValidFile){
+
+                            uploadControllers[index].text = file.name;
+                            // print(controllers[index].text);  
+                                              
+                          }else{
+                             ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Invalid file selected. Only PDF files are allowed.')));
+                         }               
+                         }
+                     else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Select any PDF files to upload')));
+                      }
+                        // controllers[index].clear(); // Clears the text when the button is pressed
+          },
+        ),
+      ),
+                        
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                        
+                      ),
+                ),
+                DataCell(
+                  TextFormField(
+                        
+                        controller: expiryControllers[index],
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        suffixIcon: IconButton(
+                           style: IconButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.elliptical(10, 10)), // No rounding, making it a rectangle
+                              ),
+                              backgroundColor: FinanceAppColors.kWarning,
+                              foregroundColor: FinanceAppColors.kWhiteColor,
+                              ),
+                        icon: Icon(Icons.calendar_month_rounded),
+                        onPressed: () {
+                          
+                             showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          ).then((pickedDate) {
+                            if (pickedDate != null) {
+                              expiryControllers[index].text = formatDate(pickedDate);
+                            }
+                          });                        
+                        // controllers[index].clear(); // Clears the text when the button is pressed
+          },
+        ),
+      ),
+                        
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                        
+                      ),
+                ),
+               
+                
+                
+              ],
+            );
+          },
+        ).toList(),
+      ),
+    ),
+                              ),
+                            ),
+
+                      //______________________________________________________________________footer__________________
+                      SizedBox(height: 20,),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton.icon(
+                        icon: Icon(Icons.arrow_back_rounded,size: 17,),
+                        onPressed: () {      
+                         widget.tabController.animateTo(3);
+                        },
+                        //child: const Text('Save From'),
+                        label: Text(lang.previous),
+                        
+                      ),
+                      SizedBox(width: 20,),
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.arrow_forward_rounded,size: 17,),
+                        onPressed: () {                     
+                          if (documentUploadForm.touched) {
+                    print('Form Value: ${documentUploadForm.value}');
+                  } else {
+                    documentUploadForm.markAllAsTouched();
+                  }
+                        },
+                        //child: const Text('Save From'),
+                        label: Text(lang.submit),
+                      ),
+                                    ],
+                                    
+                                  ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
   }
 }
 
@@ -222,3 +536,6 @@ bool validateFile(PlatformFile file) {
 //     // Check if the file has a .pdf extension
 //     return file.extension == "pdf";
 //   }
+
+//--------------------------- Data Table List ---------------------------//
+
