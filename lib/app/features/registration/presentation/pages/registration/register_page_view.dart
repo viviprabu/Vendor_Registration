@@ -7,9 +7,10 @@ import 'package:vendor_registration/app/features/registration/presentation/pages
 
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_company_details.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload_page.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_other_details.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_personal_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/upload.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_upload_page.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 // 🌎 Project imports:
@@ -48,7 +49,7 @@ class RegistrationForm extends StatelessWidget {
             // ),
             // const SizedBox(height: 24.0),
             SizedBox.fromSize(
-              size: Size.fromHeight(mqSize.height * 0.665),
+              size: Size.fromHeight(mqSize.height * 1.10),
               child: Theme(
                 data: theme.copyWith(
                   scrollbarTheme: theme.scrollbarTheme.copyWith(
@@ -106,7 +107,7 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
       xs: 16,
       sm: 16,
       md: 16,
-      lg: 16,
+      lg: 24,
       
     );
 
@@ -178,11 +179,11 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: [
-                PersonalDetailsForm(),
-                CompanyDetailsForm(),
-                AddressDetailsForm(),
-                OtherDetailsForm(),
-                DocumentUploadForm(),
+                PersonalDetailsForm(tabController: _tabController,),
+                CompanyDetailsForm(tabController: _tabController,),
+                AddressDetailsForm(tabController: _tabController,),
+                OtherDetailsForm(tabController: _tabController,),
+                UploadPage(tabController: _tabController,),
               ],
               // children: List<Widget>.generate(
               //     _tabController.length,

@@ -6,6 +6,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_address_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload_page.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 
@@ -14,7 +16,8 @@ import '../../../../../../generated/l10n.dart' as l;
 
 
 class OtherDetailsForm extends StatefulWidget {
-  const OtherDetailsForm({super.key});
+  final TabController tabController;
+  const OtherDetailsForm({super.key, required this.tabController});
 
   @override
   State<OtherDetailsForm> createState() => _OtherDetailsFormState();
@@ -37,10 +40,20 @@ final FormGroup otherDetailsForm = FormGroup({
     'companyCivilId': FormControl<String>(
       validators: [Validators.required],
     ),
-    
-    
   });
+
+
+    final List<Map<String, String>> companyTypeList = [
+    {'id': '1', 'name': 'CompanyType1',},
+    {'id': '2', 'name': 'CompanyType2'},
+    {'id': '3', 'name': 'CompanyType3'},
+    {'id': '4', 'name': 'CompanyType4'},
+    {'id': '5', 'name': 'CompanyType5'},
+    {'id': '6', 'name': 'CompanyType6'},
+  ];
+
 class _OtherDetailsFormState extends State<OtherDetailsForm> {
+
   final browserDefaultFormKey = GlobalKey<FormState>();
   bool isBrowserDefaultChecked = false;
 
@@ -86,23 +99,38 @@ class _OtherDetailsFormState extends State<OtherDetailsForm> {
                 children: [
                   // First Name
                   ResponsiveGridCol(
-                    lg: lg + 2,
+                    lg: lg+2,
                     md: md,
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-                      child: ReactiveForm(
+                        child: ReactiveForm(
                         formGroup: otherDetailsForm, 
                         child: Column(
-                          children: [
-                            ReactiveTextField<String>(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+              ReactiveDropdownField<String>(
+                
                 formControlName: 'companyType',
                 decoration: InputDecoration(
                   labelText: lang.companyType,
-                  border: OutlineInputBorder(),
-                ),
+                  border: const OutlineInputBorder(),
+                ),                
+                items: companyTypeList.map((e) {
+                  return DropdownMenuItem(value: e['id'], child: Text(e['name'] ?? ''),);
+                }).toList(),
+                onChanged: (control) {
+             
+                    
+                           selected = control.value;
+                           otherDetailsForm.control('companyType').value = control.value;
+                    // otherDetailsForm.control('companyType').reset(); // Reset the area field
+                  
+                },
               ),
-                          ],
-                        )),                     
+            ],),             
+                        ),
+                     
                     ),
                   ),
 
@@ -137,12 +165,27 @@ class _OtherDetailsFormState extends State<OtherDetailsForm> {
                         child: Column(
                           children: [
                             ReactiveTextField<String>(
-                formControlName: 'dateStarted',
-                decoration: InputDecoration(
-                  labelText: lang.dateStarted,
-                  border: OutlineInputBorder(),
-                ),
-              ),
+                        formControlName: 'dateStarted',
+                        decoration: InputDecoration(
+                          labelText: lang.expireDate,
+                          border: OutlineInputBorder(),
+                          suffixIcon: ElevatedButton(
+                        onPressed: () {
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          ).then((pickedDate) {
+                            if (pickedDate != null) {
+                              otherDetailsForm.control('dateStarted').value = formatDate(pickedDate);
+                            }
+                          });
+                        },
+                                        child: Icon(Icons.calendar_month, color: Colors.white, size: 17,),
+                                        ),
+                        ),
+                                        ),
                           ],
                         )),
                      
@@ -210,15 +253,7 @@ class _OtherDetailsFormState extends State<OtherDetailsForm> {
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.arrow_back_rounded,size: 17,),
                         onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (otherDetailsForm.valid) {
-                    print('Form Value: ${otherDetailsForm.value}');
-                  } else {
-                    otherDetailsForm.markAllAsTouched();
-                  }
+                         widget.tabController.animateTo(2);
                         },
                         //child: const Text('Save From'),
                         label: Text(lang.previous),
@@ -235,11 +270,8 @@ class _OtherDetailsFormState extends State<OtherDetailsForm> {
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.arrow_forward_rounded,size: 17,),
                         onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (otherDetailsForm.valid) {
+                           if (otherDetailsForm.touched) {
+                            widget.tabController.animateTo(3);
                     print('Form Value: ${otherDetailsForm.value}');
                   } else {
                     otherDetailsForm.markAllAsTouched();

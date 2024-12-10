@@ -14,10 +14,12 @@ import '../../../../../../generated/l10n.dart' as l;
 
 
 class AddressDetailsForm extends StatefulWidget {
-  const AddressDetailsForm({super.key});
+  final TabController tabController;
+  const AddressDetailsForm({super.key, required this.tabController});
 
   @override
   State<AddressDetailsForm> createState() => _AddressDetailsFormState();
+  
   
 }
 
@@ -30,6 +32,8 @@ class AddressDetailsForm extends StatefulWidget {
 //     'Jahra Governorate': ['Abdali', 'Jahra'],
 //     'Mubarak Al-Kabeer Governorate': ['Abu Al Hasaniya', 'Abu Futaira',],
 //   };
+
+late TabController _tabController;
 
 final Map<String, List<DropdownMenuItem<String>>> governorateToArea = {
     '1': [
@@ -378,15 +382,8 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
                       child: ElevatedButton.icon(
                          icon: Icon(Icons.arrow_back_rounded,size: 17,),
                         onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (addressDetailsForm.valid) {
-                    print('Form Value: ${addressDetailsForm.value}');
-                  } else {
-                    addressDetailsForm.markAllAsTouched();
-                  }
+                      widget.tabController.animateTo(1);
+                          
                         },
                         //child: const Text('Save From'),
                         label: Text(lang.previous),
@@ -403,11 +400,9 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
                       child: ElevatedButton.icon(
                          icon: Icon(Icons.arrow_forward_rounded,size: 17,),
                         onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (addressDetailsForm.valid) {
+                    
+                          if (addressDetailsForm.touched) {
+                            widget.tabController.animateTo(3);
                     print('Form Value: ${addressDetailsForm.value}');
                   } else {
                     addressDetailsForm.markAllAsTouched();
@@ -426,258 +421,7 @@ class _AddressDetailsFormState extends State<AddressDetailsForm> {
           ),
           SizedBox(height: sizeInfo.innerSpacing),
 
-          // Custom Form
-          // Form(
-          //   key: customFormKey,
-          //   child: ShadowContainer(
-          //     // headerText: 'Custom Styles',
-          //     headerText: lang.customStyles,
-          //     child: ResponsiveGridRow(
-          //       children: [
-          //         // First Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'First Name',
-          //               labelText: lang.firstName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your first name',
-          //                   hintText: lang.enterYourFirstName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your first name';
-          //                     return lang.pleaseEnterYourFirstName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Last Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'Last Name',
-          //               labelText: lang.lastName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your last name',
-          //                   hintText: lang.enterYourLastName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your last name';
-          //                     return lang.pleaseEnterYourLastName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Country Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'Country',
-          //               labelText: lang.country,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select Country'),
-          //                 hint: Text(lang.selectCountry),
-          //                 items: [
-          //                   "Canada",
-          //                   "Brazil",
-          //                   "Germany",
-          //                   "Australia",
-          //                   "Japan",
-          //                   "India",
-          //                   "South Africa",
-          //                   "Mexico",
-          //                   "France",
-          //                   "South Korea"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your country';
-          //                     return lang.pleaseSelectYourCountry;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // City Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'City',
-          //               labelText: lang.city,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 //hint: const Text('Select City'),
-          //                 hint: Text(lang.selectCity),
-          //                 items: [
-          //                   "Toronto",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "Sydney",
-          //                   "Tokyo",
-          //                   "Mumbai",
-          //                   "Cape Town",
-          //                   "Mexico City",
-          //                   "Paris",
-          //                   "Seoul"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     //return 'Please select your city';
-          //                     return lang.pleaseSelectYourCity;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // State Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'State',
-          //               labelText: lang.state,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select State'),
-          //                 hint: Text(lang.selectState),
-          //                 items: [
-          //                   "Ontario",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "New South Wales",
-          //                   "Tokyo Metropolis",
-          //                   "Maharashtra",
-          //                   "Western Cape",
-          //                   "Mexico City",
-          //                   "Île-de-France",
-          //                   "Seoul Capital Area"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your state';
-          //                     return lang.pleaseSelectYourState;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Check Box
-          //         ResponsiveGridCol(
-          //           lg: 12,
-          //           md: 12,
-          //           child: Align(
-          //             alignment: Alignment.centerLeft,
-          //             child: FinanceCheckBoxFormField(
-          //               // title: const Text('Agree to terms and conditions'),
-          //               title: Text(lang.agreeToTermsAndConditions),
-          //               validator: (value) {
-          //                 if (value == null || !value) {
-          //                   // return 'Please check this box to continue';
-          //                   return lang.pleaseCheckThisBoxToContinue;
-          //                 }
-          //                 return null;
-          //               },
-          //               autovalidateMode: AutovalidateMode.onUserInteraction,
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Save Form Button
-          //         ResponsiveGridCol(
-          //           lg: 2,
-          //           md: 3,
-          //           xl: 2,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: ElevatedButton(
-          //               onPressed: () {
-          //                 if (customFormKey.currentState?.validate() == true) {
-          //                   customFormKey.currentState?.save();
-          //                 }
-          //               },
-          //               //child: const Text('Save From'),
-          //               child: Text(lang.saveFrom),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
+          
         ],
       ),
     );

@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
-import 'package:vendor_registration/app/widgets/checkbox_form_field/_checkbox_form_field.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 
@@ -15,34 +13,62 @@ import '../../../../../../generated/l10n.dart' as l;
 
 
 class PersonalDetailsForm extends StatefulWidget {
-  const PersonalDetailsForm({super.key});
+  final TabController tabController;
+  const PersonalDetailsForm({super.key, required this.tabController});
 
   @override
-  State<PersonalDetailsForm> createState() => _PersonalDetailsFormState();
+  State<PersonalDetailsForm> createState() => _PersonalDetailsFormState(); 
   
 }
 
 final FormGroup personalDetailsForm = FormGroup({
     'fullName': FormControl<String>(
+      value: '',
       validators: [Validators.required],
     ),
     'email': FormControl<String>(
+      value: '',
       validators: [Validators.required, Validators.email],
     ),
     'password': FormControl<String>(
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(8)],
     ),
     'mobileNumber': FormControl<String>(
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.maxLength(8)],
     ),
     'civilId': FormControl<String>(
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.maxLength(12)],
     ),
      'terms': FormControl<bool>(
       validators: [Validators.required],
     ),
   });
-class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
+FocusNode _focusNode = FocusNode();
+
+  
+class _PersonalDetailsFormState extends State<PersonalDetailsForm> with  SingleTickerProviderStateMixin{
+ 
+late TabController _tabController;
+
+
+    @override
+ void initState(){
+  super.initState();
+  _tabController = TabController(length: 5, vsync: this);
+ }
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  // void _goToNextTab() {
+  //   print(_tabController.index);
+  //   if (_tabController.index < _tabController.length - 1) {
+  //     _tabController.animateTo(_tabController.index + 1);
+  //   }
+  // }
+ 
   final browserDefaultFormKey = GlobalKey<FormState>();
   bool isBrowserDefaultChecked = false;
 
@@ -101,28 +127,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 decoration: InputDecoration(
                   labelText: lang.name,
                   border: OutlineInputBorder(),
+                  
                 ),
               ),
                           ],
                         )),
-                      // child: TextFieldLabelWrapper(
-                      //   //labelText: 'First Name',
-                      //   labelText: lang.firstName,
-                      //   inputField: TextFormField(
-                      //     decoration: InputDecoration(
-                      //       //hintText: 'Enter your first name',
-                      //       hintText: lang.enterYourFirstName,
-                      //     ),
-                      //     validator: (value) {
-                      //       if (value == null || value.isEmpty) {
-                      //         // return 'Please enter your first name';
-                      //         return lang.pleaseEnterYourFirstName;
-                      //       }
-                      //       return null;
-                      //     },
-                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //   ),
-                      // ),
+             
                     ),
                   ),
 
@@ -141,28 +151,13 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                 decoration: InputDecoration(
                   labelText: lang.email,
                   border: OutlineInputBorder(),
+                  
                 ),
+                
               ),
                           ],
                         )),
-                      // child: TextFieldLabelWrapper(
-                      //   //labelText: 'Last Name',
-                      //   labelText: lang.lastName,
-                      //   inputField: TextFormField(
-                      //     decoration: InputDecoration(
-                      //       //hintText: 'Enter your last name',
-                      //       hintText: lang.enterYourLastName,
-                      //     ),
-                      //     validator: (value) {
-                      //       if (value == null || value.isEmpty) {
-                      //         //return 'Please enter your last name';
-                      //         return lang.pleaseEnterYourLastName;
-                      //       }
-                      //       return null;
-                      //     },
-                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //   ),
-                      // ),
+                     
                     ),
                   ),
 ResponsiveGridCol(
@@ -232,56 +227,33 @@ ResponsiveGridCol(
                      
                     ),
                     
-                  ),
+                  ),              
 
-                  // City Dropdown
                   
-
-                  // Check Box
-                  // ResponsiveGridCol(
-                  //   lg: 12,
-                  //   md: 12,
-                  //   child: Align(
-                  //     alignment: Alignment.centerLeft,
-                      
-                  //     child: FinanceCheckBoxFormField(
-                  //       // title: const Text('Agree to terms and conditions'),
-                  //       title: Text(lang.agreeToTermsAndConditions),
-                  //       validator: (value) {
-                  //         if (value == null || !value) {
-                  //           //return 'Please check this box to continue';
-                  //           return lang.pleaseCheckThisBoxToContinue;
-                  //         }
-                  //         return null;
-                         
-                  //       },
-                  //       autovalidateMode: AutovalidateMode.onUserInteraction,
-                  //     ),
-                  //   ),
-                  // ),
                   ResponsiveGridCol(child: Text('')),
   
                   // Save Form Button
                   
                   ResponsiveGridCol(
-                    
                     lg: 2,
                     md: 3,
                     xl: 2,
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ElevatedButton(
+                        focusNode: _focusNode,
                         onPressed: () {
-                          // if (browserDefaultFormKey.currentState?.validate() ==
-                          //     true) {
-                          //   browserDefaultFormKey.currentState?.save();
-                          // }
-                          if (personalDetailsForm.valid) {
-                    print('Form Value: ${personalDetailsForm.value}');
+                          
+                           if (personalDetailsForm.touched) {
+                       widget.tabController.animateTo(1);
+                            
+                    // If the form is valid, do something
+                    // print('Form is valid');
                   } else {
+                    // If the form is not valid, mark all controls as touched
                     personalDetailsForm.markAllAsTouched();
                   }
-                        },
+                       },
                         //child: const Text('Save From'),
                         child: Text(lang.next),
                       ),
@@ -295,261 +267,16 @@ ResponsiveGridCol(
           ),
           SizedBox(height: sizeInfo.innerSpacing),
 
-          // Custom Form
-          // Form(
-          //   key: customFormKey,
-          //   child: ShadowContainer(
-          //     // headerText: 'Custom Styles',
-          //     headerText: lang.customStyles,
-          //     child: ResponsiveGridRow(
-          //       children: [
-          //         // First Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'First Name',
-          //               labelText: lang.firstName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your first name',
-          //                   hintText: lang.enterYourFirstName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your first name';
-          //                     return lang.pleaseEnterYourFirstName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Last Name
-          //         ResponsiveGridCol(
-          //           lg: lg + 2,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               //labelText: 'Last Name',
-          //               labelText: lang.lastName,
-          //               inputField: TextFormField(
-          //                 decoration: InputDecoration(
-          //                   //hintText: 'Enter your last name',
-          //                   hintText: lang.enterYourLastName,
-          //                 ),
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please enter your last name';
-          //                     return lang.pleaseEnterYourLastName;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Country Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'Country',
-          //               labelText: lang.country,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select Country'),
-          //                 hint: Text(lang.selectCountry),
-          //                 items: [
-          //                   "Canada",
-          //                   "Brazil",
-          //                   "Germany",
-          //                   "Australia",
-          //                   "Japan",
-          //                   "India",
-          //                   "South Africa",
-          //                   "Mexico",
-          //                   "France",
-          //                   "South Korea"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your country';
-          //                     return lang.pleaseSelectYourCountry;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // City Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'City',
-          //               labelText: lang.city,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 //hint: const Text('Select City'),
-          //                 hint: Text(lang.selectCity),
-          //                 items: [
-          //                   "Toronto",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "Sydney",
-          //                   "Tokyo",
-          //                   "Mumbai",
-          //                   "Cape Town",
-          //                   "Mexico City",
-          //                   "Paris",
-          //                   "Seoul"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     //return 'Please select your city';
-          //                     return lang.pleaseSelectYourCity;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // State Dropdown
-          //         ResponsiveGridCol(
-          //           lg: lg,
-          //           md: md,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: TextFieldLabelWrapper(
-          //               // labelText: 'State',
-          //               labelText: lang.state,
-          //               inputField: DropdownButtonFormField2(
-          //                 menuItemStyleData: dropdownStyle.menuItemStyle,
-          //                 buttonStyleData: dropdownStyle.buttonStyle,
-          //                 iconStyleData: dropdownStyle.iconStyle,
-          //                 dropdownStyleData: dropdownStyle.dropdownStyle,
-          //                 // hint: const Text('Select State'),
-          //                 hint: Text(lang.selectState),
-          //                 items: [
-          //                   "Ontario",
-          //                   "São Paulo",
-          //                   "Berlin",
-          //                   "New South Wales",
-          //                   "Tokyo Metropolis",
-          //                   "Maharashtra",
-          //                   "Western Cape",
-          //                   "Mexico City",
-          //                   "Île-de-France",
-          //                   "Seoul Capital Area"
-          //                 ]
-          //                     .map(
-          //                       (country) => DropdownMenuItem(
-          //                         value: country,
-          //                         child: Text(country),
-          //                       ),
-          //                     )
-          //                     .toList(),
-          //                 onChanged: (value) {},
-          //                 validator: (value) {
-          //                   if (value == null || value.isEmpty) {
-          //                     // return 'Please select your state';
-          //                     return lang.pleaseSelectYourState;
-          //                   }
-          //                   return null;
-          //                 },
-          //                 autovalidateMode: AutovalidateMode.onUserInteraction,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Check Box
-          //         ResponsiveGridCol(
-          //           lg: 12,
-          //           md: 12,
-          //           child: Align(
-          //             alignment: Alignment.centerLeft,
-          //             child: FinanceCheckBoxFormField(
-          //               // title: const Text('Agree to terms and conditions'),
-          //               title: Text(lang.agreeToTermsAndConditions),
-          //               validator: (value) {
-          //                 if (value == null || !value) {
-          //                   // return 'Please check this box to continue';
-          //                   return lang.pleaseCheckThisBoxToContinue;
-          //                 }
-          //                 return null;
-          //               },
-          //               autovalidateMode: AutovalidateMode.onUserInteraction,
-          //             ),
-          //           ),
-          //         ),
-
-          //         // Save Form Button
-          //         ResponsiveGridCol(
-          //           lg: 2,
-          //           md: 3,
-          //           xl: 2,
-          //           child: Padding(
-          //             padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
-          //             child: ElevatedButton(
-          //               onPressed: () {
-          //                 if (customFormKey.currentState?.validate() == true) {
-          //                   customFormKey.currentState?.save();
-          //                 }
-          //               },
-          //               //child: const Text('Save From'),
-          //               child: Text(lang.saveFrom),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
+         
         ],
       ),
     );
+  }
+}
+
+extension on TabController {
+  void switchToTab(int initialIndex) {
+    
   }
 }
 
