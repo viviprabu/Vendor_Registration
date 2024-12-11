@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_address_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/address_details.dart';
 
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_company_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload_page.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_other_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_personal_details.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_upload_page.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/company_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/other_details.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/personal_details.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 // 🌎 Project imports:
@@ -70,8 +67,6 @@ class RegistrationForm extends StatelessWidget {
   }
 }
 
-
-
 class TabPill extends StatefulWidget {
   const TabPill({
     super.key,
@@ -91,7 +86,7 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -108,7 +103,6 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
       sm: 16,
       md: 16,
       lg: 24,
-      
     );
 
     String selectedTitle = 'Personal Details';
@@ -119,8 +113,6 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
       l.S.current.company,
       // "address",
       l.S.current.address,
-      // "Others",
-      l.S.current.others,
       // "Upload",
       l.S.current.upload
     ];
@@ -179,11 +171,17 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: [
-                PersonalDetailsForm(tabController: _tabController,),
-                CompanyDetailsForm(tabController: _tabController,),
-                AddressDetailsForm(tabController: _tabController,),
-                OtherDetailsForm(tabController: _tabController,),
-                UploadPage(tabController: _tabController,),
+                PersonalDetailsForm(
+                  tabController: _tabController,
+                ),
+                CompanyDetailsForm(
+                  tabController: _tabController,
+                ),
+                AddressDetailsForm(
+                  tabController: _tabController,
+                ),
+                OtherDetailsForm(tabController: _tabController),
+                
               ],
               // children: List<Widget>.generate(
               //     _tabController.length,
@@ -191,9 +189,9 @@ class _TabPillState extends State<TabPill> with SingleTickerProviderStateMixin {
               //           textTheme: widget.textTheme,
               //           index: index,
               //           theme: widget.theme,
-                        
+
               //         )
-                      
+
               //         ),
             ),
           ),

@@ -61,34 +61,57 @@ List<SidebarItemModel> get _topMenus {
 List<GroupedMenuModel> get _groupedMenus {
   return <GroupedMenuModel>[
     // Application Group
+
+    GroupedMenuModel(
+      //name: 'Application',
+      name: l.S.current.master,
+      menus: [
+        SidebarItemModel(
+          //name: 'Users',
+          name: l.S.current.master,
+          iconPath: 'assets/images/sidebar_icons/clipboard-text.svg',
+          sidebarItemType: SidebarItemType.submenu,
+          navigationPath: '/master',
+          submenus: [
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.document,
+              navigationPath: "documents-list",
+            ),
+            
+          ],
+        ),
+      ],
+    ),
     GroupedMenuModel(
       //name: 'Application',
       name: l.S.current.request,
       menus: [
-        SidebarItemModel(
-          //name: 'Users',
-          name: l.S.current.request,
-          iconPath: 'assets/images/sidebar_icons/copy-check.svg',
-          sidebarItemType: SidebarItemType.submenu,
-          navigationPath: '/requests',
-          submenus: [
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.request,
-              navigationPath: "initial_request",
-            ),
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.requestlist,
-              navigationPath: "request_list",
-            ),
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.ViewRequest,
-              navigationPath: "view_request",
-            ),
-          ],
-        ),
+        
+        // SidebarItemModel(
+        //   //name: 'Users',
+        //   name: l.S.current.request,
+        //   iconPath: 'assets/images/sidebar_icons/copy-check.svg',
+        //   sidebarItemType: SidebarItemType.submenu,
+        //   navigationPath: '/requests',
+        //   submenus: [
+        //     SidebarSubmenuModel(
+        //       //name: "Users List",
+        //       name: l.S.current.request,
+        //       navigationPath: "initial_request",
+        //     ),
+        //     SidebarSubmenuModel(
+        //       //name: "Users List",
+        //       name: l.S.current.requestlist,
+        //       navigationPath: "request_list",
+        //     ),
+        //     SidebarSubmenuModel(
+        //       //name: "Users List",
+        //       name: l.S.current.ViewRequest,
+        //       navigationPath: "view_request",
+        //     ),
+        //   ],
+        // ),
         SidebarItemModel(
           //name: 'Users',
           name: l.S.current.users,
@@ -125,36 +148,7 @@ List<GroupedMenuModel> get _groupedMenus {
         ),
       ],
     ),
-    GroupedMenuModel(
-      //name: 'Application',
-      name: l.S.current.master,
-      menus: [
-        SidebarItemModel(
-          //name: 'Users',
-          name: l.S.current.master,
-          iconPath: 'assets/images/sidebar_icons/users-group.svg',
-          sidebarItemType: SidebarItemType.submenu,
-          navigationPath: '/master',
-          submenus: [
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.sector,
-              navigationPath: "list-sectors",
-            ),
-            SidebarSubmenuModel(
-              //name: "Users Grid",
-              name: l.S.current.department,
-              navigationPath: "list-departments",
-            ),
-            SidebarSubmenuModel(
-              //name: "User Profile",
-              name: l.S.current.section,
-              navigationPath: "list-sections",
-            ),
-          ],
-        ),
-      ],
-    ),
+    
 
     // Pages
     /* GroupedMenuModel(

@@ -3,7 +3,7 @@ import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/core/helpers/field_styles/_dropdown_styles.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration/_document_upload.dart';
+import 'package:vendor_registration/app/features/registration/presentation/pages/registration/document_upload.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import 'package:responsive_framework/responsive_framework.dart' as rf;
 import '../../../../../../generated/l10n.dart' as l;

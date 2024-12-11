@@ -1,8 +1,7 @@
 // 📦 Package imports:
-import 'package:vendor_registration/app/features/auth/domain/entities/user_rights.dart';
 import 'package:vendor_registration/app/features/auth/presentation/pages/services_view.dart';
+import 'package:vendor_registration/app/features/document_master/presentation/pages/document_master_list/document_master_list_view.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/register_page_view.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration_page.dart';
 import 'package:vendor_registration/app/features/user/presentation/pages/user_list/_unauthorised_users_list_view.dart';
 import 'package:vendor_registration/app/features/user_role/presentation/pages/user_role_list/_user_roles_list_view.dart';
 import 'package:flutter/material.dart';
@@ -107,15 +106,15 @@ abstract class FinanceAppRoutes {
             path: '/master',
             redirect: (context, state) async {
               if (state.fullPath == '/master') {
-                return '/departments/list-departments';
+                return '/documents/documents-list';
               }
               return null;
             },
             routes: [
               GoRoute(
-                path: 'list-departments',
+                path: 'documents-list',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: RegistrationsListView(),
+                  child: DocumentMasterListView(),
                 ),
               ),
             ],

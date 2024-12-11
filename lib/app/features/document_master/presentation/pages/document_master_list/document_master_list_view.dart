@@ -1,9 +1,7 @@
 // 🎯 Dart imports:
 import 'dart:ui';
+
 // 🐦 Flutter imports:
-import 'package:vendor_registration/app/features/registration/domain/entities/registration.dart';
-import 'package:vendor_registration/app/features/registration/presentation/bloc/registration_bloc.dart';
-import 'package:vendor_registration/app/features/registration/presentation/pages/registration_list/edit_registration_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,26 +9,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:responsive_framework/responsive_framework.dart' as rf;
+import 'package:vendor_registration/app/features/document_master/domain/entities/document_master.dart';
+import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
+import 'package:vendor_registration/app/features/document_master/presentation/pages/document_master_list/edit_document_master_popup.dart';
 
 // 🌎 Project imports:
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_registration_popup.dart';
+import 'add_document_master_popup.dart';
 
-class RegistrationsListView extends StatefulWidget {
-  const RegistrationsListView({super.key});
+class DocumentMasterListView extends StatefulWidget {
+  const DocumentMasterListView({super.key});
 
   @override
-  _RegistrationsListViewState createState() => _RegistrationsListViewState();
+  _DocumentMasterListViewState createState() => _DocumentMasterListViewState();
 }
 
-class _RegistrationsListViewState extends State<RegistrationsListView> {
+class _DocumentMasterListViewState extends State<DocumentMasterListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<Registration> _filteredData;
-  late List<Registration> paginatedData;
+  late List<DocumentMaster> _filteredData;
+  late List<DocumentMaster> paginatedData=[];
   final ScrollController _scrollController = ScrollController();
-  List<Registration> registrations = [];
+  List<DocumentMaster> documentMaster = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -39,7 +40,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(registrations);
+    _filteredData = List.from(documentMaster);
   }
 
   @override
@@ -48,31 +49,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
     super.dispose();
   }
 
-  ///_____________________________________________________________________data__________________________________
-  /* List<UserDataModel> get _currentPageData {
-    if (_searchQuery.isNotEmpty) {
-      _filteredData = users
-          .where(
-            (data) =>
-                data.username
-                    .toLowerCase()
-                    .contains(_searchQuery.toLowerCase()) ||
-                data.email.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-                data.phone.contains(
-                  _searchQuery,
-                ),
-          )
-          .toList();
-    } else {
-      _filteredData = List.from(users);
-    }
-
-    int start = _currentPage * _rowsPerPage;
-    int end = start + _rowsPerPage;
-    return _filteredData.sublist(
-        start, end > _filteredData.length ? _filteredData.length : end);
-  } */
-
+ 
   ///_____________________________________________________________________Search_query_________________________
   void _setSearchQuery(String query) {
     setState(() {
@@ -91,7 +68,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddRegistrationDialog(),
+          child: const AddDocumentMasterDialog(),
         );
       },
     );
@@ -99,7 +76,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(Registration registrationData) {
+  void _showEditFormDialog(DocumentMaster documentMasterData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -108,8 +85,8 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditRegistrationDialog(
-            registrationData: registrationData,
+          child: EditDocumentMasterDialog(
+            documentMasterData: documentMasterData,
           ),
         );
       },
@@ -118,7 +95,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RegistrationBloc>().add(RegistrationsListEvent());
+    context.read<DocumentMasterBloc>().add(DocumentMastersListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -155,165 +132,162 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<RegistrationBloc, RegistrationState>(
-        builder: (context, state) {
-      if (state is RegistrationsListState) {
-        registrations = state.registrations;
+    return BlocBuilder<DocumentMasterBloc, DocumentMasterState>(
+      builder: (context, state) {
+        if (state is DocumentMastersListState) {
+          documentMaster = state.documentMasters;
 
-        if (_searchQuery.isNotEmpty) {
-          _filteredData = registrations;
-          // .where((data) =>
-          //     data.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
-          // .toList();
-        } else {
-          _filteredData = List.from(registrations);
+          if (_searchQuery.isNotEmpty) {
+            _filteredData = documentMaster;
+            // .where((data) =>
+            //     data.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+            // .toList();
+          } else {
+            _filteredData = List.from(documentMaster);
+          }
+          int start = _currentPage * _rowsPerPage;
+          int end = start + _rowsPerPage;
+          paginatedData = _filteredData.sublist(
+              start, end > _filteredData.length ? _filteredData.length : end);
         }
 
-        // int start = _currentPage * _rowsPerPage;
-        // int end = start + _rowsPerPage;
-        // _filteredData.sublist(
-        //     start, end > _filteredData.length ? _filteredData.length : end);
-        int start = _currentPage * _rowsPerPage;
-        int end = start + _rowsPerPage;
-        paginatedData = _filteredData.sublist(
-            start, end > _filteredData.length ? _filteredData.length : end);
-      }
+        return Scaffold(
+          body: Padding(
+            padding: sizeInfo.padding,
+            child: ShadowContainer(
+              showHeader: false,
+              contentPadding: EdgeInsets.zero,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    final isMobile = constraints.maxWidth < 481;
+                    final isTablet = constraints.maxWidth < 992 &&
+                        constraints.maxWidth >= 481;
 
-      return Scaffold(
-        body: Padding(
-          padding: sizeInfo.padding,
-          child: ShadowContainer(
-            showHeader: false,
-            contentPadding: EdgeInsets.zero,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  final isMobile = constraints.maxWidth < 481;
-                  final isTablet =
-                      constraints.maxWidth < 992 && constraints.maxWidth >= 481;
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //______________________________________________________________________Header__________________
-                      isMobile
-                          ? Padding(
-                              padding: sizeInfo.padding,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: showingValueDropDown(
-                                            isTablet: isTablet,
-                                            isMobile: isMobile,
-                                            textTheme: textTheme),
-                                      ),
-                                      const Spacer(),
-                                      addRegistrationButton(textTheme),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16.0),
-                                  searchFormField(textTheme: textTheme),
-                                ],
-                              ),
-                            )
-                          : Padding(
-                              padding: sizeInfo.padding,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: showingValueDropDown(
-                                      isTablet: isTablet,
-                                      isMobile: isMobile,
-                                      textTheme: textTheme,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //______________________________________________________________________Header__________________
+                        isMobile
+                            ? Padding(
+                                padding: sizeInfo.padding,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: showingValueDropDown(
+                                              isTablet: isTablet,
+                                              isMobile: isMobile,
+                                              textTheme: textTheme),
+                                        ),
+                                        const Spacer(),
+                                        addUserButton(textTheme),
+                                      ],
                                     ),
-                                  ),
-                                  const SizedBox(width: 16.0),
-                                  Expanded(
-                                    flex: isTablet || isMobile ? 2 : 3,
-                                    child:
-                                        searchFormField(textTheme: textTheme),
-                                  ),
-                                  Spacer(flex: isTablet || isMobile ? 1 : 2),
-                                  addRegistrationButton(textTheme),
-                                ],
-                              ),
-                            ),
-
-                      //______________________________________________________________________Data_table__________________
-                      isMobile || isTablet
-                          ? RawScrollbar(
-                              padding: const EdgeInsets.only(left: 18),
-                              trackBorderColor: theme.colorScheme.surface,
-                              trackVisibility: true,
-                              scrollbarOrientation: ScrollbarOrientation.bottom,
-                              controller: _scrollController,
-                              thumbVisibility: true,
-                              thickness: 8.0,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SingleChildScrollView(
-                                    controller: _scrollController,
-                                    scrollDirection: Axis.horizontal,
-                                    child: ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        minWidth: constraints.maxWidth,
-                                      ),
-                                      child: RegistrationListDataTable(
-                                          context, registrations),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: sizeInfo.padding,
-                                    child: Text(
-                                      '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + registrations.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : SingleChildScrollView(
-                              controller: _scrollController,
-                              scrollDirection: Axis.horizontal,
-                              child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  minWidth: constraints.maxWidth,
+                                    const SizedBox(height: 16.0),
+                                    searchFormField(textTheme: textTheme),
+                                  ],
                                 ),
-                                child: RegistrationListDataTable(
-                                    context, registrations),
+                              )
+                            : Padding(
+                                padding: sizeInfo.padding,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: showingValueDropDown(
+                                        isTablet: isTablet,
+                                        isMobile: isMobile,
+                                        textTheme: textTheme,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16.0),
+                                    Expanded(
+                                      flex: isTablet || isMobile ? 2 : 3,
+                                      child:
+                                          searchFormField(textTheme: textTheme),
+                                    ),
+                                    Spacer(flex: isTablet || isMobile ? 1 : 2),
+                                    addUserButton(textTheme),
+                                  ],
+                                ),
                               ),
-                            ),
 
-                      //______________________________________________________________________footer__________________
-                      isTablet || isMobile
-                          ? const SizedBox.shrink()
-                          : Padding(
-                              padding: sizeInfo.padding,
-                              child: paginatedSection(theme, textTheme),
-                            ),
-                    ],
-                  );
-                },
+                        //______________________________________________________________________Data_table__________________
+                        isMobile || isTablet
+                            ? RawScrollbar(
+                                padding: const EdgeInsets.only(left: 18),
+                                trackBorderColor: theme.colorScheme.surface,
+                                trackVisibility: true,
+                                scrollbarOrientation:
+                                    ScrollbarOrientation.bottom,
+                                controller: _scrollController,
+                                thumbVisibility: true,
+                                thickness: 8.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SingleChildScrollView(
+                                      controller: _scrollController,
+                                      scrollDirection: Axis.horizontal,
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          minWidth: constraints.maxWidth,
+                                        ),
+                                        child: userListDataTable(
+                                            context, paginatedData),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: sizeInfo.padding,
+                                      child: Text(
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + documentMaster.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : SingleChildScrollView(
+                                controller: _scrollController,
+                                scrollDirection: Axis.horizontal,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minWidth: constraints.maxWidth,
+                                  ),
+                                  child:
+                                      userListDataTable(context, paginatedData),
+                                ),
+                              ),
+
+                        //______________________________________________________________________footer__________________
+                        isTablet || isMobile
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: sizeInfo.padding,
+                                child: paginatedSection(theme, textTheme),
+                              ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   ///_____________________________________________________________________add_user_button___________________________
-  ElevatedButton addRegistrationButton(TextTheme textTheme) {
+  ElevatedButton addUserButton(TextTheme textTheme) {
     final lang = l.S.of(context);
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -325,7 +299,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
         });
       },
       label: Text(
-        lang.newRegistration,
+        lang.addDocument,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -378,7 +352,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + registrations.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + documentMaster.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -511,8 +485,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme RegistrationListDataTable(
-      BuildContext context, List<Registration> registrations) {
+  Theme userListDataTable(BuildContext context, List<DocumentMaster> documentMaster) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -547,9 +520,15 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
             ),
           ),
           DataColumn(label: Text(lang.name)),
+          DataColumn(label: Text(lang.name)),
+          DataColumn(label: Text(lang.email)),
+          DataColumn(label: Text(lang.phone)),
+          DataColumn(label: Text(lang.phone)),
+          DataColumn(label: Text(lang.position)),
+          DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: registrations.map(
+        rows: documentMaster.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -565,8 +544,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll =
-                                registrations.every((d) => d.isSelected);
+                            _selectAll = documentMaster.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -576,7 +554,44 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
                   ),
                 ),
                 DataCell(
-                  Text(data.fullName ?? ''),
+                  Text(data.nameAr ?? ''),
+                ),
+                DataCell(Row(
+                  children: [
+                    /* Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AvatarWidget(
+                          fit: BoxFit.cover,
+                          avatarShape: AvatarShape.circle,
+                          size: const Size(40, 40),
+                          imagePath: data.),
+                    ), */
+                    const SizedBox(width: 8.0),
+                    Text(data.nameEn ?? ''),
+                  ],
+                )),
+                DataCell(Text(data.nameAr ?? '')),
+                DataCell(Text(data.hasExpiryDate ?? '')),
+                DataCell(Text(data.isActive.toString())),
+                DataCell(Text(data.isMandatory.toString())),
+                DataCell(
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: data.isActive == true
+                          ? FinanceAppColors.kSuccess.withOpacity(0.2)
+                          : FinanceAppColors.kError.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: Text(
+                      data.isActive == true ? lang.active : lang.inactive,
+                      style: textTheme.bodySmall?.copyWith(
+                          color: data.isActive == true
+                              ? FinanceAppColors.kSuccess
+                              : FinanceAppColors.kError),
+                    ),
+                  ),
                 ),
                 DataCell(
                   PopupMenuButton<String>(
@@ -595,13 +610,12 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
                         case 'View':
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                                content:
-                                    Text('${lang.viewed} ${data.fullName}')),
+                                content: Text('${lang.viewed} ${data.nameAr}')),
                           );
                           break;
                         case 'Delete':
                           setState(() {
-                            registrations.remove(data);
+                            documentMaster.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -644,7 +658,7 @@ class _RegistrationsListViewState extends State<RegistrationsListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in registrations) {
+      for (var data in documentMaster) {
         data.isSelected = select;
       }
       _selectAll = select;

@@ -4951,6 +4951,23 @@ class S {
       args: [],
     );
   }
+    String get addDocument {
+    return Intl.message(
+      'Add Document',
+      name: 'addDocument',
+      desc: '',
+      args: [],
+    );
+  }
+   String get document {
+    return Intl.message(
+      'Document',
+      name: 'document',
+      desc: '',
+      args: [],
+    );
+  }
+
 
   /// `Text to Image`
   String get textToImage {
@@ -9944,6 +9961,14 @@ class S {
     return Intl.message(
       'List Sectors',
       name: 'listSectors',
+      desc: '',
+      args: [],
+    );
+  }
+    String get listDocument {
+    return Intl.message(
+      'List Documents',
+      name: 'listDocument',
       desc: '',
       args: [],
     );

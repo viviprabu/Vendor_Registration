@@ -1431,6 +1431,9 @@ class MessageLookup extends MessageLookupByLibrary {
              "contactName":MessageLookupByLibrary.simpleMessage("Contact Name"),
              "companyCivilId":MessageLookupByLibrary.simpleMessage("Company Civil Id"),
              "expireDate":MessageLookupByLibrary.simpleMessage("Expire Date"),
+             "addDocument":MessageLookupByLibrary.simpleMessage("Add Document"),
+             "document":MessageLookupByLibrary.simpleMessage("Document"),
+             "listDocument":MessageLookupByLibrary.simpleMessage("List Documents"),
             
       };
 }
