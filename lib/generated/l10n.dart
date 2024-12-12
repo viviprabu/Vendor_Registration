@@ -819,6 +819,14 @@ class S {
       args: [],
     );
   }
+    String get modify {
+    return Intl.message(
+      'Modify',
+      name: 'modify',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `View Details`
   String get viewDetails {
@@ -2275,6 +2283,22 @@ class S {
       args: [],
     );
   }
+     String get addGovernorate {
+    return Intl.message(
+      'Add Governorate',
+      name: 'addGovernorate',
+      desc: '',
+      args: [],
+    );
+  }
+       String get listGovernorate {
+    return Intl.message(
+      'Governorates List',
+      name: 'listGovernorate',
+      desc: '',
+      args: [],
+    );
+  }
         String get area {
     return Intl.message(
       'Area',
@@ -3505,6 +3529,22 @@ class S {
     return Intl.message(
       'Please enter your phone number',
       name: 'pleaseEnterYourPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+    String get nameAr {
+    return Intl.message(
+      'Name in Arabic',
+      name: 'nameAr',
+      desc: '',
+      args: [],
+    );
+  }
+    String get expiryDate {
+    return Intl.message(
+      'Expiry Date',
+      name: 'expiryDate',
       desc: '',
       args: [],
     );
@@ -4951,6 +4991,23 @@ class S {
       args: [],
     );
   }
+    String get addDocument {
+    return Intl.message(
+      'Add Document',
+      name: 'addDocument',
+      desc: '',
+      args: [],
+    );
+  }
+   String get document {
+    return Intl.message(
+      'Document',
+      name: 'document',
+      desc: '',
+      args: [],
+    );
+  }
+
 
   /// `Text to Image`
   String get textToImage {
@@ -9930,6 +9987,22 @@ class S {
       args: [],
     );
   }
+    String get isMandatory {
+    return Intl.message(
+      'Is Mandatory ?',
+      name: 'isMandatory',
+      desc: '',
+      args: [],
+    );
+  }
+     String get id {
+    return Intl.message(
+      'Id ?',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
 
   String get sector {
     return Intl.message(
@@ -9944,6 +10017,14 @@ class S {
     return Intl.message(
       'List Sectors',
       name: 'listSectors',
+      desc: '',
+      args: [],
+    );
+  }
+    String get listDocument {
+    return Intl.message(
+      'List Documents',
+      name: 'listDocument',
       desc: '',
       args: [],
     );

@@ -10,6 +10,26 @@ import 'package:vendor_registration/app/features/auth/domain/usecases/is_logged_
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_in.dart';
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_out.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/features/document_master/data/datasources/document_master_remote_data_source.dart';
+import 'package:vendor_registration/app/features/document_master/data/datasources/remote/document_master_data_source_impl.dart';
+import 'package:vendor_registration/app/features/document_master/data/repositories/document_master_repository_impl.dart';
+import 'package:vendor_registration/app/features/document_master/domain/repositories/document_master_repository.dart';
+import 'package:vendor_registration/app/features/document_master/domain/usecases/create_document_master.dart';
+import 'package:vendor_registration/app/features/document_master/domain/usecases/delete_document_master.dart';
+import 'package:vendor_registration/app/features/document_master/domain/usecases/get_document_master.dart';
+import 'package:vendor_registration/app/features/document_master/domain/usecases/get_document_masters.dart';
+import 'package:vendor_registration/app/features/document_master/domain/usecases/update_document_master.dart';
+import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
+import 'package:vendor_registration/app/features/governorate/data/datasources/governorate_remote_data_source.dart';
+import 'package:vendor_registration/app/features/governorate/data/datasources/remote/governorate_data_source_impl.dart';
+import 'package:vendor_registration/app/features/governorate/data/repositories/governorate_repository_impl.dart';
+import 'package:vendor_registration/app/features/governorate/domain/repositories/governorate_repository.dart';
+import 'package:vendor_registration/app/features/governorate/domain/usecases/create_governorate.dart';
+import 'package:vendor_registration/app/features/governorate/domain/usecases/delete_governorate.dart';
+import 'package:vendor_registration/app/features/governorate/domain/usecases/get_governorate.dart';
+import 'package:vendor_registration/app/features/governorate/domain/usecases/get_governorates.dart';
+import 'package:vendor_registration/app/features/governorate/domain/usecases/update_governorate.dart';
+import 'package:vendor_registration/app/features/governorate/presentation/bloc/governorate_bloc.dart';
 import 'package:vendor_registration/app/features/registration/data/datasources/registration_remote_data_source.dart';
 import 'package:vendor_registration/app/features/registration/data/datasources/registration_remote_data_source_impl.dart';
 import 'package:vendor_registration/app/features/registration/data/repositories/registration_repository_impl.dart';
@@ -94,6 +114,26 @@ void init() {
       listSystemFunctions: getIt(),
     ),
   );
+   getIt.registerFactory(
+    () => DocumentMasterBloc(
+      getDocumentMaster: getIt(), 
+      getDocumentMasters: getIt(), 
+      createDocumentMaster: getIt(), 
+      updateDocumentMaster: getIt(), 
+      deleteDocumentMaster: getIt(),
+      
+    ),
+  );
+     getIt.registerFactory(
+    () => GovernorateBloc(
+      getGovernorate: getIt(), 
+      getGovernorates: getIt(), 
+      createGovernorate: getIt(), 
+      updateGovernorate: getIt(), 
+      deleteGovernorate: getIt(),
+      
+    ),
+  );
 
   // use cases
 
@@ -114,11 +154,25 @@ void init() {
   getIt.registerLazySingleton(() => UpdateRegistration(getIt()));
   getIt.registerLazySingleton(() => DeleteRegistration(getIt()));
 
+   
+  getIt.registerLazySingleton(() => GetDocumentMaster(getIt()));
+  getIt.registerLazySingleton(() => GetDocumentMasters(getIt()));
+  getIt.registerLazySingleton(() => CreateDocumentMaster(getIt()));
+  getIt.registerLazySingleton(() => UpdateDocumentMaster(getIt()));
+  getIt.registerLazySingleton(() => DeleteDocumentMaster(getIt()));
+
+  getIt.registerLazySingleton(() => GetGovernorate(getIt()));
+  getIt.registerLazySingleton(() => GetGovernorates(getIt()));
+  getIt.registerLazySingleton(() => CreateGovernorate(getIt()));
+  getIt.registerLazySingleton(() => UpdateGovernorate(getIt()));
+  getIt.registerLazySingleton(() => DeleteGovernorate(getIt()));
+
   getIt.registerLazySingleton(() => GetUserRoleFunctions(getIt()));
   getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
   getIt.registerLazySingleton(() => ListUserRoles(getIt()));
   getIt.registerLazySingleton(() => CreateUserRole(getIt()));
   getIt.registerLazySingleton(() => UpdateUserRole(getIt()));
+
 
   // repositories
   getIt.registerLazySingleton<UserRepository>(
@@ -136,6 +190,16 @@ void init() {
   getIt.registerLazySingleton<RegistrationRepository>(
     () => RegistrationRepositoryImpl(
       registrationRemoteDataSource: getIt(),
+    ),
+  );
+   getIt.registerLazySingleton<DocumentMasterRepository>(
+    () => DocumentMasterRepositoryImpl(
+      documentMasterRemoteDataSource: getIt(),
+    ),
+  );
+    getIt.registerLazySingleton<GovernorateRepository>(
+    () => GovernorateRepositoryImpl(
+      governorateRemoteDataSource: getIt(),
     ),
   );
 
@@ -160,6 +224,18 @@ void init() {
 
   getIt.registerLazySingleton<RegistrationRemoteDataSource>(
     () => RegistrationRemoteDataSourceImpl(
+      httpClientWithInterceptor: getIt(),
+    ),
+  );
+
+   getIt.registerLazySingleton<DocumentMasterRemoteDataSource>(
+    () => DocumentMasterRemoteDataSourceImpl(
+      httpClientWithInterceptor: getIt(),
+    ),
+  );
+
+    getIt.registerLazySingleton<GovernorateRemoteDataSource>(
+    () => GovernorateRemoteDataSourceImpl(
       httpClientWithInterceptor: getIt(),
     ),
   );

@@ -296,24 +296,30 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       childRoute: 'Terms & Conditions',
     ),
     // master routes
-    '/master/list-sectors': RouteBreadcrumbModel(
+    '/master/documents-list': RouteBreadcrumbModel(
       // title: 'Terms & Conditions',
-      title: l.S.current.listSectors,
-      parentRoute: 'Master/Sectors',
-      childRoute: 'List Sectors',
+      title: l.S.current.listDocument,
+      parentRoute: 'Master/Documents',
+      childRoute: 'Documents List',
     ),
-    '/master/list-departments': RouteBreadcrumbModel(
+      '/master/governorates-list': RouteBreadcrumbModel(
       // title: 'Terms & Conditions',
-      title: l.S.current.listDepartments,
-      parentRoute: 'Master/Departments',
-      childRoute: 'List Departments',
+      title: l.S.current.listGovernorate,
+      parentRoute: 'Master/Governorates',
+      childRoute: 'Governorates List',
     ),
-    '/master/list-sections': RouteBreadcrumbModel(
-      // title: 'Terms & Conditions',
-      title: l.S.current.listSections,
-      parentRoute: 'Master/Sections',
-      childRoute: 'List Sections',
-    ),
+    // '/master/list-departments': RouteBreadcrumbModel(
+    //   // title: 'Terms & Conditions',
+    //   title: l.S.current.listDepartments,
+    //   parentRoute: 'Master/Departments',
+    //   childRoute: 'List Departments',
+    // ),
+    // '/master/list-sections': RouteBreadcrumbModel(
+    //   // title: 'Terms & Conditions',
+    //   title: l.S.current.listSections,
+    //   parentRoute: 'Master/Sections',
+    //   childRoute: 'List Sections',
+    // ),
 
     '/users/user-role-list': RouteBreadcrumbModel(
       // title: 'Terms & Conditions',
