@@ -1434,6 +1434,14 @@ class MessageLookup extends MessageLookupByLibrary {
              "addDocument":MessageLookupByLibrary.simpleMessage("Add Document"),
              "document":MessageLookupByLibrary.simpleMessage("Document"),
              "listDocument":MessageLookupByLibrary.simpleMessage("List Documents"),
+             "nameAr":MessageLookupByLibrary.simpleMessage("Name in Arabic"),
+             "expiryDate":MessageLookupByLibrary.simpleMessage("Expiry Date"),
+             "id":MessageLookupByLibrary.simpleMessage("Id"),
+             "isMandatory":MessageLookupByLibrary.simpleMessage("Is Mandatory"),
+             "modify":MessageLookupByLibrary.simpleMessage("Modify"),
+             "listGovernorate":MessageLookupByLibrary.simpleMessage("Governorates List"),
+             "addGovernorate":MessageLookupByLibrary.simpleMessage("Add Governorate"),
+
             
       };
 }

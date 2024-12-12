@@ -14,9 +14,9 @@ class DocumentMasterUpdateModel extends DocumentMasterUpdate {
     return DocumentMasterUpdateModel(
       nameAr: json["nameAr"] ?? "",
       nameEn: json["nameEn"] ?? "",
-      hasExpiryDate: json["hasExpiryDate"] ?? "",
+      hasExpiryDate: json["hasExpiryDate"] ?? false,
       isActive: json["isActive"] ?? false,
-      isMandatory: json["isMandatory"] ?? "",
+      isMandatory: json["isMandatory"] ?? false,
     );
   }
 

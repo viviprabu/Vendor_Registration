@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:reactive_forms/reactive_forms.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 import 'package:vendor_registration/app/common/widgets/toggle_switch_field/toggle_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:vendor_registration/app/features/document_master/domain/entities/document_master.dart';
 import 'package:vendor_registration/app/features/document_master/domain/entities/document_master_update.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
+import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 // 🌎 Project imports:
 import '../../../../../../generated/l10n.dart' as l;
@@ -27,19 +30,27 @@ class EditDocumentMasterDialog extends StatefulWidget {
 
 class _EditDocumentMasterDialogState extends State<EditDocumentMasterDialog> {
   late final Logger logger;
-  final TextEditingController _documentMasterEmailController = TextEditingController();
-  final TextEditingController _documentMasterNameController = TextEditingController();
-  final TextEditingController _documentMasterPhoneNumberController =
-      TextEditingController();
-  final TextEditingController _documentMasterMobileNumberController =
-      TextEditingController();
-  final TextEditingController _documentMasterOfficePhoneController =
-      TextEditingController();
-  final TextEditingController _documentMasterDescriptionController =
-      TextEditingController();
-  final TextEditingController _documentMasterSuspendendReasonController =
-      TextEditingController();
-
+ final FormGroup documentMasterForm = FormGroup({
+  'nameAr': FormControl<String>(
+    validators: [Validators.required],
+  ),
+  'nameEn': FormControl<String>(    
+    validators: [Validators.required],
+  ),
+  'hasExpiryDate': FormControl<bool>(
+    value: false,
+    validators: [Validators.required],
+  ),
+  'isActive': FormControl<bool>(
+    value: false,
+    validators: [Validators.required],
+  ),
+  'isMandatory': FormControl<bool>(
+    value: false,
+    validators: [Validators.required],
+  ),
+  
+});
   int? _selectedRole;
   int? _selectedLanguage;
   int? _selectedBusinessRole;
@@ -85,16 +96,14 @@ class _EditDocumentMasterDialogState extends State<EditDocumentMasterDialog> {
 
   @override
   void dispose() {
-    _documentMasterEmailController.dispose();
-    _documentMasterNameController.dispose();
-    _documentMasterPhoneNumberController.dispose();
-    _documentMasterMobileNumberController.dispose();
-    _documentMasterOfficePhoneController.dispose();
+   documentMasterForm.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    const lg = 4;
+    const md = 6;
     final lang = l.S.of(context);
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
@@ -171,335 +180,214 @@ class _EditDocumentMasterDialogState extends State<EditDocumentMasterDialog> {
           builder: (blocContext, blocState) {
             if (blocState is DocumentMasterListState) {
               final documentMasterDetails = blocState.documentMaster;
-              _documentMasterEmailController.text = documentMasterDetails.nameAr ?? '';
-              _documentMasterNameController.text = documentMasterDetails.nameEn ?? '';
-              _documentMasterPhoneNumberController.text = documentMasterDetails.hasExpiryDate ?? '';
-              _documentMasterMobileNumberController.text = documentMasterDetails.isActive.toString();
-              _documentMasterOfficePhoneController.text = documentMasterDetails.isMandatory.toString();
+              documentMasterForm.controls['nameAr']!.value = documentMasterDetails.nameAr ?? '';
+              documentMasterForm.controls['nameEn']!.value = documentMasterDetails.nameEn ?? '';
+              documentMasterForm.controls['hasExpiryDate']!.value = documentMasterDetails.hasExpiryDate ?? '';
+              documentMasterForm.controls['isActive']!.value = documentMasterDetails.isActive ?? '';
+              documentMasterForm.controls['isMandatory']!.value = documentMasterDetails.isMandatory ?? '';
+              
             }
             return SingleChildScrollView(
-              child: Form(
-                key: documentMasterCreationFormKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ///---------------- header section
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 0, 16, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // const Text('Form Dialog'),
-                          Text(lang.addDocument),
-                          IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: const Icon(
-                              Icons.close,
-                              color: FinanceAppColors.kError,
-                            ),
-                          ),
-                        ],
-                      ),
+              child: Column(
+        // padding: sizeInfo.padding,
+        children: [
+          // Browser Default Form
+          Form(
+            key: documentMasterCreationFormKey,
+            child: ShadowContainer(
+              //headerText: 'Browser Defaults',
+              headerText: lang.document,
+              child: ResponsiveGridRow(
+                children: [
+                  // First Name
+                  ResponsiveGridCol(
+                    lg: lg+8,
+                    md: md,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                      child: ReactiveForm(
+                          formGroup: documentMasterForm,
+                          child: Column(
+                                                       
+                            children: [
+                              ReactiveTextField<String>(
+                                formControlName: 'nameAr',
+                                decoration: InputDecoration(
+                                  labelText: lang.nameAr,
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ],
+                          )),
                     ),
-                    Divider(
-                      thickness: 0.1,
-                      color: theme.colorScheme.outline,
-                      height: 0,
+                  ),
+                  // Last Name
+                  
+                  
+                  // Country Dropdown
+                  ResponsiveGridCol(
+                    lg: lg+8,
+                    md: md,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                      child: ReactiveForm(
+                          formGroup: documentMasterForm,
+                          child: Column(
+                            children: [
+                              ReactiveTextField<String>(
+                                formControlName: 'nameEn',
+                                decoration: InputDecoration(
+                                  labelText: lang.name,
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ],
+                          )),
                     ),
+                  ),
 
-                    ///---------------- header section
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: SizedBox(
-                        width: 1200,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 16),
-
-                            ///---------------- Text Field section
-                            Text(lang.name, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: lang.enterYourFullName,
-                                hintStyle: textTheme.bodySmall,
+                  
+                  
+                  ResponsiveGridCol(
+                    lg: lg+8,
+                    md: md,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
+                      child: ReactiveForm(
+                          formGroup: documentMasterForm,
+                          child: Row(
+                            
+                            children: [
+                              ReactiveSwitch(
+                                activeColor: FinanceAppColors.kInfo,
+                                formControlName: 'hasExpiryDate',
+                                
                               ),
-                              keyboardType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.pleaseEnterYourFullName;
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _documentMasterNameController,
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Text(lang.email, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                //hintText: 'Enter Your Email',
-                                hintText: lang.enterYourEmail,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  // return 'Please enter your first name';
-                                  return lang.enterYourEmailAddress;
-                                }
-                                String pattern =
-                                    r'^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
-                                RegExp regex = RegExp(pattern);
-
-                                if (!regex.hasMatch(value)) {
-                                  return lang.enterValidEmailAddress;
-                                }
-
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: _documentMasterEmailController,
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Text(lang.phoneNumber, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                // hintText: 'Enter Your Phone Number',
-                                hintText: lang.enterYourPhoneNumber,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              keyboardType: TextInputType.phone,
-                              controller: _documentMasterPhoneNumberController,
-                            ),
-                            const SizedBox(height: 20),
-
-                            Text(lang.mobileNumber, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                // hintText: 'Enter Your Phone Number',
-                                hintText: lang.enterYourMobileNo,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              keyboardType: TextInputType.phone,
-                              controller: _documentMasterMobileNumberController,
-                            ),
-                            const SizedBox(height: 20),
-
-                            Text(lang.officePhoneNumber,
-                                style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                // hintText: 'Enter Your Phone Number',
-                                hintText: lang.enterOfficePhoneNumber,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              keyboardType: TextInputType.phone,
-                              controller: _documentMasterOfficePhoneController,
-                            ),
-
-                            const SizedBox(height: 20),
-                            Text(lang.language, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            DropdownButtonFormField<int>(
-                              dropdownColor: theme.colorScheme.primaryContainer,
-                              value: _selectedLanguage,
-                              hint: Text(
-                                lang.language,
-                                //'Select Position',
-                                style: textTheme.bodySmall,
-                              ),
-                              items: _language.map((language) {
-                                return DropdownMenuItem<int>(
-                                  value: language.keys.first,
-                                  child: Text(language.values.first),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedLanguage = value;
-                                });
-                              },
-                              /* validator: (value) =>
-                                            value == null ? lang.language : null, */
-                              validator: (value) {
-                                if (value == null) {
-                                  return lang.language;
-                                } else {
-                                  return null;
-                                }
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                            ),
-
-                            const SizedBox(height: 20),
-                            Text(lang.userRole, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            DropdownButtonFormField<int>(
-                              dropdownColor: theme.colorScheme.primaryContainer,
-                              value: _selectedRole,
-                              hint: Text(
-                                lang.selectUserRole,
-                                style: textTheme.bodySmall,
-                              ),
-                              items: _userRoles.map((role) {
-                                return DropdownMenuItem<int>(
-                                  value: role.keys.first,
-                                  child: Text(role.values.first),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedRole = value;
-                                });
-                              },
-                              validator: (value) =>
-                                  value == null ? lang.selectUserRole : null,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                            ),
-
-                            const SizedBox(height: 20),
-                            Text(lang.userBusinessRole,
-                                style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            DropdownButtonFormField<int>(
-                              dropdownColor: theme.colorScheme.primaryContainer,
-                              value: _selectedBusinessRole,
-                              hint: Text(
-                                lang.selectUserBusinessRole,
-                                style: textTheme.bodySmall,
-                              ),
-                              items: _businessRole.map((bRole) {
-                                return DropdownMenuItem<int>(
-                                  value: bRole.keys.first,
-                                  child: Text(bRole.values.first),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedBusinessRole = value;
-                                });
-                              },
-                              validator: (value) => value == null
-                                  ? lang.selectUserBusinessRole
-                                  : null,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                            ),
-
-                            const SizedBox(height: 20),
-                            Text(lang.isActive, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            ToggleSwitcher(
-                              activeText: lang.active,
-                              inactiveText: lang.inactive,
-                              onToggle: (value) {
-                                setState(() {
-                                  toggleValue = value!;
-                                });
-                              },
-                            ),
-
-                            const SizedBox(height: 20),
-                            Text(lang.description, style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                //hintText: 'Write Something',
-                                hintText: lang.description,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              maxLines: 3,
-                              controller: _documentMasterDescriptionController,
-                            ),
-                            const SizedBox(height: 20),
-                            Text(lang.suspendReason,
-                                style: textTheme.bodySmall),
-                            const SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                //hintText: 'Write Something',
-                                hintText: lang.suspendReason,
-                                hintStyle: textTheme.bodySmall,
-                              ),
-                              maxLines: 3,
-                              controller: _documentMasterSuspendendReasonController,
-                            ),
-                            const SizedBox(height: 24),
-
-                            ///---------------- Submit Button section
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: sizeInfo.innerSpacing),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  OutlinedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: sizeInfo.innerSpacing,
-                                        ),
-                                        backgroundColor:
-                                            theme.colorScheme.primaryContainer,
-                                        textStyle: textTheme.bodySmall
-                                            ?.copyWith(
-                                                color: FinanceAppColors.kError),
-                                        side: const BorderSide(
-                                            color: FinanceAppColors.kError)),
-                                    onPressed: () => Navigator.pop(context),
-                                    label: Text(
-                                      lang.cancel,
-                                      //'Cancel',
-                                      style: textTheme.bodySmall?.copyWith(
-                                          color: FinanceAppColors.kError),
-                                    ),
-                                  ),
-                                  SizedBox(width: sizeInfo.innerSpacing),
-                                  ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: sizeInfo.innerSpacing),
-                                    ),
-                                    onPressed: () {
-                                      if (documentMasterCreationFormKey.currentState!
-                                          .validate()) {
-                                        blocContext.read<DocumentMasterBloc>().add(
-                                              DocumentMasterUpdateEvent(
-                                                DocumentMasterUpdate(nameAr: '', nameEn: '', hasExpiryDate: '', isActive: null, isMandatory: null
-                                                  
-                                                ),
-                                              ),
-                                            );
-                                      }
-                                    },
-                                    //label: const Text('Save'),
-                                    label: Text(lang.save),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                                  ReactiveValueListenableBuilder<bool>(
+                formControlName: 'hasExpiryDate',
+                builder: (context, value, child) {
+                  return Text(
+                    'Expiry Date - ${value.value == true ? "Yes" : "No"}',
+                    style: TextStyle(fontSize: 14),
+                  );
+                },
               ),
+              
+                            ],
+                          )),
+                    ),
+                  ),
+                  
+                  ResponsiveGridCol(
+                    lg: lg+6,
+                    md: md,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
+                      child: ReactiveForm(
+                          formGroup: documentMasterForm,
+                          child: Row(
+                            
+                            children: [
+                              ReactiveSwitch(
+                                activeColor: FinanceAppColors.kInfo,
+                                formControlName: 'isActive',
+                                
+                              ),
+                                  ReactiveValueListenableBuilder<bool>(
+                formControlName: 'isActive',
+                builder: (context, value, child) {
+                  return Text(
+                    'Active - ${value.value == true ? "ON" : "OFF"}',
+                    style: TextStyle(fontSize: 14),
+                  );
+                },
+              ),
+              ],
+                          )),
+                    ),
+                  ),
+                  ResponsiveGridCol(
+                    lg: lg+4,
+                    md: md,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
+                      child: ReactiveForm(
+                          formGroup: documentMasterForm,
+                          child: Row(                            
+                            children: [
+              ReactiveSwitch(
+                activeColor: FinanceAppColors.kInfo,
+                                formControlName: 'isMandatory',
+                                
+                              ),
+                                  ReactiveValueListenableBuilder<bool>(
+                formControlName: 'isMandatory',
+                builder: (context, value, child) {
+                  return Text(
+                    'Mandatory - ${value.value == true ? "ON" : "OFF"}',
+                    style: TextStyle(fontSize: 14),
+                  );
+                },
+              ),
+                            ],
+                          )),
+                    ),
+                  ),
+                  // Save Form Button
+
+                  ResponsiveGridCol(
+                    lg: 2,
+                    md: 3,
+                    xl: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(FinanceAppColors.kError)),
+                        icon: Icon(
+                          Icons.cancel_presentation_rounded,
+                          size: 17,
+                          color: FinanceAppColors.kWhiteColor,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        //child: const Text('Save From'),
+                        label: Text(lang.cancel),
+                      ),
+                    ),
+                  ),
+                  ResponsiveGridCol(
+                    lg: 2,
+                    md: 3,
+                    xl: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.save_alt_rounded,
+                          size: 17,
+                          color: FinanceAppColors.kWhiteColor,
+                        ),
+                        onPressed: () {
+                          if (documentMasterForm.touched) {
+                            // widget.tabController.animateTo(3);
+                            print('Form Value: ${documentMasterForm.value}');
+                          } else {
+                            documentMasterForm.markAllAsTouched();
+                          }
+                        },
+                        //child: const Text('Save From'),
+                        label: Text(lang.modify),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: sizeInfo.innerSpacing),
+        ],
+      ),
             );
           },
         ),

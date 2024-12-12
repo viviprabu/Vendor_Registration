@@ -6,7 +6,7 @@ class DocumentMasterModel {
   final String? id;
   final String? nameAr;
   final String? nameEn;
-  final String? hasExpiryDate;
+  final bool? hasExpiryDate;
   final bool? isActive;
   final bool? isMandatory;
   
@@ -26,9 +26,9 @@ class DocumentMasterModel {
       id: json["id"] ?? "",
       nameAr: json["nameAr"] ?? "",
       nameEn: json["nameEn"] ?? "",
-      hasExpiryDate: json["hasExpiryDate"] ?? "",
+      hasExpiryDate: json["hasExpiryDate"] ?? false,
       isActive: json["isActive"] ?? false,
-      isMandatory: json["isMandatory"] ?? "",
+      isMandatory: json["isMandatory"] ?? false,
      
     );
   }

@@ -15,9 +15,9 @@ class DocumentMasterCreateModel extends DocumentMasterCreate {
     return DocumentMasterCreateModel(
       nameAr: json["nameAr"] ?? "",
       nameEn: json["nameEn"] ?? "",
-      hasExpiryDate: json["hasExpiryDate"] ?? "",
-      isActive: json["isActive"] ?? "",
-      isMandatory: json["isMandatory"] ?? "",
+      hasExpiryDate: json["hasExpiryDate"] ?? false,
+      isActive: json["isActive"] ?? false,
+      isMandatory: json["isMandatory"] ?? false,
      
     );
   }

@@ -7,53 +7,56 @@ import 'package:logging/logging.dart';
 
 // 📦 Package imports:
 import 'package:responsive_framework/responsive_framework.dart' as rf;
-import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
+import 'package:vendor_registration/app/features/governorate/domain/entities/governorate.dart';
+import 'package:vendor_registration/app/features/governorate/presentation/bloc/governorate_bloc.dart';
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 
 // 🌎 Project imports:
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
 
-class AddDocumentMasterDialog extends StatefulWidget {
-  const AddDocumentMasterDialog({super.key});
+class EditGovernorateDialog extends StatefulWidget {
+  final Governorate governorateData;
+  const EditGovernorateDialog({
+    required this.governorateData,
+    super.key,
+  });
 
   @override
-  State<AddDocumentMasterDialog> createState() => _AddDocumentMasterDialogState();
+  State<EditGovernorateDialog> createState() => _EditGovernorateDialogState();
 }
 
-class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
+class _EditGovernorateDialogState extends State<EditGovernorateDialog> {
   late final Logger logger;
-  
- final FormGroup documentMasterForm = FormGroup({
+ final FormGroup governorateForm = FormGroup({
   'nameAr': FormControl<String>(
     validators: [Validators.required],
   ),
   'nameEn': FormControl<String>(    
     validators: [Validators.required],
   ),
-  'hasExpiryDate': FormControl<bool>(
-    value: false,
-    validators: [Validators.required],
-  ),
-  'isActive': FormControl<bool>(
-    value: false,
-    validators: [Validators.required],
-  ),
-  'isMandatory': FormControl<bool>(
-    value: false,
-    validators: [Validators.required],
-  ),
+  
   
 });
- 
-
   int? _selectedRole;
   int? _selectedLanguage;
   int? _selectedBusinessRole;
+  final bool _isDarkMode = false;
+  final bool _isSuspended = false;
   int toggleValue = 0;
-  int isDarkMode = 1;
 
-  final documentMasterCreationFormKey = GlobalKey<FormState>();
+  final governorateCreationFormKey = GlobalKey<FormState>();
+
+  List<String> get _positions => [
+        //'Manager',
+        l.S.current.manager,
+        //'Developer',
+        l.S.current.developer,
+        //'Designer',
+        l.S.current.designer,
+        //'Tester'
+        l.S.current.tester,
+      ];
 
   List<Map<int, String>> get _language => [
         {1: 'English'},
@@ -62,7 +65,7 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
 
   List<Map<int, String>> get _businessRole => [
         {1: 'admin'},
-        {2: 'DocumentMaster'},
+        {2: 'user'},
       ];
 
   List<Map<int, String>> get _userRoles => [
@@ -72,18 +75,20 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    final governorateDetail = widget.governorateData;
+    final governorateId = governorateDetail.id ?? '';
+    context.read<GovernorateBloc>().add(GovernorateListEvent(governorateId));
     super.initState();
   }
 
   @override
   void dispose() {
+   governorateForm.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-     
     const lg = 4;
     const md = 6;
     final lang = l.S.of(context);
@@ -122,9 +127,9 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
     ).value;
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocListener<DocumentMasterBloc, DocumentMasterState>(
+    return BlocListener<GovernorateBloc, GovernorateState>(
       listener: (listenerContext, listenerState) {
-        if (listenerState is DocumentMasterError) {
+        if (listenerState is GovernorateError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(listenerState.message),
@@ -132,21 +137,21 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
           );
         }
 
-        if (listenerState is DocumentMasterCreateState) {
-          if (listenerState.documentMaster.id != null) {
+        if (listenerState is GovernorateUpdateState) {
+          if (listenerState.governorate.id != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Document Added Successfully'),
+                content: Text('Governorate Updated Successfully'),
               ),
             );
             // refresh the DocumentMaster list
-            listenerContext.read<DocumentMasterBloc>().add(DocumentMastersListEvent());
+            listenerContext.read<GovernorateBloc>().add(GovernoratesListEvent());
             // close the dialog
             Navigator.pop(context);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Document Addition Failed'),
+                content: Text('Governorate Creation Failed'),
               ),
             );
           }
@@ -158,18 +163,25 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        content: BlocBuilder<DocumentMasterBloc, DocumentMasterState>(
+        content: BlocBuilder<GovernorateBloc, GovernorateState>(
           builder: (blocContext, blocState) {
+            if (blocState is GovernorateListState) {
+              final governorateDetails = blocState.governorate;
+              governorateForm.controls['nameAr']!.value = governorateDetails.nameAr ?? '';
+              governorateForm.controls['nameEn']!.value = governorateDetails.nameEn ?? '';
+           
+              
+            }
             return SingleChildScrollView(
               child: Column(
         // padding: sizeInfo.padding,
         children: [
           // Browser Default Form
           Form(
-            key: documentMasterCreationFormKey,
+            key: governorateCreationFormKey,
             child: ShadowContainer(
               //headerText: 'Browser Defaults',
-              headerText: lang.document,
+              headerText: lang.governorate,
               child: ResponsiveGridRow(
                 children: [
                   // First Name
@@ -179,7 +191,7 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ReactiveForm(
-                          formGroup: documentMasterForm,
+                          formGroup: governorateForm,
                           child: Column(
                                                        
                             children: [
@@ -204,7 +216,7 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
                     child: Padding(
                       padding: EdgeInsets.all(sizeInfo.innerSpacing / 2),
                       child: ReactiveForm(
-                          formGroup: documentMasterForm,
+                          formGroup: governorateForm,
                           child: Column(
                             children: [
                               ReactiveTextField<String>(
@@ -221,91 +233,7 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
 
                   
                   
-                  ResponsiveGridCol(
-                    lg: lg+8,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
-                      child: ReactiveForm(
-                          formGroup: documentMasterForm,
-                          child: Row(
-                            
-                            children: [
-                              ReactiveSwitch(
-                                activeColor: FinanceAppColors.kInfo,
-                                formControlName: 'hasExpiryDate',
-                                
-                              ),
-                                  ReactiveValueListenableBuilder<bool>(
-                formControlName: 'hasExpiryDate',
-                builder: (context, value, child) {
-                  return Text(
-                    'Expiry Date - ${value.value == true ? "Yes" : "No"}',
-                    style: TextStyle(fontSize: 14),
-                  );
-                },
-              ),
-              
-                            ],
-                          )),
-                    ),
-                  ),
                   
-                  ResponsiveGridCol(
-                    lg: lg+6,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
-                      child: ReactiveForm(
-                          formGroup: documentMasterForm,
-                          child: Row(
-                            
-                            children: [
-                              ReactiveSwitch(
-                                activeColor: FinanceAppColors.kInfo,
-                                formControlName: 'isActive',
-                                
-                              ),
-                                  ReactiveValueListenableBuilder<bool>(
-                formControlName: 'isActive',
-                builder: (context, value, child) {
-                  return Text(
-                    'Active - ${value.value == true ? "ON" : "OFF"}',
-                    style: TextStyle(fontSize: 14),
-                  );
-                },
-              ),
-              ],
-                          )),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    lg: lg+4,
-                    md: md,
-                    child: Padding(
-                      padding: EdgeInsets.all(sizeInfo.innerSpacing / 1),
-                      child: ReactiveForm(
-                          formGroup: documentMasterForm,
-                          child: Row(                            
-                            children: [
-              ReactiveSwitch(
-                activeColor: FinanceAppColors.kInfo,
-                                formControlName: 'isMandatory',
-                                
-                              ),
-                                  ReactiveValueListenableBuilder<bool>(
-                formControlName: 'isMandatory',
-                builder: (context, value, child) {
-                  return Text(
-                    'Mandatory - ${value.value == true ? "ON" : "OFF"}',
-                    style: TextStyle(fontSize: 14),
-                  );
-                },
-              ),
-                            ],
-                          )),
-                    ),
-                  ),
                   // Save Form Button
 
                   ResponsiveGridCol(
@@ -342,15 +270,15 @@ class _AddDocumentMasterDialogState extends State<AddDocumentMasterDialog> {
                           color: FinanceAppColors.kWhiteColor,
                         ),
                         onPressed: () {
-                          if (documentMasterForm.touched) {
+                          if (governorateForm.touched) {
                             // widget.tabController.animateTo(3);
-                            print('Form Value: ${documentMasterForm.value}');
+                            print('Form Value: ${governorateForm.value}');
                           } else {
-                            documentMasterForm.markAllAsTouched();
+                            governorateForm.markAllAsTouched();
                           }
                         },
                         //child: const Text('Save From'),
-                        label: Text(lang.save),
+                        label: Text(lang.modify),
                       ),
                     ),
                   ),
@@ -443,7 +371,4 @@ class DottedBorderPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
   }
-
-  
 }
-

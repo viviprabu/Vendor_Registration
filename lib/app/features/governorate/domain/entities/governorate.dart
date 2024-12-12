@@ -1,23 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 
-class DocumentMaster extends Equatable {
+class Governorate extends Equatable {
   final String? id;
      final String? nameAr;
   final String? nameEn;
-  final bool? hasExpiryDate;
-  final bool? isActive;
-  final bool? isMandatory;
+  
     bool isSelected = false;
 
 
-  DocumentMaster(
+  Governorate(
       {this.id,
       this.nameAr,
       this.nameEn,
-      this.hasExpiryDate,
-      this.isActive,
-      this.isMandatory,
+      
      });
 
   @override
@@ -25,9 +21,7 @@ class DocumentMaster extends Equatable {
         id,
         nameAr,
         nameEn,
-        hasExpiryDate,
-        isActive,
-        isMandatory,
+       
         
       ];
 }

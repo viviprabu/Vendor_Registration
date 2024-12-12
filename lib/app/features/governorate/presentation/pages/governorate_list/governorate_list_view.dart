@@ -12,26 +12,29 @@ import 'package:responsive_framework/responsive_framework.dart' as rf;
 import 'package:vendor_registration/app/features/document_master/domain/entities/document_master.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/pages/document_master_list/edit_document_master_popup.dart';
+import 'package:vendor_registration/app/features/governorate/domain/entities/governorate.dart';
+import 'package:vendor_registration/app/features/governorate/presentation/bloc/governorate_bloc.dart';
+import 'package:vendor_registration/app/features/governorate/presentation/pages/governorate_list/edit_document_master_popup.dart';
 
 // 🌎 Project imports:
 import 'package:vendor_registration/app/widgets/shadow_container/_shadow_container.dart';
 import '../../../../../../generated/l10n.dart' as l;
 import '../../../../../core/theme/_app_colors.dart';
-import 'add_document_master_popup.dart';
+import 'add_governorate_popup.dart';
 
-class DocumentMasterListView extends StatefulWidget {
-  const DocumentMasterListView({super.key});
+class GovernorateListView extends StatefulWidget {
+  const GovernorateListView({super.key});
 
   @override
-  _DocumentMasterListViewState createState() => _DocumentMasterListViewState();
+  _GovernorateListViewState createState() => _GovernorateListViewState();
 }
 
-class _DocumentMasterListViewState extends State<DocumentMasterListView> {
+class _GovernorateListViewState extends State<GovernorateListView> {
   ///_____________________________________________________________________Variables_______________________________
-  late List<DocumentMaster> _filteredData;
-  late List<DocumentMaster> paginatedData=[];
+  late List<Governorate> _filteredData;
+  late List<Governorate> paginatedData=[];
   final ScrollController _scrollController = ScrollController();
-  List<DocumentMaster> documentMaster = [];
+  List<Governorate> governorate = [];
   int _currentPage = 0;
   int _rowsPerPage = 10;
   String _searchQuery = '';
@@ -40,7 +43,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
   @override
   void initState() {
     super.initState();
-    _filteredData = List.from(documentMaster);
+    _filteredData = List.from(governorate);
   }
 
   @override
@@ -68,7 +71,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: const AddDocumentMasterDialog(),
+          child: const AddGovernorateDialog(),
         );
       },
     );
@@ -76,7 +79,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
 
   ///_____________________________________________________________________Edit User Dialog_________________________________
 
-  void _showEditFormDialog(DocumentMaster documentMasterData) {
+  void _showEditFormDialog(Governorate governorateData) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -85,8 +88,8 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
             sigmaX: 5,
             sigmaY: 5,
           ),
-          child: EditDocumentMasterDialog(
-            documentMasterData: documentMasterData,
+          child: EditGovernorateDialog(
+            governorateData: governorateData,
           ),
         );
       },
@@ -95,7 +98,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DocumentMasterBloc>().add(DocumentMastersListEvent());
+    context.read<GovernorateBloc>().add(GovernoratesListEvent());
     final sizeInfo = rf.ResponsiveValue<_SizeInfo>(
       context,
       conditionalValues: [
@@ -132,18 +135,18 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
-    return BlocBuilder<DocumentMasterBloc, DocumentMasterState>(
+    return BlocBuilder<GovernorateBloc, GovernorateState>(
       builder: (context, state) {
-        if (state is DocumentMastersListState) {
-          documentMaster = state.documentMasters;
+        if (state is GovernoratesListState) {
+          governorate = state.governorates;
 
           if (_searchQuery.isNotEmpty) {
-            _filteredData = documentMaster;
+            _filteredData = governorate;
             // .where((data) =>
             //     data.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
             // .toList();
           } else {
-            _filteredData = List.from(documentMaster);
+            _filteredData = List.from(governorate);
           }
           int start = _currentPage * _rowsPerPage;
           int end = start + _rowsPerPage;
@@ -241,14 +244,14 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
                                         constraints: BoxConstraints(
                                           minWidth: constraints.maxWidth,
                                         ),
-                                        child: userListDataTable(
+                                        child: governorateListDataTable(
                                             context, paginatedData),
                                       ),
                                     ),
                                     Padding(
                                       padding: sizeInfo.padding,
                                       child: Text(
-                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + documentMaster.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+                                        '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + governorate.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -263,7 +266,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
                                     minWidth: constraints.maxWidth,
                                   ),
                                   child:
-                                      userListDataTable(context, paginatedData),
+                                      governorateListDataTable(context, paginatedData),
                                 ),
                               ),
 
@@ -299,7 +302,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
         });
       },
       label: Text(
-        lang.addDocument,
+        lang.addGovernorate,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -352,7 +355,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
       children: [
         Expanded(
           child: Text(
-            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + documentMaster.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
+            '${l.S.of(context).showing} ${_currentPage * _rowsPerPage + 1} ${l.S.of(context).to} ${_currentPage * _rowsPerPage + governorate.length} ${l.S.of(context).OF} ${_filteredData.length} ${l.S.of(context).entries}',
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -485,7 +488,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme userListDataTable(BuildContext context, List<DocumentMaster> documentMaster) {
+  Theme governorateListDataTable(BuildContext context, List<Governorate> governorate) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -519,16 +522,12 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
               ],
             ),
           ),
+          DataColumn(label: Text(lang.nameAr)),
           DataColumn(label: Text(lang.name)),
-          DataColumn(label: Text(lang.name)),
-          DataColumn(label: Text(lang.email)),
-          DataColumn(label: Text(lang.phone)),
-          DataColumn(label: Text(lang.phone)),
-          DataColumn(label: Text(lang.position)),
           DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: documentMaster.map(
+        rows: governorate.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -544,7 +543,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = documentMaster.every((d) => d.isSelected);
+                            _selectAll = governorate.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -553,46 +552,9 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
                     ],
                   ),
                 ),
-                DataCell(
-                  Text(data.nameAr ?? ''),
-                ),
-                DataCell(Row(
-                  children: [
-                    /* Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AvatarWidget(
-                          fit: BoxFit.cover,
-                          avatarShape: AvatarShape.circle,
-                          size: const Size(40, 40),
-                          imagePath: data.),
-                    ), */
-                    const SizedBox(width: 8.0),
-                    Text(data.nameEn ?? ''),
-                  ],
-                )),
                 DataCell(Text(data.nameAr ?? '')),
-                DataCell(Text(data.hasExpiryDate.toString())),
-                DataCell(Text(data.isActive.toString())),
-                DataCell(Text(data.isMandatory.toString())),
-                DataCell(
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: data.isActive == true
-                          ? FinanceAppColors.kSuccess.withOpacity(0.2)
-                          : FinanceAppColors.kError.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Text(
-                      data.isActive == true ? lang.active : lang.inactive,
-                      style: textTheme.bodySmall?.copyWith(
-                          color: data.isActive == true
-                              ? FinanceAppColors.kSuccess
-                              : FinanceAppColors.kError),
-                    ),
-                  ),
-                ),
+                 DataCell(Text(data.nameEn ?? '')),             
+                
                 DataCell(
                   PopupMenuButton<String>(
                     iconColor: theme.colorScheme.onTertiary,
@@ -615,7 +577,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            documentMaster.remove(data);
+                            governorate.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
@@ -658,7 +620,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
   ///_____________________________________________________________________Selected_datatable_________________________
   void _selectAllRows(bool select) {
     setState(() {
-      for (var data in documentMaster) {
+      for (var data in governorate) {
         data.isSelected = select;
       }
       _selectAll = select;

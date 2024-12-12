@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:vendor_registration/app/features/auth/presentation/pages/services_view.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/pages/document_master_list/document_master_list_view.dart';
+import 'package:vendor_registration/app/features/governorate/presentation/pages/governorate_page.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/register_page_view.dart';
 import 'package:vendor_registration/app/features/user/presentation/pages/user_list/_unauthorised_users_list_view.dart';
 import 'package:vendor_registration/app/features/user_role/presentation/pages/user_role_list/_user_roles_list_view.dart';
@@ -117,7 +118,14 @@ abstract class FinanceAppRoutes {
                   child: DocumentMasterListView(),
                 ),
               ),
+              GoRoute(
+                path: 'governorates-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: GovernorateListView(),
+                ),
+              ),
             ],
+            
           ),
 
           //--------------Application Section--------------//

@@ -24,6 +24,12 @@ class ApiUrls {
   static const documentMaster = 'System/DocumentMaster';
   static const getDocumentMaster = 'System/DocumentMaster';
   static const updateDocumentMaster = 'System/DocumentMaster';
+  //governorate
+  static const createGovernorate = 'System/Governorate';
+  static const governorate = 'System/Governorate';
+  static const getGovernorate = 'System/Governorate';
+  static const updateGovernorate = 'System/Governorate';
+
 
   // manage role
   static const createRole = 'System/Role';

@@ -1431,5 +1431,13 @@ class MessageLookup extends MessageLookupByLibrary {
              "addDocument":MessageLookupByLibrary.simpleMessage("إضافة مستند"),
              "document":MessageLookupByLibrary.simpleMessage("وثيقة"),
              "listDocument":MessageLookupByLibrary.simpleMessage("قائمة المستندات"),
+             "nameAr":MessageLookupByLibrary.simpleMessage("الاسم باللغة العربية"),
+             "expiryDate":MessageLookupByLibrary.simpleMessage("تاريخ انتهاء الصلاحية"),
+             "id":MessageLookupByLibrary.simpleMessage("بطاقة تعريف"),
+             "isMandatory":MessageLookupByLibrary.simpleMessage("إلزامية"),
+             "modify":MessageLookupByLibrary.simpleMessage("يُعدِّل"),
+             "listGovernorate":MessageLookupByLibrary.simpleMessage("قائمة المحافظات"),
+             "addGovernorate":MessageLookupByLibrary.simpleMessage("أضف المحافظة"),
+
       };
 }
