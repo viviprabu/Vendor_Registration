@@ -302,7 +302,7 @@ class _GovernorateListViewState extends State<GovernorateListView> {
         });
       },
       label: Text(
-        lang.addGovernorate,
+        lang.addNew,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,

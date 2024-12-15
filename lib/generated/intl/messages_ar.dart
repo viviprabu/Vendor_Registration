@@ -1439,6 +1439,7 @@ class MessageLookup extends MessageLookupByLibrary {
              "listGovernorate":MessageLookupByLibrary.simpleMessage("قائمة المحافظات"),
              "addGovernorate":MessageLookupByLibrary.simpleMessage("أضف المحافظة"),
              "addArea":MessageLookupByLibrary.simpleMessage("أضف منطقة"),
+              "addNew":MessageLookupByLibrary.simpleMessage("أضف جديد"),
              "areaList":MessageLookupByLibrary.simpleMessage("قائمة المنطقة"),
 
       };

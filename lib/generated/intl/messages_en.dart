@@ -1443,6 +1443,7 @@ class MessageLookup extends MessageLookupByLibrary {
              "addGovernorate":MessageLookupByLibrary.simpleMessage("Add Governorate"),
              "addArea":MessageLookupByLibrary.simpleMessage("Add Area"),
              "areaList":MessageLookupByLibrary.simpleMessage("Area List"),
+             "addNew":MessageLookupByLibrary.simpleMessage("Add New"),
 
             
       };

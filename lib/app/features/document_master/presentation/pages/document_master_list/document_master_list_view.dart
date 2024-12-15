@@ -299,7 +299,7 @@ class _DocumentMasterListViewState extends State<DocumentMasterListView> {
         });
       },
       label: Text(
-        lang.addDocument,
+        lang.addNew,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,

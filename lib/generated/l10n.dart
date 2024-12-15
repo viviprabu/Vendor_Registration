@@ -2299,6 +2299,14 @@ class S {
       args: [],
     );
   }
+     String get addNew {
+    return Intl.message(
+      'Add New',
+      name: 'addNew',
+      desc: '',
+      args: [],
+    );
+  }
        String get listGovernorate {
     return Intl.message(
       'Governorates List',

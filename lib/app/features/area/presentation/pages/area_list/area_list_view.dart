@@ -301,7 +301,7 @@ class _AreaListViewState extends State<AreaListView> {
         });
       },
       label: Text(
-        lang.add,
+        lang.addArea,
         //'Add New User',
         style: textTheme.bodySmall?.copyWith(
           color: FinanceAppColors.kWhiteColor,
@@ -487,7 +487,7 @@ class _AreaListViewState extends State<AreaListView> {
   }
 
   ///_______________________________________________________________User_List_Data_Table___________________________
-  Theme AreaListDataTable(BuildContext context, List<Area> Area) {
+  Theme AreaListDataTable(BuildContext context, List<Area> area) {
     final lang = l.S.of(context);
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -526,7 +526,7 @@ class _AreaListViewState extends State<AreaListView> {
           DataColumn(label: Text(lang.status)),
           DataColumn(label: Text(lang.actions)),
         ],
-        rows: Area.map(
+        rows: area.map(
           (data) {
             return DataRow(
               color: WidgetStateColor.transparent,
@@ -542,7 +542,7 @@ class _AreaListViewState extends State<AreaListView> {
                         onChanged: (selected) {
                           setState(() {
                             data.isSelected = selected ?? false;
-                            _selectAll = Area.every((d) => d.isSelected);
+                            _selectAll = area.every((d) => d.isSelected);
                           });
                         },
                       ),
@@ -576,7 +576,7 @@ class _AreaListViewState extends State<AreaListView> {
                           break;
                         case 'Delete':
                           setState(() {
-                            Area.remove(data);
+                            area.remove(data);
                             _filteredData.remove(data);
                           });
                           break;
