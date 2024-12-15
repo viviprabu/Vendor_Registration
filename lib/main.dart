@@ -2,6 +2,7 @@
 import 'package:provider/provider.dart';
 import 'package:vendor_registration/app/bloc/language/language_bloc.dart';
 import 'package:vendor_registration/app/bloc/theme/theme_bloc.dart';
+import 'package:vendor_registration/app/features/area/presentation/bloc/area_bloc.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/bloc/document_master_bloc.dart';
 import 'package:vendor_registration/app/features/governorate/presentation/bloc/governorate_bloc.dart';
@@ -62,6 +63,10 @@ Future<void> main() async {
       BlocProvider(
         create: (context) =>
             getIt<GovernorateBloc>()..add(GovernorateInitialEvent()),
+      ),
+      BlocProvider(
+        create: (context) =>
+            getIt<AreaBloc>()..add(AreaInitialEvent()),
       ),
       ChangeNotifierProvider(create: (context) => DataProvider()),
     ],
