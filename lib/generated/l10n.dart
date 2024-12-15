@@ -907,6 +907,14 @@ class S {
       args: [],
     );
   }
+    String get addArea {
+    return Intl.message(
+      'Add Area',
+      name: 'addArea',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `New Task`
   String get newTask {
