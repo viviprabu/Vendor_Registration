@@ -1,5 +1,7 @@
 // 📦 Package imports:
+import 'package:vendor_registration/app/features/area/presentation/pages/area_list/area_list_view.dart';
 import 'package:vendor_registration/app/features/auth/presentation/pages/services_view.dart';
+import 'package:vendor_registration/app/features/company_type/presentation/pages/company_type_page.dart';
 import 'package:vendor_registration/app/features/document_master/presentation/pages/document_master_list/document_master_list_view.dart';
 import 'package:vendor_registration/app/features/governorate/presentation/pages/governorate_page.dart';
 import 'package:vendor_registration/app/features/registration/presentation/pages/registration/register_page_view.dart';
@@ -113,17 +115,31 @@ abstract class FinanceAppRoutes {
             },
             routes: [
               GoRoute(
-                path: 'documents-list',
-                pageBuilder: (context, state) => const NoTransitionPage<void>(
-                  child: DocumentMasterListView(),
-                ),
-              ),
-              GoRoute(
                 path: 'governorates-list',
                 pageBuilder: (context, state) => const NoTransitionPage<void>(
                   child: GovernorateListView(),
                 ),
               ),
+              GoRoute(
+                path: 'area-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: AreaListView(),
+                ),
+              ),
+              GoRoute(
+                path: 'company-type-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: CompanyTypeListView(),
+                ),
+              ),
+              
+              GoRoute(
+                path: 'documents-list',
+                pageBuilder: (context, state) => const NoTransitionPage<void>(
+                  child: DocumentMasterListView(),
+                ),
+              ),
+              
             ],
             
           ),

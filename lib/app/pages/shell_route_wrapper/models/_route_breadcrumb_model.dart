@@ -308,6 +308,18 @@ Map<String, RouteBreadcrumbModel> get routerParam {
       parentRoute: 'Master/Governorates',
       childRoute: 'Governorates List',
     ),
+         '/master/area-list': RouteBreadcrumbModel(
+      // title: 'Terms & Conditions',
+      title: l.S.current.listArea,
+      parentRoute: 'Master/Area',
+      childRoute: 'Area List',
+    ),
+          '/master/company-type-list': RouteBreadcrumbModel(
+      // title: 'Terms & Conditions',
+      title: l.S.current.listArea,
+      parentRoute: 'Master/Company_Type',
+      childRoute: 'Company Type List',
+    ),
     // '/master/list-departments': RouteBreadcrumbModel(
     //   // title: 'Terms & Conditions',
     //   title: l.S.current.listDepartments,

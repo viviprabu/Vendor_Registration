@@ -2307,6 +2307,14 @@ class S {
       args: [],
     );
   }
+      String get listArea {
+    return Intl.message(
+      'Area List',
+      name: 'listArea',
+      desc: '',
+      args: [],
+    );
+  }
         String get area {
     return Intl.message(
       'Area',

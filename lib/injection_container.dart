@@ -20,6 +20,16 @@ import 'package:vendor_registration/app/features/auth/domain/usecases/is_logged_
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_in.dart';
 import 'package:vendor_registration/app/features/auth/domain/usecases/sign_out.dart';
 import 'package:vendor_registration/app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vendor_registration/app/features/company_type/data/datasources/company_type_remote_data_source.dart';
+import 'package:vendor_registration/app/features/company_type/data/datasources/remote/company_type_data_source_impl.dart';
+import 'package:vendor_registration/app/features/company_type/data/repositories/company_type_repository_impl.dart';
+import 'package:vendor_registration/app/features/company_type/domain/repositories/company_type_repository.dart';
+import 'package:vendor_registration/app/features/company_type/domain/usecases/create_company_type.dart';
+import 'package:vendor_registration/app/features/company_type/domain/usecases/delete_company_type.dart';
+import 'package:vendor_registration/app/features/company_type/domain/usecases/get_company_type.dart';
+import 'package:vendor_registration/app/features/company_type/domain/usecases/get_company_types.dart';
+import 'package:vendor_registration/app/features/company_type/domain/usecases/update_company_type.dart';
+import 'package:vendor_registration/app/features/company_type/presentation/bloc/company_type_bloc.dart';
 import 'package:vendor_registration/app/features/document_master/data/datasources/document_master_remote_data_source.dart';
 import 'package:vendor_registration/app/features/document_master/data/datasources/remote/document_master_data_source_impl.dart';
 import 'package:vendor_registration/app/features/document_master/data/repositories/document_master_repository_impl.dart';
@@ -154,6 +164,16 @@ void init() {
       
     ),
   );
+    getIt.registerFactory(
+    () => CompanyTypeBloc(
+      getCompanyType: getIt(), 
+      getCompanyTypes: getIt(), 
+      createCompanyType: getIt(), 
+      updateCompanyType: getIt(), 
+      deleteCompanyType: getIt(),
+      
+    ),
+  );
 
   // use cases
 
@@ -192,6 +212,12 @@ void init() {
   getIt.registerLazySingleton(() => CreateArea(getIt()));
   getIt.registerLazySingleton(() => UpdateArea(getIt()));
   getIt.registerLazySingleton(() => DeleteArea(getIt()));
+
+    getIt.registerLazySingleton(() => GetCompanyType(getIt()));
+  getIt.registerLazySingleton(() => GetCompanyTypes(getIt()));
+  getIt.registerLazySingleton(() => CreateCompanyType(getIt()));
+  getIt.registerLazySingleton(() => UpdateCompanyType(getIt()));
+  getIt.registerLazySingleton(() => DeleteCompanyType(getIt()));
 
   getIt.registerLazySingleton(() => GetUserRoleFunctions(getIt()));
   getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
@@ -233,6 +259,11 @@ void init() {
       areaRemoteDataSource: getIt(),
     ),
   );
+    getIt.registerLazySingleton<CompanyTypeRepository>(
+    () => CompanyTypeRepositoryImpl(
+      companyTypeRemoteDataSource: getIt(),
+    ),
+  );
 
   getIt.registerLazySingleton<UserRoleRepository>(
     () => UserRoleRepositoryImpl(
@@ -272,6 +303,11 @@ void init() {
   );
    getIt.registerLazySingleton<AreaRemoteDataSource>(
     () => AreaRemoteDataSourceImpl(
+      httpClientWithInterceptor: getIt(),
+    ),
+  );
+     getIt.registerLazySingleton<CompanyTypeRemoteDataSource>(
+    () => CompanyTypeRemoteDataSourceImpl(
       httpClientWithInterceptor: getIt(),
     ),
   );
