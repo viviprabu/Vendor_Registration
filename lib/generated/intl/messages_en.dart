@@ -1442,6 +1442,7 @@ class MessageLookup extends MessageLookupByLibrary {
              "listGovernorate":MessageLookupByLibrary.simpleMessage("Governorates List"),
              "addGovernorate":MessageLookupByLibrary.simpleMessage("Add Governorate"),
              "addArea":MessageLookupByLibrary.simpleMessage("Add Area"),
+             "addNew":MessageLookupByLibrary.simpleMessage("Add New"),
 
             
       };
