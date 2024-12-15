@@ -34,6 +34,11 @@ class ApiUrls {
   static const area = 'System/Area';
   static const getArea = 'System/Area';
   static const updateArea = 'System/Area';
+   //company type
+  static const createCompanyType = 'System/CompanyType';
+  static const companyType = 'System/CompanyType';
+  static const getCompanyType = 'System/CompanyType';
+  static const updateCompanyType = 'System/CompanyType';
 
   // manage role
   static const createRole = 'System/Role';

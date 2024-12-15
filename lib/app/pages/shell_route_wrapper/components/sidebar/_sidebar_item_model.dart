@@ -73,15 +73,26 @@ List<GroupedMenuModel> get _groupedMenus {
           sidebarItemType: SidebarItemType.submenu,
           navigationPath: '/master',
           submenus: [
-            SidebarSubmenuModel(
-              //name: "Users List",
-              name: l.S.current.document,
-              navigationPath: "documents-list",
-            ),
+            
             SidebarSubmenuModel(
               //name: "Users List",
               name: l.S.current.governorate,
               navigationPath: "governorates-list",
+            ),
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.area,
+              navigationPath: "area-list",
+            ),
+               SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.area,
+              navigationPath: "company-type-list",
+            ),
+            SidebarSubmenuModel(
+              //name: "Users List",
+              name: l.S.current.document,
+              navigationPath: "documents-list",
             ),
             
           ],
