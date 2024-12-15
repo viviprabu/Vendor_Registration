@@ -1,6 +1,16 @@
 import 'package:vendor_registration/app/core/network/http_client_with_interceptor.dart';
 import 'package:vendor_registration/app/core/network/http_logger.dart';
 import 'package:vendor_registration/app/core/network/http_client.dart';
+import 'package:vendor_registration/app/features/area/data/datasources/area_remote_data_source.dart';
+import 'package:vendor_registration/app/features/area/data/datasources/remote/area_data_source_impl.dart';
+import 'package:vendor_registration/app/features/area/data/repositories/area_repository_impl.dart';
+import 'package:vendor_registration/app/features/area/domain/repositories/area_repository.dart';
+import 'package:vendor_registration/app/features/area/domain/usecases/create_area.dart';
+import 'package:vendor_registration/app/features/area/domain/usecases/delete_area.dart';
+import 'package:vendor_registration/app/features/area/domain/usecases/get_area.dart';
+import 'package:vendor_registration/app/features/area/domain/usecases/get_areas.dart';
+import 'package:vendor_registration/app/features/area/domain/usecases/update_area.dart';
+import 'package:vendor_registration/app/features/area/presentation/bloc/area_bloc.dart';
 import 'package:vendor_registration/app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:vendor_registration/app/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:vendor_registration/app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -134,6 +144,16 @@ void init() {
       
     ),
   );
+   getIt.registerFactory(
+    () => AreaBloc(
+      getArea: getIt(), 
+      getAreas: getIt(), 
+      createArea: getIt(), 
+      updateArea: getIt(), 
+      deleteArea: getIt(),
+      
+    ),
+  );
 
   // use cases
 
@@ -166,6 +186,12 @@ void init() {
   getIt.registerLazySingleton(() => CreateGovernorate(getIt()));
   getIt.registerLazySingleton(() => UpdateGovernorate(getIt()));
   getIt.registerLazySingleton(() => DeleteGovernorate(getIt()));
+
+  getIt.registerLazySingleton(() => GetArea(getIt()));
+  getIt.registerLazySingleton(() => GetAreas(getIt()));
+  getIt.registerLazySingleton(() => CreateArea(getIt()));
+  getIt.registerLazySingleton(() => UpdateArea(getIt()));
+  getIt.registerLazySingleton(() => DeleteArea(getIt()));
 
   getIt.registerLazySingleton(() => GetUserRoleFunctions(getIt()));
   getIt.registerLazySingleton(() => ListSystemFunctions(getIt()));
@@ -202,6 +228,11 @@ void init() {
       governorateRemoteDataSource: getIt(),
     ),
   );
+    getIt.registerLazySingleton<AreaRepository>(
+    () => AreaRepositoryImpl(
+      areaRemoteDataSource: getIt(),
+    ),
+  );
 
   getIt.registerLazySingleton<UserRoleRepository>(
     () => UserRoleRepositoryImpl(
@@ -236,6 +267,11 @@ void init() {
 
     getIt.registerLazySingleton<GovernorateRemoteDataSource>(
     () => GovernorateRemoteDataSourceImpl(
+      httpClientWithInterceptor: getIt(),
+    ),
+  );
+   getIt.registerLazySingleton<AreaRemoteDataSource>(
+    () => AreaRemoteDataSourceImpl(
       httpClientWithInterceptor: getIt(),
     ),
   );

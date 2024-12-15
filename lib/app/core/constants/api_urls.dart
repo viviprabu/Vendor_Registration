@@ -30,6 +30,12 @@ class ApiUrls {
   static const getGovernorate = 'System/Governorate';
   static const updateGovernorate = 'System/Governorate';
 
+  //area
+  static const createArea = 'System/Area';
+  static const area = 'System/Area';
+  static const getArea = 'System/Area';
+  static const updateArea = 'System/Area';
+
 
   // manage role
   static const createRole = 'System/Role';
